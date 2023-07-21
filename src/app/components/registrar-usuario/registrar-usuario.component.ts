@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'; //Formularios - Validación
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./registrar-usuario.component.css']
 })
 export class RegistrarUsuarioComponent {
+  //Parametro para el formulario
+  registrarUsuario: FormGroup;
+
+  /*Hacemos inyección de dependencia de una clase en el constructor*/
+  constructor(private fb: FormBuilder) {
+    this.registrarUsuario = this.fb.group({
+      //Pasamos un objeto con las configuración del formulario
+      // nombreCampo: ['ValorInicio', validación]
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      repetirPassword: ['', Validators.required],
+    })
+  }
 
 }

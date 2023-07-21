@@ -3,17 +3,19 @@
   <div class="body">
     <img class="logo" src="../../../assets/img/clave.png" alt="Login">
     <h1>Registrarse</h1>
-    <form>
+    <!-- [formGroup]="registrarUsuario: Esta directiva está utilizando la sintaxis de enlace de propiedades -->
+    <form [formGroup]="registrarUsuario">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" placeholder="name@example.com">
+        <!--Utilizamos la directiva: formControlName="nombreVariableEnTs"-->
+        <input type="email" class="form-control" formControlName="email" placeholder="name@example.com">
         <label>Email</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" class="form-control" formControlName="password" placeholder="Password">
         <label>Password</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" placeholder="Repetir Password">
+        <input type="password" class="form-control" formControlName="repetirPassword" placeholder="Repetir Password">
         <label>Repetir Password</label>
       </div>
       <div class="d-grid gap-2 mb-3">
