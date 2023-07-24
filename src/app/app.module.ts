@@ -14,6 +14,12 @@ import { VerificarCorreoComponent } from './components/verificar-correo/verifica
 import { RecuperarPasswordComponent } from './components/recuperar-password/recuperar-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 
+//Firebase
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +33,10 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [],
   bootstrap: [AppComponent]

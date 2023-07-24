@@ -4,7 +4,7 @@
     <img class="logo" src="../../../assets/img/clave.png" alt="Login">
     <h1>Registrarse</h1>
     <!-- [formGroup]="registrarUsuario: Esta directiva está utilizando la sintaxis de enlace de propiedades -->
-    <form [formGroup]="registrarUsuario">
+    <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario">
       <div class="form-floating mb-3">
         <!--Utilizamos la directiva: formControlName="nombreVariableEnTs"-->
         <input type="email" class="form-control" formControlName="email" placeholder="name@example.com">
@@ -19,7 +19,7 @@
         <label>Repetir Password</label>
       </div>
       <div class="d-grid gap-2 mb-3">
-        <button class="btn btn-primary btn-lg" type="button">Aceptar</button>
+        <button class="btn btn-primary btn-lg" type="submit">Aceptar</button>
       </div>
       <a routerLink="/login">Volver</a>
     </form>

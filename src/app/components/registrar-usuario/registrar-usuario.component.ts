@@ -21,4 +21,11 @@ export class RegistrarUsuarioComponent {
     })
   }
 
+  registrar() {
+    const email = this.registrarUsuario.value.email;
+    const password = this.registrarUsuario.value.password;
+    const repetirPassword = this.registrarUsuario.value.repetirPassword;
+    console.log({email, password, repetirPassword});
+  }
+
 }
