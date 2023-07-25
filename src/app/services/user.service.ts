@@ -11,7 +11,8 @@ export class UserService {
   constructor(private auth: Auth) { }
 
   // Crear un Nuevo Usuario
-  register({email, password}:any) {
+  register(email:string, password:string) {
+    // Vamos a retornar la promesa que nos da el método
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 

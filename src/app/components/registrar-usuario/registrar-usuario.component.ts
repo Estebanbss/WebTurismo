@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; //Formularios - Validación
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -10,8 +12,12 @@ export class RegistrarUsuarioComponent {
   //Parametro para el formulario
   registrarUsuario: FormGroup;
 
-  /*Hacemos inyección de dependencia de una clase en el constructor*/
-  constructor(private fb: FormBuilder) {
+  /*Hacemos inyección de dependencia de clases y servicios en el constructor*/
+  constructor(
+    private fb: FormBuilder, //Inyectamos la clase para el formulario
+    private userService: UserService, //Inyectamos el servicio con métodos de Firebase
+    private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
+    ) {
     this.registrarUsuario = this.fb.group({
       //Pasamos un objeto con las configuración del formulario
       // nombreCampo: ['ValorInicio', validación]
@@ -26,7 +32,39 @@ export class RegistrarUsuarioComponent {
     const email = this.registrarUsuario.value.email;
     const password = this.registrarUsuario.value.password;
     const repetirPassword = this.registrarUsuario.value.repetirPassword;
-    console.log({email, password, repetirPassword});
+    // console.log({email, password, repetirPassword});
+
+    //Código en caso de que el usuario no digite la misma contraseña, retorna y no ejecuta el registro
+    if(password !== repetirPassword) {
+      alert('Las contraseñas no son Iguales');
+      return;
+    }
+
+    this.userService.register(email, password)
+      .then( response => {
+        this.router.navigate(['/login']);
+        console.log(response);
+      }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
+      .catch( (error) => {
+        console.log(error);
+        alert(this.firebaseError(error.code)); // Enviamos el código de error
+      });
+  }
+
+  // Metodo para gestionar los errores al registrar un usuario
+  firebaseError(code: string) {
+
+    switch(code) {
+      case 'auth/email-already-in-use':
+        return 'El usuario ya exíste';
+      case 'auth/weak-password':
+        return 'Contraseña muy debil';
+      case 'auth/invalid-email':
+        return 'Correo inválido';
+      default:
+        return 'Error desconocido';
+    }
+
   }
 
 }
