@@ -21,6 +21,7 @@ export class RegistrarUsuarioComponent {
     })
   }
 
+  // Método que se ejecuta desde el template para registrar usuarios
   registrar() {
     const email = this.registrarUsuario.value.email;
     const password = this.registrarUsuario.value.password;
