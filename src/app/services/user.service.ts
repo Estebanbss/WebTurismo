@@ -26,5 +26,32 @@ export class UserService {
 
 
   // Manejo de Errores Firebase
+  firebaseError(code: string) {
+
+    switch(code) {
+      //Errors in Sign In Component
+      case 'auth/email-already-in-use':
+        return 'El usuario ya exíste';
+
+      case 'auth/weak-password':
+        return 'Contraseña muy debil';
+
+      case 'auth/invalid-email':
+        return 'Correo inválido';
+
+      //Errors in Log In Component
+      case 'auth/wrong-password':
+        return 'La contraseña es Incorrecta';
+
+      case 'auth/user-not-found':
+        return 'El usuario no exíste';
+
+      //Other Error
+      default:
+        return 'Error desconocido';
+    }
+
+  }
+
 
 }

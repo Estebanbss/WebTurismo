@@ -53,25 +53,10 @@ export class RegistrarUsuarioComponent {
         this.router.navigate(['/login']); // Ruteo hacia el login
       }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
       .catch( (error) => {
-        this.loading = false; // Se desactiva el ícono de carga
-        alert(this.firebaseError(error.code)); // Enviamos el código de error
+        this.loading = false; // Se desactiva el ícono de carga.
+        // Metodo para gestionar los errores al registrar un usuario.
+        alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
       });
-  }
-
-  // Metodo para gestionar los errores al registrar un usuario
-  firebaseError(code: string) {
-
-    switch(code) {
-      case 'auth/email-already-in-use':
-        return 'El usuario ya exíste';
-      case 'auth/weak-password':
-        return 'Contraseña muy debil';
-      case 'auth/invalid-email':
-        return 'Correo inválido';
-      default:
-        return 'Error desconocido';
-    }
-
   }
 
 }
