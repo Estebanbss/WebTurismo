@@ -10,6 +10,8 @@ export class UserService {
 
   constructor(private auth: Auth) { }
 
+  //Métodos Auth
+
   // Crear un Nuevo Usuario
   register(email:string, password:string) {
     // Vamos a retornar la promesa que nos da el método
@@ -21,5 +23,8 @@ export class UserService {
     // Vamos a retornar la promesa que nos da el método
     return signInWithEmailAndPassword(this.auth, email, password);
   }
+
+
+  // Manejo de Errores Firebase
 
 }

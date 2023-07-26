@@ -41,10 +41,21 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
-        this.loading = false;
+        this.loading = false; // Spinner
+        this.firebaseError(error.code); //Manejo de Errores
         console.log(error);
       });
 
+  }
+
+  // Metodo para gestionar los errores
+  firebaseError(code: string) {
+    switch (code) {
+      case 'auth/wrong-password':
+        return 'El usuario ya exíste';
+      default:
+        return 'Error desconocido';
+    }
   }
 
 }
