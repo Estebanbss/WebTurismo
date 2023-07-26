@@ -18,7 +18,7 @@ export class RegistrarUsuarioComponent {
   /*Hacemos inyección de dependencia de clases y servicios en el constructor*/
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
-    private userService: UserService, //Inyectamos el servicio con métodos de Firebase
+    private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
     ) {
     this.registrarUsuario = this.fb.group({
