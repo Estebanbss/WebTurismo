@@ -12,6 +12,9 @@ export class RegistrarUsuarioComponent {
   //Parametro para el formulario
   registrarUsuario: FormGroup;
 
+  //Variable para controlar el template de la carga junto con el *ngIf
+  loading: boolean = false;
+
   /*Hacemos inyección de dependencia de clases y servicios en el constructor*/
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
@@ -40,13 +43,17 @@ export class RegistrarUsuarioComponent {
       return;
     }
 
+    // Sí el usuario pasa el filtro de las contraseñas se activa la carga mientras el método de firebase nos retorna una respuesta.
+    this.loading = true;
+
     this.userService.register(email, password)
       .then( response => {
-        this.router.navigate(['/login']);
-        console.log(response);
+        this.loading = false; // Se desactiva el ícono de carga
+        alert('El usuario fue registrado con éxito');
+        this.router.navigate(['/login']); // Ruteo hacia el login
       }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
       .catch( (error) => {
-        console.log(error);
+        this.loading = false; // Se desactiva el ícono de carga
         alert(this.firebaseError(error.code)); // Enviamos el código de error
       });
   }
