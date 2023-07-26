@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Servicio de Firebase para la Autenticación
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,11 @@ export class UserService {
   login(email: string, password: string) {
     // Vamos a retornar la promesa que nos da el método
     return signInWithEmailAndPassword(this.auth, email, password);
+  }
+
+  // Recuperar Usuario
+  recuperar(email: string) {
+    return sendPasswordResetEmail(this.auth, email);
   }
 
 

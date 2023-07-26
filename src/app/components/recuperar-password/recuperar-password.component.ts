@@ -12,6 +12,7 @@ export class RecuperarPasswordComponent {
 
   //Creamos el Formulario Reactivo
   recuperarUsuario: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
@@ -24,6 +25,22 @@ export class RecuperarPasswordComponent {
   }
 
 
-  recuperar() {}
+  recuperar() {
+    const email = this.recuperarUsuario.value.correo;
+
+    this.loading = true;
+
+    this.userService.recuperar(email)
+      .then(() => {
+        alert('Se te ha enviado un correo a tu cuenta para restablecer la contraseña');
+        this.router.navigate(['/login']);
+      })
+      .catch((error) => {
+        this.loading = false;
+        // Metodo para gestionar los errores
+        alert(this.userService.firebaseError(error.code)); //Manejo de Errores
+        // El único error que puede aparecer es el de que la cuenta no está registrada
+      })
+  }
 
 }
