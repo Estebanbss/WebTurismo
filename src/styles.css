@@ -30,3 +30,11 @@ html, body {
   text-align: center; /*Centra la imagen y el texto con el formulario*/
 }
 
+/*Clase del bootstrap que modificamos para el texto*/
+.form-floating {
+  text-align: start;
+}
+
+.errorLable {
+  margin-left: 5px;
+}

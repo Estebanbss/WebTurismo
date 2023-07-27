@@ -37,26 +37,27 @@ export class RegistrarUsuarioComponent {
     const repetirPassword = this.registrarUsuario.value.repetirPassword;
     // console.log({email, password, repetirPassword});
 
-    //Código en caso de que el usuario no digite la misma contraseña, retorna y no ejecuta el registro
-    if(password !== repetirPassword) {
-      alert('Las contraseñas no son Iguales');
-      return;
-    }
+    console.log(this.registrarUsuario);
+    // //Código en caso de que el usuario no digite la misma contraseña, retorna y no ejecuta el registro
+    // if(password !== repetirPassword) {
+    //   alert('Las contraseñas no son Iguales');
+    //   return;
+    // }
 
-    // Sí el usuario pasa el filtro de las contraseñas se activa la carga mientras el método de firebase nos retorna una respuesta.
-    this.loading = true;
+    // // Sí el usuario pasa el filtro de las contraseñas se activa la carga mientras el método de firebase nos retorna una respuesta.
+    // this.loading = true;
 
-    this.userService.register(email, password)
-      .then( response => {
-        this.loading = false; // Se desactiva el ícono de carga
-        alert('El usuario fue registrado con éxito');
-        this.router.navigate(['/login']); // Ruteo hacia el login
-      }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
-      .catch( (error) => {
-        this.loading = false; // Se desactiva el ícono de carga.
-        // Metodo para gestionar los errores al registrar un usuario.
-        alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
-      });
+    // this.userService.register(email, password)
+    //   .then( response => {
+    //     this.loading = false; // Se desactiva el ícono de carga
+    //     alert('El usuario fue registrado con éxito');
+    //     this.router.navigate(['/login']); // Ruteo hacia el login
+    //   }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
+    //   .catch( (error) => {
+    //     this.loading = false; // Se desactiva el ícono de carga.
+    //     // Metodo para gestionar los errores al registrar un usuario.
+    //     alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
+    //   });
   }
 
 }
