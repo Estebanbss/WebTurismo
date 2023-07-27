@@ -34,8 +34,9 @@
         <input type="password" class="form-control" formControlName="repetirPassword" placeholder="Repetir Password">
         <label>Repetir Password</label>
       </div>
+      <!-- Vamos a utiliazar la propiedad status del fomulario más una directiva para hacer desabilitar el botón -->
       <div class="d-grid gap-2 mb-3">
-        <button class="btn btn-primary btn-lg" type="submit">Aceptar</button>
+        <button class="btn btn-primary btn-lg" [disabled]="registrarUsuario.invalid" type="submit">Aceptar</button>
       </div>
       <a routerLink="/login">Volver</a>
     </form>
