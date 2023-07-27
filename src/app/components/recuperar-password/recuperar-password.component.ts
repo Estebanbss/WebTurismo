@@ -20,7 +20,7 @@ export class RecuperarPasswordComponent {
     private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
   ) {
     this.recuperarUsuario = this.fb.group({
-      correo: ['', Validators.required]
+      correo: ['', [Validators.required, Validators.email]]
     })
   }
 
@@ -39,7 +39,7 @@ export class RecuperarPasswordComponent {
         this.loading = false;
         // Metodo para gestionar los errores
         alert(this.userService.firebaseError(error.code)); //Manejo de Errores
-        // El único error que puede aparecer es el de que la cuenta no está registrada
+        // El único error que puede aparecer es que la cuenta no está registrada
       })
   }
 
