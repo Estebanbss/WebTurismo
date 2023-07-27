@@ -22,7 +22,7 @@ export class LoginComponent {
   ) {
     this.loginUsuario = this.fb.group({
       //En el template colocamos las propiedades para traer los valores
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
