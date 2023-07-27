@@ -24,8 +24,10 @@ export class RegistrarUsuarioComponent {
     this.registrarUsuario = this.fb.group({
       //Pasamos un objeto con las configuración del formulario
       // nombreCampo: ['ValorInicio', validación]
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      // La Validación es aplicada en el template y los Validators pueden ser diferentes
+      email: ['', [Validators.required, Validators.email]],
+      //En Firebase el password debe tener mínimo 6 Caracteres
+      password: ['', [Validators.required, Validators.minLength(6)]],
       repetirPassword: ['', Validators.required],
     })
   }
@@ -38,26 +40,26 @@ export class RegistrarUsuarioComponent {
     // console.log({email, password, repetirPassword});
 
     console.log(this.registrarUsuario);
-    // //Código en caso de que el usuario no digite la misma contraseña, retorna y no ejecuta el registro
-    // if(password !== repetirPassword) {
-    //   alert('Las contraseñas no son Iguales');
-    //   return;
-    // }
+    //Código en caso de que el usuario no digite la misma contraseña, retorna y no ejecuta el registro
+    if(password !== repetirPassword) {
+      alert('Las contraseñas no son Iguales');
+      return;
+    }
 
-    // // Sí el usuario pasa el filtro de las contraseñas se activa la carga mientras el método de firebase nos retorna una respuesta.
-    // this.loading = true;
+    // Sí el usuario pasa el filtro de las contraseñas se activa la carga mientras el método de firebase nos retorna una respuesta.
+    this.loading = true;
 
-    // this.userService.register(email, password)
-    //   .then( response => {
-    //     this.loading = false; // Se desactiva el ícono de carga
-    //     alert('El usuario fue registrado con éxito');
-    //     this.router.navigate(['/login']); // Ruteo hacia el login
-    //   }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
-    //   .catch( (error) => {
-    //     this.loading = false; // Se desactiva el ícono de carga.
-    //     // Metodo para gestionar los errores al registrar un usuario.
-    //     alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
-    //   });
+    this.userService.register(email, password)
+      .then( response => {
+        this.loading = false; // Se desactiva el ícono de carga
+        alert('El usuario fue registrado con éxito');
+        this.router.navigate(['/login']); // Ruteo hacia el login
+      }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
+      .catch( (error) => {
+        this.loading = false; // Se desactiva el ícono de carga.
+        // Metodo para gestionar los errores al registrar un usuario.
+        alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
+      });
   }
 
 }
