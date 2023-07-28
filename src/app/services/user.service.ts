@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Servicio de Firebase para la Autenticación
-import { Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,14 @@ export class UserService {
 
   // Recuperar Usuario
   recuperar(email: string) {
+    //El método de Firebase se encarga de enviar un correo
     return sendPasswordResetEmail(this.auth, email);
   }
 
+  //Verificación de Correo
+  // verificacion(email: string) {
+  //   return sendSignInLinkToEmail(this.auth, email, )
+  // }
 
   // Manejo de Errores Firebase
   firebaseError(code: string) {

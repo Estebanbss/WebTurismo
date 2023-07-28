@@ -38,7 +38,14 @@ export class LoginComponent {
     //Se ejecuta la lógica de Firebase para el login
     this.userService.login(email, password)
       .then((response) => {
-        this.router.navigate(['/dashboard']);
+        //En el if preguntamos si el usuario está verificado
+        if(response.user?.emailVerified) {
+          //Redireccionamos al Dashboard
+          this.router.navigate(['/dashboard']);
+        } else {
+          // Redireccionamos al componente Verificar Correo
+          this.router.navigate(['/verificar-correo']);
+        }
       })
       .catch((error) => {
         this.loading = false; // Spinner
