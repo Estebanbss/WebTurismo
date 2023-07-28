@@ -52,14 +52,20 @@ export class RegistrarUsuarioComponent {
     this.userService.register(email, password)
       .then( response => {
         this.loading = false; // Se desactiva el ícono de carga
+        // Mandamos el user al método de Firebase que envía un correo de Verificación.
+        this.userService.verificarCorreo(response.user);
         alert('El usuario fue registrado con éxito');
+        // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
         this.router.navigate(['/login']); // Ruteo hacia el login
-      }) // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
+        //Ya en el login el usuario debe asegurarse de haber Verificado su correo o de otra forma lo manda al componente de Verificar Correo hasta que haga la debida verificación.
+      })
       .catch( (error) => {
         this.loading = false; // Se desactiva el ícono de carga.
         // Metodo para gestionar los errores al registrar un usuario.
         alert(this.userService.firebaseError(error.code)); // Enviamos el código de error.
       });
   }
+
+
 
 }

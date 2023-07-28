@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Servicio de Firebase para la Autenticación
-import { Auth, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +31,10 @@ export class UserService {
   }
 
   //Verificación de Correo
-  // verificacion(email: string) {
-  //   return sendSignInLinkToEmail(this.auth, email, )
-  // }
+  verificarCorreo(user: User) {
+    // Método de Firebase que se encarga de enviar un correo para verificar cuenta
+    sendEmailVerification(user);
+  }
 
   // Manejo de Errores Firebase
   firebaseError(code: string) {
