@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Servicio de Firebase para la Autenticación
-import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'

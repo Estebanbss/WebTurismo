@@ -55,6 +55,7 @@ export class RegistrarUsuarioComponent {
         // Mandamos el user al método de Firebase que envía un correo de Verificación.
         this.userService.verificarCorreo(response.user);
         alert('El usuario fue registrado con éxito');
+        alert('Enviamos un correo electrónico para su Verificación');
         // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
         this.router.navigate(['/login']); // Ruteo hacia el login
         //Ya en el login el usuario debe asegurarse de haber Verificado su correo o de otra forma lo manda al componente de Verificar Correo hasta que haga la debida verificación.
