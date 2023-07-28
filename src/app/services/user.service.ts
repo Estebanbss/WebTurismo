@@ -36,6 +36,12 @@ export class UserService {
     sendEmailVerification(user);
   }
 
+  //LogOut o Cerrar Sesión
+  cerrarSesion() {
+    //Método de Firebase para desloguear
+    return this.auth.signOut();
+  }
+
   // Manejo de Errores Firebase
   firebaseError(code: string) {
 
