@@ -8,6 +8,7 @@ import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, send
 })
 export class UserService {
 
+  //El Auth es nuestro servicio/Clase Firebase que nos mantiene actualizado el estado de nuestros usuarios en la app
   constructor(private auth: Auth) { }
 
   //Métodos Auth
@@ -40,6 +41,12 @@ export class UserService {
   cerrarSesion() {
     //Método de Firebase para desloguear
     return this.auth.signOut();
+  }
+
+  //Comprobar usuario Actual
+  usuarioActual() {
+    // Esta propiedad nos retorna el usuario (si hay) que está logeado actualmente desde la app
+    return this.auth.currentUser;
   }
 
   // Manejo de Errores Firebase

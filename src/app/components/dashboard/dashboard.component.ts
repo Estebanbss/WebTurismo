@@ -13,7 +13,14 @@ export class DashboardComponent {
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
   ) {
+    //Vacío
+  }
 
+  ngOnInit(): void {
+    // Comporbamos si hay un usuario logeado o si estamos deslogueados
+    //Nos imprime el console en el template
+    let user = this.userService.usuarioActual();
+    console.log(user);
   }
 
   logOut() {
