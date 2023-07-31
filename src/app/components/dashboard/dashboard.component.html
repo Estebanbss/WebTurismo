@@ -16,6 +16,8 @@
 
     <div class="col-md-3 text-end">
       <button type="button" class="btn btn-outline-primary me-2" (click)="logOut()">LogOut</button>
+      <!-- Hacemos un botón sólo a la vista del administrador -->
+      <button *ngIf="this.dataUser.email === this.admin" type="button" class="btn btn-outline-primary me-2" routerLink="/admin-dashboard">Administrador</button>
     </div>
   </header>
   <div class="pricing-header p-3 pb-md-4 mx-auto text-center">

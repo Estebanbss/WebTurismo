@@ -12,6 +12,11 @@ export class DashboardComponent implements OnInit {
   //Propiedad para almacenar el usuario y mostrarlo en el template
   dataUser: any;// Se podría implementar una interfaz para esta propiedad
 
+  //Propiedad a la que se le asigna el Administrador
+  admin: string = 'sanvargas02@hotmail.com'; // Prueba de Admin
+
+  // adminButton: any; // Booleano para validación de botónes
+
   constructor(
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
@@ -28,6 +33,11 @@ export class DashboardComponent implements OnInit {
     // Usuario diferente de null y Verificado
     if(user && user.emailVerified) {
       this.dataUser = user;
+      // if (this.dataUser.email === this.admin) {
+      //   this.adminButton = true;
+      // } else {
+      //   this.adminButton = false;
+      // }
     } else {
       this.router.navigate(['/login']);
     }
