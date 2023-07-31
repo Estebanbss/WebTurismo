@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -7,7 +7,10 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+
+  //Propiedad para almacenar el usuario y mostrarlo en el template
+  dataUser: any;// Se podría implementar una interfaz para esta propiedad
 
   constructor(
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
@@ -16,11 +19,18 @@ export class DashboardComponent {
     //Vacío
   }
 
+  //Método que me carga código mucho antes de que el usuario pueda ver la interfaz.
   ngOnInit(): void {
     // Comporbamos si hay un usuario logeado o si estamos deslogueados
     //Nos imprime el console en el template
     let user = this.userService.usuarioActual();
-    console.log(user);
+    // console.log(user);
+    // Usuario diferente de null y Verificado
+    if(user && user.emailVerified) {
+      this.dataUser = user;
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   logOut() {
