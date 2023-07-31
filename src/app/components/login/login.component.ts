@@ -27,6 +27,7 @@ export class LoginComponent {
     })
   }
 
+  //Se ejecuta el login con el envío del Formulario
   login() {
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
@@ -56,4 +57,18 @@ export class LoginComponent {
 
   }
 
+  //LogIn con Servicio de Google
+  loginWithGoogle() {
+    this.userService.loginConGoogle()
+      .then(response => {
+        //En caso de que el logeo sea exitoso se envía al dashboard
+        // console.log(response.user);
+        this.router.navigate(['/dashboard']);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
 }
+

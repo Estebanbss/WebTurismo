@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Servicio de Firebase para la Autenticación
-import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,7 @@ export class UserService {
   //LogOut o Cerrar Sesión
   cerrarSesion() {
     //Método de Firebase para desloguear
+    // return signOut(this.auth);
     return this.auth.signOut();
   }
 
@@ -47,6 +48,12 @@ export class UserService {
   usuarioActual() {
     // Esta propiedad nos retorna el usuario (si hay) que está logeado actualmente desde la app
     return this.auth.currentUser;
+  }
+
+  //LogIn con el servicio de Google
+  loginConGoogle() {
+    // Llamámos a la función de Popup y le pasamos el servico auth y un objeto Provider de Google
+    return signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
   // Manejo de Errores Firebase
