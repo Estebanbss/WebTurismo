@@ -20,6 +20,8 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     VerificarCorreoComponent,
     RecuperarPasswordComponent,
     SpinnerComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
