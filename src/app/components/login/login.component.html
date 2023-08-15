@@ -1,4 +1,4 @@
-
+<app-header></app-header>
 
 <div class="mx-auto flex min-h-screen">
   <div class=""> </div>
@@ -34,7 +34,7 @@
         <!-- Botón para el logIn con Google -->
         <!-- El botón debe ser de tipo Button para que no se envíe la información por el formulario -->
         <!-- Queremos que se ejecute la función loginWithGoogle pero no queremos entrar en conflicto con el formulario y el envío de los datos -->
-        <button class="d-grid  border-2 rounded-lg w-[90%] mx-auto" (click)="loginWithGoogle()">
+        <button class="d-grid  border-2 rounded-lg w-[90%] mx-auto " (click)="loginWithGoogle()">
           <button type="button" class="bg-white text-xl text-gray py-2 rounded-lg flex mx-auto my-auto gap-2 "><img class="w-[20px] bottom-0 "   src="../../../assets/img/Google__G__Logo.svg">Continua con Google</button>
         </button>
         <p class="mt-3 text-center">No tienes cuenta? <a routerLink="/registrar-usuario" class="text-primary-400">Registrar</a></p>
