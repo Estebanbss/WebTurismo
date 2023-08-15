@@ -9,14 +9,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
   { path: 'verificar-correo', component: VerificarCorreoComponent},
   { path: 'recuperar-password', component: RecuperarPasswordComponent},
   { path: 'dashboard', component: DashboardComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent},
-  { path: '**', redirectTo: 'login', pathMatch: 'full'}
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
 
 @NgModule({

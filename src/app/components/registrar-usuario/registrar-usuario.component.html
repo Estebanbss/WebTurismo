@@ -1,8 +1,11 @@
-<div class="wrapper">
+<app-header></app-header>
 
-  <div *ngIf="!loading" class="body">
-    <img class="logo" src="../../../assets/img/clave.png" alt="Login">
-    <h1>Registrarse</h1>
+<div class="mx-auto flex min-h-screen">
+  <div class=""> </div>
+
+  <div *ngIf="!loading" class="bg-white shadow-lg shadow-lime-100 w-[600px] h-[550px] mx-auto p-10 my-auto">
+
+    <h1 class="text-center text-primary-400 font-Blinker font-bold mb-16">Registrate en TurismoHuila </h1>
     <!-- [formGroup]="registrarUsuario: Esta directiva está utilizando la sintaxis de enlace de propiedades -->
     <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario">
       <div class="form-floating mb-3">
@@ -36,12 +39,20 @@
       </div>
       <!-- Vamos a utiliazar la propiedad status del fomulario más una directiva para hacer desabilitar el botón -->
       <div class="d-grid gap-2 mb-3">
-        <button class="btn btn-primary btn-lg" [disabled]="registrarUsuario.invalid" type="submit">Aceptar</button>
+        <button class=" bg-primary-400 text-2xl text-white py-2 rounded-lg" [disabled]="registrarUsuario.invalid" type="submit">Aceptar</button>
       </div>
-      <a routerLink="/login">Volver</a>
+      <div class="text-center">
+        <a class="text-primary-400" routerLink="/login">Volver</a>
+      </div>
+
     </form>
   </div>
   <!-- Template de la carga, lo utilizamos junto a la directiva *ngIf y la lógica del ts -->
   <app-spinner *ngIf="loading"></app-spinner>
+
+  <div class=""> </div>
 </div>
+
+<app-footer></app-footer>
+
 

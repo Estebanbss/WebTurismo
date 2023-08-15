@@ -1,27 +1,52 @@
-<div class="container">
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <div class="col-md-3 mb-2 mb-md-0">
-      <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-        <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-      </a>
-    </div>
+<app-navheader></app-navheader>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-      <li><a href="#" class="nav-link px-2">Features</a></li>
-      <li><a href="#" class="nav-link px-2">Pricing</a></li>
-      <li><a href="#" class="nav-link px-2">FAQs</a></li>
-      <li><a href="#" class="nav-link px-2">About</a></li>
-    </ul>
 
-    <div class="col-md-3 text-end">
-      <button type="button" class="btn btn-outline-primary me-2" (click)="logOut()">LogOut</button>
-      <!-- Hacemos un botón sólo a la vista del administrador -->
-      <button *ngIf="this.dataUser.email === this.admin" type="button" class="btn btn-outline-primary me-2" routerLink="/admin-dashboard">Administrador</button>
-    </div>
-  </header>
-  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-4 fw-normal text-body-emphasis">Bienvenido</h1>
-    <p class="fs-5 text-body-secondary">{{ dataUser.email }}</p>
-  </div>
+
+<div class="min-h-screen">
+
+
+
+
 </div>
+
+
+
+
+
+
+
+<!--Sección "contactenos"-->
+<section class="bg-white bg:h-[400px] md:h-[500px] mt-[10%] sm:h-[450px]" id=contactenos>
+  <!-- Fondo verde oscuro en forma de elipse -->
+  <div class="bg-[#37a301] h-[100%] pt-24 w-[100%]" style="clip-path:ellipse(80% 100% at center top)">
+     <!-- Título principal -->
+     <p class="font-Blinker text-center text-primary-50 8xl:text-[2vw]/[0.5] bg:text-[8vw]/[0] font-black md:text-[4vw]/[0.3]">
+        ¡Anímate a Contactarnos!
+     </p>
+     <!-- Línea horizontal -->
+     <hr class="mx-auto rounded border-primary-50 border-y-[2.2px] mt-7 w-[80%]">
+     <!-- Mensaje de invitación a contactar -->
+     <p class="font-Blinker text-center text-primary-50 8xl:mb-[.6%] 8xl:mt-[.6%] 8xl:text-[1vw]/[0.9] bg:mb-[5%] bg:mt-[5%] bg:mx-[5%] bg:text-[5vw]/[0.9] font-medium md:mb-[2%] md:mt-[2%] md:text-[2.6vw]/[0.9]">
+        En CenturHuila te invitamos a resolver tus dudas escribiéndonos
+     </p>
+     <!-- Formulario de contacto -->
+     <form action="https://formsubmit.co/info@centurhuila.com.co" method=POST>
+        <div class="flex justify-center content-center flex-wrap font-Blinker font-bold">
+           <!-- Campo de correo electrónico -->
+           <div class="flex justify-center content-center mb-[2%] mx-[2%] bg:basis-[45%] md:basis-[30%]">
+              <input class="text-sm dark:text-white bg-gray-50 block border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 dark:placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 p-2.5 rounded-lg text-gray-900 w-[100%]" id=email name=email placeholder="Tu Email" required type=email>
+           </div>
+           <!-- Área de mensaje -->
+           <div class="flex justify-center content-center mb-[2%] mx-[2%] bg:basis-[45%] md:basis-[30%]">
+              <textarea class="text-sm dark:text-white bg-gray-50 block border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 dark:placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 p-2.5 rounded-lg text-gray-900 w-full" id=Message name=Message placeholder="Escribe el mensaje aquí..." rows=1></textarea>
+           </div>
+           <!-- Botón de envío -->
+           <div class="flex justify-center content-center mb-[2%] mx-[2%] bg:basis-[35%] md:basis-[20%] md:col-span-1 xs:col-span-2">
+              <button class="text-sm rounded-lg block p-2.5 w-[100%] bg-white display focus:outline-none focus:ring-4 focus:ring-blue-300 hover:bg-white text-centerdark:focus:ring-blue-800 text-primary-600" type=submit>Enviar</button>
+           </div>
+        </div>
+     </form>
+  </div>
+</section>
+
+<app-navfooter></app-navfooter>
