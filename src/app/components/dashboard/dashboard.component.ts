@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
       //   this.adminButton = false;
       // }
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/dashboard']); //login **importante**
     }
   }
 
