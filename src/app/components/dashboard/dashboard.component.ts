@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   //Propiedad para almacenar el usuario y mostrarlo en el template
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
   logOut() {
     this.userService.cerrarSesion()
       .then(() => {
@@ -50,5 +52,6 @@ export class DashboardComponent implements OnInit {
       })
       .catch(error => console.log(error));
   }
+
 
 }
