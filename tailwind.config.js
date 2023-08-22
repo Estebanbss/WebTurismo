@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        // Define la variable de margen de página
+        'page-margin': '2rem', // Puedes ajustar el valor según tus necesidades
+      },
       colors: {
         primary: {
           50: "#f7faf0",
@@ -33,6 +37,8 @@ module.exports = {
 
         xs: "320px",
         // => @media (min-width: 320px) { ... }
+
+        xs2: "540px",
 
         sm: "640px",
         // => @media (min-width: 640px) { ... }

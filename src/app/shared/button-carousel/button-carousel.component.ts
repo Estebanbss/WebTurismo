@@ -15,27 +15,6 @@ const carrousel = {
 
 export class ButtonCarouselComponent {
 
-  cerrado: boolean = false;
-
-
-  screenWidth: number = window.innerWidth;
-
-
-
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth);
-    if(this.screenWidth <=874){
-      this.cerrado = true;
-    }
-    else{
-      this.cerrado = false;
-    }
-    console.log(this.cerrado)
-
-  }
 
 
 
