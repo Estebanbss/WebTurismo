@@ -33,6 +33,7 @@ export class ButtonCarouselComponent {
     else{
       this.cerrado = false;
     }
+    console.log(this.cerrado)
 
   }
 
