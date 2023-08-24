@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; //Formularios - Validación
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './registrar-usuario.component.html',
   styleUrls: ['./registrar-usuario.component.css']
 })
-export class RegistrarUsuarioComponent {
+export class RegistrarUsuarioComponent implements OnInit {
   //Parametro para el formulario
   registrarUsuario: FormGroup;
 
@@ -32,6 +32,9 @@ export class RegistrarUsuarioComponent {
     })
   }
 
+ ngOnInit(): void {
+   this.userService.usuarioIniciado();
+ }
   // Método que se ejecuta desde el template para registrar usuarios
   registrar() {
     const email = this.registrarUsuario.value.email;

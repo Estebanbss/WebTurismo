@@ -1,17 +1,38 @@
-import { Injectable } from '@angular/core';
 
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 //Servicio de Firebase para la Autenticación
-import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, getAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class UserService {
 
+
   //El Auth es nuestro servicio/Clase Firebase que nos mantiene actualizado el estado de nuestros usuarios en la app
-  constructor(private auth: Auth) { }
+  constructor(private auth: Auth, private router: Router) { }
+
 
   //Métodos Auth
+
+  // Verifica usuario iniciado
+    usuarioIniciado(){
+      //Verifica si el uusario tiene sesión activa
+      this.auth.onAuthStateChanged((user) => {
+        // Si es asi lo manda a la ruta dashboard
+        if (user !== null && user.emailVerified && this.router.url !== "/dashboard") {
+          this.router.navigate(['/dashboard']);
+        } else {
+          //Si no no hace nada
+        }
+      });
+
+    }
+
 
   // Crear un Nuevo Usuario
   register(email:string, password:string) {

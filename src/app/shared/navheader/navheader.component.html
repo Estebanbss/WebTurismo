@@ -22,18 +22,17 @@
 
 
         <!--perfil-->
-        <button class="ml-10 bg-primary-400 bg:text-xs dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
 
-          <!--espacio de la foto de usuario del usuario-->
-          <img alt="UserProfilePhoto" src="../../../assets/img/pfp.jpg">
+          <button class="ml-10 bg-primary-400 bg:text-xs dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
 
-
-
-
+            <!--espacio de la foto de usuario del usuario-->
+            <img alt="UserProfilePhoto" src="../../../assets/img/pfp.jpg">
+          </button>
 
 
 
-        </button>
+
+
         <!-- Botón con fondo verde y estilos de enlace -->
       </div>
 
@@ -61,26 +60,31 @@
 
 
       <!--mini menu del perfil-->
-      <div class="hidden absolute right-0 lg:-bottom-32 bg:-bottom-32 lg:right-[1%] xl:right-[10%] 2xl:right-[20%] 4xl:right-[30%]  lg:rounded-lg bg-primary-400 text-white bg:w-[50%] lg:w-[15%] xl:w-[12%]  bg:rounded-lg justify-center items-center py-auto font-Work font-bold dark:bg-primary-200 " [class.hidden]="!expanded2" >
-        <ul class=" text-left mb-0 p-2">
-          <li class="p-2 hover:bg-primary-600 rounded-lg">
-            <a class="text-white" href=""  routerLink="">Perfil</a>
-          </li>
-          <li class="p-2 hover:bg-primary-600 rounded-lg">
-            <a class="text-white" href=""  routerLink="">Configuración</a>
-          </li>
-          <li class="p-2 hover:bg-primary-600 rounded-lg">
-            <a class="text-white" href="" (click)="logOut()">Cerrar Sesión</a>
-          </li>
-        </ul>
-      </div>
 
 
 
+    </div>
+    <div class="hidden absolute right-0  lg:right-[1%] xl:right-[10%] 2xl:right-[20%] 4xl:right-[30%]  lg:rounded-lg bg-primary-400 text-white bg:w-[50%] lg:w-[15%] xl:w-[12%]  bg:rounded-lg justify-center items-center py-auto font-Work font-bold dark:bg-primary-200 " [class.hidden]="!expanded2" >
+      <ul class=" text-left mb-0 p-2">
+        <li class="p-2 hover:bg-primary-600 rounded-lg">
+          <a class="text-white" href=""  routerLink="">Perfil</a>
+        </li>
+        <li class="p-2 hover:bg-primary-600  rounded-lg" *ngIf="adminButton">
+          <a class="text-white" href="" routerLink="/admin-dashboard">Panel administrador</a>
+        </li>
+        <li class="p-2 hover:bg-primary-600 rounded-lg">
+          <a class="text-white" href=""  routerLink="">Configuración</a>
+        </li>
+        <li class="p-2 hover:bg-primary-600 rounded-lg">
+          <a class="text-white" href="" (click)="logOut()">Cerrar Sesión</a>
+        </li>
+      </ul>
     </div>
 
   </nav>
 
 
+
 </header>
+
  <app-button-carousel></app-button-carousel>

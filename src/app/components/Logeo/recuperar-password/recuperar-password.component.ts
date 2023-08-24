@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { user } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -8,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './recuperar-password.component.html',
   styleUrls: ['./recuperar-password.component.css']
 })
-export class RecuperarPasswordComponent {
+export class RecuperarPasswordComponent implements OnInit {
 
   //Creamos el Formulario Reactivo
   recuperarUsuario: FormGroup;
@@ -22,7 +23,18 @@ export class RecuperarPasswordComponent {
     this.recuperarUsuario = this.fb.group({
       correo: ['', [Validators.required, Validators.email]]
     })
+
+
+
   }
+
+  ngOnInit(): void {
+    let user = this.userService.usuarioActual();
+
+    this.userService.usuarioIniciado()
+    console.log("works")
+
+    } ;
 
 
   recuperar() {

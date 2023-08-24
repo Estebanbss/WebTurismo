@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   dataUser: any;// Se podría implementar una interfaz para esta propiedad
 
   //Propiedad a la que se le asigna el Administrador
-  admin: string = 'sanvargas02@hotmail.com'; // Prueba de Admin
+  admin: string = 'juanesbs2003@hotmail.com'; // Prueba de Admin
 
   // adminButton: any; // Booleano para validación de botónes
 
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
       //   this.adminButton = false;
       // }
     } else {
-      this.router.navigate(['/dashboard']); //login **importante**
+      this.router.navigate(['/login']); //login **importante**
     }
   }
 

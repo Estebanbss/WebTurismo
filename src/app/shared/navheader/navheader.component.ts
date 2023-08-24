@@ -1,14 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-navheader',
   templateUrl: './navheader.component.html',
   styleUrls: ['./navheader.component.css']
 })
-export class NavheaderComponent {
+export class NavheaderComponent implements OnInit {
   expanded = false;
   expanded2 = false;
+  dataUser: any;
+  admin: string = 'juanesbs2003@hotmail.com';
+  adminButton = false;
+
+      // console.log(user);
 
   toggleExpanded() {
     this.expanded = !this.expanded;
@@ -21,6 +28,7 @@ export class NavheaderComponent {
   }
 
 
+
   constructor(private userService: UserService, private router: Router){}
   logOut() {
     this.userService.cerrarSesion()
@@ -29,6 +37,19 @@ export class NavheaderComponent {
       })
       .catch(error => console.log(error));
   }
+
+  ngOnInit(): void {
+
+    let user = this.userService.usuarioActual();
+
+        if (user?.email == this.admin) {
+          this.adminButton = true;
+        } else {
+          this.adminButton = false;
+        }
+
+    } ;
+
 
 }
 
