@@ -10,7 +10,7 @@
         <!-- Imagen del logotipo -->
       </a>
       <div class="flex items-center lg:order-2 "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
-        <button class="dark:text-gray-400 text-gray-500 dark:focus:ring-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 hover:bg-gray-100 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
+        <button class="dark:text-gray-400 text-gray-500 dark:focus:ring-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
           <!-- Botón para expandir el menú móvil -->
           <svg class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
             <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
@@ -18,12 +18,12 @@
         </button>
 
         <!--Mis favoritos-->
-        <button class="ml-10 flex py-auto my-auto items-center space-x-2 bg-primary-400  dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 lg:px-1 lg:py-2.5 px-3 py-2  h-[50px]  text-white rounded-full justify-center"><img class="w-[30px]" alt="map svg" src="../../../assets/img/map.svg"><p class="justify-center mb-0" routerLink="">Mis favoritos</p></button>
+        <button class="ml-4 flex py-auto my-auto items-center space-x-2 bg-primary-400  dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 lg:px-1 lg:py-2.5 px-3 py-2  min-w-[173px] h-[50px]  text-white rounded-full justify-center"><img class="w-[30px]" alt="map svg" src="../../../assets/img/map.svg"><p class="justify-center mb-0" routerLink="">Mis favoritos</p></button>
 
 
         <!--perfil-->
 
-          <button class="ml-10 bg-primary-400 bg:text-xs dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
+          <button class="ml-4 bg-primary-400 bg:text-xs dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
 
             <!--espacio de la foto de usuario del usuario-->
             <img alt="UserProfilePhoto" src="../../../assets/img/pfp.jpg">
