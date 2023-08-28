@@ -14,7 +14,52 @@ export class DashboardComponent implements OnInit {
   dataUser: any;// Se podría implementar una interfaz para esta propiedad
 
   //Propiedad a la que se le asigna el Administrador
-  admin: string = 'juanesbs2003@hotmail.com'; // Prueba de Admin
+  admin: string = 'juanesbs2003@hotmail.com';// Prueba de Admin
+  tilesData = [
+    //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioNeiva',
+      headingText: 'Neiva'
+    },
+  //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioPitalito',
+      headingText: 'Pitalito'
+    },
+  //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioAltamira',
+      headingText: 'Altamira'
+    },
+  //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioGarzón',
+      headingText: 'Garzón'
+    },
+  //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioSanAgustín',
+      headingText: 'San Agustín'
+    },
+  //************************************* */
+    {
+      imageUrl: 'URL_IMAGEN_1',
+      linkUrl: 'URL_ENLACE_1',
+      altText: 'imgMunicipioRivera',
+      headingText: 'Rivera'
+    },
+  //************************************* */
+  ];
 
   // adminButton: any; // Booleano para validación de botónes
 
