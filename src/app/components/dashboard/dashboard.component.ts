@@ -15,46 +15,48 @@ export class DashboardComponent implements OnInit {
 
   //Propiedad a la que se le asigna el Administrador
   admin: string = 'juanesbs2003@hotmail.com';// Prueba de Admin
+  url: string = "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/%1BtouristAttractions%2Fbalneario-las-quemadas%2Fgalery%2FWhatsApp%20Image%202021-08-08%20at%207.48.54%20AM%20(1).jpeg?alt=media&token=b2b242ae-09de-47fd-b3ae-484a4e1853c3";
+  url2: string = "https://centurhuila.com.co/";
   tilesData = [
     //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioNeiva',
       headingText: 'Neiva'
     },
   //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioPitalito',
       headingText: 'Pitalito'
     },
   //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioAltamira',
       headingText: 'Altamira'
     },
   //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioGarzón',
       headingText: 'Garzón'
     },
   //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioSanAgustín',
       headingText: 'San Agustín'
     },
   //************************************* */
     {
-      imageUrl: 'URL_IMAGEN_1',
-      linkUrl: 'URL_ENLACE_1',
+      imageUrl: this.url,
+      linkUrl: this.url2,
       altText: 'imgMunicipioRivera',
       headingText: 'Rivera'
     },
