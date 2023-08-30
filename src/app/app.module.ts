@@ -4,17 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/Logeo/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { RegistrarUsuarioComponent } from './components/Logeo/registrar-usuario/registrar-usuario.component';
-import { VerificarCorreoComponent } from './components/Logeo/verificar-correo/verificar-correo.component';
-import { RecuperarPasswordComponent } from './components/Logeo/recuperar-password/recuperar-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavheaderComponent } from './shared/navheader/navheader.component';
@@ -27,18 +21,6 @@ import { ButtonCarouselComponent } from "./shared/button-carousel/button-carouse
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    DashboardComponent,
-    RegistrarUsuarioComponent,
-    VerificarCorreoComponent,
-    RecuperarPasswordComponent,
-    SpinnerComponent,
-    AdminDashboardComponent,
-    HeaderComponent,
-    FooterComponent,
-    NavheaderComponent,
-    NavfooterComponent,
-    ButtonCarouselComponent,
   ],
 
   imports: [

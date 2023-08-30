@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { HomeService } from 'src/app/modules/home/services/home.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
   // adminButton: any; // Booleano para validación de botónes
 
   constructor(
-    private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
+    private homeService: HomeService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
   ) {
     //Vacío
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // Comporbamos si hay un usuario logeado o si estamos deslogueados
     //Nos imprime el console en el template
-    let user = this.userService.usuarioActual();
+    let user = this.homeService.usuarioActual();
     // console.log(user);
     // Usuario diferente de null y Verificado
     if(user && user.emailVerified) {
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
 
 
   logOut() {
-    this.userService.cerrarSesion()
+    this.homeService.cerrarSesion()
       .then(() => {
         this.router.navigate(['/login']);
       })

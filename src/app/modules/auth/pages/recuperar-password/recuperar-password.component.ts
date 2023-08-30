@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/modules/auth/services/user.service';
 
 @Component({
   selector: 'app-recuperar-password',
