@@ -7,10 +7,22 @@ import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar
 
 const routes: Routes = [
 
-  { path: 'login', component: LoginComponent},
-  { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
-  { path: 'verificar-correo', component: VerificarCorreoComponent},
-  { path: 'recuperar-password', component: RecuperarPasswordComponent},
+  {
+    path: "",
+
+    children: [
+      { path: 'login', component: LoginComponent},
+      { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
+      { path: 'verificar-correo', component: VerificarCorreoComponent},
+      { path: 'recuperar-password', component: RecuperarPasswordComponent},
+      {path: "**", redirectTo: "login"}
+    ]
+
+
+
+  },
+
+  
 
 ];
 

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         //En el if preguntamos si el usuario está verificado
         if(response.user?.emailVerified) {
           //Redireccionamos al Dashboard
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home/dashboard']);
         } else {
           // Redireccionamos al componente Verificar Correo
           this.router.navigate(['/verificar-correo']);
@@ -65,9 +65,9 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this.userService.loginConGoogle()
       .then(response => {
-        //En caso de que el logeo sea exitoso se envía al dashboard
+        //En caso de que el logeo sea exitoso se envía al/home dashboard
         // console.log(response.user);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home/dashboard']);
       })
       .catch(error => {
         console.log(error);

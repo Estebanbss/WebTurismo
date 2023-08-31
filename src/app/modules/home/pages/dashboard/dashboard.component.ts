@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -74,7 +75,7 @@ export class DashboardComponent implements OnInit {
     },
 
   //************************************* */
-  
+
   ];
 
   // adminButton: any; // Booleano para validación de botónes
