@@ -24,8 +24,8 @@ export class UserService {
       //Verifica si el uusario tiene sesión activa
       this.auth.onAuthStateChanged((user) => {
         // Si es asi lo manda a la ruta dashboard
-        if (user !== null && user.emailVerified && this.router.url !== "/dashboard") {
-          this.router.navigate(['/dashboard']);
+        if (user !== null && user.emailVerified && this.router.url !== "home/dashboard") {
+          this.router.navigate(['home/dashboard']);
         } else {
           //Si no no hace nada
         }

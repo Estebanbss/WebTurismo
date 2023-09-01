@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
       //   this.adminButton = false;
       // }
     } else {
-      this.router.navigate(['/login']); //login **importante**
+      this.router.navigate(['auth/login']); //login **importante**
     }
   }
 
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
   logOut() {
     this.homeService.cerrarSesion()
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['auth/login']);
       })
       .catch(error => console.log(error));
   }

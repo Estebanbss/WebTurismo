@@ -60,7 +60,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         alert('El usuario fue registrado con éxito');
         alert('Enviamos un correo electrónico para su Verificación');
         // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
-        this.router.navigate(['/login']); // Ruteo hacia el login
+        this.router.navigate(['auth/login']); // Ruteo hacia el login
         //Ya en el login el usuario debe asegurarse de haber Verificado su correo o de otra forma lo manda al componente de Verificar Correo hasta que haga la debida verificación.
       })
       .catch( (error) => {

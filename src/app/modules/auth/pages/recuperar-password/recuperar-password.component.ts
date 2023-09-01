@@ -45,7 +45,7 @@ export class RecuperarPasswordComponent implements OnInit {
     this.userService.recuperar(email)
       .then(() => {
         alert('Se te ha enviado un correo a tu cuenta para restablecer la contraseña');
-        this.router.navigate(['/login']);
+        this.router.navigate(['auth/login']);
       })
       .catch((error) => {
         this.loading = false;

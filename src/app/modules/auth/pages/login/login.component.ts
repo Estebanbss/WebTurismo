@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home/dashboard']);
         } else {
           // Redireccionamos al componente Verificar Correo
-          this.router.navigate(['/verificar-correo']);
+          this.router.navigate(['/auth/verificar-correo']);
         }
       })
       .catch((error) => {
