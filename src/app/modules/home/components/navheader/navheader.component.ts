@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/modules/auth/services/user.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../../auth/services/user.service';
 
 
 @Component({
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './navheader.component.html',
   styleUrls: ['./navheader.component.css']
 })
+
 export class NavheaderComponent implements OnInit {
   expanded = false;
   expanded2 = false;

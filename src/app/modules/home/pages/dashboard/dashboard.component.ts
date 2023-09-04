@@ -7,6 +7,7 @@ import { HomeService } from 'src/app/modules/home/services/home.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
+
 })
 
 export class DashboardComponent implements OnInit {
@@ -82,7 +83,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private homeService: HomeService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
-    private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
+    private router: Router,
+    //Inyectamos la clase Router para dirigirnos a otros componentes
   ) {
     //Vacío
   }

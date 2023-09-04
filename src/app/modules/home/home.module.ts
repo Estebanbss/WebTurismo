@@ -2,14 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { SharedModule } from 'src/app/shared/shared.module';
+
+import { NavheaderComponent } from './components/navheader/navheader.component';
+import { NavfooterComponent } from './components/navfooter/navfooter.component';
+import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
+
 
 @NgModule({
-  declarations: [],
+
+  declarations: [
+    NavfooterComponent,
+    NavheaderComponent,
+    ButtonCarouselComponent
+   ],
+
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
   ]
+
 })
+
+
+
 export class HomeModule { }

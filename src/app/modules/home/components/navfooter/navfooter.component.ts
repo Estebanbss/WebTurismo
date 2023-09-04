@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navfooter.component.css']
 })
 export class NavfooterComponent {
-
+  constructor() {}
 }
