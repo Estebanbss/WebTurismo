@@ -21,6 +21,8 @@ import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-cor
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule
+
+
   ]
 })
 export class AuthModule { }
