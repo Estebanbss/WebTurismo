@@ -70,13 +70,13 @@
           <a class="text-white" href=""  routerLink="">Perfil</a>
         </li>
         <li class="p-2 hover:bg-primary-600  rounded-lg" *ngIf="adminButton">
-          <a class="text-white" href="" routerLink="/admin-dashboard">Panel administrador</a>
+          <a class="text-white" href="" routerLink="/admin-home/admin-dashboard">Panel administrador</a>
         </li>
         <li class="p-2 hover:bg-primary-600 rounded-lg">
           <a class="text-white" href=""  routerLink="">Configuración</a>
         </li>
         <li class="p-2 hover:bg-primary-600 rounded-lg">
-          <a class="text-white" href="" (click)="logOut()">Cerrar Sesión</a>
+          <span class="text-white" (click)="logOut()">Cerrar Sesión</span>
         </li>
       </ul>
     </div>
@@ -85,6 +85,7 @@
 
 
 
+
 </header>
 
- <app-button-carousel></app-button-carousel>
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 
 
 
@@ -8,6 +8,43 @@ import { Component } from '@angular/core';
   styleUrls: ['./button-carousel.component.css']
 })
 
-export class ButtonCarouselComponent {}
+export class ButtonCarouselComponent {
+
+
+  titles = [
+    //************************************* */
+    {
+      headingText: '¿Donde dormir?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: '¿Donde comer?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: '¿A Donde ir?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: 'Cosas que hacer',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+
+  ]
+
+
+}
 
 

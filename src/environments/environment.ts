@@ -1,9 +1,9 @@
 export const environment = {
   firebase: {
-    projectId: 'login-b6f08',
-    appId: '1:662006027405:web:45c8413cb05778c9163ec4',
-    storageBucket: 'login-b6f08.appspot.com',
-    apiKey: 'AIzaSyBj8ej2BzGCUbg7Ux8oy1KyOZCZo59mgLw',
-    authDomain: 'login-b6f08.firebaseapp.com',
-    messagingSenderId: '662006027405',
+    projectId: 'centurhuila-b9e47',
+    appId: '1:51926987535:android:309d900fa9d99f3a01c47a',
+    storageBucket: 'centurhuila-b9e47.appspot.com',
+    apiKey: 'AIzaSyCNtspEd7b-OB0G4rgueYrNjlDsLoBRHLs',
+    authDomain: 'centurhuila-b9e47.firebaseapp.com',
+    messagingSenderId: '51926987535',
   },};
