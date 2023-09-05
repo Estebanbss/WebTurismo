@@ -26,8 +26,6 @@ import { FooterComponent } from './components/footer/footer.component';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule
-
-
   ]
 })
 export class AuthModule { }

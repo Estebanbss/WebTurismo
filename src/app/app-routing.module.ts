@@ -4,7 +4,7 @@ import { QuicklinkStrategy } from 'ngx-quicklink'; //libreria para la estrategia
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'auth', pathMatch: 'full'},
 
   { path: "auth", loadChildren:() => import("./modules/auth/auth.module").then((m) => m.AuthModule)},
 
@@ -12,7 +12,7 @@ const routes: Routes = [
 
   { path: "admin-home", loadChildren:() => import("./modules/admin-home/admin-home.module").then((m) => m.AdminHomeModule)},
 
-  { path: '**', redirectTo: 'home', pathMatch: 'full'}
+  { path: '**', redirectTo: 'auth', pathMatch: 'full'}
 ];
 
 @NgModule({
