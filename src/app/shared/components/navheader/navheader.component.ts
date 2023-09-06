@@ -34,7 +34,7 @@ export class NavheaderComponent implements OnInit {
   logOut() {
     this.userService.cerrarSesion()
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['auth/login']);
       })
       .catch(error => console.log(error));
   }

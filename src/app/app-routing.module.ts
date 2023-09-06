@@ -12,6 +12,8 @@ const routes: Routes = [
 
   { path: "admin-home", loadChildren:() => import("./modules/admin-home/admin-home.module").then((m) => m.AdminHomeModule)},
 
+  { path: "municipios", loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
+
   { path: '**', redirectTo: 'auth', pathMatch: 'full'}
 ];
 

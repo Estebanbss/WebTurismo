@@ -5,24 +5,27 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NavfooterComponent } from 'src/app/modules/home/components/navfooter/navfooter.component';
-import { NavheaderComponent } from './components/navheader/navheader.component';
+import { NavfooterModule } from 'src/app/shared/components/navfooter/navfooter.module';
+import { NavheaderModule } from 'src/app/shared/components/navheader/navheader.module';
 
 @NgModule({
 
   declarations: [
+
     DashboardComponent,
     ButtonCarouselComponent,
-    NavfooterComponent,
-    NavheaderComponent
+
    ],
 
   imports: [
+
     CommonModule,
     HomeRoutingModule,
-    NgOptimizedImage
-  ]
+    NgOptimizedImage,
+    NavfooterModule,
+    NavheaderModule
 
+  ]
 })
 
 export class HomeModule { }
