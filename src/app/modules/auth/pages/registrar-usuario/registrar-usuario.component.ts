@@ -32,6 +32,27 @@ export class RegistrarUsuarioComponent implements OnInit {
     })
   }
 
+  Color: string = "stroke-primary-500";
+  type: string = "password";
+  eye: boolean = true;
+
+  Ojito(){
+    this.Color == "stroke-primary-500" ? this.Color = "stroke-primary-600" : this.Color = "stroke-primary-500"
+    this.type == "password" ? this.type = "text" : this.type = "password"
+    this.eye == true ? this.eye = false : this.eye = true
+  }
+
+
+  Color2: string = "stroke-primary-500";
+  type2: string = "password";
+  eye2: boolean = true;
+
+  Ojito2(){
+    this.Color2 == "stroke-primary-500" ? this.Color2 = "stroke-primary-600" : this.Color2 = "stroke-primary-500"
+    this.type2 == "password" ? this.type2 = "text" : this.type2 = "password"
+    this.eye2 == true ? this.eye2 = false : this.eye2 = true
+  }
+
  ngOnInit(): void {
    this.userService.usuarioIniciado();
  }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/auth/services/user.service';
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,14 @@ export class LoginComponent implements OnInit {
     this.userService.usuarioIniciado();
   }
 
+
   //Parametro para el formulario
   loginUsuario: FormGroup;
   //Para el Manejo del Spinner colocamos el código
   loading: boolean = false;
+  Color: string = "stroke-primary-500";
+  type: string = "password";
+  eye: boolean = true;
 
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
@@ -29,6 +34,13 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
+  }
+
+
+  Ojito(){
+    this.Color == "stroke-primary-500" ? this.Color = "stroke-primary-600" : this.Color = "stroke-primary-500"
+    this.type == "password" ? this.type = "text" : this.type = "password"
+    this.eye == true ? this.eye = false : this.eye = true
   }
 
   //Se ejecuta el login con el envío del Formulario
