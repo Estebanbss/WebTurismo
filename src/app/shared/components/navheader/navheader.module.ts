@@ -6,7 +6,7 @@ import { NavheaderComponent } from './navheader.component';
 
 
 @NgModule({
-  declarations: [ NavheaderComponent],
+  declarations: [NavheaderComponent],
   imports: [
     CommonModule
   ],

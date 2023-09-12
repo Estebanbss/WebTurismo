@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
   iter(): void {
     let i: number = 0;
 
-    while (i < 37) {
+    while (i < 6) {
 
       this.tilesData.push({
         title: this.muni[Math.floor(Math.random() * 37)],
