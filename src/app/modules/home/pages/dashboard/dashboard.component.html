@@ -113,36 +113,33 @@
 
     <!--?Colección de municipios-->
 
-    <div class="max-w-full">
 
-      <div>
 
-        <div class="md1:grid bg:flex bg:flex-row md1:grid-cols-2 xl:grid-cols-3 mt-6 mx-3 gap-4 bg:overflow-x-auto md1:overflow-visible">
+      <div class="relative mt-16  box-border m-0 p-0">
 
-          <a href=""  class="group relative justify-end mx-auto" *ngFor="let tile of tilesData; let i = index"> <!--*Link-->
-            <div class="relative bg:h-40 md:h-52 bg:w-80 md:w-96">
+        <svg class="absolute z-40 translate-y-[-50%] top-[50%] left-0 my-auto bg-white rounded-full fill-primary-400 hover:cursor-pointer hover:fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+
+        <div class=" whitespace-nowrap box-border m-0 flex items-center overflow-hidden ">
+
               <img
+                *ngFor="let tile of tilesData; let i = index"
                 src="{{tile.img}}"
                 alt="{{tile.alt}}"
-                class="inset-0 h-full w-full object-cover filter brightness-50 rounded-2xl"
-              /><!--*Link imagen--> <!--*Alt texto-->
-
-            </div>
-
-            <div class="absolute inset-0 flex flex-col items-start justify-start p-6">
-              <h3 class="text-4xl font-black text-white font-Blinker">{{tile.title}}</h3><!--*Texto-->
-            </div>
-          </a>
-
+                class=" w-calc() h-[400px] object-cover filter brightness-50 rounded-2xl hover:cursor-pointer ml-3"
+                routerLink=""
+                title="{{tile.title}}"
+              />
         </div>
+
+        <svg class="absolute right-0 z-40  translate-y-[-50%] top-[50%]  my-auto bg-white rounded-full fill-primary-400 hover:cursor-pointer hover:fill-primary-500"  xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
 
       </div>
 
       <div class="flex justify-center">
 
-        <button type="submit" class="mt-3 mb-5 justify-center text-xl drop-shadow-2xl rounded-md bg-primary-500 px-4 py-2 text-white font-Blinker font-bold" routerLink="/municipios/municipios">Ver más municipios</button>
+        <button type="submit" class="mt-5 justify-center text-xl drop-shadow-2xl rounded-md bg-primary-500 px-4 py-2 text-white font-Blinker font-bold" routerLink="/municipios/municipios">Ver más municipios</button>
       </div>
-    </div>
+
 
     <!--?Fin Colección de municipios-->
 
