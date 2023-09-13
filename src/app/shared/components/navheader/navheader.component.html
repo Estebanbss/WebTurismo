@@ -1,5 +1,5 @@
 <header class="z-50 mb-16"> <!-- Encabezado con margen inferior -->
-  <nav class="z-50 fixed bg-primary-500  dark:bg-gray-900 items-center left-0 lg:px-5 py-2.5 rounded-bl-lg rounded-br-lg top-0 w-full">
+  <nav class="z-50 fixed bg-primary-500   items-center left-0 lg:px-5 py-2.5 rounded-bl-lg rounded-br-lg top-0 w-full">
     <!-- Barra de navegación con propiedades de diseño -->
     <div class="flex justify-center flex-wrap items-center"> <!-- Contenedor flexible con alineación central y envoltura de elementos -->
       <a  routerLink="/home" class="flex mr-[2%] z-50"> <!-- Enlace de navegación con margen derecho -->
@@ -10,7 +10,7 @@
         <!-- Imagen del logotipo -->
       </a>
       <div class="flex items-center lg:order-2 "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
-        <button class="dark:text-gray-400 text-gray-500 dark:focus:ring-gray-600 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
+        <button class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
           <!-- Botón para expandir el menú móvil -->
           <svg class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
             <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
@@ -18,12 +18,12 @@
         </button>
 
         <!--Mis favoritos-->
-        <button class="ml-4 flex py-auto my-auto items-center space-x-2 bg-primary-400  dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 lg:px-1 lg:py-2.5 px-3 py-2  min-w-[173px] h-[50px]  text-white rounded-full justify-center"><img class="w-[30px]" alt="map svg" src="../../../assets/img/map.svg"><p class="justify-center mb-0" routerLink="">Mis favoritos</p></button>
+        <button class="ml-4 flex py-auto my-auto items-center space-x-2 bg-primary-400  focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 lg:px-1 lg:py-2.5 px-3 py-2  min-w-[173px] h-[50px]  text-white rounded-full justify-center"><img class="w-[30px]" alt="map svg" src="../../../assets/img/map.svg"><p class="justify-center mb-0" routerLink="">Mis favoritos</p></button>
 
 
         <!--perfil-->
 
-          <button class="ml-4 bg-primary-400 bg:text-xs dark:bg-primary-500 dark:focus:ring-primary-800 dark:hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
+          <button class="ml-4 bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold hover:bg-primary-700 sm:text-xl h-[50px] w-[50px] text-white rounded-full overflow-hidden" (click)="toggleExpanded2() ">
 
             <!--espacio de la foto de usuario del usuario-->
             <img alt="UserProfilePhoto" src="../../../assets/img/pfp.webp">
@@ -41,17 +41,17 @@
         <ul class="flex flex-col font-medium lg:flex-row lg:items-center p-0 lg:space-x-8 text-center py-auto my-auto">
           <!-- Lista de elementos de navegación -->
           <li>
-            <a href="/AboutUs" class="block border-b border-gray-100 dark:border-gray-700 dark:hover:text-white hover:bg-gray-50 lg:border-0 lg:dark:hover:bg-transparent lg:dark:hover:text-white lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr-4 py-2 text-white">
+            <a href="/AboutUs" class="block border-b border-gray-100 hover:bg-gray-50 lg:border-0  lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr-4 py-2 text-white">
               Acerca de nosotros
             </a> <!-- Enlace "Acerca de nosotros" con estilos de diseño -->
           </li>
           <li>
-            <a href="#contactenos" class="block border-b border-gray-100 dark:border-gray-700 dark:hover:text-white hover:bg-gray-50 lg:border-0 lg:dark:hover:bg-transparent lg:dark:hover:text-white lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr-4 py-2 text-white">
+            <a href="#contactenos" class="block border-b border-gray-100  hover:bg-gray-50 lg:border-0  lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr-4 py-2 text-white">
               Contáctenos
             </a> <!-- Enlace "Contáctenos" con estilos de diseño -->
           </li>
           <li>
-            <a href="https://www.centurhuila.com.co" target="_blank" class="block border-b border-gray-100 dark:border-gray-700 dark:hover:text-white hover:bg-gray-50 lg:border-0 lg:dark:hover:bg-transparent lg:dark:hover:text-white lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr- py-2 text-white">
+            <a href="https://www.centurhuila.com.co" target="_blank" class="block border-b border-gray-100 hover:bg-gray-50 lg:border-0 lg:hover:bg-transparent lg:hover:text-primary-500 lg:p-0 pl-3 pr- py-2 text-white">
               Descargar app
             </a> <!-- Enlace "Descargar app" con estilos de diseño -->
           </li>
@@ -64,7 +64,7 @@
 
 
     </div>
-    <div class="hidden absolute right-0  lg:right-[1%] xl:right-[10%] 2xl:right-[20%] 4xl:right-[30%]  lg:rounded-lg bg-primary-400 text-white bg:w-[50%] lg:w-[15%] xl:w-[12%]  bg:rounded-lg justify-center items-center py-auto font-Work font-bold dark:bg-primary-200 " [class.hidden]="!expanded2" >
+    <div class="hidden absolute right-0  lg:right-[1%] xl:right-[10%] 2xl:right-[20%] 4xl:right-[30%]  lg:rounded-lg bg-primary-400 text-white bg:w-[50%] lg:w-[15%] xl:w-[12%]  bg:rounded-lg justify-center items-center py-auto font-Work font-bold  " [class.hidden]="!expanded2" >
       <ul class=" text-left mb-0 p-2">
         <li class="p-2 hover:bg-primary-600 rounded-lg">
           <a class="text-white" href=""  routerLink="">Perfil</a>

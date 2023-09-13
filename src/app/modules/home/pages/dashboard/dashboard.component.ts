@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   //Propiedad a la que se le asigna el Administrador
   admin: string = 'juanesbs2003@hotmail.com'; // Prueba de Admin
 
-  muni = [
+  muni = [//Array con los municipios del Huila
     'Acevedo',
     'Aipe',
     'Algeciras',
@@ -71,18 +71,28 @@ export class DashboardComponent implements OnInit {
 
   public tilesData: Array<municipio> = [];
 
+    public getRandomMuni = () => { //Función para obtener un municipio aleatorio
+    const usedNumbers: number[] = []; //Array para almacenar los números aleatorios
 
+    while (true) { //Ciclo infinito
+      const randomNumber = Math.floor(Math.random() * this.muni.length);//Genera un número aleatorio entre 0 y la longitud del array
 
+      if (!usedNumbers.includes(randomNumber)) { //Si el número aleatorio no está en el array
+        usedNumbers.push(randomNumber);//Lo agrega al array
+        return this.muni[randomNumber];//Retorna el municipio en la posición del número aleatorio
+      };
+    }
+  };
 
-  iter(): void {
-    let i: number = 0;
+  iter(): void {//Función para iterar 6 veces y agregar los municipios aleatorios al array
+    let i: number = 0;//Contador
 
-    while (i < 6) {
+    while (i < 6) {//Mientras el contador sea menor a 6
 
-      this.tilesData.push({
-        title: this.muni[Math.floor(Math.random() * 37)],
-        img:"https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FAcevedo.webp?alt=media&token=89738193-ac05-4787-9a39-07d9ccb18243",
-        alt:"Garzónimg"
+      this.tilesData.push({//Agrega un objeto al array
+        title: this.getRandomMuni(),//Con el título del municipio aleatorio
+        img:"https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FAcevedo.webp?alt=media&token=89738193-ac05-4787-9a39-07d9ccb18243",//Con la imagen del municipio aleatorio
+        alt:"Garzónimg" //alt de la  imagen del municipio aleatorio
       })
 
       i++;
@@ -123,12 +133,12 @@ export class DashboardComponent implements OnInit {
     this.iter();
   }
 
-  logOut() {
+  logOut() {//Método para cerrar sesión
     this.homeService
-      .cerrarSesion()
-      .then(() => {
-        this.router.navigate(['auth/login']);
+      .cerrarSesion()//Llamamos al método de cerrar sesión
+      .then(() => {//Si se cierra sesión
+        this.router.navigate(['auth/login']);//Nos redirige al login
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error));//Si hay un error
   }
 }

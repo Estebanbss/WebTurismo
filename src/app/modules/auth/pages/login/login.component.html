@@ -2,7 +2,7 @@
 <app-header ></app-header>
 <div class="min-h-screen flex justify-center items-center">
 
-  <div *ngIf="!loading" class="shadow-lg rounded-xl bg:w-[300px] xs1:w-[500px] bg:-[200px] md:w-[600px] md:h-[550px]   p-10 my-48 py-auto py-auto mx-auto">
+  <div *ngIf="!loading" class="shadow-lg rounded-xl bg w-full xs1:w-[500px] md:w-[600px] md:h-[550px]   p-10 my-48 py-auto py-auto mx-auto">
     <h1 class="text-center text-primary-500 font-Blinker font-black mb-16 bg:text-xl md:text-4xl">Inicia Sesión en Turismo Huila</h1>
     <form (ngSubmit)="login()" [formGroup]="loginUsuario" class="mx-auto my-auto py-auto px-auto">
       <div class=" mb-3 flex flex-col py-auto">
