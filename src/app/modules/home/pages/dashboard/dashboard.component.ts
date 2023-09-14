@@ -1,7 +1,7 @@
 import { Component, OnInit,} from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NgOptimizedImage } from '@angular/common';
 
 interface Municipio {
   title?: string;
@@ -62,8 +62,57 @@ export class DashboardComponent implements OnInit {
      // Inyecta el servicio Router// Inyecta el servicio Renderer2
   ) {}
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
+    const carousel:Element | null  = document.querySelector(".carousel");
+    const ArrowIcons = document.querySelectorAll(".arrow-icons");
+    let isDragStart = false, prevPageX: number, prevScrollLeft: number;
+    let firstImg = document.querySelectorAll(".imgcarousel")[0];
+    let firstImgWitdh = firstImg.clientWidth + 16;
+
+    console.log(firstImgWitdh)
+
+    ArrowIcons.forEach(icon=>{
+      icon.addEventListener('click',()=>{
+        carousel!.scrollLeft += icon.id == "left" ? -firstImgWitdh : firstImgWitdh;
+      });
+    })
+
+    const dragStart = (e:any) => {
+      //actualiza la posicion del mouse
+      isDragStart = true;
+      prevPageX = e.pageX;
+      prevScrollLeft = carousel!.scrollLeft;
+    }
+
+    const dragging = (e:any) => {
+      if(!isDragStart) return;
+
+      e.preventDefault();
+      carousel?.classList.add("dragging");
+      let positionDiff = e.pageX - prevPageX;
+      carousel!.scrollLeft = prevScrollLeft - positionDiff;
+    }
+
+    const dragStop = (e:any) => {
+      isDragStart = false;
+      carousel?.classList.remove("dragging");
+    }
+
+     if(carousel){
+
+      carousel.addEventListener('mousedown',dragStart);
+
+      carousel.addEventListener('mousemove',dragging);
+
+      carousel.addEventListener('mouseup', dragStop);
+
+    }
+
+
+    }
+
+
+
+
 
 
   ngOnInit(): void {
@@ -79,9 +128,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.tilesData, event.previousIndex, event.currentIndex);
-  }
+
 
 
 

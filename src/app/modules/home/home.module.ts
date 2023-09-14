@@ -7,7 +7,7 @@ import { ButtonCarouselComponent } from './components/button-carousel/button-car
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavfooterModule } from 'src/app/shared/components/navfooter/navfooter.module';
 import { NavheaderModule } from 'src/app/shared/components/navheader/navheader.module';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
 
@@ -19,13 +19,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
    ],
 
   imports: [
-
     CommonModule,
     HomeRoutingModule,
     NgOptimizedImage,
     NavfooterModule,
     NavheaderModule,
-    DragDropModule
 
   ]
 })

@@ -1,1 +1,8 @@
+.carousel.dragging{
+  cursor: grab;
+  scroll-behavior: auto;
+}
 
+.carousel.dragging img{
+  pointer-events: none;
+}
