@@ -3,6 +3,10 @@
   scroll-behavior: auto;
 }
 
+.carousel.arrowIcons{
+  scroll-behavior: smooth;
+}
+
 .carousel.dragging img{
   pointer-events: none;
 }

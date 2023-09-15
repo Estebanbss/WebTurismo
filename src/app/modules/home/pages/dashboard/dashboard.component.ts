@@ -1,7 +1,8 @@
-import { Component, OnInit,ElementRef, Renderer2} from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { NgOptimizedImage } from '@angular/common';
+import { Storage } from '@angular/fire/storage';
 
 interface Municipio {
   title?: string;
@@ -19,109 +20,130 @@ export class DashboardComponent implements OnInit {
   admin: string = 'juanesbs2003@hotmail.com';
 
   muni: string[] = [ // 37  municipios del Huila
-    'Baraya',
-    'Campoalegre',
-    'Colombia',
-    'Elías',
-    'El Agrado',
-    'Garzón',
-    'Gigante',
-    'Guadalupe',
-    'Hobo',
-    'Íquira',
-    'Isnos',
-    'La Argentina',
-    'La Plata',
-    'Nátaga',
-    'Neiva',
-    'Oporapa',
-    'Paicol',
-    'Palermo',
-    'Palestina',
-    'Pital',
-    'Pitalito',
-    'Rivera',
-    'Saladoblanco',
-    'Santa María',
-    'San Agustín',
-    'Suaza',
-    'Tarqui',
-    'Tello',
-    'Teruel',
-    'Tesalia',
-    'Timaná',
-    'Villavieja',
-    'Yaguará',
+  "Acevedo",
+  "Aipe",
+  "Algeciras",
+  "Altamira",
+  "Baraya",
+  "Campoalegre",
+  "Colombia",
+  "Elías",
+  "El Agrado",
+  "Garzón",
+  "Gigante",
+  "Guadalupe",
+  "Hobo",
+  "Íquira",
+  "Isnos",
+  "La Argentina",
+  "La Plata",
+  "Nátaga",
+  "Neiva",
+  "Oporapa",
+  "Paicol",
+  "Palermo",
+  "Palestina",
+  "Pital",
+  "Pitalito",
+  "Rivera",
+  "Saladoblanco",
+  "Santa María",
+  "San Agustín",
+  "Suaza",
+  "Tarqui",
+  "Tello",
+  "Teruel",
+  "Tesalia",
+  "Timaná",
+  "Villavieja",
+  "Yaguará",
   ];
 
+  randomuni = [...this.muni];
   tilesData: Municipio[] = []; // 6 municipios aleatorios
-width: { [klass: string]: any; }|null|undefined;
+  width: { [klass: string]: any; } | null | undefined; // Ancho de la pantalla
 
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
-    private router: Router,
-    private el: ElementRef, private renderer: Renderer2
-     // Inyecta el servicio Router// Inyecta el servicio Renderer2
-  ) {}
+    private router: Router, // Inyecta el servicio Router
+    private el: ElementRef, private renderer: Renderer2,
+    // Inyecta el servicio Router// Inyecta el servicio Renderer2
+  ) { }
+
+
+
   ngAfterViewInit(): void {
 
-      // Encuentra el elemento con la clase "carousel"
- // Encuentra el elemento con la clase "carousel"
-const carousel = this.el.nativeElement.querySelector('.carousel');
+    // Encuentra el elemento con la clase "carousel"
+    // Encuentra el elemento con la clase "carousel"
+    const carousel = this.el.nativeElement.querySelector('.carousel');
 
-// Encuentra todos los elementos con la clase "arrow-icons"
-const arrowIcons = this.el.nativeElement.querySelectorAll('.arrow-icons');
+    // Encuentra todos los elementos con la clase "arrow-icons"
+    const arrowIcons = this.el.nativeElement.querySelectorAll('.arrow-icons');
 
-// Encuentra el primer elemento con la clase "imgcarousel"
-const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
+    // Encuentra el primer elemento con la clase "imgcarousel"
+    const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
 
+    // Inicializa las variabl
 
-
-    let isDragStart = false, prevPageX: number, prevScrollLeft: number;
+    // Obtiene el ancho del primer elemento con la clase "imgcarousel"
     let firstImgWitdh = firstImg!.clientWidth + 16;
-    console.log(firstImgWitdh)
 
-    arrowIcons.forEach((icon: { addEventListener: (arg0: string, arg1: () => void) => void; id: string; })=>{
-      icon.addEventListener('click',()=>{
+
+
+    // Recorre todos los elementos con la clase "arrow-icons"
+
+    const showHideIcons = () => {
+      let scrollWidth = carousel!.scrollWidth - carousel!.clientWidth;
+      // Muestra u oculta las flechas de acuerdo a la posición del scroll
+      arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
+      arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block";
+
+    }
+
+    arrowIcons.forEach((icon: { addEventListener: (arg0: string, arg1: () => void) => void; id: string; }) => {
+      icon.addEventListener('click', () => {
+        let firstImgWitdh = firstImg!.clientWidth + 16;
         carousel!.scrollLeft += icon.id == "left" ? -firstImgWitdh : firstImgWitdh;
+        setTimeout( () => showHideIcons(), 60);
       });
     })
 
-    const dragStart = (e:any) => {
-      //actualiza la posicion del mouse
-      isDragStart = true;
-      prevPageX = e.pageX;
+    let isPointerDown = false, prevPageX: number, prevScrollLeft: number;
+
+    const pointerDown = (e: any) => {
+      isPointerDown = true;
+      prevPageX = e.pageX || e.touches[0].pageX;
       prevScrollLeft = carousel!.scrollLeft;
     }
 
-    const dragging = (e:any) => {
-      if(!isDragStart) return;
+    const pointerMove = (e: any) => {
+      if (!isPointerDown) return;
 
       e.preventDefault();
       carousel?.classList.add("dragging");
-      let positionDiff = e.pageX - prevPageX;
+      let positionDiff = ((e.pageX || e.touches[0].pageX) - prevPageX)*2;
       carousel!.scrollLeft = prevScrollLeft - positionDiff;
+      showHideIcons();
     }
 
-    const dragStop = (e:any) => {
-      isDragStart = false;
+    const pointerUp = (e: any) => {
+      isPointerDown = false;
       carousel?.classList.remove("dragging");
     }
 
-     if(carousel){
+    if (carousel) {
+      carousel.addEventListener('mousedown', pointerDown);
+      carousel.addEventListener('mousemove', pointerMove);
+      carousel.addEventListener('mouseup', pointerUp);
 
-      carousel.addEventListener('mousedown',dragStart);
-
-      carousel.addEventListener('mousemove',dragging);
-
-      carousel.addEventListener('mouseup', dragStop);
-
+      carousel.addEventListener('touchstart', pointerDown);
+      carousel.addEventListener('touchmove', pointerMove);
+      carousel.addEventListener('touchend', pointerUp);
+      carousel.addEventListener('mouseleave', pointerUp);
+      carousel.addEventListener('mouselave', pointerUp);
     }
-
-
-    }
-
-
+  }
 
 
 
@@ -135,20 +157,9 @@ const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
       this.router.navigate(['auth/login']);// Si no está verificado, redirige al login
     }
 
-    this.iter();// Llama a la función iter()
 
+    this.iter();
   }
-
-
-
-
-
-
-
-
-
-
-
 
 
   logOut(): void {
@@ -158,30 +169,25 @@ const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
         this.router.navigate(['auth/login']);// Redirige al login
       })
       .catch((error) => console.log(error));// Si no se cierra la sesión, muestra el error
-  }                                                        
- usedNumbers: number[] = [];
-  private getRandomMuni(){// Obtiene un municipio aleatorio
-
-
-    while (this.usedNumbers.length < 36) {// Mientras el array usedNumbers tenga menos de 6 elementos
-      const randomNumber = Math.floor(Math.random() * this.muni.length);
-      console.log(randomNumber)// Genera un número aleatorio entre 0 y 36
-
-      if (!this.usedNumbers.includes(randomNumber)) {// Si el array usedNumbers no incluye el número aleatorio
-        this.usedNumbers.push(randomNumber);// Agrega el número aleatorio al array usedNumbers
-        return this.muni[randomNumber];// Retorna el nombre del municipio en la posición randomNumber
-      }
-      console.log(this.usedNumbers)
-    }
   }
 
-  private iter(): void {// Llena el array tilesData con 6 municipios aleatorios
-    for (let i = 0; i < 36; i++) {// 6 municipios aleatorios
+
+
+  private iter(): void {
+    this.randomuni.sort(function() {return Math.random() - 0.5});
+    for (let i = 0; i < this.randomuni.length; i++){
+
       this.tilesData.push({
-        title: this.getRandomMuni(),// Asigna el nombre del municipio
-        img: 'https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FAcevedo.webp?alt=media&token=89738193-ac05-4787-9a39-07d9ccb18243',// Asigna la URL de la imagen
-        alt: 'Garzónimg',// Asigna el texto alternativo de la imagen
+        title: this.randomuni[i],
+        img: 'https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FAcevedo.webp?alt=media&token=89738193-ac05-4787-9a39-07d9ccb18243',
+        alt: 'Garzónimg',
       });
+
     }
+
   }
+
+
+
+
 }
