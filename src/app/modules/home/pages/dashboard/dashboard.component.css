@@ -6,3 +6,8 @@
 .carousel.dragging img{
   pointer-events: none;
 }
+
+.carousel.dragging div{
+  pointer-events: none;
+}
+

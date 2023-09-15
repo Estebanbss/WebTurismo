@@ -127,33 +127,21 @@
 
     <div
       #carousel
-      class="carousel relative  whitespace-nowrap box-border m-0 p-0 flex items-center overflow-hidden scroll-smooth"
+      class="carousel relative  whitespace-nowrap box-border m-0 p-0 flex flex-row overflow-hidden scroll-smooth"
 
     >
-
 
       <div
 
       *ngFor="let tile of tilesData; let i = index"
-      style="background-image: url('/assets/img/fondo-cabecera.jpg'); width: 100; height: 100; "
-      ngSrc="{{ tile.img }}"
-      width="1836"
-      height="826"
-      alt="{{ tile.alt }}"
-      class="imgcarousel bg:w-[calc(90%)]  md:w-[calc(95%/2)] lg:w-[calc(95%/3)] h-[300px] ml-[16px] object-cover filter brightness-50 rounded-2xl hover:cursor-pointer"
+      [style.background-image]="'url(' + tile.img + ')' "
+      [style.background-size]="'cover'"
+       class="imgcarousel relative b   bg:min-w-[95%]  md:min-w-[calc(95%/2)] lg:min-w-[calc(95%/3)]  h-[300px] ml-[16px] rounded-2xl hover:cursor-pointer "
       routerLink=""
+     ><h1 class="font-Blinker font-black text-4xl top-0 ml-4 mt-4 text-white z-40 absolute">{{tile.title}}</h1>
+     <div  class="absolute top-0   w-full h-full opacity-40 rounded-2xl hover:cursor-pointer bg-black  z-30"></div>
 
-
-     ></div>
-
-
-
-
-
-
-
-
-
+    </div>
 
     </div>
 

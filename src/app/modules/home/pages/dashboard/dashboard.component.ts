@@ -1,4 +1,4 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit,ElementRef, Renderer2} from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { NgOptimizedImage } from '@angular/common';
@@ -55,22 +55,33 @@ export class DashboardComponent implements OnInit {
   ];
 
   tilesData: Municipio[] = []; // 6 municipios aleatorios
+width: { [klass: string]: any; }|null|undefined;
 
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router,
+    private el: ElementRef, private renderer: Renderer2
      // Inyecta el servicio Router// Inyecta el servicio Renderer2
   ) {}
   ngAfterViewInit(): void {
-    const carousel:Element | null  = document.querySelector(".carousel");
-    const ArrowIcons = document.querySelectorAll(".arrow-icons");
-    let isDragStart = false, prevPageX: number, prevScrollLeft: number;
-    let firstImg = document.querySelectorAll(".imgcarousel")[0];
-    let firstImgWitdh = firstImg.clientWidth + 16;
 
+      // Encuentra el elemento con la clase "carousel"
+ // Encuentra el elemento con la clase "carousel"
+const carousel = this.el.nativeElement.querySelector('.carousel');
+
+// Encuentra todos los elementos con la clase "arrow-icons"
+const arrowIcons = this.el.nativeElement.querySelectorAll('.arrow-icons');
+
+// Encuentra el primer elemento con la clase "imgcarousel"
+const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
+
+
+
+    let isDragStart = false, prevPageX: number, prevScrollLeft: number;
+    let firstImgWitdh = firstImg!.clientWidth + 16;
     console.log(firstImgWitdh)
 
-    ArrowIcons.forEach(icon=>{
+    arrowIcons.forEach((icon: { addEventListener: (arg0: string, arg1: () => void) => void; id: string; })=>{
       icon.addEventListener('click',()=>{
         carousel!.scrollLeft += icon.id == "left" ? -firstImgWitdh : firstImgWitdh;
       });
@@ -147,23 +158,25 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['auth/login']);// Redirige al login
       })
       .catch((error) => console.log(error));// Si no se cierra la sesión, muestra el error
-  }
-
+  }                                                        
+ usedNumbers: number[] = [];
   private getRandomMuni(){// Obtiene un municipio aleatorio
-    const usedNumbers: number[] = [];
 
-    while (usedNumbers.length < 6) {// Mientras el array usedNumbers tenga menos de 6 elementos
-      const randomNumber = Math.floor(Math.random() * this.muni.length);// Genera un número aleatorio entre 0 y 36
 
-      if (!usedNumbers.includes(randomNumber)) {// Si el array usedNumbers no incluye el número aleatorio
-        usedNumbers.push(randomNumber);// Agrega el número aleatorio al array usedNumbers
+    while (this.usedNumbers.length < 36) {// Mientras el array usedNumbers tenga menos de 6 elementos
+      const randomNumber = Math.floor(Math.random() * this.muni.length);
+      console.log(randomNumber)// Genera un número aleatorio entre 0 y 36
+
+      if (!this.usedNumbers.includes(randomNumber)) {// Si el array usedNumbers no incluye el número aleatorio
+        this.usedNumbers.push(randomNumber);// Agrega el número aleatorio al array usedNumbers
         return this.muni[randomNumber];// Retorna el nombre del municipio en la posición randomNumber
       }
+      console.log(this.usedNumbers)
     }
   }
 
   private iter(): void {// Llena el array tilesData con 6 municipios aleatorios
-    for (let i = 0; i < 6; i++) {// 6 municipios aleatorios
+    for (let i = 0; i < 36; i++) {// 6 municipios aleatorios
       this.tilesData.push({
         title: this.getRandomMuni(),// Asigna el nombre del municipio
         img: 'https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FAcevedo.webp?alt=media&token=89738193-ac05-4787-9a39-07d9ccb18243',// Asigna la URL de la imagen
