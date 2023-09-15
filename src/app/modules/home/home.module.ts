@@ -5,8 +5,8 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NavfooterModule } from 'src/app/shared/components/navfooter/navfooter.module';
-import { NavheaderModule } from 'src/app/shared/components/navheader/navheader.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 @NgModule({
@@ -22,8 +22,7 @@ import { NavheaderModule } from 'src/app/shared/components/navheader/navheader.m
     CommonModule,
     HomeRoutingModule,
     NgOptimizedImage,
-    NavfooterModule,
-    NavheaderModule,
+    SharedModule
 
 
 

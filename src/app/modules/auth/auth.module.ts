@@ -8,7 +8,7 @@ import { RegistrarUsuarioComponent } from './pages/registrar-usuario/registrar-u
 import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-correo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SpinnerModule} from '../../shared/components/spinner/spinner.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -26,7 +26,7 @@ import { SpinnerModule} from '../../shared/components/spinner/spinner.module';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    SpinnerModule
+    SharedModule
 
   ]
 
