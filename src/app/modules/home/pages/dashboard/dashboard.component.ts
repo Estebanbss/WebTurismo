@@ -4,20 +4,69 @@ import { HomeService } from 'src/app/modules/home/services/home.service';
 import { NgOptimizedImage } from '@angular/common';
 import { Storage } from '@angular/fire/storage';
 
+
 interface Municipio {
   title?: string;
   img: string;
   alt: string;
 }
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
+
 export class DashboardComponent implements OnInit {
   dataUser: any;
   admin: string = 'juanesbs2003@hotmail.com';
+
+  slideConfig = {
+  "slidesToShow": 3,
+  "slidesToScroll": 1,
+  "autoplay": true,
+  "PauseOnHover": true,
+  "infinite": true,
+  "autoplaySpeed": 2000,
+  "responsive":[
+    {
+      "breakpoint": 992,
+      "settings":{
+        "arrows":true,
+        "infinite":true,
+        "slidesToShow":3,
+        "slidesToScroll":1,
+      }
+    },
+    {
+      "breakpoint": 768,
+      "settings":{
+        "arrows": true,
+        "infinite": true,
+        "slidesToShow": 1,
+        "slidesToScroll": 1,
+      }
+    }
+  ]
+};
+
+  slickInit(e:any) {
+    console.log('slick initialized');
+  }
+
+  breakpoint(e:any) {
+    console.log('breakpoint');
+  }
+
+  afterChange(e:any) {
+    console.log('afterChange');
+  }
+
+  beforeChange(e:any) {
+    console.log('beforeChange');
+  }
+
 
   muni: string[] = [ // 37  municipios del Huila
   "Acevedo",
@@ -74,75 +123,9 @@ export class DashboardComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    // Encuentra el elemento con la clase "carousel"
-    // Encuentra el elemento con la clase "carousel"
-    const carousel = this.el.nativeElement.querySelector('.carousel');
-
-    // Encuentra todos los elementos con la clase "arrow-icons"
-    const arrowIcons = this.el.nativeElement.querySelectorAll('.arrow-icons');
-
-    // Encuentra el primer elemento con la clase "imgcarousel"
-    const firstImg = this.el.nativeElement.querySelector('.imgcarousel');
-
-    // Inicializa las variabl
-
-    // Obtiene el ancho del primer elemento con la clase "imgcarousel"
-    let firstImgWitdh = firstImg!.clientWidth + 16;
 
 
 
-    // Recorre todos los elementos con la clase "arrow-icons"
-
-    const showHideIcons = () => {
-      let scrollWidth = carousel!.scrollWidth - carousel!.clientWidth;
-      // Muestra u oculta las flechas de acuerdo a la posición del scroll
-      arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
-      arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block";
-
-    }
-
-    arrowIcons.forEach((icon: { addEventListener: (arg0: string, arg1: () => void) => void; id: string; }) => {
-      icon.addEventListener('click', () => {
-        let firstImgWitdh = firstImg!.clientWidth + 16;
-        carousel!.scrollLeft += icon.id == "left" ? -firstImgWitdh : firstImgWitdh;
-        setTimeout( () => showHideIcons(), 60);
-      });
-    })
-
-    let isPointerDown = false, prevPageX: number, prevScrollLeft: number;
-
-    const pointerDown = (e: any) => {
-      isPointerDown = true;
-      prevPageX = e.pageX || e.touches[0].pageX;
-      prevScrollLeft = carousel!.scrollLeft;
-    }
-
-    const pointerMove = (e: any) => {
-      if (!isPointerDown) return;
-
-      e.preventDefault();
-      carousel?.classList.add("dragging");
-      let positionDiff = ((e.pageX || e.touches[0].pageX) - prevPageX)*2;
-      carousel!.scrollLeft = prevScrollLeft - positionDiff;
-      showHideIcons();
-    }
-
-    const pointerUp = (e: any) => {
-      isPointerDown = false;
-      carousel?.classList.remove("dragging");
-    }
-
-    if (carousel) {
-      carousel.addEventListener('mousedown', pointerDown);
-      carousel.addEventListener('mousemove', pointerMove);
-      carousel.addEventListener('mouseup', pointerUp);
-
-      carousel.addEventListener('touchstart', pointerDown);
-      carousel.addEventListener('touchmove', pointerMove);
-      carousel.addEventListener('touchend', pointerUp);
-      carousel.addEventListener('mouseleave', pointerUp);
-      carousel.addEventListener('mouselave', pointerUp);
-    }
   }
 
 

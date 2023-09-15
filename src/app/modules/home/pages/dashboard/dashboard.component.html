@@ -7,32 +7,21 @@
 
 <!--?Sección Banner en esta sección tiene tanto el titulo principal como la busqueda-->
 
-<section
-  id="Banner"
-  class="bg-[url(https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2F11_1.webp?alt=media&token=9f183ee7-0e75-4518-a606-450b98b6eb7f)] -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
->
+<section id="Banner"
+  class="bg-[url(https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2F11_1.webp?alt=media&token=9f183ee7-0e75-4518-a606-450b98b6eb7f)] -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40">
   <!--?Contenedor del titulo principal-->
   <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl"></div>
-  <div
-    class="relative mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
-  >
+  <div class="relative mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center">
     <div class="text-center mb-[20] flex flex-col items-center">
       <h1 class="text-3xl text-white font-normal sm:text-5xl leading-3">
-        <strong
-          class="bg-primary-500 bg-opacity-30 rounded-tl-xl font-semibold pl-2"
-        >
+        <strong class="bg-primary-500 bg-opacity-30 rounded-tl-xl font-semibold pl-2">
           Descubre el
         </strong>
-        <strong
-          class="font-black bg-primary-500 bg-opacity-30 rounded-tr-xl underline pr-2"
-          >Huila,</strong
-        >
+        <strong class="font-black bg-primary-500 bg-opacity-30 rounded-tr-xl underline pr-2">Huila,</strong>
       </h1>
       <h2 class="text-2xl text-white sm:text-4xl">
-        <strong
-          class="bg-primary-500 bg-opacity-30 rounded-lg font-normal leading-3 px-2"
-          >un paraíso de paisajes, cultura y experiencias inolvidables</strong
-        >
+        <strong class="bg-primary-500 bg-opacity-30 rounded-lg font-normal leading-3 px-2">un paraíso de paisajes,
+          cultura y experiencias inolvidables</strong>
       </h2>
     </div>
   </div>
@@ -41,30 +30,17 @@
   <div class="relative bg:w-[85%] xl:w-[1200px] mx-auto">
     <label for="Search" class="sr-only"> Search </label>
 
-    <input
-      type="text"
-      id="Search"
-      placeholder="¿Que buscas?"
-      class="w-full rounded-3xl border-white h-12 pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
-    />
+    <input type="text" id="Search" placeholder="¿Que buscas?"
+      class="w-full rounded-3xl border-white h-12 pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work" />
 
     <span class="absolute inset-y-0 end-0 grid w-10 place-content-center mx-7">
       <button type="button" class="text-gray-600 hover:text-gray-400">
         <span class="sr-only">Search</span>
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="3"
-          stroke="currentColor"
-          class="bg:w-6 xl:w-8"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"
+          class="bg:w-6 xl:w-8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
       </button>
     </span>
@@ -79,17 +55,13 @@
 
   <!--?Este se divide en 2 en el cual cuando llega a determinado punto de la pantalla cambia el tipo de flex y también su ancho total los dos inicialmente en pantallas pequeñas ocupa un ancho de 100% y luego en "md" ocupa 50% cada uno en total hay 2 divs-->
 
-  <div
-    class="flex bg:flex-col md:flex-row h-36 justify-center items-center mx-10 mt-10 mb-0"
-  >
+  <div class="flex bg:flex-col md:flex-row h-36 justify-center items-center mx-10 mt-10 mb-0">
     <!--?Div 1-->
     <div class="bg:w-full md:w-[50%] text-primary-500">
       <h1 class="font-Blinker text-center text-xl md:text-2xl font-black">
         ¿Donde ir?
       </h1>
-      <h2
-        class="font-Blinker text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-2"
-      >
+      <h2 class="font-Blinker text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-2">
         Municipios Populares
       </h2>
     </div>
@@ -108,63 +80,12 @@
 
   <!--?Colección de municipios-->
 
-  <div class="relative mt-16 box-border  ml-[23px] mr-[25px] p-0">
-    <!--?Contenedor de los botones de navegación IZQUIERDA-->
-    <svg
-      id="left"
-      class="arrow-icons absolute hidden z-40 translate-y-[-50%] top-[50%] left-[-20px] my-auto bg-primary-400 rounded-full fill-white hover:cursor-pointer hover:fill-white"
-      xmlns="http://www.w3.org/2000/svg"
-      height="50"
-      viewBox="0 -960 960 960"
-      width="50"
-    >
-      <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
-    </svg>
-    <!--?Fin Contenedor de los botones de navegación IZQUIERDA-->
-    <!--?Contenedor de las imagenes de los municipios-->
 
-    <div
-      #carousel
-      class="carousel relative whitespace-nowrap box-border m-0 p-0 flex flex-row overflow-hidden scroll-smooth"
-    >
-      <div
-        *ngFor="let tile of tilesData; let i = index"
-        class="imgcarousel relative bg:min-w-[95%] md:min-w-[calc(95%/2)] lg:min-w-[calc(95%/3)] h-[300px] ml-[16px] rounded-2xl hover:cursor-pointer"
-        routerLink=""
-      >
-        <img
-          ngSrc="{{ tile.img }}"
-          width="1836"
-          height="826"
-          [alt]="tile.title"
-          loading="lazy"
-          class="w-full h-full object-cover rounded-2xl hover:cursor-pointer"
-        />
-        <h1
-          class="font-Blinker font-black text-4xl top-0 ml-4 mt-4 text-white z-40 absolute"
-        >
-          {{ tile.title }}
-        </h1>
-        <div
-          class="absolute top-0 w-full h-full opacity-40 rounded-2xl hover:cursor-pointer bg-black z-30"
-        ></div>
-      </div>
-    </div>
+  <!--?Fin Contenedor de los botones de navegación IZQUIERDA-->
+  <!--?Contenedor de las imagenes de los municipios-->
 
-    <!--?Fin Contenedor de las imagenes de los municipios-->
-    <!--?Contenedor de los botones de navegación DERECHA-->
-    <svg
-      id="right"
-      class="arrow-icons absolute right-[-20px] z-40 translate-y-[-50%] top-[50%] my-auto bg-primary-400 rounded-full fill-white hover:cursor-pointer hover:fill-white"
-      xmlns="http://www.w3.org/2000/svg"
-      height="50"
-      viewBox="0 -960 960 960"
-      width="50"
-    >
-      <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-    </svg>
-    <!--?Fin Contenedor de los botones de navegación DERECHA-->
-  </div>
+
+
 
   <!--?Fin Colección de municipios-->
 
@@ -174,14 +95,11 @@
 
 <!--?Sección de Categorias más buscadas-->
 
-<section
-  id="Categorias"
-  class="bg-slate-100 h-[500px] my-10 w-full mx-auto"
->
+<section id="Categorias" class="bg-slate-100 h-[500px] my-10 w-full mx-auto">
 
-<div class="bg:w-full xl:w-[1280px]">
+  <div class="bg:w-full xl:w-[1280px]">
 
-</div>
+  </div>
 
 
 </section>
@@ -193,71 +111,47 @@
 <!--?Sección "contactenos"-->
 <section class="bg-white" id="contactenos">
   <!-- ?Fondo verde oscuro en forma de elipse -->
-  <div
-    class="bg-primary-500 pt-24 pb-24"
-    style="clip-path: ellipse(80% 100% at center top)"
-  >
+  <div class="bg-primary-500 pt-24 pb-24" style="clip-path: ellipse(80% 100% at center top)">
     <div class="xl:w-[1280px] mx-auto flex flex-col">
-      <h1
-        class="text-center font-Blinker font-black text-white bg:text-5xl xl:text-6xl 4xl:text-8xl"
-      >
+      <h1 class="text-center font-Blinker font-black text-white bg:text-5xl xl:text-6xl 4xl:text-8xl">
         ¡Anímate a contactarnos!
       </h1>
-      <hr
-        class="border-primary-200 opacity-100 border-4 w-[80%] mx-auto my-0"
-      />
+      <hr class="border-primary-200 opacity-100 border-4 w-[80%] mx-auto my-0" />
       <div class="flex">
-        <form
-          action="https://api.web3forms.com/submit"
-          class="mt-10 mx-auto xl:w-[1280px] bg:w-full px-10"
-        >
+        <form action="https://api.web3forms.com/submit" class="mt-10 mx-auto xl:w-[1280px] bg:w-full px-10">
           <!-- This is a working contact form.
              Get your free access key from: https://web3forms.com/  -->
 
           <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
           <div class="grid xl:grid-col-3">
             <div class="relative z-0 mr-5">
-              <input
-                type="text"
-                name="name"
+              <input type="text" name="name"
                 class="peer block w-full bg-white border-0 border-b rounded-md border-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
-                placeholder="Tu nombre"
-              />
+                placeholder="Tu nombre" />
               <label
-                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75"
-                >Tu nombre</label
-              >
+                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75">Tu
+                nombre</label>
             </div>
             <div class="relative z-0 ml-5">
-              <input
-                type="text"
-                name="email"
+              <input type="text" name="email"
                 class="peer block w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
-                placeholder="Tu email"
-              />
+                placeholder="Tu email" />
               <label
-                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75"
-                >Tu email</label
-              >
+                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75">Tu
+                email</label>
             </div>
             <div class="relative z-0 col-span-2 mt-10">
-              <textarea
-                name="message"
-                rows="5"
+              <textarea name="message" rows="5"
                 class="peer block min-h-[100px] w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
-                placeholder="Tu mensaje"
-              ></textarea>
+                placeholder="Tu mensaje"></textarea>
               <label
-                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75"
-                >Tu mensaje</label
-              >
+                class="absolute top-3 -z-10 origin-[0] -translate-y-10 scale-75 transform text-xl text-white font-semibold duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-10 peer-focus:scale-75">Tu
+                mensaje</label>
             </div>
           </div>
           <div class="flex justify-center">
-            <button
-              type="submit"
-              class="mt-5 rounded-md bg-white px-14 py-2 text-primary-500 text-xl font-Blinker font-black"
-            >
+            <button type="submit"
+              class="mt-5 rounded-md bg-white px-14 py-2 text-primary-500 text-xl font-Blinker font-black">
               Enviar mensaje
             </button>
           </div>
