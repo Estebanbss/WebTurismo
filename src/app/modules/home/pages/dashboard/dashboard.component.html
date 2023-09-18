@@ -84,7 +84,10 @@
   <!--?Fin Contenedor de los botones de navegación IZQUIERDA-->
   <!--?Contenedor de las imagenes de los municipios-->
 
-
+ <div *ngFor="let tile of tilesData">
+  <img src="{{tile.img}}" alt="{{tile.alt}}">
+  <h2>{{tile.title}}</h2>
+ </div>
 
 
   <!--?Fin Colección de municipios-->

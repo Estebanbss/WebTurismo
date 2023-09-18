@@ -16,7 +16,7 @@ export class HomeService {
   cerrarSesion() {
     //Método de Firebase para desloguear
     // return signOut(this.auth);
-    return this.auth.signOut();
+    return this.auth.signOut(); //Método de AngularFireAuth
   }
 
 }
