@@ -54,7 +54,7 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
  ngOnInit(): void {
-   this.userService.usuarioIniciado();
+
  }
   // Método que se ejecuta desde el template para registrar usuarios
   registrar() {

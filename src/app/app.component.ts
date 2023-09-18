@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-
+import { UserService } from './modules/auth/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,9 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  constructor(private userS: UserService){}
   title = 'login-firebase';
-  ngOnInit(): void {
-
+  ngOnInit(){
+    this.userS.redirectToAppropriateRoute()
   }
 }

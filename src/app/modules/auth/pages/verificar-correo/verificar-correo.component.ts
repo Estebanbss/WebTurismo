@@ -13,7 +13,7 @@ export class VerificarCorreoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.user.usuarioIniciado();
+
   }
 
 
