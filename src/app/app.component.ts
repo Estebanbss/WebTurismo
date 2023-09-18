@@ -11,6 +11,5 @@ export class AppComponent implements OnInit {
   constructor(private userS: UserService){}
   title = 'login-firebase';
   ngOnInit(){
-    this.userS.redirectToAppropriateRoute()
   }
 }

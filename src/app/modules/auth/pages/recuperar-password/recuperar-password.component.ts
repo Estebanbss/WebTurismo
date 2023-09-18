@@ -29,9 +29,9 @@ export class RecuperarPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let user = this.userService.usuarioActual();
 
-   
+
+
     console.log("works")
 
     } ;

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import {Unsubscribable} from "rxjs"
 import { UserService } from 'src/app/modules/auth/services/user.service';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 
 @Component({
@@ -9,13 +11,13 @@ import { UserService } from 'src/app/modules/auth/services/user.service';
   styleUrls: ['./navheader.component.css']
 })
 
-export class NavheaderComponent implements OnInit {
+export class NavheaderComponent implements OnInit, OnDestroy {
   expanded = false;
   expanded2 = false;
   dataUser: any;
   admin: string = 'juanesbs2003@hotmail.com';
   adminButton = false;
-
+  auth = getAuth();
       // console.log(user);
 
   toggleExpanded() {
@@ -30,7 +32,7 @@ export class NavheaderComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private router: Router){}
+  constructor(private userService: UserService, private router: Router, private authSubscription: Subscription){}
   logOut() {
     this.userService.cerrarSesion()
       .then(() => {
@@ -39,19 +41,24 @@ export class NavheaderComponent implements OnInit {
       .catch(error => console.log(error));
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
 
-    let user = this.userService.usuarioActual();
 
-        if (user?.email == this.admin) {
-          this.adminButton = true;
-        } else {
-          this.adminButton = false;
-        }
+    let user = this.auth.currentUser;
+     this.authSubscription = onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.adminButton = true;
+      } else {
+        this.adminButton = false;
+      }
+    });
+
 
     } ;
 
-
+  ngOnDestroy(){
+    this.authSubscription.unsubscribe();
+  }
 }
 
 

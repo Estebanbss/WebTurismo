@@ -17,22 +17,6 @@ export class UserService {
   constructor(private auth: Auth, private router: Router) { }
 
 
-
-
-  //Métodos Auth
-
-  // Verifica usuario iniciado
-  redirectToAppropriateRoute() {
-    if (this.auth.currentUser) {
-      this.router.navigate(['/home']);
-    } else {
-      this.router.navigate(['/auth']);
-    }
-  }
-
-
-
-
   // Crear un Nuevo Usuario
   register(email:string, password:string) {
     // Vamos a retornar la promesa que nos da el método
@@ -64,11 +48,6 @@ export class UserService {
     return this.auth.signOut();
   }
 
-  //Comprobar usuario Actual
-  usuarioActual() {
-    // Esta propiedad nos retorna el usuario (si hay) que está logeado actualmente desde la app
-    return this.auth.currentUser;
-  }
 
   //LogIn con el servicio de Google
   loginConGoogle() {

@@ -85,7 +85,7 @@
   <!--?Contenedor de las imagenes de los municipios-->
 
  <div *ngFor="let tile of tilesData">
-  <img src="{{tile.img}}" alt="{{tile.alt}}">
+  <img src="{{tile.img}}" alt="{{tile.alt}}" loading="lazy">
   <h2>{{tile.title}}</h2>
  </div>
 
