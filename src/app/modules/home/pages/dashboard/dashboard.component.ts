@@ -1,11 +1,9 @@
-import { getDownloadURL, getStorage } from '@angular/fire/storage';
+import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/models/municipio-model';
-import { ref } from '@angular/fire/storage';
 import { of } from 'rxjs';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -24,43 +22,43 @@ export class DashboardComponent implements OnInit {
   admin: string = 'juanesbs2003@hotmail.com';
 
   muni: string[] = [ // Array de municipios del Huila
-    'Acevedo',
-    'Aipe',
-    'Algeciras',
-    'Altamira',
-    'Baraya',
-    'Campoalegre',
-    'Colombia',
-    'Elías',
-    'El Agrado',
-    'Garzón',
-    'Gigante',
-    'Guadalupe',
-    'Hobo',
-    'Íquira',
-    'Isnos',
-    'La Argentina',
-    'La Plata',
-    'Nátaga',
-    'Neiva',
-    'Oporapa',
-    'Paicol',
-    'Palermo',
-    'Palestina',
-    'Pital',
-    'Pitalito',
-    'Rivera',
-    'Saladoblanco',
-    'Santa María',
-    'San Agustín',
-    'Suaza',
-    'Tarqui',
-    'Tello',
-    'Teruel',
-    'Tesalia',
-    'Timaná',
-    'Villavieja',
-    'Yaguará',
+  'Acevedo',
+  'Aipe',
+  'Algeciras',
+  'Altamira',
+  'Baraya',
+  'Campoalegre',
+  'Colombia',
+  'Elías',
+  'El Agrado',
+  'Garzón',
+  'Gigante',
+  'Guadalupe',
+  'Hobo',
+  'Íquira',
+  'Isnos',
+  'La Argentina',
+  'La Plata',
+  'Nátaga',
+  'Neiva',
+  'Oporapa',
+  'Paicol',
+  'Palermo',
+  'Palestina',
+  'Pital',
+  'Pitalito',
+  'Rivera',
+  'Saladoblanco',
+  'Santa María',
+  'San Agustín',
+  'Suaza',
+  'Tarqui',
+  'Tello',
+  'Teruel',
+  'Tesalia',
+  'Timaná',
+  'Villavieja',
+  'Yaguará', // ... (tu lista de municipios)
   ];
 
   randomuni = [...this.muni]; // Copia de los municipios
@@ -69,40 +67,37 @@ export class DashboardComponent implements OnInit {
 
   width: { [klass: string]: any } | null | undefined; // Ancho de la pantalla
 
-  private async iter(): Promise<void> {
-    // Método para iterar los municipios
-    this.randomuni.sort(function () {
-      return Math.random() - 0.5;
-    }); // Ordena los municipios de forma aleatoria
-    for (let i = 0; i < this.randomuni.length; i++) {
-      const pathReference = ref(this.storage, "Banner/" + this.randomuni[i] + ".webp");
-      console.log(pathReference)
-      // Itera los municipios
+  private async fetchUrls(): Promise<string[]> {
+    // Método para obtener los URLs de las imágenes
+    const promises: Promise<string>[] = this.randomuni.map(async (municipio) => {
+      const pathReference = ref(this.storage, `Banner/${municipio}.webp`);
       try {
         const url = await getDownloadURL(pathReference);
-        this.tilesData.push({
-          // Añade los municipios al array de municipios
-          title: this.randomuni[i], // Título del municipio
-          img: url, // Imagen del municipio
-          alt: this.randomuni[i] + 'image', // Alt de la imagen
-        });
+        return url;
       } catch (error:any) {
-        if (error.code === "storage/object-not-found") {
-          console.log("file doesn't exist");
+        if (error.code === 'storage/object-not-found') {
+          console.log(`File doesn't exist for ${municipio}`);
         }
+        return ''; // Retornar una cadena vacía en caso de error
       }
-    }
-  }
+    });
 
-
-  ngAfterViewInit(): void {
-    this.iter().then(()=>{
-
-    }); // Llama al método iter
+    return Promise.all(promises);
   }
 
   ngOnInit(): void {
 
+  }
+
+  ngAfterViewInit(): void {
+    this.fetchUrls().then((urls) => {
+      // Almacenar los URLs en tilesData
+      this.tilesData = this.randomuni.map((municipio, index) => ({
+        title: municipio,
+        img: urls[index],
+        alt: `${municipio}image`,
+      }));
+    });
   }
 
   logOut(): void {
