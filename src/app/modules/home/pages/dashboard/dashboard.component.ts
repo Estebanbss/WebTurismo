@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/models/municipio-model';
 import { ref } from '@angular/fire/storage';
-import { path } from '@angular-devkit/core';
+import { of } from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -95,7 +96,9 @@ export class DashboardComponent implements OnInit {
 
 
   ngAfterViewInit(): void {
-    this.iter(); // Llama al método iter
+    this.iter().then(()=>{
+
+    }); // Llama al método iter
   }
 
   ngOnInit(): void {

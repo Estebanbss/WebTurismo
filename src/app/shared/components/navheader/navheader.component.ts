@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Unsubscribable} from "rxjs"
 import { UserService } from 'src/app/modules/auth/services/user.service';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
@@ -11,7 +10,7 @@ import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
   styleUrls: ['./navheader.component.css']
 })
 
-export class NavheaderComponent implements OnInit, OnDestroy {
+export class NavheaderComponent implements OnInit{
   expanded = false;
   expanded2 = false;
   dataUser: any;
@@ -32,20 +31,21 @@ export class NavheaderComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private userService: UserService, private router: Router, private authSubscription: Subscription){}
+  constructor(private userService: UserService, private router: Router){}
+
   logOut() {
     this.userService.cerrarSesion()
       .then(() => {
         this.router.navigate(['auth/login']);
       })
       .catch(error => console.log(error));
+
   }
 
   ngOnInit(){
 
-
     let user = this.auth.currentUser;
-     this.authSubscription = onAuthStateChanged(this.auth, (user) => {
+     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.adminButton = true;
       } else {
@@ -56,9 +56,6 @@ export class NavheaderComponent implements OnInit, OnDestroy {
 
     } ;
 
-  ngOnDestroy(){
-    this.authSubscription.unsubscribe();
-  }
 }
 
 
