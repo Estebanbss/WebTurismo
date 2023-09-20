@@ -108,7 +108,7 @@
 
   <!--?Colección de municipios-->
   <div class="relative">
-    <svg
+    <svg #arrowButtons id="left"
     class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
       height="60"
@@ -125,6 +125,8 @@
     <div
       *ngFor="let tile of tilesData"
       class="bg:min-w-[95%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px]  relative ml-3"
+      draggable="false"
+
     >
       <img
         ngSrc="{{ tile.img }}"
@@ -132,20 +134,21 @@
         height="100"
         alt="{{ tile.alt }}"
         loading="lazy"
-        class="w-full h-full object-cover filter brightness-75 rounded-2xl"
+        class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer"
         draggable="false"
+        routerLink="/municipios"
 
       />
       <h2
         class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
-        draggable="false"
+
       >
         {{ tile.title }}
       </h2>
     </div>
 
   </div>
-  <svg
+  <svg #arrowButtons id="right"
   class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
     xmlns="http://www.w3.org/2000/svg"
     height="60"

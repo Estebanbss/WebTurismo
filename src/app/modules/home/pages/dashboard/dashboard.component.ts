@@ -1,5 +1,5 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
-import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/models/municipio-model';
@@ -63,27 +63,41 @@ export class DashboardComponent implements OnInit {
   ];
 
   randomuni = [...this.muni]; // Copia de los municipios
-  isDragging = false;
+  isDragging = false; startX!: number; startScrollLeft: any; // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
 
 
-  @ViewChild("carousel") carousel!: any;
+  @ViewChild("carousel") carousel!: ElementRef;
+  @ViewChild("arrowButtons") arrowButtons!:QueryList<ElementRef>;
+
+
+
 
   @HostListener("mousedown",[ "$event" ])
 
   dragStart = (e:MouseEvent) => {
+
     this.isDragging = true;
-    this.carousel.nativeElement.classList.add("dragging");
+    this.startX = e.pageX
+    this.startScrollLeft =  this.carousel.nativeElement.scrollLeft;
   }
+
+
+
+
+
 
 
   @HostListener("mousemove",[ "$event" ])
 
   dragging = (e:MouseEvent) => {
-    if(!this.isDragging) return; // Si no se está arrastrando, no hacer nada
 
-    if(this.carousel.nativeElement.contains(e.target)){
-      this.carousel.nativeElement.scrollLeft = e.pageX;
+    if(!this.isDragging) return; // Si no se está arrastrando, no hacer nada
+    // Si se está arrastrando, calcular la posición del scroll
+    if(this.carousel.nativeElement.contains(e.target)){// Si el elemento contiene el evento
+      // Mover el scroll horizontal
+      this.carousel.nativeElement.classList.add("dragging");
+      this.carousel.nativeElement.scrollLeft = this.startScrollLeft - (e.pageX - this.startX)
    }
 
   }
@@ -120,8 +134,10 @@ export class DashboardComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-
-
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+      console.log(button.id);
+    });
 
 
     this.fetchUrls().then((urls) => {
@@ -132,6 +148,10 @@ export class DashboardComponent implements OnInit {
         alt: `${municipio}image`,
       }));
     });
+
+
+
+
 
   }
 
