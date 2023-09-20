@@ -1,9 +1,10 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/models/municipio-model';
 import { of } from 'rxjs';
+import { ButtonCarouselComponent } from '../../components/button-carousel/button-carousel.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -62,10 +63,31 @@ export class DashboardComponent implements OnInit {
   ];
 
   randomuni = [...this.muni]; // Copia de los municipios
-
+  isDragging = false;
   tilesData: Municipio[] = []; // Array de municipios
 
-  width: { [klass: string]: any } | null | undefined; // Ancho de la pantalla
+
+  @ViewChild(".carousel") carousel!: any;
+
+  @HostListener("mousedown",[ "$event" ])
+  dragStart = (e:MouseEvent) => {
+    this.isDragging = true;
+    this.carousel.nativeElement.classList.add("dragging");
+  }
+
+
+  @HostListener("mousemove",[ "$event" ])
+
+  dragging = (e:MouseEvent) => {
+    if(!this.isDragging) return; // Si no se está arrastrando, no hacer nada
+
+    if(this.carousel.nativeElement.contains(e.target)){
+      this.carousel.nativeElement.scrollLeft = e.pageX;
+   }
+
+  }
+
+
 
   private async fetchUrls(): Promise<string[]> {
     // Método para obtener los URLs de las imágenes
@@ -90,6 +112,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+
+
+
+
+
     this.fetchUrls().then((urls) => {
       // Almacenar los URLs en tilesData
       this.tilesData = this.randomuni.map((municipio, index) => ({
@@ -98,6 +125,7 @@ export class DashboardComponent implements OnInit {
         alt: `${municipio}image`,
       }));
     });
+
   }
 
   logOut(): void {

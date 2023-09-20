@@ -15,4 +15,6 @@ export class HomeService {
     return this.auth.signOut(); //Método de AngularFireAuth
   }
 
+
+
 }
