@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild("carousel") carousel!: any;
 
   @HostListener("mousedown",[ "$event" ])
+
   dragStart = (e:MouseEvent) => {
     this.isDragging = true;
     this.carousel.nativeElement.classList.add("dragging");
@@ -85,6 +86,12 @@ export class DashboardComponent implements OnInit {
       this.carousel.nativeElement.scrollLeft = e.pageX;
    }
 
+  }
+
+  @HostListener("mouseup",[ "$event" ])
+  dragStop = (e:MouseEvent) => {
+    this.isDragging = false;
+    this.carousel.nativeElement.classList.remove("dragging");
   }
 
 
