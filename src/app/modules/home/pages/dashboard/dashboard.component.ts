@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
   tilesData: Municipio[] = []; // Array de municipios
 
 
-  @ViewChild(".carousel") carousel!: any;
+  @ViewChild("carousel") carousel!: any;
 
   @HostListener("mousedown",[ "$event" ])
   dragStart = (e:MouseEvent) => {
