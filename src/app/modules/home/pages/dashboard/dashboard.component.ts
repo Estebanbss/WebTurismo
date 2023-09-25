@@ -3,8 +3,7 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener, Quer
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/models/municipio-model';
-import { of } from 'rxjs';
-import { ButtonCarouselComponent } from '../../components/button-carousel/button-carousel.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -62,17 +61,34 @@ export class DashboardComponent implements OnInit {
   'Yaguará', // ... (tu lista de municipios)
   ];
 
+  servi: string[] = [
+    "Alojamiento Urbano",
+    "Alojamiento Rural",
+    "Restaurantes",
+    "Tiendas de Café",
+    "Antojos típicos",
+    "Sitio Natural",
+    "Patrimonio Cultural",
+    "Miradores",
+    "Parques Naturales",
+    "Agencias de Viajes",
+    "Centro recreativo",
+    "Guias de Turísmo",
+    "Aventura",
+    "Agro y eco turismo",
+    "Planes o Rutas",
+    "Artesanías",
+    "Eventos",
+  ]
+
+  tilesDataCategorias: Municipio[] = []; // Array de categorías
+
   randomuni = [...this.muni]; // Copia de los municipios
   isDragging = false; startX!: number; startScrollLeft: any; // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
 
-
   @ViewChild("carousel") carousel!: ElementRef;
   @ViewChild("arrowButtons") arrowButtons!:QueryList<ElementRef>;
-
-
-
-
   @HostListener("mousedown",[ "$event" ])
 
   dragStart = (e:MouseEvent) => {
@@ -81,11 +97,6 @@ export class DashboardComponent implements OnInit {
     this.startX = e.pageX
     this.startScrollLeft =  this.carousel.nativeElement.scrollLeft;
   }
-
-
-
-
-
 
 
   @HostListener("mousemove",[ "$event" ])
@@ -148,9 +159,6 @@ export class DashboardComponent implements OnInit {
         alt: `${municipio}image`,
       }));
     });
-
-
-
 
 
   }

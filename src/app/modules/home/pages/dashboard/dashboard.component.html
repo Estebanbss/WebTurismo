@@ -97,7 +97,9 @@
 
     <!--?Div 2-->
     <div class="bg:w-full md:w-[50%]">
-      <p class="font-Work text-center bg:text-sm md:text-xl m-0 bg:mb-20 xs0:mb-10 text-gray-700">
+      <p
+        class="font-Work text-center bg:text-sm md:text-xl m-0 bg:mb-20 xs0:mb-10 text-gray-700"
+      >
         Descubre los encantos del Huila: municipios con historia, paisajes
         impresionantes y hospitalidad única. Explora nuestros destacados y vive
         una experiencia inolvidable
@@ -108,8 +110,10 @@
 
   <!--?Colección de municipios-->
   <div class="relative">
-    <svg #arrowButtons id="left"
-    class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+    <svg
+      #arrowButtons
+      id="left"
+      class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
       height="60"
       viewBox="0 -960 960 960"
@@ -118,49 +122,44 @@
       <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
     </svg>
 
-
-    <div #carousel class="carousel relative flex flex-row align-middle overflow-hidden">
-
-
     <div
-      *ngFor="let tile of tilesData"
-      class="bg:min-w-[95%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px]  relative ml-3"
-      draggable="false"
-
+      #carousel
+      class="carousel relative flex flex-row align-middle overflow-hidden"
     >
-      <img
-        ngSrc="{{ tile.img }}"
-        width="100"
-        height="100"
-        alt="{{ tile.alt }}"
-        loading="lazy"
-        class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer"
+      <div
+        *ngFor="let tile of tilesData"
+        class="bg:min-w-[95%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3"
         draggable="false"
-        routerLink="/municipios"
-
-      />
-      <h2
-        class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
-
       >
-        {{ tile.title }}
-      </h2>
+        <img
+          ngSrc="{{ tile.img }}"
+          width="100"
+          height="100"
+          alt="{{ tile.alt }}"
+          loading="lazy"
+          class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer"
+          draggable="false"
+          routerLink="/municipios"
+        />
+        <h2
+          class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
+        >
+          {{ tile.title }}
+        </h2>
+      </div>
     </div>
-
+    <svg
+      #arrowButtons
+      id="right"
+      class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
+      xmlns="http://www.w3.org/2000/svg"
+      height="60"
+      viewBox="0 -960 960 960"
+      width="60"
+    >
+      <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+    </svg>
   </div>
-  <svg #arrowButtons id="right"
-  class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
-    xmlns="http://www.w3.org/2000/svg"
-    height="60"
-    viewBox="0 -960 960 960"
-    width="60"
-  >
-    <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-  </svg>
-
-  </div>
-
-
 
   <!--?Fin Colección de municipios-->
 
@@ -171,7 +170,60 @@
 <!--?Sección de Categorias más buscadas-->
 
 <section id="Categorias" class="bg-slate-100 h-[500px] my-10 w-full mx-auto">
-  <div class="bg:w-full xl:w-[1280px]"></div>
+  <div class="bg:w-full xl:w-[1280px] mx-auto py-10">
+    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-10">Categorias más buscadas</h2>
+    <div class="relative">
+      <svg
+        #arrowButtons
+        id="left"
+        class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+        xmlns="http://www.w3.org/2000/svg"
+        height="60"
+        viewBox="0 -960 960 960"
+        width="60"
+      >
+        <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+      </svg>
+
+      <div
+        #carousel
+        class="carousel relative flex flex-row align-middle overflow-hidden"
+      >
+        <div
+          *ngFor="let tile of tilesData"
+          class="bg:min-w-[95%] bg-white rounded-xl py-10 sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3"
+          draggable="false"
+        >
+          <img
+            ngSrc="{{ tile.img }}"
+            width="100"
+            height="100"
+            alt="{{ tile.alt }}"
+            loading="lazy"
+            class="w-10 h-10 mx-auto my-auto"
+            draggable="false"
+
+          />
+          <h2
+            class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
+          >
+            {{ tile.title }}
+          </h2>
+        </div>
+      </div>
+      <svg
+        #arrowButtons
+        id="right"
+        class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
+        xmlns="http://www.w3.org/2000/svg"
+        height="60"
+        viewBox="0 -960 960 960"
+        width="60"
+      >
+        <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+      </svg>
+    </div>
+  </div>
 </section>
 
 <!--?fin Sección de Categorias más buscadas-->
