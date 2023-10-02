@@ -7,6 +7,7 @@ import { MunicipiosComponent } from './pages/municipios/municipios.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     MunicipiosComponent,
