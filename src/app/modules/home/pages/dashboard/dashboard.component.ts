@@ -2,7 +2,7 @@ import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
-import { Municipio } from 'src/app/core/models/municipio-model';
+import { Municipio } from 'src/app/core/common/municipio-model';
 
 
 @Component({
@@ -61,24 +61,75 @@ export class DashboardComponent implements OnInit {
   'Yaguará', // ... (tu lista de municipios)
   ];
 
-  servi: string[] = [
-    "Alojamiento Urbano",
-    "Alojamiento Rural",
-    "Restaurantes",
-    "Tiendas de Café",
-    "Antojos típicos",
-    "Sitio Natural",
-    "Patrimonio Cultural",
-    "Miradores",
-    "Parques Naturales",
-    "Agencias de Viajes",
-    "Centro recreativo",
-    "Guias de Turísmo",
-    "Aventura",
-    "Agro y eco turismo",
-    "Planes o Rutas",
-    "Artesanías",
-    "Eventos",
+  servi:any = [
+    {
+      "title": "Alojamiento Urbano",
+      "desc": "Sumérgete en la comodidad y el bullicio de la ciudad. Descubre alojamientos urbanos que ofrecen un refugio perfecto en medio de la vibrante vida urbana."
+    },
+    {
+      "title": "Alojamiento Rural",
+      "desc": "Escapa de la rutina en entornos rurales encantadores. Explora opciones de alojamiento en medio de la naturaleza que te permitirán desconectar y relajarte."
+    },
+    {
+      "title": "Restaurantes",
+      "desc": "Deléitate con los sabores auténticos de la región. Descubre restaurantes que te llevarán a un viaje culinario lleno de platos tradicionales y delicias locales."
+    },
+    {
+      "title": "Tiendas de Café",
+      "desc": "Explora el mundo del café en su máxima expresión. Visita tiendas de café donde podrás degustar y comprar productos locales que despertarán tus sentidos."
+    },
+    {
+      "title": "Antojos típicos",
+      "desc": "Satisface tus antojos con auténticas delicias locales. Descubre lugares donde podrás disfrutar de sabores típicos que te harán agua la boca."
+    },
+    {
+      "title": "Sitio Natural",
+      "desc": "Conéctate con la belleza de la naturaleza. Explora sitios naturales que te permitirán disfrutar de paisajes impresionantes y experiencias al aire libre."
+    },
+    {
+      "title": "Patrimonio Cultural",
+      "desc": "Sumérgete en la historia y la cultura de la región. Descubre lugares que albergan un rico patrimonio cultural que te transportará en el tiempo."
+    },
+    {
+      "title": "Miradores",
+      "desc": "Contempla panoramas espectaculares desde las alturas. Explora miradores que te ofrecen vistas impresionantes de la región."
+    },
+    {
+      "title": "Parques Naturales",
+      "desc": "Embárcate en aventuras naturales inolvidables. Visita parques naturales donde la biodiversidad y la belleza escénica te dejarán sin aliento."
+    },
+    {
+      "title": "Agencias de Viajes",
+      "desc": "Planifica tu próxima aventura con expertos en viajes. Descubre agencias de viajes que te ayudarán a diseñar la escapada perfecta."
+    },
+    {
+      "title": "Centro recreativo",
+      "desc": "Disfruta de entretenimiento y diversión en un solo lugar. Explora centros recreativos que ofrecen actividades emocionantes para toda la familia."
+    },
+    {
+      "title": "Guias de Turísmo",
+      "desc": "Descubre la región con la ayuda de expertos locales. Conoce guías de turismo que te llevarán a explorar los lugares más fascinantes."
+    },
+    {
+      "title": "Aventura",
+      "desc": "Vive emociones fuertes en la naturaleza. Explora opciones de aventura que te permitirán disfrutar de actividades al aire libre llenas de adrenalina."
+    },
+    {
+      "title": "Agro y eco turismo",
+      "desc": "Conecta con la tierra y la sostenibilidad. Descubre experiencias de agroturismo y ecoturismo que te acercarán a la naturaleza y la agricultura local."
+    },
+    {
+      "title": "Planes o Rutas",
+      "desc": "Diseña tu itinerario perfecto. Explora planes y rutas que te guiarán a través de los lugares más destacados de la región."
+    },
+    {
+      "title": "Artesanías",
+      "desc": "Descubre la creatividad local en cada detalle. Explora tiendas de artesanías que exhiben obras únicas y tradicionales de la región."
+    },
+    {
+      "title": "Eventos",
+      "desc": "Sumérgete en la vida cultural y social de la región. Descubre eventos que te ofrecen la oportunidad de disfrutar de experiencias únicas y memorables."
+    }
   ]
 
   tilesDataCategorias: Municipio[] = []; // Array de categorías
