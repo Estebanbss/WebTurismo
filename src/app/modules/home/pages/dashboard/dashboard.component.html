@@ -38,36 +38,35 @@
   </div>
 
   <!--?Contenedor de la busqueda principal-->
-  <div class="relative bg:w-[85%] xl:w-[1200px] mx-auto">
-    <label for="Search" class="sr-only"> Search </label>
-
+  <div class="relative flex flex-col bg:w-[85%] xl:w-[1200px] mx-auto">
+  <div class="relative h-12 items-center justify-center flex">
     <input
       type="text"
       id="Search"
       placeholder="¿Que buscas?"
-      class="w-full rounded-3xl border-white h-12 pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
+      class="w-full rounded-3xl border-white h-[80%] pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
     />
 
-    <span class="absolute inset-y-0 end-0 grid w-10 place-content-center mx-7">
-      <button type="button" class="text-gray-600 hover:text-gray-400">
-        <span class="sr-only">Search</span>
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="3"
-          stroke="currentColor"
-          class="bg:w-6 xl:w-8"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-          />
-        </svg>
-      </button>
-    </span>
+    <button
+      type="button"
+      class="text-gray-600 hover:text-gray-400 absolute right-0 top-[50%] translate-y-[-50%] h-[50%] mr-5 "
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="3"
+        stroke="currentColor"
+        class="w-full h-full"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+        />
+      </svg>
+    </button>
+  </div>
   </div>
 </section>
 
@@ -128,7 +127,7 @@
     >
       <div
         *ngFor="let tile of tilesData"
-        class="bg:min-w-[95%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3"
+        class="bg:min-w-[75%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3"
         draggable="false"
       >
         <img
@@ -368,7 +367,7 @@
 
 <!--?Sección Gastronomia-->
 
-<section id="Gastronomia" class="bg-white h-[800px]  w-full mx-auto mt-40 mb-20">
+<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-40 ">
   <div class="bg:w-full xl:w-[1280px] mx-auto py-10">
     <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-14">Gastronomia Huilense</h2>
     <div class="w-full relative">
@@ -390,7 +389,7 @@
 
 <!--?Sección Atractivos-->
 
-<section id="Atractivos Naturales" class="bg-white h-[500px] flex justify-center items-center  w-full mx-auto ">
+<section id="Atractivos Naturales" class="bg-white h-[700px] flex justify-center items-center  w-full mx-auto ">
   <div class="bg:w-full xl:w-[1280px] mx-auto  ">
     <h2 class="font-Blinker px-10 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
     <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium ">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
