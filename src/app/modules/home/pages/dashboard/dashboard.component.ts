@@ -1,5 +1,5 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
-import { Component, OnInit, ElementRef, Renderer2, ViewChild, HostListener, QueryList } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
@@ -14,12 +14,10 @@ export class DashboardComponent implements OnInit {
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router, // Inyecta el servicio Router
-    private el: ElementRef,
-    private renderer: Renderer2,
   ) {}
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   dataUser: any; // Variable para almacenar los datos del usuario
-  admin: string = 'juanesbs2003@hotmail.com';
+  admin: string = 'juanesbs2003@hotmail.com'; // Correo del administrador|
 
   muni: string[] = [ // Array de municipios del Huila
   'Acevedo',
@@ -174,50 +172,58 @@ export class DashboardComponent implements OnInit {
 
   private async fetchUrls(): Promise<string[]> {
     // Método para obtener los URLs de las imágenes
-    const promises: Promise<string>[] = this.randomuni.map(async (municipio) => {
-      const pathReference = ref(this.storage, `Banner/${municipio}.webp`);
-      try {
-        const url = await getDownloadURL(pathReference);
-        return url;
-      } catch (error:any) {
-        if (error.code === 'storage/object-not-found') {
-          console.log(`File doesn't exist for ${municipio}`);
-        }
+    const promises: Promise<string>[] = this.randomuni.map(async (municipio) => {// Por cada municipio
+      const pathReference = ref(this.storage, `Banner/${municipio}.webp`);// Obtener la referencia del storage
+      try {// Intentar obtener el URL
+        const url = await getDownloadURL(pathReference);// Obtener el URL
+        return url;// Retornar el URL
+      } catch (error:any) {// Si no se puede obtener el URL
+        if (error.code === 'storage/object-not-found') {// Si el error es porque no existe el archivo
+          console.log(`File doesn't exist for ${municipio}`);// Mostrar en consola que no existe el archivo
+        }// Si no es porque no existe el archivo
         return ''; // Retornar una cadena vacía en caso de error
       }
     });
 
-    return Promise.all(promises);
+    return Promise.all(promises);// Retornar los URLs
   }
 
   ngOnInit(): void {
 
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {// Después de inicializar la vista
 
-    const buttons = document.querySelectorAll("button");
-    buttons.forEach((button) => {
-      console.log(button.id);
+    const map = new Map('map').setView([51.505, -0.09],13);
+
+    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    }).addTo(map);
+
+    marker([51.505, -0.09]).addTo(map)
+
+
+    const buttons = document.querySelectorAll("button");// Obtener todos los botones
+    buttons.forEach((button) => {// Por cada botón
+      console.log(button.id);// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
     });
 
 
-    this.fetchUrls().then((urls) => {
+    this.fetchUrls().then((urls) => {// Obtener los URLs de las imágenes
       // Almacenar los URLs en tilesData
-      this.tilesData = this.randomuni.map((municipio, index) => ({
-        title: municipio,
-        img: urls[index],
-        alt: `${municipio}image`,
+      this.tilesData = this.randomuni.map((municipio, index) => ({// Por cada municipio
+        title: municipio,// Título del municipio
+        img: urls[index],// URL de la imagen
+        alt: `${municipio}image`,// Texto alternativo de la imagen
       }));
     });
 
 
   }
 
-  logOut(): void {
+  logOut(): void {// Método para cerrar sesión
     this.homeService // Cierra la sesión
-      .cerrarSesion()
-      .then(() => {
+      .cerrarSesion()// Llama al método cerrarSesion del servicio HomeService
+      .then(() => {// Si se cierra la sesión
         // Si se cierra la sesión
         this.router.navigate(['auth/login']); // Redirige al login
       })

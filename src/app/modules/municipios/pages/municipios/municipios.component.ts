@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { doc, getDoc } from "firebase/firestore";
+import { Map, marker, tileLayer } from 'leaflet';
 
 @Component({
   selector: 'app-municipios',
@@ -63,7 +63,20 @@ export class MunicipiosComponent implements OnInit{
 
 
 
+
   }
 
+  ngAfterViewInit() {
+
+    const map = new Map('map').setView([51.505, -0.09],13);
+
+    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    }).addTo(map);
+
+    marker([51.505, -0.09]).addTo(map)
+
+
+  }
 
 }
+
