@@ -3,6 +3,7 @@ import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } fro
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
+import { Map, marker, tileLayer } from 'leaflet';
 
 
 @Component({
@@ -194,12 +195,13 @@ export class DashboardComponent implements OnInit {
 
   ngAfterViewInit(): void {// Después de inicializar la vista
 
-    const map = new Map('map').setView([51.505, -0.09],13);
+
+    const map = new Map('map').setView([2.19389995105747,-75.6303756116717],13);
 
     tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
     }).addTo(map);
 
-    marker([51.505, -0.09]).addTo(map)
+    marker([2.19389995105747,-75.6303756116717]).addTo(map)
 
 
     const buttons = document.querySelectorAll("button");// Obtener todos los botones
