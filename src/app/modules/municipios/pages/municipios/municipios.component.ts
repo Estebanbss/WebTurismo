@@ -8,7 +8,11 @@ import { Map, marker, tileLayer } from 'leaflet';
 })
 export class MunicipiosComponent implements OnInit{
 
+  botonActivo: string = '';
 
+  activarBoton(boton: string) {
+    this.botonActivo = boton;
+  }
 
   constructor() {}
   muni: string[] = [ // Array de municipios del Huila
@@ -51,12 +55,41 @@ export class MunicipiosComponent implements OnInit{
   'Yaguará', // ... (tu lista de municipios)
   ];
 
+  services: string[] = [
+    "Alojamiento Urbano",
+    "Alojamiento Rural",
+    "Restaurantes",
+    "Tiendas de Café",
+    "Antojos típicos",
+    "Sitio Natural",
+    "Patrimonio Cultural",
+    "Miradores",
+    "Parques Naturales",
+    "Agencias de Viajes",
+    "Centro recreativo",
+    "Guias de Turísmo",
+    "Aventura",
+    "Agro y eco turismo",
+    "Planes o Rutas",
+    "Artesanías",
+    "Eventos"
+  ]
+
+
+
+
+
   select:string ="Garzón";
 
   turnMuni:boolean = false;
 
   expandListMuni(){
     this.turnMuni = !this.turnMuni;
+  }
+  turnServices:boolean = false;
+
+  expandListServi(){
+    this.turnServices = !this.turnServices;
   }
 
   ngOnInit(): void {

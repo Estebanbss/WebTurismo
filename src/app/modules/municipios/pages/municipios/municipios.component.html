@@ -275,6 +275,57 @@
         </div>
       </div>
     </section>
+
+    <section id="ListaMunicipio" class="">
+      <hr class="border-[0.5px] border-gray-600 mt-5 w-[95%] mx-auto" />
+      <div class="flex flex-row justify-center text-gray-600 font-Work font-normal">
+        <button    [ngClass]="{'bg-primary-500 text-white': botonActivo === 'dormir'}"
+        (click)="activarBoton('dormir')" class="border-t-0 border-2 border-r-0 active:bg-primary-500 border-gray-600   bg:px-[2px] md:px-2 py-1 bg:text-sm md:text-xl">¿Dónde dormir?</button>
+        <button   [ngClass]="{'bg-primary-500 text-white': botonActivo === 'ir'}"
+        (click)="activarBoton('ir')"  class="border-t-0 border-2 border-r-0 border-gray-600   bg:px-[2px] md:px-2 py-1 bg:text-sm md:text-xl">¿A donde ir?</button>
+        <button   [ngClass]="{'bg-primary-500 text-white': botonActivo === 'hacer'}"
+        (click)="activarBoton('hacer')" class="border-t-0 border-2 border-r-0 border-gray-600   bg:px-[2px] md:px-2 py-1 bg:text-sm md:text-xl">Cosas que hacer</button>
+        <button   [ngClass]="{'bg-primary-500 text-white': botonActivo === 'comer'}"
+        (click)="activarBoton('comer')" class="border-t-0 border-2 border-gray-600   bg:px-[2px] md:px-2 py-1 bg:text-sm md:text-xl">¿Dónde comer?</button>
+      </div>
+      <div class=" flex flex-row justify-center gap-5 ">
+        <div class="relative w-[15%] mt-5">
+          <button
+            class="flex flex-row items-center ml-5 w-[100%] border- justify-center border-gray-600 border-2 border-b-0"
+            (click)="expandListServi()"
+          >
+            <h1 class="text-gray-600 bg:text-xl md:text-xl font-black">
+              {{ select }}
+            </h1>
+            <svg
+              class="fill-gray-600"
+              xmlns="http://www.w3.org/2000/svg"
+              height="30"
+              viewBox="0 -960 960 650"
+              width="30"
+            >
+              <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z" />
+            </svg>
+          </button>
+
+          <div
+            *ngIf="turnServices"
+            class="h-[800%] w-[140%] absolute bg-white flex flex-col px-5 overflow-y-scroll cdk-global-scrollblock rounded-md"
+          >
+            <span
+              class="text-xl py-2 my-2 cursor-pointer hover:bg-slate-100"
+              *ngFor="let item of services"
+              >{{ item }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-[0.5px] border-gray-600  w-[95%] mx-auto" />
+
+    </section>
+
+
   </main>
 
   <!--?Fin contenedor principal-->
