@@ -40,6 +40,8 @@ module.exports = {
 
         xs0: "410px",
 
+        xs03: "468px",
+
         xs1: "496px",
 
 

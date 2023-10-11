@@ -11,6 +11,14 @@ import { Component, } from '@angular/core';
 export class ButtonCarouselComponent {
 
 
+  botonActivo: string = '';
+
+  activarBoton(boton: string) {
+    this.botonActivo = boton;
+  }
+  
+
+
   titles = [
     //************************************* */
     {

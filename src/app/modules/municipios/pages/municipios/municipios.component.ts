@@ -8,11 +8,61 @@ import { Map, marker, tileLayer } from 'leaflet';
 })
 export class MunicipiosComponent implements OnInit{
 
+  titles = [
+    //************************************* */
+    {
+      headingText: '¿Donde dormir?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: '¿Donde comer?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: '¿A Donde ir?',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+    {
+      headingText: 'Cosas que hacer',
+      routerlink: "/home"
+    },
+
+  //************************************* */
+
+
+  ]
+
+  selectedServices = new Set<string>();
+
+  toggleService(service: string) {
+    if (this.selectedServices.has(service)) {
+      this.selectedServices.delete(service); // Deselecciona el servicio si ya está seleccionado
+    } else {
+      this.selectedServices.add(service); // Selecciona el servicio si no está en el conjunto
+    }
+  }
+  clearSelectedServices() {
+    this.selectedServices.clear();
+  }
+
   botonActivo: string = '';
 
   activarBoton(boton: string) {
     this.botonActivo = boton;
   }
+
+  clearBotonActivo() {
+    this.botonActivo = '';
+   }
 
   constructor() {}
   muni: string[] = [ // Array de municipios del Huila
