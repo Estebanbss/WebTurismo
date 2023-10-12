@@ -62,9 +62,9 @@
             (click)="expandListMuni()"
           >
           <!--!Icono de filtros de municipios-->
-            <h1 class="text-white bg:text-2xl md:text-4xl font-black">
+            <h2 class="text-white bg:text-2xl md:text-4xl font-black">
               {{ select }}
-            </h1>
+            </h2>
             <svg
               class="fill-white"
               xmlns="http://www.w3.org/2000/svg"
@@ -383,9 +383,9 @@
                   class="w-[30px]"
                   src="../../../assets/img/bed.svg"
                 />
-                <h1 class="justify-center mb-0 text">
+                <h3 class="justify-center mb-0 text">
                   {{ title.headingText }}
-                </h1>
+                </h3>
               </button>
             </div>
           </div>
@@ -509,13 +509,34 @@
     <section id="ListadosMunicipios" class="">
 
       <div class="flex flex-col my-5 gap-5">
-        <div class="w-full relative h-[400px] bg-white rounded-lg drop-shadow-xl mb-5 flex flex-row">
-          <div class="relative">
-            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/68/f3/06/relax-in-our-historical.jpg?w=500&h=400&s=1" class="rounded-lg">
-            <button class="absolute bottom-2 right-2 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-              <svg class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
-            </button>
+        <!--*Sección de imagen-->
+        <div class="w-full relative md:h-[400px]  px-4 gap-5 bg-white rounded-lg drop-shadow-xl mb-5 flex bg:flex-col md:flex-row">
+
+          <!--!Div principal imagen-->
+          <div class=" md2:min-w-[500px] relative">
+              <!--*imagen-->
+              <div class="relative max-w-[500px] mx-auto">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/05/68/f3/06/relax-in-our-historical.jpg?w=500&h=400&s=1" class="rounded-lg">
+                <!--*Boton de guardar-->
+             <button id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+               <svg class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+             </button>
+              <!--*Boton de me gusta-->
+             <button id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+               <svg class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+             </button>
+              </div>
+
           </div>
+          <!--!Div secundario información-->
+
+          <div class="relative flex flex-col w-full h-[400px] py-5">
+            <span class="font-light font-Blinker text-2xl text-primary-500">01.</span>
+            <h4 class="font-bold font-Blinker text-3xl text-gray-800 leading-7">Cascada la cascadosa</h4>
+            <h5 class="flex flex-row text-lg font-work font-semibold items-center text-gray-500 fill-gray-500"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>Garzón Huila, Alemania</h5>
+
+          </div>
+
 
         <div>
 
