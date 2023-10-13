@@ -22,36 +22,7 @@
     <!--!Contenedor de la busqueda principal-->
     <div class="relative flex flex-col bg:w-[85%] xl:w-[1200px] mx-auto">
       <!--!Contenedor de la busqueda principal-->
-      <div class="relative h-12 items-center justify-center flex">
-        <!--!Input de busqueda-->
-        <input
-          type="text"
-          id="Search"
-          placeholder="¿Que buscas?"
-          class="w-full rounded-3xl border-white h-[80%] pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
-        />
-        <!--!Boton de busqueda-->
-        <button
-          type="button"
-          class="text-gray-600 hover:text-gray-400 absolute right-0 top-[50%] translate-y-[-50%] h-[50%] mr-5"
-        >
-        <!--!Icono de busqueda-->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="3"
-            stroke="currentColor"
-            class="w-full h-full"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
-      </div>
+
       <!--!Contenedor de los filtros-->
       <div class="relative w-full flex flex-row">
         <!--!Contenedor de los filtros-->
@@ -334,7 +305,7 @@
     <section id="InfoListaMunicipio" class="">
       <!--!Contenedor de los botones de los servicios-->
       <div
-        class="w-full bg-white drop-shadow-xl h-20 items-center justify-center flex"
+        class="w-full  bg-white drop-shadow-xl h-36 items-center justify-center flex flex-col gap-5"
       >
       <!--!titulo de la sección lista de municipios "explora por ti mismo"-->
         <h2
@@ -342,6 +313,37 @@
         >
           Explora por ti mismo
         </h2>
+
+        <div class="relative w-[80%] h-12 items-center justify-center flex">
+          <!--!Input de busqueda-->
+          <input
+            type="text"
+            id="Search"
+            placeholder="¿Que buscas?"
+            class="w-full border-2 border-gray-300 rounded-3xl  h-[80%] pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-sm font-Work"
+          />
+          <!--!Boton de busqueda-->
+          <button
+            type="button"
+            class="text-gray-600 hover:text-gray-400 absolute right-0 top-[50%] translate-y-[-50%] h-[50%] mr-5"
+          >
+          <!--!Icono de busqueda-->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="3"
+              stroke="currentColor"
+              class="w-full h-full"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <!--!Contenedor de los botones de los servicios-->
       <div
@@ -461,7 +463,7 @@
           </button>
 
           <button
-            *ngFor="let item of servicesEAT"
+            *ngFor="let item of servicesDO"
             class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
             [ngClass]="{
               'bg-primary-500 text-white border-primary-500':
@@ -536,7 +538,6 @@
             <h5 class="flex flex-row text-lg font-work font-semibold items-center text-gray-500 fill-gray-500"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>Garzón Huila, Alemania</h5>
 
           </div>
-
 
         <div>
 
