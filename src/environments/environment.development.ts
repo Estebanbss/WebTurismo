@@ -1,9 +1,11 @@
 export const environment = {
   firebase: {
-    projectId: 'centurhuila-b9e47',
-    appId: '1:51926987535:android:309d900fa9d99f3a01c47a',
-    storageBucket: 'centurhuila-b9e47.appspot.com',
-    apiKey: 'AIzaSyCNtspEd7b-OB0G4rgueYrNjlDsLoBRHLs',
-    authDomain: 'centurhuila-b9e47.firebaseapp.com',
-    messagingSenderId: '51926987535',
+    apiKey: "AIzaSyCNtspEd7b-OB0G4rgueYrNjlDsLoBRHLs",
+    authDomain: "centurhuila-b9e47.firebaseapp.com",
+    databaseURL: "https://centurhuila-b9e47.firebaseio.com",
+    projectId: "centurhuila-b9e47",
+    storageBucket: "centurhuila-b9e47.appspot.com",
+    messagingSenderId: "51926987535",
+    appId: "1:51926987535:web:15d603eaee884a7801c47a",
+    measurementId: "G-WLKL8STB8G"
   },};

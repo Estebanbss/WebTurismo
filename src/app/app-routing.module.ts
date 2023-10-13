@@ -8,7 +8,7 @@ const routes: Routes = [
 
   { path: "home", canActivateChild:[authGuard], loadChildren:() => import("./modules/home/home.module").then((m) => m.HomeModule)},
 
-  { path: "admin-home", loadChildren:() => import("./modules/admin-home/admin-home.module").then((m) => m.AdminHomeModule)},
+  { path: "dashboard-admin", loadChildren: () => import('./modules/dashboard-admin/dashboard-admin.module').then( m => m.DashboardAdminModule )},
 
   { path: "municipios", loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
 
