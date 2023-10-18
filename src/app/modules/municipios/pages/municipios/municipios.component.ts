@@ -20,6 +20,9 @@ export class MunicipiosComponent implements OnInit {
   //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
   municipios: Municipio[] = [];
 
+  //? -> Objeto que se va a mostrar en el html
+  municipio: Municipio;
+
   titles = [
     //************************************* */
     {
@@ -80,6 +83,35 @@ export class MunicipiosComponent implements OnInit {
     private mostrarMunicipioService: MostrarMunicipioService,
   ) {
     this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
+
+    //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
+    this.municipio = {
+      //id -> Nos lo da firebase
+      name: '',
+      zona: '',
+      descripcion: '',
+      poblacion: '',
+      gentilicio: '',
+      clima: '',
+      servicios: '',
+      fiestasEventos: '',
+      hechosHistoricos: '',
+      sitioWeb: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      youtube: '',
+      latitud: 0,
+      longitud: 0,
+      googleMaps: '',
+      pathImages: [], // -> lo conseguimos en la inserción de imágenes
+      meGusta: 0, // -> # de Me gustas en la App
+      pathImagePortada: {
+        path: '',
+        url: ''
+      }
+    }
+
    }// Constructor
 
   muni: string[] = [ // Array de municipios del Huila
@@ -208,12 +240,14 @@ export class MunicipiosComponent implements OnInit {
       //console.log(this.municipios);
     })
 
-    //TODO: Disparar el método para filtrar municipio con que podamos escoger sólo el municipio que queremos mostrar.
+    //TODO: Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
   }
 
   //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
   filtrarMunicipio() {
-
+    //this.nombreMunicipio -> Nombre del municipio por el que vamos a buscar
+    //this.municipios -> Arreglo de objetos de tipo Municipio
+    //this.municipio -> Objeto de tipo Municipio para almacenar sólo el elemento que quiero mostrar en el html
   }
 
 }
