@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
+import { Observable } from 'rxjs';
+import { HomeService } from 'src/app/modules/home/services/home.service';
 
 @Component({
   selector: 'app-municipios',
@@ -7,6 +9,11 @@ import { Map, marker, tileLayer } from 'leaflet';
   styleUrls: ['./municipios.component.css']
 })
 export class MunicipiosComponent implements OnInit {
+
+  //? Observable con el que vamos a recibir la información compartida desde el componente listar
+  private nombreMunicipio$: Observable<string>;
+
+  nombreMunicipio!: string; //? Almacena el nombre del municipio que trae el observable.
 
   titles = [
     //************************************* */
@@ -63,7 +70,11 @@ export class MunicipiosComponent implements OnInit {
     this.botonActivo = '';// Limpia la variable
   }
 
-  constructor() { }// Constructor
+  constructor(
+    private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
+  ) {
+    this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
+   }// Constructor
 
   muni: string[] = [ // Array de municipios del Huila
     'Acevedo',
@@ -159,7 +170,8 @@ export class MunicipiosComponent implements OnInit {
   }
 
   ngOnInit(): void {// Función que se ejecuta al iniciar el componente
-
+    //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente.
+    this.recibirInformacion();
   }
 
   ngAfterViewInit() {// Función que se ejecuta después de cargar la vista
@@ -172,6 +184,17 @@ export class MunicipiosComponent implements OnInit {
 
     marker([51.505, -0.09]).addTo(map)// Agrega un marcador
 
+  }
+
+  //? Método para recibir los datos por medio del observable
+  recibirInformacion() {
+    //Primero nos suscribimos a nuestro observable para obtener los datos del elemento que queremos
+    this.nombreMunicipio$.subscribe((municipio) => {
+      //Pasamos los datos del Observable a nuestra propiedad nativa para mejor manipulación de datos
+      this.nombreMunicipio = municipio;
+    })
+
+    console.log(this.nombreMunicipio);
   }
 
 }

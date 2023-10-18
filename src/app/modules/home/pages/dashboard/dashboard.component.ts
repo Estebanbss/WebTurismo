@@ -222,6 +222,17 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  //? Creamos un método para obtener el nombre del elemento seleccionado a la hora de hacer click sobre la imágen, y a su vez de enviar la información al componente al que vamos a redireccionar la vista.
+  enviarInformacion(municipio: any) {
+    //* Primero obtenemos el elemento que queremos.
+    //console.log(municipio);
+    /*
+    routerLink="/municipios"
+    */
+    this.homeService.sendHomeMunicipioData = municipio; //*Enviamos el municipio seleccionado por medio de observables.
+    this.router.navigate(['/municipios']); //*Redireccionamos al componente donde enviamos el elemento.
+  }
+
   logOut(): void {// Método para cerrar sesión
     this.homeService // Cierra la sesión
       .cerrarSesion()// Llama al método cerrarSesion del servicio HomeService
