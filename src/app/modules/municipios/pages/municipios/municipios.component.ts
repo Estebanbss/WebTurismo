@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/modules/home/services/home.service';
+import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';
+import { Municipio } from 'src/app/core/common/place.interface';
 
 @Component({
   selector: 'app-municipios',
@@ -14,6 +16,9 @@ export class MunicipiosComponent implements OnInit {
   private nombreMunicipio$: Observable<string>;
 
   nombreMunicipio!: string; //? Almacena el nombre del municipio que trae el observable.
+
+  //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
+  municipios: Municipio[] = [];
 
   titles = [
     //************************************* */
@@ -72,6 +77,7 @@ export class MunicipiosComponent implements OnInit {
 
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
+    private mostrarMunicipioService: MostrarMunicipioService,
   ) {
     this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
    }// Constructor
@@ -170,7 +176,7 @@ export class MunicipiosComponent implements OnInit {
   }
 
   ngOnInit(): void {// Función que se ejecuta al iniciar el componente
-    //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente.
+    //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
     this.recibirInformacion();
   }
 
@@ -186,15 +192,28 @@ export class MunicipiosComponent implements OnInit {
 
   }
 
-  //? Método para recibir los datos por medio del observable
+  //? Método para recibir los datos del observable y de la BD
   recibirInformacion() {
-    //Primero nos suscribimos a nuestro observable para obtener los datos del elemento que queremos
+    //*Primero nos suscribimos a nuestro observable para obtener los datos del elemento que queremos
     this.nombreMunicipio$.subscribe((municipio) => {
-      //Pasamos los datos del Observable a nuestra propiedad nativa para mejor manipulación de datos
+      //Pasamos el dato del Observable a nuestra propiedad nativa para mejor manipulación de datos
       this.nombreMunicipio = municipio;
     })
+    //console.log(this.nombreMunicipio);
+    //* Llamamos a nuestros datos de los municipios desde la BD
+    //* -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
+    this.mostrarMunicipioService.obtenerMunicipios().subscribe(data => {
+      // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
+      this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
+      //console.log(this.municipios);
+    })
 
-    console.log(this.nombreMunicipio);
+    //TODO: Disparar el método para filtrar municipio con que podamos escoger sólo el municipio que queremos mostrar.
+  }
+
+  //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
+  filtrarMunicipio() {
+
   }
 
 }
