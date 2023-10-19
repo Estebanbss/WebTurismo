@@ -21,7 +21,7 @@ export class MunicipiosComponent implements OnInit {
   municipios: Municipio[] = [];
 
   //? -> Objeto que se va a mostrar en el html
-  municipio: Municipio;
+  municipio: any;
 
   titles = [
     //************************************* */
@@ -238,9 +238,9 @@ export class MunicipiosComponent implements OnInit {
       // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
       this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
       //console.log(this.municipios);
+      //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
+      this.filtrarMunicipio(); //El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
     })
-
-    //TODO: Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
   }
 
   //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
@@ -248,7 +248,56 @@ export class MunicipiosComponent implements OnInit {
     //this.nombreMunicipio -> Nombre del municipio por el que vamos a buscar
     //this.municipios -> Arreglo de objetos de tipo Municipio
     //this.municipio -> Objeto de tipo Municipio para almacenar sólo el elemento que quiero mostrar en el html
-  }
+    // console.log(this.nombreMunicipio);
+    // console.log(this.municipios);
+    // console.log(this.municipio);
+
+    this.municipio = this.municipios.filter((municipio) => {
+
+      //* Hacemos el proceso de quitar espacios, tíldes, caracteres especiales y colocar todo en minúscula antes de hacer la comparación.
+      this.nombreMunicipio = this.nombreMunicipio.trim();
+      let nameMunicipio = municipio.name.trim(); // Quitamos espacios
+      //Filtro para quitar tíldes y caracteres especiales
+      function quitarTildes(str: any) {
+        return str
+          .replace(/[áäâà]/g, 'a')
+          .replace(/[éëêè]/g, 'e')
+          .replace(/[íïîì]/g, 'i')
+          .replace(/[óöôò]/g, 'o')
+          .replace(/[úüûù]/g, 'u')
+          .replace(/[ñ]/g, 'n')
+          .replace(/[ç]/g, 'c');
+      }
+      nameMunicipio = quitarTildes(nameMunicipio.toLowerCase()); // Convertir a minuscula y quitar tildes
+      this.nombreMunicipio = quitarTildes(this.nombreMunicipio.toLowerCase());
+
+      // console.log(nameMunicipio);
+      // console.log(this.nombreMunicipio);
+
+      //Comparación
+      if (this.nombreMunicipio.localeCompare(nameMunicipio) === 0) {
+        return true; //Retornamos el caso de éxito para filter(), se incluye el elemento actual
+      }
+
+      return false;
+
+    });
+
+    //* Validación en caso de que el municipio elejido no exísta(Improbable), es necesario mostrar algo.
+    // console.log(this.municipio.length);
+    // console.log(this.municipio);
+    if(this.municipio.length === 0) { //Si está vacío
+      console.log('Si está ingresando');
+      this.municipios.forEach((muni) => {
+        //console.log(muni);
+        let nameMuni = muni.name.trim();
+        if(nameMuni === 'Garzón' || nameMuni === 'garzón' ) {
+          this.municipio.push(muni);
+        }
+      })
+    }
+    //console.log(this.municipio); //Objeto que retrona con todos los valores
+  } //? -> Fin Método filtrar Municipio
 
 }
 
