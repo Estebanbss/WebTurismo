@@ -64,7 +64,7 @@
           class="ml-auto text-white bg:text-2xl md:text-4xl font-Blinker mr-5 flex items-center font-black"
         >
         <!--!Icono de filtros temperatura-->
-          <span role="weather">20 C°</span>
+          <span *ngIf="municipio !== undefined" role="weather">{{municipio.clima}}</span>
           <img
             class="bg:w-7 md:w-10"
             alt="weatherimg"
@@ -101,14 +101,8 @@
           >
             Descripción
           </h2>
-          <p class="text-lg font-Work">
-            Garzón se basa gran parte de su economía en la actividad
-            agropecuaria, predominando el sector agrícola y la producción de
-            café especial. Otros renglones como el ecoturismo y turismo
-            religioso son importantes para la economía municipal. Es conocida
-            como la Capital Diocesana del Huila por ser la primera diócesis
-            católica de la región de la cual se crearon las actuales; también
-            tiene como apelativo: "Alma del Huila o Garzoncito"
+          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+            {{municipio.descripcion}}
           </p>
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de las fiestas del municipio-->
@@ -117,13 +111,15 @@
           >
             Fiestas y eventos
           </h2>
-
-          <span class="text-lg font-Work">*Festival de las Brujas.</span>
+          <div *ngIf="municipio !== undefined">
+            <span class="text-lg font-Work">{{municipio.fiestasEventos}}</span>
+          </div>
+          <!--
           <span class="text-lg font-Work">
             *Festival y Reinado popular y departamental de la Alegría y el
-            Folclor.</span
-          >
+            Folclor.</span>
           <span class="text-lg font-Work">*Evento Travesía del Agua.</span>
+          -->
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de los hechos historicos del municipio-->
           <h2
@@ -131,13 +127,8 @@
           >
             Hechos historicos
           </h2>
-          <p class="text-lg font-Work">
-            Históricamente comienzan a aparecer datos sobre esta región desde el
-            año 1628, cuando en el sitio donde hoy se levanta la ciudad de
-            Garzón funcionaba un centro para el adoctrinamiento indígena de la
-            nación Tama; el sitio era conocido con el nombre de Garzoncito. Se
-            hallaba ubicado en la hacienda El Vegón. Sus primeros pobladores
-            eran indígenas de las tribus Tamas y Andaquíes.
+          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+            {{municipio.hechosHistoricos}}
           </p>
         </div>
         <!--!Contenedor de la imagen del municipio-->
@@ -167,7 +158,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="http://paginaweb.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.sitioWeb}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de web-->

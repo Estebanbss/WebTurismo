@@ -20,8 +20,19 @@ export class MunicipiosComponent implements OnInit {
   //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
   municipios: Municipio[] = [];
 
-  //? -> Objeto que se va a mostrar en el html
+  //? -> Arrelgo para filtrado que se va a mostrar en el html
+  arrayMunicipio: any;
+
+  //? -> Objeto de tipo municipio que vamos a mostrar
   municipio: any;
+
+  // set setMunicipio(value: any) {
+  //   this.municipio = value;
+  //   if (this.municipio) {
+  //     this.cargarMapa();
+  //   }
+  // }
+
 
   titles = [
     //************************************* */
@@ -85,7 +96,7 @@ export class MunicipiosComponent implements OnInit {
     this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
 
     //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
-    this.municipio = {
+    this.arrayMunicipio = {
       //id -> Nos lo da firebase
       name: '',
       zona: '',
@@ -212,17 +223,19 @@ export class MunicipiosComponent implements OnInit {
     this.recibirInformacion();
   }
 
-  ngAfterViewInit() {// Función que se ejecuta después de cargar la vista
+  // ngAfterViewChecked() {// Función que se ejecuta después de cargar la vista
 
-    const map = new Map('map').setView([51.505, -0.09], 13);// Crea el mapa
+  //   if(this.municipio !== undefined) {
+  //     const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
+  //     // Agrega la capa de mapa
+  //     tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+  //     }).addTo(map);// Agrega la capa de mapa
 
-    // Agrega la capa de mapa
-    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    }).addTo(map);// Agrega la capa de mapa
+  //     marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
+  //   }
 
-    marker([51.505, -0.09]).addTo(map)// Agrega un marcador
 
-  }
+  // }
 
   //? Método para recibir los datos del observable y de la BD
   recibirInformacion() {
@@ -252,7 +265,7 @@ export class MunicipiosComponent implements OnInit {
     // console.log(this.municipios);
     // console.log(this.municipio);
 
-    this.municipio = this.municipios.filter((municipio) => {
+    this.arrayMunicipio = this.municipios.filter((municipio) => {
 
       //* Hacemos el proceso de quitar espacios, tíldes, caracteres especiales y colocar todo en minúscula antes de hacer la comparación.
       this.nombreMunicipio = this.nombreMunicipio.trim();
@@ -286,18 +299,44 @@ export class MunicipiosComponent implements OnInit {
     //* Validación en caso de que el municipio elejido no exísta(Improbable), es necesario mostrar algo.
     // console.log(this.municipio.length);
     // console.log(this.municipio);
-    if(this.municipio.length === 0) { //Si está vacío
+    if(this.arrayMunicipio.length === 0) { //Si está vacío
       console.log('Si está ingresando');
       this.municipios.forEach((muni) => {
         //console.log(muni);
         let nameMuni = muni.name.trim();
         if(nameMuni === 'Garzón' || nameMuni === 'garzón' ) {
-          this.municipio.push(muni);
+          this.arrayMunicipio.push(muni);
         }
       })
     }
+
+    this.municipio = this.arrayMunicipio[0];
+
+    // //*Mapa
+    // if(this.municipio !== undefined) {
+    //   const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
+    //   // Agrega la capa de mapa
+    //   tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    //   }).addTo(map);// Agrega la capa de mapa
+
+    //   marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
+    // }
+
     //console.log(this.municipio); //Objeto que retrona con todos los valores
   } //? -> Fin Método filtrar Municipio
+
+  // cargarMapa() {
+  //   //*Mapa
+  //   if(this.municipio !== undefined) {
+  //     const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
+  //     // Agrega la capa de mapa
+  //     tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+  //     }).addTo(map);// Agrega la capa de mapa
+
+  //     marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
+  //   }
+  // }
+
 
 }
 
