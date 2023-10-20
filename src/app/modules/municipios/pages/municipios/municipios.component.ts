@@ -30,21 +30,22 @@ export class MunicipiosComponent implements OnInit {
   private nombreMunicipioSubscription!: Subscription;
   private municipiosSubscription!: Subscription;
 
-  set setMunicipios(value: any) {
-    this.municipios = value;
-    if (this.municipios) {
-      this.nombreMunicipioSubscription.unsubscribe();
-      this.municipiosSubscription.unsubscribe();
-      this.filtrarMunicipio();
-    }
-  }
+  // latitud: number = 2.204537221801455;
+  // longitud: number = -75.62682422721537;
 
-  set setMunicipio(value: any) {
-    this.municipio = value;
-    if (this.municipio) {
-      this.cargarMapa();
-    }
-  }
+  // set setMunicipios(value: any) {
+  //   this.municipios = value;
+  //   // if (this.municipios) {
+
+  //   // }
+  // }
+
+  // set setMunicipio(value: any) {
+  //   this.municipio = value;
+  //   if (this.municipio) {
+  //     //this.cargarMapa();
+  //   }
+  // }
 
 
   titles = [
@@ -234,30 +235,8 @@ export class MunicipiosComponent implements OnInit {
   ngOnInit(): void {// Función que se ejecuta al iniciar el componente
     //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
     this.recibirInformacion();
-    //*Mapa
-
-    // const map = new Map('map').setView([2.204537221801455, -75.62682422721537], 13);// Crea el mapa
-    // // Agrega la capa de mapa
-    // tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    // }).addTo(map);// Agrega la capa de mapa
-
-    // marker([2.204537221801455, -75.62682422721537]).addTo(map)// Agrega un marcador
-
   }
 
-  // ngAfterViewChecked() {// Función que se ejecuta después de cargar la vista
-
-  //   if(this.municipio !== undefined) {
-  //     const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
-  //     // Agrega la capa de mapa
-  //     tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-  //     }).addTo(map);// Agrega la capa de mapa
-
-  //     marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
-  //   }
-
-
-  // }
 
   //? Método para recibir los datos del observable y de la BD
   recibirInformacion() {
@@ -271,8 +250,16 @@ export class MunicipiosComponent implements OnInit {
     //* -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
     this.municipiosSubscription = this.mostrarMunicipioService.obtenerMunicipios().subscribe(data => {
       // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
-      this.setMunicipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
+      this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
       //console.log(this.municipios);
+      if(this.municipios) {
+        this.nombreMunicipioSubscription.unsubscribe();
+        this.municipiosSubscription.unsubscribe();
+        // console.log(this.nombreMunicipioSubscription.closed);
+        // console.log(this.municipiosSubscription.closed);
+        // console.log(this.municipios);
+        this.filtrarMunicipio();
+      }
       //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
       //this.filtrarMunicipio(); //El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
     })
@@ -322,7 +309,7 @@ export class MunicipiosComponent implements OnInit {
     // console.log(this.municipio.length);
     // console.log(this.municipio);
     if(this.arrayMunicipio.length === 0) { //Si está vacío
-      console.log('Si está ingresando');
+      console.log('Está ingresando a un municipio que no exíste');
       this.municipios.forEach((muni) => {
         //console.log(muni);
         let nameMuni = muni.name.trim();
@@ -332,31 +319,26 @@ export class MunicipiosComponent implements OnInit {
       })
     }
 
-    this.setMunicipio = this.arrayMunicipio[0];
+    this.municipio = this.arrayMunicipio[0];
 
-    // //*Mapa
-    // if(this.municipio !== undefined) {
-    //   const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
-    //   // Agrega la capa de mapa
-    //   tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    //   }).addTo(map);// Agrega la capa de mapa
+    // console.log(this.municipio);
 
-    //   marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
-    // }
+    // console.log(this.municipio.latitud);
+    // console.log(this.municipio.longitud);
 
+    //*Mapa
+    this.cargarMapa();
     //console.log(this.municipio); //Objeto que retrona con todos los valores
   } //? -> Fin Método filtrar Municipio
 
   cargarMapa() {
     //*Mapa
-    if(this.municipio !== undefined) {
-      const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
-      // Agrega la capa de mapa
-      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-      }).addTo(map);// Agrega la capa de mapa
+    const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
+    // Agrega la capa de mapa
+    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    }).addTo(map);// Agrega la capa de mapa
 
-      marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
-    }
+    marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
   }
 
 
