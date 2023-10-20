@@ -9,7 +9,8 @@
 
   <section
     id="Banner"
-    class="bg-[url(https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FGarz%C3%B3n.webp?alt=media&token=a5a26d25-f840-4d9f-b547-dcb1976190a3&_gl=1*1j1fqzg*_ga*NDA2NDgyOTM3LjE2ODY3NDgyNjA.*_ga_CW55HF8NVT*MTY5NjM0NTk4OS40OS4xLjE2OTYzNDYxMDEuMzAuMC4w)] -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    class=" -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    style="background-image:url('{{municipio.pathImagePortada.url}}')"
   >
     <!--!Contenedor del titulo principal-->
     <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl"></div>
@@ -177,7 +178,8 @@
                 ><!--!red de web-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://web.facebook.com/?locale=es_LA&_rdc=1&_rdr"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.facebook}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de facebook-->
@@ -201,7 +203,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="https://www.google.com/maps/@41.8951431,12.5368628,12.13z?entry=ttu"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.googleMaps}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de maps-->
@@ -219,7 +222,8 @@
                 ><!--!red de maps-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://www.instagram.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.instagram}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >
@@ -244,7 +248,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="https://twitter.com/?lang=en"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.twitter}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >
@@ -264,7 +269,8 @@
                 <!--!red de twitter-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://www.youtube.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.youtube}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >

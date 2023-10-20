@@ -258,11 +258,11 @@ export class MunicipiosComponent implements OnInit {
         // console.log(this.nombreMunicipioSubscription.closed);
         // console.log(this.municipiosSubscription.closed);
         // console.log(this.municipios);
-        this.filtrarMunicipio();
+        //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
+        this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
       }
-      //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
-      //this.filtrarMunicipio(); //El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
     })
+
   }
 
   //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
@@ -319,6 +319,7 @@ export class MunicipiosComponent implements OnInit {
       })
     }
 
+    //* Atrapamos el objeto que queremos mostrar
     this.municipio = this.arrayMunicipio[0];
 
     // console.log(this.municipio);
@@ -326,7 +327,7 @@ export class MunicipiosComponent implements OnInit {
     // console.log(this.municipio.latitud);
     // console.log(this.municipio.longitud);
 
-    //*Mapa
+    //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
     this.cargarMapa();
     //console.log(this.municipio); //Objeto que retrona con todos los valores
   } //? -> Fin Método filtrar Municipio
