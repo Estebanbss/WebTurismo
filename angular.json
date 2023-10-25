@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/",
+            "baseHref": "https://estebanbss.github.io/WebTurismo/",
             "outputPath": "dist/login-firebase",
             "index": "src/index.html",
             "main": "src/main.ts",
