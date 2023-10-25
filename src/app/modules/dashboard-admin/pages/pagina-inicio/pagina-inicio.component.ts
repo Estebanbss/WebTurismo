@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-inicio',
@@ -8,13 +9,24 @@ import { PrestadoresService } from 'src/app/core/services/prestadores.service';
   styleUrls: ['./pagina-inicio.component.css']
 })
 export class PaginaInicioComponent implements OnInit {
+
   public cerrado: boolean = false;
   modalsuichtodo!:boolean;
   modaldata!:boolean;
 
   warningAll!:boolean;
+  url = "";
 
-  botonActivo:string = ""; // Variable para guardar el botón activo
+  getLinkActivo(){
+
+   this.router.url === '/dashboard-admin/pagina-inicio/list-prestadores-turisticos' ?    this.url = "uno" : this.router.url === '/dashboard-admin/pagina-inicio/list-atractivo-turistico' ?    this.url = "dos" : this.router.url === '/dashboard-admin/pagina-inicio/list-municipio' ?    this.url = "tres" : this.router.url === '/dashboard-admin/pagina-inicio/list-rutas-turisticas' ?    this.url = "cuatro" :    this.url = "cinco";
+    console.log(this.url)
+   return console.log("ok")
+
+  }
+
+
+  botonActivo:string = this.url; // Variable para guardar el botón activo
 
   activarBoton(boton: string) {// Función para activar el botón seleccionado
     this.botonActivo = boton;// Guarda el botón seleccionado en la variable
@@ -47,7 +59,7 @@ export class PaginaInicioComponent implements OnInit {
 
   DescargarArchivo(){
         // URL del archivo que deseas descargar
-        const url = 'https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/ManualDeUsuario%2FFormato.xlsx?alt=media&token=a5cd4d6c-bec4-416c-a4ca-1860633d1fd3&_gl=1*ywew72*_ga*NDA2NDgyOTM3LjE2ODY3NDgyNjA.*_ga_CW55HF8NVT*MTY5Njg4ODYzNy41MC4xLjE2OTY4ODg2NzcuMjAuMC4w';
+        const url = 'https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/ManualDeUsuario%2FFormato.xlsx?alt=media&token=389d8ec6-d252-4c36-a13d-7a6dc8485977&_gl=1*nrb8qa*_ga*NDA2NDgyOTM3LjE2ODY3NDgyNjA.*_ga_CW55HF8NVT*MTY5NzgzNDM2MS42MS4xLjE2OTc4MzUxNjUuMTkuMC4w';
 
         // Abre la URL en una nueva pestaña para forzar la descarga
         window.open(url, '_blank');
@@ -69,7 +81,7 @@ export class PaginaInicioComponent implements OnInit {
     this.cerrado == false ? this.cerrado = true : this.cerrado = false;
   }
   constructor(  private prestadoresService: PrestadoresService, // Inyectamos el servicio
-  private modalService: ModalServiceService){
+  private modalService: ModalServiceService, private router: Router){
 
   }
   ngOnInit(): void {
@@ -86,6 +98,8 @@ export class PaginaInicioComponent implements OnInit {
       this.modaldata = value;
     });
 
+    this.getLinkActivo();
+    this.botonActivo = this.url;
 
 
   }
