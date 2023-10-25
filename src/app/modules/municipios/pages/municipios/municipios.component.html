@@ -58,6 +58,7 @@
             <span
               class="text-xl py-2 my-2 cursor-pointer hover:bg-slate-100"
               *ngFor="let item of muni"
+              (click)="cambiarMunicipio(item)"
               >{{ item }}</span
             >
           </div>

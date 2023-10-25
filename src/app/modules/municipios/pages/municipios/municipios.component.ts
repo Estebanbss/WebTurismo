@@ -13,10 +13,12 @@ import { Subscription } from 'rxjs';
 })
 export class MunicipiosComponent implements OnInit {
 
+  map!: Map;
+
   //? Observable con el que vamos a recibir la información compartida desde el componente listar
   private nombreMunicipio$: Observable<string>;
 
-  nombreMunicipio!: string; //? Almacena el nombre del municipio que trae el observable.
+  nombreMunicipio!: string; //? Almacena el nombre del municipio que se quiere mostrar.
 
   //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
   municipios: Municipio[] = [];
@@ -347,15 +349,35 @@ export class MunicipiosComponent implements OnInit {
 
   //?- Método para cargar el Mapa
   cargarMapa() {
-    //*Mapa
-    const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
-    // Agrega la capa de mapa
-    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    }).addTo(map);// Agrega la capa de mapa
+    if (!this.map) { // Verificar si el mapa ya está inicializado
+      this.map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);
 
-    marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
-  } //? -> Fin Método Cargar Mapa
+      // Agregar capa de tiles
+      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      }).addTo(this.map);
 
+      // Agregar un marcador
+      marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
+        .bindPopup(this.municipio.name)
+        .openPopup();
+    } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
+      this.map.setView([this.municipio.latitud, this.municipio.longitud], 13);
+      marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
+        .bindPopup(this.municipio.name)
+        .openPopup();
+    }
+  }//? -> Fin Método Cargar Mapa
+
+  //? Método para cambiar de municipio
+  cambiarMunicipio(nombre: any) {
+    //console.log(nombre);
+    //* Cambiamos el valor del select para que aparezca en la interfaz
+    this.select = nombre;
+    //* Se cambia el nombre por el que vamos a filtrar
+    this.nombreMunicipio = nombre;
+    //* Filtramos el municipio que queremos mostrar
+    this.filtrarMunicipio();
+  }
 
 
 
