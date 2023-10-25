@@ -8,6 +8,7 @@
   <!--!Sección Banner en esta sección tiene tanto el titulo principal como la busqueda-->
 
   <section
+    *ngIf="municipio !== undefined"
     id="Banner"
     class=" -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
     style="background-image:url('{{municipio.pathImagePortada.url}}')"
@@ -34,6 +35,7 @@
             (click)="expandListMuni()"
           >
           <!--!Icono de filtros de municipios-->
+          <!--TODO: Cambiar el municipio dependiendo de lo seleccionado en el arreglo y pintar en select-->
             <h2 class="text-white bg:text-2xl md:text-4xl font-black">
               {{ select }}
             </h2>

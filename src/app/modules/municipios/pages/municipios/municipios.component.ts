@@ -322,16 +322,30 @@ export class MunicipiosComponent implements OnInit {
     //* Atrapamos el objeto que queremos mostrar
     this.municipio = this.arrayMunicipio[0];
 
-    // console.log(this.municipio);
+    //* Le damos el nombre del municipio selecionado para que aparesca como elegído
+    this.select = this.municipio.name;
 
-    // console.log(this.municipio.latitud);
-    // console.log(this.municipio.longitud);
+    //* Hacemos validación de punto decimal para ambos números
+    //* En este caso nos devuelte true en caso de que ambos contengan decimales
+    const num1 = this.hasDecimalPoint(this.municipio.latitud);
+    const num2 = this.hasDecimalPoint(this.municipio.longitud);
 
-    //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
-    this.cargarMapa();
+    //*En caso de que ambas coordenadas no presenten problema con los puntos decimal ejecutamos el método del Mapa
+    if(num1 && num2) {
+      //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
+      this.cargarMapa();
+    }
+
     //console.log(this.municipio); //Objeto que retrona con todos los valores
   } //? -> Fin Método filtrar Municipio
 
+  //? -> Método para saber si tienen punto decimal
+  hasDecimalPoint(value: any): boolean {
+    //console.log(value);
+    return value.toString().includes('.');
+  } //?- Fin Método
+
+  //?- Método para cargar el Mapa
   cargarMapa() {
     //*Mapa
     const map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);// Crea el mapa
@@ -340,7 +354,9 @@ export class MunicipiosComponent implements OnInit {
     }).addTo(map);// Agrega la capa de mapa
 
     marker([this.municipio.latitud, this.municipio.longitud]).addTo(map)// Agrega un marcador
-  }
+  } //? -> Fin Método Cargar Mapa
+
+
 
 
 }
