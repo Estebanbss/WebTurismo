@@ -66,13 +66,13 @@
     </div>
     <div class="hidden absolute right-0  lg:right-[1%] xl:right-[10%] 2xl:right-[20%] 4xl:right-[30%]  lg:rounded-lg bg-primary-400 text-white bg:w-[50%] lg:w-[15%] xl:w-[12%]  bg:rounded-lg justify-center items-center py-auto font-Work font-bold  " [class.hidden]="!expanded2" >
       <ul class=" text-left mb-0 p-2">
-        <li class="p-2 hover:bg-primary-600 rounded-lg">
-          <a class="text-white" href=""  routerLink="">Perfil</a>
+        <li class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer" routerLink="">
+          <span class="text-white" >Perfil</span>
         </li>
-        <li class="p-2 hover:bg-primary-600  rounded-lg" *ngIf="adminButton">
-          <a class="text-white" href="" routerLink="/dashboard-admin/dashboard-admin">Panel administrador</a>
+        <li class="p-2 hover:bg-primary-600  rounded-lg cursor-pointer" *ngIf="adminButton" routerLink="/dashboard-admin/dashboard-admin">
+          <span class="text-white">Panel administrador</span>
         </li>
-        <li class="p-2 hover:bg-primary-600 rounded-lg">
+        <li class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer" routerLink="">
           <span class="text-white" (click)="logOut()">Cerrar Sesión</span>
         </li>
       </ul>
