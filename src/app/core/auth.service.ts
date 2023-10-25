@@ -1,26 +1,15 @@
 
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { User } from '@angular/fire/auth';
 
 
-
-@Injectable({
-  providedIn: 'root'
-})
 export class AuthService {
 
 
-  constructor() { }
+  constructor(private user: User) { }
 
-
-
-
-
-  getAuthToken(): Observable<boolean> {
-
-    return of(true);
-
-
+  getLoggin(){
+    return this.user.email === null ? false : true;
   }
 
 }
