@@ -380,6 +380,8 @@ export class MunicipiosComponent implements OnInit {
     this.filtrarMunicipio();
   }
 
+  //TODO: Obtener el arreglo de Atracrivos y Prestadores
+
 
 
 }
