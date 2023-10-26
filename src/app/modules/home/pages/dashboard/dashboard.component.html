@@ -116,6 +116,8 @@
     <!--?Fin Div 2-->
   </div>
 
+  <!-- TODO: Debemos Enviar el nombre del municipio seleccionado al componente donde se va a mostrar -->
+
   <!--?Colección de municipios-->
   <div class="relative">
     <svg
@@ -147,7 +149,7 @@
           loading="lazy"
           class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer"
           draggable="false"
-          routerLink="/municipios"
+          (click)="enviarInformacion(tile.title)"
         />
         <h3
           class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
@@ -174,6 +176,8 @@
   <!--?Fin del Contenedor de el titulo principal y parrafo explicativo-->
 </section>
 <!--?fin Sección de Municipios populares-->
+
+  <!-- TODO: FIN DE LA TAREA -->
 
 <!--?Sección de Categorias más buscadas-->
 

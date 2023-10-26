@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { HomeService } from 'src/app/modules/home/services/home.service';
+import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';
+import { Municipio } from 'src/app/core/common/place.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-municipios',
@@ -8,6 +13,43 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./municipios.component.css']
 })
 export class MunicipiosComponent implements OnInit {
+
+  map!: Map;
+
+  //? Observable con el que vamos a recibir la información compartida desde el componente listar
+  private nombreMunicipio$: Observable<string>;
+
+  nombreMunicipio!: string; //? Almacena el nombre del municipio que se quiere mostrar.
+
+  //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
+  municipios: Municipio[] = [];
+
+  //? -> Arrelgo para filtrado que se va a mostrar en el html
+  arrayMunicipio: any;
+
+  //? -> Objeto de tipo municipio que vamos a mostrar
+  municipio: any;
+
+  private nombreMunicipioSubscription!: Subscription;
+  private municipiosSubscription!: Subscription;
+
+  // latitud: number = 2.204537221801455;
+  // longitud: number = -75.62682422721537;
+
+  // set setMunicipios(value: any) {
+  //   this.municipios = value;
+  //   // if (this.municipios) {
+
+  //   // }
+  // }
+
+  // set setMunicipio(value: any) {
+  //   this.municipio = value;
+  //   if (this.municipio) {
+  //     //this.cargarMapa();
+  //   }
+  // }
+
 
   titles = [
     //************************************* */
@@ -64,7 +106,41 @@ export class MunicipiosComponent implements OnInit {
     this.botonActivo = '';// Limpia la variable
   }
 
-  constructor(private titleService:Title) {this.titleService.setTitle('Pal\'Huila - Explora!') }// Constructor
+  constructor(
+    private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
+    private mostrarMunicipioService: MostrarMunicipioService,
+  ) {
+    this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
+
+    //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
+    this.arrayMunicipio = {
+      //id -> Nos lo da firebase
+      name: '',
+      zona: '',
+      descripcion: '',
+      poblacion: '',
+      gentilicio: '',
+      clima: '',
+      servicios: '',
+      fiestasEventos: '',
+      hechosHistoricos: '',
+      sitioWeb: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      youtube: '',
+      latitud: 0,
+      longitud: 0,
+      googleMaps: '',
+      pathImages: [], // -> lo conseguimos en la inserción de imágenes
+      meGusta: 0, // -> # de Me gustas en la App
+      pathImagePortada: {
+        path: '',
+        url: ''
+      }
+    }
+
+   }// Constructor
 
   muni: string[] = [ // Array de municipios del Huila
     'Acevedo',
@@ -160,20 +236,151 @@ export class MunicipiosComponent implements OnInit {
   }
 
   ngOnInit(): void {// Función que se ejecuta al iniciar el componente
+    //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
+    this.recibirInformacion();
+  }
+
+
+  //? Método para recibir los datos del observable y de la BD
+  recibirInformacion() {
+    //*Primero nos suscribimos a nuestro observable para obtener los datos del elemento que queremos
+    this.nombreMunicipioSubscription = this.nombreMunicipio$.subscribe((municipio) => {
+      //Pasamos el dato del Observable a nuestra propiedad nativa para mejor manipulación de datos
+      this.nombreMunicipio = municipio;
+    })
+    //console.log(this.nombreMunicipio);
+    //* Llamamos a nuestros datos de los municipios desde la BD
+    //* -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
+    this.municipiosSubscription = this.mostrarMunicipioService.obtenerMunicipios().subscribe(data => {
+      // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
+      this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
+      //console.log(this.municipios);
+      if(this.municipios) {
+        this.nombreMunicipioSubscription.unsubscribe();
+        this.municipiosSubscription.unsubscribe();
+        // console.log(this.nombreMunicipioSubscription.closed);
+        // console.log(this.municipiosSubscription.closed);
+        // console.log(this.municipios);
+        //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
+        this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
+      }
+    })
 
   }
 
-  ngAfterViewInit() {// Función que se ejecuta después de cargar la vista
+  //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
+  filtrarMunicipio() {
+    //this.nombreMunicipio -> Nombre del municipio por el que vamos a buscar
+    //this.municipios -> Arreglo de objetos de tipo Municipio
+    //this.municipio -> Objeto de tipo Municipio para almacenar sólo el elemento que quiero mostrar en el html
+    // console.log(this.nombreMunicipio);
+    // console.log(this.municipios);
+    // console.log(this.municipio);
 
-    const map = new Map('map').setView([51.505, -0.09], 13);// Crea el mapa
+    this.arrayMunicipio = this.municipios.filter((municipio) => {
 
-    // Agrega la capa de mapa
-    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    }).addTo(map);// Agrega la capa de mapa
+      //* Hacemos el proceso de quitar espacios, tíldes, caracteres especiales y colocar todo en minúscula antes de hacer la comparación.
+      this.nombreMunicipio = this.nombreMunicipio.trim();
+      let nameMunicipio = municipio.name.trim(); // Quitamos espacios
+      //Filtro para quitar tíldes y caracteres especiales
+      function quitarTildes(str: any) {
+        return str
+          .replace(/[áäâà]/g, 'a')
+          .replace(/[éëêè]/g, 'e')
+          .replace(/[íïîì]/g, 'i')
+          .replace(/[óöôò]/g, 'o')
+          .replace(/[úüûù]/g, 'u')
+          .replace(/[ñ]/g, 'n')
+          .replace(/[ç]/g, 'c');
+      }
+      nameMunicipio = quitarTildes(nameMunicipio.toLowerCase()); // Convertir a minuscula y quitar tildes
+      this.nombreMunicipio = quitarTildes(this.nombreMunicipio.toLowerCase());
 
-    marker([51.505, -0.09]).addTo(map)// Agrega un marcador
+      // console.log(nameMunicipio);
+      // console.log(this.nombreMunicipio);
 
+      //Comparación
+      if (this.nombreMunicipio.localeCompare(nameMunicipio) === 0) {
+        return true; //Retornamos el caso de éxito para filter(), se incluye el elemento actual
+      }
+
+      return false;
+
+    });
+
+    //* Validación en caso de que el municipio elejido no exísta(Improbable), es necesario mostrar algo.
+    // console.log(this.municipio.length);
+    // console.log(this.municipio);
+    if(this.arrayMunicipio.length === 0) { //Si está vacío
+      console.log('Está ingresando a un municipio que no exíste');
+      this.municipios.forEach((muni) => {
+        //console.log(muni);
+        let nameMuni = muni.name.trim();
+        if(nameMuni === 'Garzón' || nameMuni === 'garzón' ) {
+          this.arrayMunicipio.push(muni);
+        }
+      })
+    }
+
+    //* Atrapamos el objeto que queremos mostrar
+    this.municipio = this.arrayMunicipio[0];
+
+    //* Le damos el nombre del municipio selecionado para que aparesca como elegído
+    this.select = this.municipio.name;
+
+    //* Hacemos validación de punto decimal para ambos números
+    //* En este caso nos devuelte true en caso de que ambos contengan decimales
+    const num1 = this.hasDecimalPoint(this.municipio.latitud);
+    const num2 = this.hasDecimalPoint(this.municipio.longitud);
+
+    //*En caso de que ambas coordenadas no presenten problema con los puntos decimal ejecutamos el método del Mapa
+    if(num1 && num2) {
+      //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
+      this.cargarMapa();
+    }
+
+    //console.log(this.municipio); //Objeto que retrona con todos los valores
+  } //? -> Fin Método filtrar Municipio
+
+  //? -> Método para saber si tienen punto decimal
+  hasDecimalPoint(value: any): boolean {
+    //console.log(value);
+    return value.toString().includes('.');
+  } //?- Fin Método
+
+  //?- Método para cargar el Mapa
+  cargarMapa() {
+    if (!this.map) { // Verificar si el mapa ya está inicializado
+      this.map = new Map('map').setView([this.municipio.latitud, this.municipio.longitud], 13);
+
+      // Agregar capa de tiles
+      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      }).addTo(this.map);
+
+      // Agregar un marcador
+      marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
+        .bindPopup(this.municipio.name)
+        .openPopup();
+    } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
+      this.map.setView([this.municipio.latitud, this.municipio.longitud], 13);
+      marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
+        .bindPopup(this.municipio.name)
+        .openPopup();
+    }
+  }//? -> Fin Método Cargar Mapa
+
+  //? Método para cambiar de municipio
+  cambiarMunicipio(nombre: any) {
+    //console.log(nombre);
+    //* Cambiamos el valor del select para que aparezca en la interfaz
+    this.select = nombre;
+    //* Se cambia el nombre por el que vamos a filtrar
+    this.nombreMunicipio = nombre;
+    //* Filtramos el municipio que queremos mostrar
+    this.filtrarMunicipio();
   }
+
+
 
 }
 

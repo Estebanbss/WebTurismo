@@ -8,8 +8,10 @@
   <!--!Sección Banner en esta sección tiene tanto el titulo principal como la busqueda-->
 
   <section
+    *ngIf="municipio !== undefined"
     id="Banner"
-    class="bg-[url(https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FGarz%C3%B3n.webp?alt=media&token=a5a26d25-f840-4d9f-b547-dcb1976190a3&_gl=1*1j1fqzg*_ga*NDA2NDgyOTM3LjE2ODY3NDgyNjA.*_ga_CW55HF8NVT*MTY5NjM0NTk4OS40OS4xLjE2OTYzNDYxMDEuMzAuMC4w)] -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    class=" -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    style="background-image:url('{{municipio.pathImagePortada.url}}')"
   >
     <!--!Contenedor del titulo principal-->
     <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl"></div>
@@ -33,6 +35,7 @@
             (click)="expandListMuni()"
           >
           <!--!Icono de filtros de municipios-->
+          <!--TODO: Cambiar el municipio dependiendo de lo seleccionado en el arreglo y pintar en select-->
             <h2 class="text-white bg:text-2xl md:text-4xl font-black">
               {{ select }}
             </h2>
@@ -55,6 +58,7 @@
             <span
               class="text-xl py-2 my-2 cursor-pointer hover:bg-slate-100"
               *ngFor="let item of muni"
+              (click)="cambiarMunicipio(item)"
               >{{ item }}</span
             >
           </div>
@@ -64,7 +68,7 @@
           class="ml-auto text-white bg:text-2xl md:text-4xl font-Blinker mr-5 flex items-center font-black"
         >
         <!--!Icono de filtros temperatura-->
-          <span role="weather">20 C°</span>
+          <span *ngIf="municipio !== undefined" role="weather">{{municipio.clima}}</span>
           <img
             class="bg:w-7 md:w-10"
             alt="weatherimg"
@@ -101,14 +105,8 @@
           >
             Descripción
           </h2>
-          <p class="text-lg font-Work">
-            Garzón se basa gran parte de su economía en la actividad
-            agropecuaria, predominando el sector agrícola y la producción de
-            café especial. Otros renglones como el ecoturismo y turismo
-            religioso son importantes para la economía municipal. Es conocida
-            como la Capital Diocesana del Huila por ser la primera diócesis
-            católica de la región de la cual se crearon las actuales; también
-            tiene como apelativo: "Alma del Huila o Garzoncito"
+          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+            {{municipio.descripcion}}
           </p>
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de las fiestas del municipio-->
@@ -117,13 +115,15 @@
           >
             Fiestas y eventos
           </h2>
-
-          <span class="text-lg font-Work">*Festival de las Brujas.</span>
+          <div *ngIf="municipio !== undefined">
+            <span class="text-lg font-Work">{{municipio.fiestasEventos}}</span>
+          </div>
+          <!--
           <span class="text-lg font-Work">
             *Festival y Reinado popular y departamental de la Alegría y el
-            Folclor.</span
-          >
+            Folclor.</span>
           <span class="text-lg font-Work">*Evento Travesía del Agua.</span>
+          -->
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de los hechos historicos del municipio-->
           <h2
@@ -131,13 +131,8 @@
           >
             Hechos historicos
           </h2>
-          <p class="text-lg font-Work">
-            Históricamente comienzan a aparecer datos sobre esta región desde el
-            año 1628, cuando en el sitio donde hoy se levanta la ciudad de
-            Garzón funcionaba un centro para el adoctrinamiento indígena de la
-            nación Tama; el sitio era conocido con el nombre de Garzoncito. Se
-            hallaba ubicado en la hacienda El Vegón. Sus primeros pobladores
-            eran indígenas de las tribus Tamas y Andaquíes.
+          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+            {{municipio.hechosHistoricos}}
           </p>
         </div>
         <!--!Contenedor de la imagen del municipio-->
@@ -167,7 +162,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="http://paginaweb.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.sitioWeb}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de web-->
@@ -185,7 +181,8 @@
                 ><!--!red de web-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://web.facebook.com/?locale=es_LA&_rdc=1&_rdr"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.facebook}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de facebook-->
@@ -209,7 +206,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="https://www.google.com/maps/@41.8951431,12.5368628,12.13z?entry=ttu"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.googleMaps}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                   ><!--red de maps-->
@@ -227,7 +225,8 @@
                 ><!--!red de maps-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://www.instagram.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.instagram}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >
@@ -252,7 +251,8 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  href="https://twitter.com/?lang=en"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.twitter}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >
@@ -272,7 +272,8 @@
                 <!--!red de twitter-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  href="https://www.youtube.com/"
+                  *ngIf="municipio !== undefined"
+                  href={{municipio.youtube}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
                 >
