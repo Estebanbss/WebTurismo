@@ -1,15 +1,21 @@
-
 import { Injectable } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 
-
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
+  constructor(private afAuth: Auth) { }
 
-
-  constructor(private user: User) { }
-
-  getLoggin(){
-    return this.user.email === null ? false : true;
+  getLoggin(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      onAuthStateChanged(this.afAuth, (user) => {
+        if (user !== null && user !== undefined) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
   }
-
 }

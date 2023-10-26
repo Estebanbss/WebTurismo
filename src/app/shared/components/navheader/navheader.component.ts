@@ -44,7 +44,7 @@ export class NavheaderComponent implements OnInit{
 
   ngOnInit(){
 
-    let user = this.auth.currentUser;
+
      onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.adminButton = true;

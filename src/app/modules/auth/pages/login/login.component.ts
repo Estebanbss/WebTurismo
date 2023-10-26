@@ -1,3 +1,5 @@
+import { setPersistence } from '@angular/fire/auth';
+import { AuthService } from './../../../../core/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +14,7 @@ import { NgOptimizedImage } from '@angular/common'
 export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
-   
+
   }
 
 
@@ -48,20 +50,22 @@ export class LoginComponent implements OnInit {
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
     // console.log({email, password});
+    console.log("log!")
 
     // Activamos el spinner un momento antes de la promesa, para que en el momento en que esperamos la respuesta se muestre que está pensando el programa
     this.loading = true;
 
     //Se ejecuta la lógica de Firebase para el login
+
     this.userService.login(email, password)
       .then((response) => {
         //En el if preguntamos si el usuario está verificado
         if(response.user?.emailVerified) {
           //Redireccionamos al Dashboard
-          this.router.navigate(['/home/dashboard']);
+          this.router.navigate(['/home']);
         } else {
           // Redireccionamos al componente Verificar Correo
-          this.router.navigate(['/auth/verificar-correo']);
+          this.router.navigate(['/auth']);
         }
       })
       .catch((error) => {
