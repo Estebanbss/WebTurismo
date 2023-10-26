@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, orderBy, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,5 +27,38 @@ export class MostrarMunicipioService {
     return collectionData(q, { idField: 'id' }) as Observable<any>;
   } //? -> Fin del método obtener Prestador
 
+  //Todo: Método para traer los atractivos
+  obtenerAtractivosPorMunicipio(nombreMunicipio: string): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const municipioRef = collection(this.firestore, 'atractivos');
+
+    // Usamos la función where para filtrar por el nombre del municipio
+    const q = query(municipioRef, where('municipio', '==', nombreMunicipio));
+
+    // Retornamos el observable
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
+  }
+
+  //Todo: Método para traer los Prestadore SIN espacios
+  obtenerPrestadoresPorMunicipio(nombreMunicipio: string): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const municipioRef = collection(this.firestore, 'prestadores');
+    // Usamos la función where para filtrar por el nombre del municipio
+    const q = query(municipioRef, where('municipio', '==', nombreMunicipio));
+
+    // Retornamos el observable
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
+  }
+
+  //Todo: Método para traer los Prestadores CON espacio
+  obtenerPrestadoresPorMunicipio2(nombreMunicipio: string): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const municipioRef = collection(this.firestore, 'prestadores');
+    // Usamos la función where para filtrar por el nombre del municipio
+    const q = query(municipioRef, where('municipio', '==', `${nombreMunicipio} `));
+
+    // Retornamos el observable
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
+  }
 
 }

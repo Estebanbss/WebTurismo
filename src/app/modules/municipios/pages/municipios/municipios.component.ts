@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';
-import { Municipio } from 'src/app/core/common/place.interface';
+import { Municipio, PrestadorTuristico, AtractivoTuristico } from 'src/app/core/common/place.interface';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,14 +24,23 @@ export class MunicipiosComponent implements OnInit {
   //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
   municipios: Municipio[] = [];
 
+  //? -> Propiedad para almacenar el arreglo de objetos de tipo prestador
+  prestadores: PrestadorTuristico[] = [];
+
+  //? -> Propiedad para almacenar el arreglo de objeto de tipo atractivo
+  atractivos: AtractivoTuristico[] = [];
+
   //? -> Arrelgo para filtrado que se va a mostrar en el html
   arrayMunicipio: any;
 
   //? -> Objeto de tipo municipio que vamos a mostrar
   municipio: any;
 
+  //? -> propiedades para suscribirse y desuscribirse
   private nombreMunicipioSubscription!: Subscription;
   private municipiosSubscription!: Subscription;
+  private prestadoresSubscription!: Subscription;
+  private atractivosSubscription!: Subscription;
 
   // latitud: number = 2.204537221801455;
   // longitud: number = -75.62682422721537;
@@ -266,6 +275,9 @@ export class MunicipiosComponent implements OnInit {
       }
     })
 
+    //TODO: Aquí llamamos al método que nos trae la información de los Prestadores y Atractivos desde la BD, basados en la propiedad nombreMunicipio
+    this.datosPrestadoresYAtractivos();
+
   }
 
   //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
@@ -380,7 +392,15 @@ export class MunicipiosComponent implements OnInit {
     this.filtrarMunicipio();
   }
 
-  //TODO: Obtener el arreglo de Atracrivos y Prestadores
+  //TODO: Método para obtener el arreglo de Atracrivos y Prestadores
+  //? -> Método para obtener el arreglo de Atracrivos y Prestadores
+  datosPrestadoresYAtractivos() {
+    //* Nos suscribimos a nuestro método para obtener los prestadores por Municipio
+    this.prestadoresSubscription = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio2(this.nombreMunicipio).subscribe(data => {
+      this.prestadores = data;
+      console.log(this.prestadores);
+    });
+  }
 
 
 
