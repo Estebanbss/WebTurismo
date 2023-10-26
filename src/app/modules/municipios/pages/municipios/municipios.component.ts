@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
+import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';

@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-import { NgOptimizedImage } from '@angular/common'
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import { NgOptimizedImage } from '@angular/common'
 export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
-   
+    this.titleService.setTitle('Pal\'Huila - Inicia Sesión!');
   }
 
 
@@ -27,7 +29,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
-    private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
+    private router: Router,
+    private titleService: Title //Inyectamos la clase Router para dirigirnos a otros componentes
   ) {
     this.loginUsuario = this.fb.group({
       //En el template colocamos las propiedades para traer los valores
@@ -48,20 +51,22 @@ export class LoginComponent implements OnInit {
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
     // console.log({email, password});
+    console.log("log!")
 
     // Activamos el spinner un momento antes de la promesa, para que en el momento en que esperamos la respuesta se muestre que está pensando el programa
     this.loading = true;
 
     //Se ejecuta la lógica de Firebase para el login
+
     this.userService.login(email, password)
       .then((response) => {
         //En el if preguntamos si el usuario está verificado
         if(response.user?.emailVerified) {
           //Redireccionamos al Dashboard
-          this.router.navigate(['/home/dashboard']);
+          this.router.navigate(['/home']);
         } else {
           // Redireccionamos al componente Verificar Correo
-          this.router.navigate(['/auth/verificar-correo']);
+          this.router.navigate(['/auth']);
         }
       })
       .catch((error) => {

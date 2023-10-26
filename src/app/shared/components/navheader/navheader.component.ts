@@ -42,11 +42,27 @@ export class NavheaderComponent implements OnInit{
 
   }
 
+
+  UserARRAY:string[] | undefined  = this.auth.currentUser?.displayName === null ? this.auth.currentUser?.email?.split("@") : this.auth.currentUser?.displayName?.split(" ");
+
+  UserName!:string | undefined;
+
+
+
   ngOnInit(){
 
-    let user = this.auth.currentUser;
+    console.log(this.auth.currentUser)
+    if(this.UserARRAY != undefined){
+      this.UserName = this.UserARRAY[0];
+    }
+
+
+    console.log(this.auth.currentUser?.email);
+    console.log(this.UserName)
+
+
      onAuthStateChanged(this.auth, (user) => {
-      if (user) {
+      if (user?.email === this.admin) {
         this.adminButton = true;
       } else {
         this.adminButton = false;

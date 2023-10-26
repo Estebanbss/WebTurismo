@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 //Servicio de Firebase para la Autenticación
-import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,  } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence,  } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,11 @@ export class UserService {
   //Logear un Usuario
   login(email: string, password: string) {
     // Vamos a retornar la promesa que nos da el método
-    return signInWithEmailAndPassword(this.auth, email, password);
+    return this.auth.setPersistence(browserLocalPersistence).then(()=>{
+      return signInWithEmailAndPassword(this.auth, email, password);
+
+    })
+
   }
 
   // Recuperar Usuario
@@ -51,8 +55,12 @@ export class UserService {
 
   //LogIn con el servicio de Google
   loginConGoogle() {
+
+    return this.auth.setPersistence(browserLocalPersistence).then(()=>{
+      return signInWithPopup(this.auth, new GoogleAuthProvider());
+    })
     // Llamámos a la función de Popup y le pasamos el servico auth y un objeto Provider de Google
-    return signInWithPopup(this.auth, new GoogleAuthProvider());
+
   }
 
   // Manejo de Errores Firebase
