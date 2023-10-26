@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path:"",
     children: [
-      {path: 'municipios', component: MunicipiosComponent},
+      {path: '/municipios/:id', component: MunicipiosComponent},
       {path: "**", redirectTo: "municipios"}
     ]
   },
