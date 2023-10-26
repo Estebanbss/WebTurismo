@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pagina-inicio',
@@ -81,10 +82,11 @@ export class PaginaInicioComponent implements OnInit {
     this.cerrado == false ? this.cerrado = true : this.cerrado = false;
   }
   constructor(  private prestadoresService: PrestadoresService, // Inyectamos el servicio
-  private modalService: ModalServiceService, private router: Router){
+  private modalService: ModalServiceService, private router: Router, private titleService: Title){
 
   }
   ngOnInit(): void {
+    this.titleService.setTitle('Pal\'Huila - PANEL ADMINISTRADOR');
     this.modalService.modalsuichtodo$.subscribe((value) => {
       this.modalsuichtodo = value;
     });

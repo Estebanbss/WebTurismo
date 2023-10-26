@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-municipios',
@@ -63,7 +64,7 @@ export class MunicipiosComponent implements OnInit {
     this.botonActivo = '';// Limpia la variable
   }
 
-  constructor() { }// Constructor
+  constructor(private titleService:Title) {this.titleService.setTitle('Pal\'Huila - Explora!') }// Constructor
 
   muni: string[] = [ // Array de municipios del Huila
     'Acevedo',

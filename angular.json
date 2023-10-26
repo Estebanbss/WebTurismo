@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "login-firebase": {
+    "Pal'Huila": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "baseHref": "/",
-            "outputPath": "dist/login-firebase",
+            "outputPath": "dist/Pal'Huila",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "login-firebase:build:production"
+              "browserTarget": "Pal'Huila:build:production"
             },
             "development": {
-              "browserTarget": "login-firebase:build:development"
+              "browserTarget": "Pal'Huila:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "login-firebase:build"
+            "browserTarget": "Pal'Huila:build"
           }
         },
         "test": {

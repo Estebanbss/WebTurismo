@@ -9,7 +9,7 @@ import { UserService } from './modules/auth/services/user.service';
 })
 export class AppComponent implements OnInit {
   constructor(private userS: UserService){}
-  title = 'login-firebase';
+  title = `Pal'Huila`;
   ngOnInit(){
   }
 }

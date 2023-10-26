@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; //Formularios - Validación
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
@@ -19,7 +19,8 @@ export class RegistrarUsuarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder, //Inyectamos la clase para el formulario
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
-    private router: Router //Inyectamos la clase Router para dirigirnos a otros componentes
+    private router: Router,
+    private titleService: Title //Inyectamos la clase Router para dirigirnos a otros componentes
     ) {
     this.registrarUsuario = this.fb.group({
       //Pasamos un objeto con las configuración del formulario
@@ -54,6 +55,7 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
  ngOnInit(): void {
+  this.titleService.setTitle('Pal\'Huila - Registrate!');
 
  }
   // Método que se ejecuta desde el template para registrar usuarios
