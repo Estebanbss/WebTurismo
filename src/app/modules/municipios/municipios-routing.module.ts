@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MunicipiosComponent } from './pages/municipios/municipios.component';
+import { MunicipiosComponent } from './pages/municipios.component';
 
 const routes: Routes = [
 
   {
     path:"",
     children: [
-      {path: '/municipios/:id', component: MunicipiosComponent},
-      {path: "**", redirectTo: "municipios"}
+      {path: '**', component: MunicipiosComponent},
     ]
   },
 

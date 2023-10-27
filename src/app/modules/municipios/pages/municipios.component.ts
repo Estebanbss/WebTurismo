@@ -3,10 +3,11 @@
   import { Title } from '@angular/platform-browser';
   import { Observable } from 'rxjs';
   import { HomeService } from 'src/app/modules/home/services/home.service';
-  import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';
+  import { MostrarMunicipioService } from '../services/mostrar-municipio.service';
   import { Municipio } from 'src/app/core/common/place.interface';
   import { Subscription } from 'rxjs';
-  import { ActivatedRoute,Route } from '@angular/router';
+  import { ActivatedRoute, Router } from '@angular/router';
+
 
   @Component({
     selector: 'app-municipios',
@@ -107,13 +108,24 @@
       this.botonActivo = '';// Limpia la variable
     }
 
+    cambioURL: string = '';
+
     constructor(
       private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
       private mostrarMunicipioService: MostrarMunicipioService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private textService: Title,
+      private router: Router,
     ) {
-      this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
 
+
+      this.route.params.subscribe(params => this.cambioURL = params['id']);
+
+        // Puedes utilizar this.municipioId para realizar acciones basadas en el parámetro.
+
+
+      this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
+      this.textService.setTitle("Pal'Huila - Municipios!")
       //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
       this.arrayMunicipio = {
         //id -> Nos lo da firebase
@@ -141,6 +153,7 @@
           url: ''
         }
       }
+
 
     }// Constructor
 
@@ -223,7 +236,6 @@
 
 
 
-params: any;
     select: string = "Garzón";// Variable para guardar el municipio seleccionado
 
     turnMuni: boolean = false;// Variable para guardar el estado de la lista de municipios
@@ -240,12 +252,37 @@ params: any;
     ngOnInit(): void {// Función que se ejecuta al iniciar el componente
       //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
       this.recibirInformacion();
+      this.bum(this.cambioURL);
 
-      this.route.params.subscribe(params => {
-        this.params = params[this.nombreMunicipio];
-        // Puedes utilizar this.municipioId para realizar acciones basadas en el parámetro.
-      });
+    }
 
+    bum(nombre: any) {
+      let name: string = nombre;
+
+
+      this.nombreMunicipioSubscription = this.nombreMunicipio$.subscribe((municipio) => {
+        this.nombreMunicipio = nombre;
+
+      })
+
+
+      this.municipiosSubscription = this.mostrarMunicipioService.obtenerMunicipios().subscribe(data => {
+        // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
+        this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
+        //console.log(this.municipios);
+        if(this.municipios) {
+          this.nombreMunicipioSubscription.unsubscribe();
+          this.municipiosSubscription.unsubscribe();
+          // console.log(this.nombreMunicipioSubscription.closed);
+          // console.log(this.municipiosSubscription.closed);
+          // console.log(this.municipios);
+          //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
+          this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
+        }
+      })
+
+
+      this.cambiarMunicipio(name);
     }
 
 
@@ -328,6 +365,7 @@ params: any;
             this.arrayMunicipio.push(muni);
           }
         })
+
       }
 
       //* Atrapamos el objeto que queremos mostrar
@@ -346,7 +384,7 @@ params: any;
         //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
         this.cargarMapa();
       }
-
+      this.router.navigate(['/municipios/', this.municipio.name]);
       //console.log(this.municipio); //Objeto que retrona con todos los valores
     } //? -> Fin Método filtrar Municipio
 
@@ -386,8 +424,8 @@ params: any;
       this.nombreMunicipio = nombre;
       //* Filtramos el municipio que queremos mostrar
       this.filtrarMunicipio();
+      this.router.navigate(['/municipios/', this.municipio.name]);
     }
-
 
 
   }

@@ -17,7 +17,7 @@ export class authGuard {
       this.router.navigate(['auth']);
       }
       else{
-        console.log("Hecho!")
+        console.log("Si puedes pasar al Home")
 
       }
       return isLoggedIn;

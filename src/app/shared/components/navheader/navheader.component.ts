@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/auth/services/user.service';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from '@angular/fire/auth';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class NavheaderComponent implements OnInit{
 
 
 
-  constructor(private userService: UserService, private router: Router){}
+  constructor(private userService: UserService, private router: Router,){}
 
   logOut() {
     this.userService.cerrarSesion()
@@ -42,8 +42,12 @@ export class NavheaderComponent implements OnInit{
 
   }
 
+  defaultUser:string | undefined = this.auth.currentUser?.email?.substring(0,6);
 
-  UserARRAY:string[] | undefined  = this.auth.currentUser?.displayName === null ? this.auth.currentUser?.email?.split("@") : this.auth.currentUser?.displayName?.split(" ");
+  
+
+
+  UserARRAY:string | undefined | string[] | Promise<void> = this.auth.currentUser?.displayName === null ? this.defaultUser : this.auth.currentUser?.displayName?.split(" ");
 
   UserName!:string | undefined;
 
@@ -51,14 +55,9 @@ export class NavheaderComponent implements OnInit{
 
   ngOnInit(){
 
-    console.log(this.auth.currentUser)
-    if(this.UserARRAY != undefined){
-      this.UserName = this.UserARRAY[0];
-    }
+      this.UserName=this.UserARRAY?.toString();
 
 
-    console.log(this.auth.currentUser?.email);
-    console.log(this.UserName)
 
 
      onAuthStateChanged(this.auth, (user) => {
