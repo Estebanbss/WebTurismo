@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; //Formularios - Validación
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/modules/auth/services/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-registrar-usuario',

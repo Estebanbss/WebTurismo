@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-warning',
@@ -11,6 +12,9 @@ import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 export class WarningComponent {
 
   constructor( private MatProgressBarModule: MatProgressBarModule, private modalService: ModalServiceService,private prestadoresService: PrestadoresService,) { }
+
+
+  private modalDataSubscription!: Subscription;
 
   inputValue: string = '';
   Value: string = '';
@@ -22,8 +26,14 @@ export class WarningComponent {
    }
 
  ngOnInit(): void {
-  this.modalService.currentValue.subscribe(value => this.Value = value);
+  this.modalDataSubscription = this.modalService.currentValue.subscribe(value => this.Value = value);
  }
+
+ ngOnDestroy() {
+  if (this.modalDataSubscription) {
+    this.modalDataSubscription.unsubscribe();
+  }
+}
 
   borrartodo(){
     this.prestadoresService.borrarTodosLosDocumentos(this.Value);

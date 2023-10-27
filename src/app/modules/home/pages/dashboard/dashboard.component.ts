@@ -1,7 +1,7 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
-import { Router } from '@angular/router';
-import { HomeService } from 'src/app/modules/home/services/home.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
@@ -16,8 +16,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router,
-    private titleService:Title // Inyecta el servicio Router
-  ) {}
+    private titleService:Title,// Inyecta el servicio ActivatedRoute
+  ) {
+
+
+  }
+  ngOnInit(): void {
+    this.titleService.setTitle('Pal\'Huila - Explora!');
+
+  }
+
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   dataUser: any; // Variable para almacenar los datos del usuario
   admin: string = 'juanesbs2003@hotmail.com'; // Correo del administrador|
@@ -191,10 +199,6 @@ export class DashboardComponent implements OnInit {
     return Promise.all(promises);// Retornar los URLs
   }
 
-  ngOnInit(): void {
-    this.titleService.setTitle('Pal\'Huila - Explora!');
-
-  }
 
   ngAfterViewInit(): void {// Después de inicializar la vista
 
@@ -233,7 +237,7 @@ export class DashboardComponent implements OnInit {
     routerLink="/municipios"
     */
     this.homeService.sendHomeMunicipioData = municipio; //*Enviamos el municipio seleccionado por medio de observables.
-    this.router.navigate(['/municipios']); //*Redireccionamos al componente donde enviamos el elemento.
+    this.router.navigate(['/municipios/', municipio]); //*Redireccionamos al componente donde enviamos el elemento.
   }
 
   logOut(): void {// Método para cerrar sesión

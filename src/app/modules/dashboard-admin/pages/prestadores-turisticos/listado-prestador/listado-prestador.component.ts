@@ -4,6 +4,8 @@ import { PrestadorTuristico } from 'src/app/core/common/place.interface';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import * as XLSX from 'xlsx';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-listado-prestador',
@@ -12,7 +14,9 @@ import * as XLSX from 'xlsx';
 })
 export class ListadoPrestadorComponent implements OnInit {
 
-
+  private modalDataSubscription!: Subscription;
+  private modalDataSubscription2!: Subscription;
+  private modalDataSubscription3!: Subscription;
 
   modalsuich!:boolean; //*Modal para el button de importar de registro de prestadores
   warning!:boolean;
@@ -65,11 +69,11 @@ export class ListadoPrestadorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.modalService.modalsuich$.subscribe((value) => {
+    this.modalDataSubscription = this.modalService.modalsuich$.subscribe((value) => {
       this.modalsuich = value;
     });
 
-        this.modalService.warning$.subscribe((value) => {
+    this.modalDataSubscription2 = this.modalService.warning$.subscribe((value) => {
       this.warning = value;
     });
 
@@ -78,10 +82,25 @@ export class ListadoPrestadorComponent implements OnInit {
     this.getPrestadores();
   }
 
+
+  ngOnDestroy() {
+    if (this.modalDataSubscription) {
+      this.modalDataSubscription.unsubscribe();
+    }
+
+    if (this.modalDataSubscription2) {
+      this.modalDataSubscription2.unsubscribe();
+    }
+    if (this.modalDataSubscription3) {
+      this.modalDataSubscription3.unsubscribe();
+    }
+
+  }
+
   //? -> Método para obtener los elementos de la BD
   getPrestadores() {
     //? -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
-    this.prestadoresService.obtenerPrestadores().subscribe(data => {
+    this.modalDataSubscription3 =  this.prestadoresService.obtenerPrestadores().subscribe(data => {
       // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
       // console.log(data);
       this.prestadores = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding

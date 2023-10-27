@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MunicipiosComponent } from './pages/municipios.component';
+import { PrestadorComponent } from './pages/prestador/prestador.component';
 
 const routes: Routes = [
+
 
   {
     path:"",
     children: [
-      {path: '**', component: MunicipiosComponent},
+      {path: 'prestadores', component: PrestadorComponent},
+      {path: "**", redirectTo: "prestadores"}
     ]
   },
+
 
 ];
 
@@ -17,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MunicipiosRoutingModule { }
+export class PrestadoresRoutingModule { }
