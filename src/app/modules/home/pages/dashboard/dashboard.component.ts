@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { Map, marker, tileLayer } from 'leaflet';
 export class DashboardComponent implements OnInit {
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
-    private router: Router, // Inyecta el servicio Router
+    private router: Router,
+    private titleService:Title // Inyecta el servicio Router
   ) {}
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   dataUser: any; // Variable para almacenar los datos del usuario
@@ -190,6 +192,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Pal\'Huila - Explora!');
 
   }
 
@@ -220,6 +223,17 @@ export class DashboardComponent implements OnInit {
     });
 
 
+  }
+
+  //? Creamos un método para obtener el nombre del elemento seleccionado a la hora de hacer click sobre la imágen, y a su vez de enviar la información al componente al que vamos a redireccionar la vista.
+  enviarInformacion(municipio: any) {
+    //* Primero obtenemos el elemento que queremos.
+    //console.log(municipio);
+    /*
+    routerLink="/municipios"
+    */
+    this.homeService.sendHomeMunicipioData = municipio; //*Enviamos el municipio seleccionado por medio de observables.
+    this.router.navigate(['/municipios']); //*Redireccionamos al componente donde enviamos el elemento.
   }
 
   logOut(): void {// Método para cerrar sesión

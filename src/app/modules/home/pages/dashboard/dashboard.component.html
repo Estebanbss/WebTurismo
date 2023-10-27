@@ -1,9 +1,10 @@
 <!-- *header-->
-<div>
+<div class="my-2">
   <app-navheader class=" z-50">
 
 
   </app-navheader>
+
   <app-button-carousel class=""></app-button-carousel>
 </div>
 
@@ -25,7 +26,7 @@
     class="relative mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
   >
     <div class="text-center mb-[20] flex flex-col items-center">
-      <h1 class="text-3xl text-white font-normal sm:text-5xl leading-3">
+      <h2 class="text-3xl text-white font-normal sm:text-5xl leading-3">
         <strong
           class="bg-primary-500 bg-opacity-30 rounded-tl-xl font-semibold pl-2"
         >
@@ -35,13 +36,13 @@
           class="font-black bg-primary-500 bg-opacity-30 rounded-tr-xl underline pr-2"
           >Huila,</strong
         >
-      </h1>
-      <h2 class="text-2xl text-white sm:text-4xl">
+      </h2>
+      <h3 class="text-2xl text-white sm:text-4xl">
         <strong
           class="bg-primary-500 bg-opacity-30 rounded-lg font-normal leading-3 px-2"
           >un paraíso de paisajes, cultura y experiencias inolvidables</strong
         >
-      </h2>
+      </h3>
     </div>
   </div>
 
@@ -91,14 +92,14 @@
   >
     <!--?Div 1-->
     <div class="bg:w-full md:w-[50%] text-primary-500">
-      <h1 class="font-Blinker text-center text-xl md:text-2xl font-black">
+      <h2 class="font-Blinker text-center text-xl md:text-2xl font-black">
         ¿Donde ir?
-      </h1>
-      <h2
+      </h2>
+      <h3
         class="font-Blinker text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-2"
       >
         Municipios Populares
-      </h2>
+      </h3>
     </div>
     <!--? finDiv 1-->
 
@@ -114,6 +115,8 @@
     </div>
     <!--?Fin Div 2-->
   </div>
+
+  <!-- TODO: Debemos Enviar el nombre del municipio seleccionado al componente donde se va a mostrar -->
 
   <!--?Colección de municipios-->
   <div class="relative">
@@ -146,13 +149,13 @@
           loading="lazy"
           class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer"
           draggable="false"
-          routerLink="/municipios"
+          (click)="enviarInformacion(tile.title)"
         />
-        <h2
+        <h3
           class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white"
         >
           {{ tile.title }}
-        </h2>
+        </h3>
       </div>
     </div>
     <svg
@@ -173,6 +176,8 @@
   <!--?Fin del Contenedor de el titulo principal y parrafo explicativo-->
 </section>
 <!--?fin Sección de Municipios populares-->
+
+  <!-- TODO: FIN DE LA TAREA -->
 
 <!--?Sección de Categorias más buscadas-->
 
@@ -202,7 +207,7 @@
           draggable="false"
         >
           <img
-            ngSrc="../../../../../assets/img/{{tile.title}}.svg"
+            ngSrc="assets/img/{{tile.title}}.svg"
             width="100"
             height="100"
             alt=""
@@ -211,7 +216,7 @@
             draggable="false"
 
           />
-          <div class="w-full absolute h-[55%] rounded-t-xl flex flex-col bg-primary-500 m-0 p-0 bottom-0 text-white text-center items-center text-lg px-2 leading-5 font-Blinker justify-center"><h1 class="text-2xl font-extrabold ">{{tile.title}}</h1><h2>{{tile.desc}}</h2></div>
+          <div class="w-full absolute h-[55%] rounded-t-xl flex flex-col bg-primary-500 m-0 p-0 bottom-0 text-white text-center items-center text-lg px-2 leading-5 font-Blinker justify-center"><h3 class="text-2xl font-extrabold ">{{tile.title}}</h3><p>{{tile.desc}}</p></div>
         </div>
 
       </div>
@@ -307,7 +312,7 @@
       <div id="map" class=" w-full h-full mt-auto z-0"></div>
 
 
-    <div class="w-full bg-primary-500 text-white text-center" ><h2 class="py-5 font-bold font-Blinker text-4xl">Ruta x</h2></div>
+    <div class="w-full bg-primary-500 text-white text-center" ><h3 class="py-5 font-bold font-Blinker text-4xl">Ruta x</h3></div>
   </div>
 
 </section>
@@ -351,7 +356,7 @@
             draggable="false"
 
           />
-          <div class="flex flex-col h-[30%] w-full  m-0 p-0 bg-slate-100 text-gray-600  text-center text-lg px-2 absolute  font-Blinker justify-center"><h4 class=" text-primary-900 text-left text-2xl w-full m-0 leading-3 font-black">{{tile.title}} Evento chevere</h4><h5 class="text-left w-full text-sm leading-3 my-2 font-Work">22 de julio</h5> <h6  style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box;" class="text-left w-full text-sm leading-4 my-2 font-Work overflow-hidden">hola buenas esto es un evento increible que corrirá tal dia a tal hora y dal segundo determinado puede avr muertos y etc y demás cosas que se puedan encontrar en un evento popular de un municipio del Huila</h6>
+          <div class="flex flex-col h-[30%] w-full  m-0 p-0 bg-slate-100 text-gray-600  text-center text-lg px-2 absolute  font-Blinker justify-center"><h4 class=" text-primary-900 text-left text-2xl w-full m-0 leading-3 font-black">{{tile.title}} Evento chevere</h4><h5 class="text-left w-full text-sm leading-3 my-2 font-Work">22 de julio</h5> <p  style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box;" class="text-left w-full text-sm leading-4 my-2 font-Work overflow-hidden">hola buenas esto es un evento increible que corrirá tal dia a tal hora y dal segundo determinado puede avr muertos y etc y demás cosas que se puedan encontrar en un evento popular de un municipio del Huila</p>
             <button class="w-20 ml-auto text-primary-500 font-bold">Ver más ></button>
           </div>
 
@@ -477,11 +482,11 @@
     style="clip-path: ellipse(80% 100% at center top)"
   >
     <div class="xl:w-[1280px] mx-auto flex flex-col">
-      <h1
+      <h6
         class="text-center font-Blinker font-black text-white bg:text-5xl xl:text-6xl 4xl:text-8xl"
       >
         ¡Anímate a contactarnos!
-      </h1>
+      </h6>
       <hr
         class="border-primary-200 opacity-100 border-4 w-[80%] mx-auto my-0"
       />

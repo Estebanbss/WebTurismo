@@ -1,6 +1,7 @@
-import { User } from '@angular/fire/auth';
+
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/modules/auth/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verificar-correo',
@@ -9,11 +10,11 @@ import { UserService } from 'src/app/modules/auth/services/user.service';
 })
 export class VerificarCorreoComponent implements OnInit {
 
-  constructor (private user: UserService){}
+  constructor (private user: UserService, private titleService: Title){}
 
 
   ngOnInit(): void {
-
+this.titleService.setTitle('Pal\'Huila - Verifica tu correo!');
   }
 
 

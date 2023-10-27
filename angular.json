@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "login-firebase": {
+    "pal-huila": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/login-firebase",
+            "baseHref": "/",
+            "outputPath": "dist/pal-huila",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -50,8 +51,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
+              "buildOptimizer": true,
+              "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
@@ -70,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "login-firebase:build:production"
+              "browserTarget": "pal-huila:build:production"
             },
             "development": {
-              "browserTarget": "login-firebase:build:development"
+              "browserTarget": "pal-huila:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "login-firebase:build"
+            "browserTarget": "pal-huila:build"
           }
         },
         "test": {
@@ -104,11 +105,17 @@
 
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
   },
   "cli": {
-    "analytics": "a5a88c2c-7c22-44b6-94b5-299cab43d762"
+    "analytics": "a5a88c2c-7c22-44b6-94b5-299cab43d762",
+    "cache": {
+      "enabled": true
+    }
   }
 }
