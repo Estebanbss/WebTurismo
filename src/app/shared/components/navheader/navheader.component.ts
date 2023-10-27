@@ -44,7 +44,13 @@ export class NavheaderComponent implements OnInit{
 
   defaultUser:string | undefined = this.auth.currentUser?.email?.substring(0,6);
 
-  
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      this.expanded = !this.expanded2
+
+    }
+  }
+
 
 
   UserARRAY:string | undefined | string[] | Promise<void> = this.auth.currentUser?.displayName === null ? this.defaultUser : this.auth.currentUser?.displayName?.split(" ");
@@ -52,10 +58,17 @@ export class NavheaderComponent implements OnInit{
   UserName!:string | undefined;
 
 
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
 
   ngOnInit(){
 
-      this.UserName=this.UserARRAY?.toString();
+      this.UserName=this.capitalizeFirstLetter(this.UserARRAY!.toString());
 
 
 

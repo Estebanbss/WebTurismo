@@ -4,6 +4,7 @@ import { AtractivoTuristico } from 'src/app/core/common/place.interface';
 import { AtractivosService } from 'src/app/core/services/atractivos.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listado-atractivo',
@@ -15,7 +16,9 @@ export class ListadoAtractivoComponent implements OnInit {
   warning!:boolean;
   modalsuichatrac!:boolean;
 
-
+  private modalDataSubscription!: Subscription;
+  private modalDataSubscription2!: Subscription;
+  private modalDataSubscription3!: Subscription;
 
     //?-> función que detecta la tecla presionada y si es igual a escape cierra el modal
     onKeyDown(event: KeyboardEvent) {//Función que detecta la tecla presionada y si es igual a escape cierra el modal
@@ -66,11 +69,11 @@ export class ListadoAtractivoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.modalService.modalsuichatrac$.subscribe((value) => {
+    this.modalDataSubscription = this.modalService.modalsuichatrac$.subscribe((value) => {
       this.modalsuichatrac = value;
     });
 
-        this.modalService.warning$.subscribe((value) => {
+    this.modalDataSubscription2 = this.modalService.warning$.subscribe((value) => {
       this.warning = value;
     });
 
@@ -78,10 +81,22 @@ export class ListadoAtractivoComponent implements OnInit {
     this.getAtractivo();
   }
 
+  ngOnDestroy() {
+    if (this.modalDataSubscription) {
+      this.modalDataSubscription.unsubscribe();
+    }
+    if (this.modalDataSubscription2) {
+      this.modalDataSubscription2.unsubscribe();
+    }
+    if (this.modalDataSubscription3) {
+      this.modalDataSubscription3.unsubscribe();
+    }
+  }
+
   //? -> Método para obtener los elementos de la BD
   getAtractivo() {
     //? -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
-    this.atractivosService.obtenerAtractivos().subscribe(data => {
+    this.modalDataSubscription3 =   this.atractivosService.obtenerAtractivos().subscribe(data => {
       // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
       // console.log(data);
       this.atractivosTuristicos = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding

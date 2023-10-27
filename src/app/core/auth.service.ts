@@ -10,10 +10,13 @@ export class AuthService {
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       onAuthStateChanged(this.afAuth, (user) => {
-        if (user !== null || user !== undefined) {
+        console.log(user)
+        if (user != null || user != undefined) {
           resolve(true);
+
         } else {
           resolve(false);
+
         }
       });
     });
