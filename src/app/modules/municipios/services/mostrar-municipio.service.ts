@@ -27,13 +27,25 @@ export class MostrarMunicipioService {
     return collectionData(q, { idField: 'id' }) as Observable<any>;
   } //? -> Fin del método obtener Prestador
 
-  //Todo: Método para traer los atractivos
+  //Todo: Método para traer los atractivos SIN espacios
   obtenerAtractivosPorMunicipio(nombreMunicipio: string): Observable<any> {
     // Creamos una referencia a la colección de la que queremos recibir los datos
     const municipioRef = collection(this.firestore, 'atractivos');
 
     // Usamos la función where para filtrar por el nombre del municipio
     const q = query(municipioRef, where('municipio', '==', nombreMunicipio));
+
+    // Retornamos el observable
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
+  }
+
+  //Todo: Método para traer los atractivos CON espacio
+  obtenerAtractivosPorMunicipio2(nombreMunicipio: string): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const municipioRef = collection(this.firestore, 'atractivos');
+
+    // Usamos la función where para filtrar por el nombre del municipio
+    const q = query(municipioRef, where('municipio', '==', `${nombreMunicipio} `));
 
     // Retornamos el observable
     return collectionData(q, { idField: 'id' }) as Observable<any>;
