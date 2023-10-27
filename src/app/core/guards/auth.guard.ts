@@ -1,4 +1,4 @@
-import { AuthService } from './../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class authGuard {
       this.router.navigate(['auth']);
       }
       else{
-        console.log("Si puedes pasar al Home")
+
 
       }
       return isLoggedIn;

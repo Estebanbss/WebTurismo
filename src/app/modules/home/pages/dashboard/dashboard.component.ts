@@ -1,7 +1,7 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HomeService } from 'src/app/modules/home/services/home.service';
+import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';

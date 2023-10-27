@@ -2,11 +2,12 @@
   import { Map, marker, tileLayer } from 'leaflet';
   import { Title } from '@angular/platform-browser';
   import { Observable } from 'rxjs';
-  import { HomeService } from 'src/app/modules/home/services/home.service';
-  import { MostrarMunicipioService } from '../services/mostrar-municipio.service';
+  import { HomeService } from 'src/app/core/services/home.service';
+  import { MostrarMunicipioService } from '../../../core/services/mostrar-municipio.service';
   import { Municipio } from 'src/app/core/common/place.interface';
   import { Subscription } from 'rxjs';
   import { ActivatedRoute, Router } from '@angular/router';
+import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 
 
   @Component({
@@ -15,6 +16,7 @@
     styleUrls: ['./municipios.component.css']
   })
   export class MunicipiosComponent implements OnInit {
+
 
     map!: Map;
 
@@ -34,6 +36,7 @@
 
     private nombreMunicipioSubscription!: Subscription;
     private municipiosSubscription!: Subscription;
+    private modalDataSubscription!: Subscription;
 
     // latitud: number = 2.204537221801455;
     // longitud: number = -75.62682422721537;
@@ -116,6 +119,7 @@
       private route: ActivatedRoute,
       private textService: Title,
       private router: Router,
+      private modalService: ModalServiceService,
     ) {
 
 
@@ -243,6 +247,8 @@
     expandListMuni() {// Función para expandir la lista de municipios
       this.turnMuni = !this.turnMuni;// Función para expandir la lista de municipios
     }
+
+
     turnServices: boolean = false;// Variable para guardar el estado de la lista de servicios
 
     expandListServi() {
@@ -252,38 +258,13 @@
     ngOnInit(): void {// Función que se ejecuta al iniciar el componente
       //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
       this.recibirInformacion();
-      this.bum(this.cambioURL);
 
+      this.modalDataSubscription = this.modalService.modalTurnMuni$.subscribe((value) => {
+          this.turnMuni = value // Asegura que expanded2 esté en false cuando expanded cambie
+      });
     }
 
-    bum(nombre: any) {
-      let name: string = nombre;
 
-
-      this.nombreMunicipioSubscription = this.nombreMunicipio$.subscribe((municipio) => {
-        this.nombreMunicipio = nombre;
-
-      })
-
-
-      this.municipiosSubscription = this.mostrarMunicipioService.obtenerMunicipios().subscribe(data => {
-        // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
-        this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding
-        //console.log(this.municipios);
-        if(this.municipios) {
-          this.nombreMunicipioSubscription.unsubscribe();
-          this.municipiosSubscription.unsubscribe();
-          // console.log(this.nombreMunicipioSubscription.closed);
-          // console.log(this.municipiosSubscription.closed);
-          // console.log(this.municipios);
-          //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
-          this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
-        }
-      })
-
-
-      this.cambiarMunicipio(name);
-    }
 
 
     //? Método para recibir los datos del observable y de la BD
@@ -307,7 +288,8 @@
           // console.log(this.municipiosSubscription.closed);
           // console.log(this.municipios);
           //? Disparar el método para filtrar el municipio con que podamos escoger sólo el municipio que queremos mostrar.
-          this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
+          //this.filtrarMunicipio();//El método se dispara aquí para esperar a la promesa que nos llena el arreglo de municipios.
+          this.cambiarMunicipio(this.cambioURL);
         }
       })
 

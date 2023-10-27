@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/modules/auth/services/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { getAuth, onAuthStateChanged, updateProfile } from '@angular/fire/auth';
+import { ModalServiceService } from 'src/app/core/services/modal-service.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,8 +13,10 @@ import { getAuth, onAuthStateChanged, updateProfile } from '@angular/fire/auth';
 })
 
 export class NavheaderComponent implements OnInit{
-  expanded = false;
-  expanded2 = false;
+
+  private modalDataSubscription!: Subscription;
+  expanded?:boolean
+  expanded2?:boolean
   dataUser: any;
   admin: string = 'juanesbs2003@hotmail.com';
   adminButton = false;
@@ -31,7 +35,7 @@ export class NavheaderComponent implements OnInit{
 
 
 
-  constructor(private userService: UserService, private router: Router,){}
+  constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){}
 
   logOut() {
     this.userService.cerrarSesion()
@@ -43,13 +47,6 @@ export class NavheaderComponent implements OnInit{
   }
 
   defaultUser:string | undefined = this.auth.currentUser?.email?.substring(0,6);
-
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      this.expanded = !this.expanded2
-
-    }
-  }
 
 
 
@@ -68,6 +65,13 @@ export class NavheaderComponent implements OnInit{
 
   ngOnInit(){
 
+    this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
+      this.expanded = value;
+      this.expanded2 = value; // Asegura que expanded2 esté en false cuando expanded cambie
+    });
+
+
+
       this.UserName=this.capitalizeFirstLetter(this.UserARRAY!.toString());
 
 
@@ -83,6 +87,15 @@ export class NavheaderComponent implements OnInit{
 
 
     } ;
+
+
+    ngOnDestroy() {
+      if (this.modalDataSubscription) {
+        this.modalDataSubscription.unsubscribe();
+      }
+
+    }
+
 
 }
 

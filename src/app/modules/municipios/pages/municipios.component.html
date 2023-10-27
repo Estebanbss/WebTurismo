@@ -52,11 +52,11 @@
           <!--!Contenedor de los filtros de municipios-->
           <div
             *ngIf="turnMuni"
-            class="h-[800%] w-[140%] absolute bg-white flex flex-col px-5 overflow-y-scroll cdk-global-scrollblock rounded-md"
+            class="h-[800%] w-[140%] absolute bg-white flex flex-col px-5 overflow-y-scroll cdk-global-scrollblock rounded-md no-close"
           >
           <!--!Span de los nombres de municipios-->
             <span
-              class="text-xl py-2 my-2 cursor-pointer hover:bg-slate-100"
+              class="text-xl py-2 my-2 cursor-pointer hover:bg-slate-100 no-close"
               *ngFor="let item of muni"
               (click)="cambiarMunicipio(item)"
               >{{ item }}</span

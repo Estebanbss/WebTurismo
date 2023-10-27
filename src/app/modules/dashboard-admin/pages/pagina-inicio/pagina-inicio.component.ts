@@ -27,8 +27,8 @@ export class PaginaInicioComponent implements OnInit {
   getLinkActivo(){
 
    this.router.url === '/dashboard-admin/pagina-inicio/list-prestadores-turisticos' ?    this.url = "uno" : this.router.url === '/dashboard-admin/pagina-inicio/list-atractivo-turistico' ?    this.url = "dos" : this.router.url === '/dashboard-admin/pagina-inicio/list-municipio' ?    this.url = "tres" : this.router.url === '/dashboard-admin/pagina-inicio/list-rutas-turisticas' ?    this.url = "cuatro" :    this.url = "cinco";
-    console.log(this.url)
-   return console.log("ok")
+
+
 
   }
 
@@ -50,6 +50,8 @@ export class PaginaInicioComponent implements OnInit {
       this.closemodal();
     }
   }
+
+
 
   openmodaltodo() {
     this.modalService.setModalSuichTodo(true);

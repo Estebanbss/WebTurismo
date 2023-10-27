@@ -10,7 +10,7 @@ export class AuthService {
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       onAuthStateChanged(this.afAuth, (user) => {
-        console.log(user)
+        // console.log("Bienvenido!", user?.displayName, "tu email: ", user?.email, "tu numero telefonico:" , user?.phoneNumber, "tu foto de perfil: ", user?.photoURL, "tu uid: ", user?.uid)
         if (user != null || user != undefined) {
           resolve(true);
 
