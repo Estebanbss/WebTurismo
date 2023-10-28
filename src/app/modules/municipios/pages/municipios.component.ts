@@ -1,10 +1,10 @@
   import { Component, OnInit } from '@angular/core';
   import { Map, marker, tileLayer } from 'leaflet';
   import { Title } from '@angular/platform-browser';
-  import { Observable } from 'rxjs';
+  import { Observable, combineLatest } from 'rxjs';
   import { HomeService } from 'src/app/core/services/home.service';
   import { MostrarMunicipioService } from '../../../core/services/mostrar-municipio.service';
-  import { Municipio } from 'src/app/core/common/place.interface';
+  import { Municipio, PrestadorTuristico, AtractivoTuristico } from 'src/app/core/common/place.interface';
   import { Subscription } from 'rxjs';
   import { ActivatedRoute, Router } from '@angular/router';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
@@ -28,6 +28,15 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     //? -> Propiedad para almacenar el arreglo de objetos de tipo Municipio
     municipios: Municipio[] = [];
 
+    //? -> Propiedad para almacenar el arreglo de objetos de tipo prestador
+    prestadores: PrestadorTuristico[] = [];
+
+    //? -> Propiedad para almacenar el arreglo de objeto de tipo atractivo
+    atractivos: AtractivoTuristico[] = [];
+
+    //? -> Propiedad para almacenar el arreglo de objetos de tipo prestador y atractivo
+    prestadoresYAtractivos: any;
+
     //? -> Arrelgo para filtrado que se va a mostrar en el html
     arrayMunicipio: any;
 
@@ -37,6 +46,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     private nombreMunicipioSubscription!: Subscription;
     private municipiosSubscription!: Subscription;
     private modalDataSubscription!: Subscription;
+    private allSubscriptions!: Subscription;
 
     // latitud: number = 2.204537221801455;
     // longitud: number = -75.62682422721537;
@@ -356,6 +366,9 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       //* Le damos el nombre del municipio selecionado para que aparesca como elegído
       this.select = this.municipio.name;
 
+        //* Se dispara el método para traer los Prestadores y Atractivos del municipio Solicitado
+        this.datosPrestadoresYAtractivos(this.municipio.name);
+
       //* Hacemos validación de punto decimal para ambos números
       //* En este caso nos devuelte true en caso de que ambos contengan decimales
       const num1 = this.hasDecimalPoint(this.municipio.latitud);
@@ -408,6 +421,42 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.filtrarMunicipio();
       this.router.navigate(['/municipios/', this.municipio.name]);
     }
+
+    //? -> Método para traer los datos desde la BD de Prestadores y Atractivos según el municipio
+    datosPrestadoresYAtractivos(nombre: string) {
+
+      console.log(this.nombreMunicipio);
+
+      // Inicializamos las llamadas
+      const prestadores$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio(nombre);
+      const prestadores2$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio2(nombre);
+      const atractivos$ = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio(nombre);
+      const atractivos2$ = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio2(nombre);
+
+      // Nos suscribimos a todos los observables a la vez
+      this.allSubscriptions = combineLatest([prestadores$, prestadores2$, atractivos$, atractivos2$]).subscribe(
+        ([prestadoresData, prestadores2Data, atractivosData, atractivos2Data]) => {
+
+          this.prestadores = [...prestadoresData, ...prestadores2Data];
+          //console.log(this.prestadores);
+
+          this.atractivos = [...atractivosData, ...atractivos2Data];
+          //console.log(this.atractivos);
+
+          // Ahora sí, puedes combinar los resultados
+          this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
+          console.log(this.prestadoresYAtractivos);
+        }
+      );
+  }
+
+  ngOnDestroy() {
+      // Desuscribirse para evitar pérdidas de memoria
+      if (this.allSubscriptions) {
+          this.allSubscriptions.unsubscribe();
+          this.modalDataSubscription.unsubscribe();
+      }
+  }
 
 
   }
