@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, marker, tileLayer } from 'leaflet';
-import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/modules/home/services/home.service';
 import { MostrarMunicipioService } from '../../services/mostrar-municipio.service';
 import { Municipio, PrestadorTuristico, AtractivoTuristico } from 'src/app/core/common/place.interface';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-municipios',
@@ -42,10 +41,8 @@ export class MunicipiosComponent implements OnInit {
   //? -> propiedades para suscribirse y desuscribirse
   private nombreMunicipioSubscription!: Subscription;
   private municipiosSubscription!: Subscription;
-  private prestadoresSubscription!: Subscription;
-  private prestadoresSubscription2!: Subscription;
-  private atractivosSubscription!: Subscription;
-  private atractivosSubscription2!: Subscription;
+
+  private allSubscriptions!: Subscription;
 
   // latitud: number = 2.204537221801455;
   // longitud: number = -75.62682422721537;
@@ -281,7 +278,6 @@ export class MunicipiosComponent implements OnInit {
     })
 
     //TODO: Aquí llamamos al método que nos trae la información de los Prestadores y Atractivos desde la BD, basados en la propiedad nombreMunicipio
-    this.datosPrestadoresYAtractivos();
 
   }
 
@@ -345,6 +341,9 @@ export class MunicipiosComponent implements OnInit {
     //* Le damos el nombre del municipio selecionado para que aparesca como elegído
     this.select = this.municipio.name;
 
+    //* Se dispara el método para traer los Prestadores y Atractivos del municipio Solicitado
+    this.datosPrestadoresYAtractivos(this.municipio.name);
+
     //* Hacemos validación de punto decimal para ambos números
     //* En este caso nos devuelte true en caso de que ambos contengan decimales
     const num1 = this.hasDecimalPoint(this.municipio.latitud);
@@ -397,68 +396,39 @@ export class MunicipiosComponent implements OnInit {
     this.filtrarMunicipio();
   }
 
-  //TODO: Método para obtener el arreglo de Atracrivos y Prestadores
-  //? -> Método para obtener el arreglo de Atracrivos y Prestadores
-  datosPrestadoresYAtractivos() {
+    //? -> Método para traer los datos desde la BD de Prestadores y Atractivos según el municipio
+    datosPrestadoresYAtractivos(nombre: string) {
 
-    //? -> DATOS PRESTADORES
-    //* Nos suscribimos a nuestro Observable para obtener los Prestadores por Municipio SIN espacios
-    this.prestadoresSubscription = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio(this.nombreMunicipio).subscribe(data => {
-      this.prestadores = data;
-      //*Validamos que sí tenga la información antes de desuscribirnos
-      if(this.prestadores) {
-        //*Nos desuscribimos apenas tengamos la información
-        this.prestadoresSubscription.unsubscribe();
-        // console.log(this.prestadoresSubscription.closed);
-        // console.log(this.prestadores);
+      console.log(this.nombreMunicipio);
+
+      // Inicializamos las llamadas
+      const prestadores$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio(nombre);
+      const prestadores2$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio2(nombre);
+      const atractivos$ = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio(nombre);
+      const atractivos2$ = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio2(nombre);
+
+      // Nos suscribimos a todos los observables a la vez
+      this.allSubscriptions = combineLatest([prestadores$, prestadores2$, atractivos$, atractivos2$]).subscribe(
+        ([prestadoresData, prestadores2Data, atractivosData, atractivos2Data]) => {
+
+          this.prestadores = [...prestadoresData, ...prestadores2Data];
+          //console.log(this.prestadores);
+
+          this.atractivos = [...atractivosData, ...atractivos2Data];
+          //console.log(this.atractivos);
+
+          // Ahora sí, puedes combinar los resultados
+          this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
+          console.log(this.prestadoresYAtractivos);
+        }
+      );
+  }
+
+  ngOnDestroy() {
+      // Desuscribirse para evitar pérdidas de memoria
+      if (this.allSubscriptions) {
+          this.allSubscriptions.unsubscribe();
       }
-    });
-
-    //* Nos suscribimos a nuestro Observable para obtener los Prestadores por Municipio CON espacio
-    this.prestadoresSubscription2 = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio2(this.nombreMunicipio).subscribe(data => {
-      this.prestadores = [...this.prestadores, ...data]; //Añadimos al arreglo existénte lo que hace falta
-      //*Validamos que sí tenga la información antes de desuscribirnos
-      if(this.prestadores) {
-        //*Nos desuscribimos apenas tengamos la información
-        this.prestadoresSubscription2.unsubscribe();
-        // console.log(this.prestadoresSubscription2.closed);
-        // console.log(this.prestadores);
-      }
-    });
-
-    //? -> DATOS ATRACTIVOS
-    //* Nos suscribimos a nuestro Observable para obtener los Atractivos por Municipio SIN espacios
-    this.atractivosSubscription = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio(this.nombreMunicipio).subscribe(data => {
-      this.atractivos = data;
-      //*Validamos que sí tenga la información antes de desuscribirnos
-      if(this.atractivos) {
-        //*Nos desuscribimos apenas tengamos la información
-        this.atractivosSubscription.unsubscribe();
-        // console.log(this.atractivosSubscription.closed);
-        // console.log(this.atractivos);
-      }
-    });
-
-    //* Nos suscribimos a nuestro Observable para obtener los Atractivos por Municipio CON espacio
-    this.atractivosSubscription2 = this.mostrarMunicipioService.obtenerAtractivosPorMunicipio2(this.nombreMunicipio).subscribe(data => {
-      this.atractivos = [...this.atractivos, ...data]; //Añadimos al arreglo existénte lo que hace falta
-      //*Validamos que sí tenga la información antes de desuscribirnos
-      if(this.atractivos) {
-        //*Nos desuscribimos apenas tengamos la información
-        this.atractivosSubscription2.unsubscribe();
-        // console.log(this.atractivosSubscription2.closed);
-        console.log(this.atractivos);
-      }
-    });
-
-    //? -> JUMTAMOS LOS ARREGLOS
-    //TODO: Disparar un código cuando se cumpla la condición de que se han llenado los valores
-    console.log(this.prestadores);
-    console.log(this.atractivos);
-    this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
-    console.log(this.prestadoresYAtractivos);
-
-
   }
 
 
