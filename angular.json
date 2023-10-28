@@ -11,8 +11,12 @@
       "prefix": "app",
       "architect": {
         "build": {
+
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "leaflet"
+            ],
             "baseHref": "/",
             "outputPath": "dist/pal-huila",
             "index": "src/index.html",
@@ -51,7 +55,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
