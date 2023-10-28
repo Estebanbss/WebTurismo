@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Municipio } from 'src/app/core/common/place.interface';
 import { MunicipiosService } from 'src/app/core/services/municipios.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listado-municipio',
@@ -10,6 +11,11 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
   styleUrls: ['./listado-municipio.component.css']
 })
 export class ListadoMunicipioComponent implements OnInit {
+
+  private modalDataSubscription!: Subscription;
+  private modalDataSubscription2!: Subscription;
+  private modalDataSubscription3!: Subscription;
+
 
   modalsuichmuni!:boolean;
   warning!:boolean;
@@ -61,21 +67,33 @@ export class ListadoMunicipioComponent implements OnInit {
 
   ngOnInit() {
 
-    this.modalService.modalsuichmuni$.subscribe((value) => {
+    this.modalDataSubscription =  this.modalService.modalsuichmuni$.subscribe((value) => {
       this.modalsuichmuni = value;
     });
 
-    this.modalService.warning$.subscribe((value) => {
+    this.modalDataSubscription2 = this.modalService.warning$.subscribe((value) => {
       this.warning = value;
     });
     //Lo ejecutamos en el método OnInit para que dispare el método getAtractivo y me cargue los datos apenas se cargue el componente. Además de que disparamos el cold Observable para que se actualizen los datos a tiempo real.
     this.getAtractivo();
   }
 
+  ngOnDestroy() {
+    if (this.modalDataSubscription) {
+      this.modalDataSubscription.unsubscribe();
+    }
+    if (this.modalDataSubscription2) {
+      this.modalDataSubscription2.unsubscribe();
+    }
+    if (this.modalDataSubscription3) {
+      this.modalDataSubscription3.unsubscribe();
+    }
+  }
+
   //? -> Método para obtener los elementos de la BD
   getAtractivo() {
     //? -> Aquí nos suscribimos a nuestro observable desde el método de nuestro servicio para que esté atento a los cambios que se hagan a tiempo real.
-    this.municipiosService.obtenerMunicipios().subscribe(data => {
+    this.modalDataSubscription3 =   this.municipiosService.obtenerMunicipios().subscribe(data => {
       // data nos trae un arreglo con el conjunto de elemento de tipo Object - Arreglo de Objetos
       // console.log(data);
       this.municipios = data; //Pasamos la información a una propiedad nativa de la clase para hacer el Banding

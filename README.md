@@ -1,27 +1,50 @@
-# WebTurismo
+# WebTurismo - Pal'Huila
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
+![Imagen de Pal'Huila](https://github.com/CenturHuila/WebTurismo/raw/main/src/assets/img/ImagotipoPalH.svg)
 
-## Development server
+Este proyecto se enfoca en la creación y mejora de la página web "Pal'Huila," una plataforma turística para el departamento del Huila.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Descripción
 
-## Code scaffolding
+Pal'Huila es una evolución de la anterior aplicación móvil "CenturHuila 3.0," creada en 2021 con recursos SENNOVA. El objetivo principal es promocionar los destinos turísticos y servicios del departamento, abarcando los 37 municipios de la región.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Objetivo
 
-## Build
+El proyecto busca optimizar la experiencia de usuario (UX) en la plataforma web, centrándose en la usabilidad, funcionalidad, credibilidad y accesibilidad. Esta mejora no solo beneficia a los usuarios, sino que también tiene un impacto positivo en el sector turístico del Huila.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Funcionalidades Destacadas
 
-## Running unit tests
+- Incorporación de las últimas tendencias de interacción para mejorar la UX.
+- Estrategias de promoción de la plataforma mediante acuerdos locales y regionales para aumentar su visibilidad.
+- Generación de métricas que miden la calidad y satisfacción de los usuarios.
+- Entregar de manera efectiva la oferta turística de los 37 municipios del Huila
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Ejecución, Pruebas y Compilación
 
-## Running end-to-end tests
+### Servidor para desarrollo
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Ejecuta `ng serve` para iniciar un servidor de desarrollo. Navega a http://localhost:4200/. La aplicación se recargará automáticamente si realizas cambios en los archivos fuente.
 
-## Further help
+### Estructura de código
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Ejecuta `ng generate component nombre-del-componente` para generar un nuevo componente. También puedes usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+### Compilación
+
+Ejecuta `ng build` para compilar el proyecto. Los archivos generados se almacenarán en el directorio dist/.
+
+### Ejecución de pruebas unitarias
+
+Ejecuta `ng test` para ejecutar las pruebas unitarias a través de Karma.
+
+### Ejecución de pruebas de extremo a extremo
+
+Ejecuta `ng e2e` para ejecutar las pruebas de extremo a extremo a través de una plataforma de tu elección. Para utilizar este comando, primero debes agregar un paquete que implemente capacidades de pruebas de extremo a extremo.
+
+## Más Información
+
+Para obtener más ayuda, utiliza `ng help` o visita la página de Descripción general y referencia de comandos de Angular CLI.
+O en determinado caso con los desarrolladores:
+
+- [Sanvargas02](https://github.com/Sanvargas02)
+- [Estebanbss](https://github.com/Estebanbss)

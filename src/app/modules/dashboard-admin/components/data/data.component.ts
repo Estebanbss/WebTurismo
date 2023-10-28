@@ -5,6 +5,9 @@ import { MunicipiosService } from 'src/app/core/services/municipios.service';
 import { AtractivosService } from 'src/app/core/services/atractivos.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 import { Ruta, PrestadorTuristico, Municipio, AtractivoTuristico } from 'src/app/core/common/place.interface';
+import { Subscription } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-data',
@@ -23,6 +26,9 @@ export class DataComponent {
     ) {
 
     }
+
+    private modalDataSubscription!: Subscription;
+
 
     muni: string[] = [ // Array de municipios del Huila
     'Acevedo',
@@ -85,17 +91,21 @@ export class DataComponent {
    }
 
    ngOnInit() {
-    this.modalService.modaldata$.subscribe((value) => {
+    this.modalDataSubscription = this.modalService.modaldata$.subscribe((value) => {
       this.modaldata = value;
     });
-
-
-
     //Lo ejecutamos en el método OnInit para que dispare el método getAtractivo y me cargue los datos apenas se cargue el componente. Además de que disparamos el cold Observable para que se actualizen los datos a tiempo real.
     this.getAtractivo();
     this.getPrestador();
     this.getRutas();
     this.getMunicipio();
+  }
+
+
+  ngOnDestroy() {
+    if (this.modalDataSubscription) {
+      this.modalDataSubscription.unsubscribe();
+    }
   }
 
   prestadorPorMunicipio() {

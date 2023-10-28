@@ -3,6 +3,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pagina-inicio',
@@ -10,6 +11,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./pagina-inicio.component.css']
 })
 export class PaginaInicioComponent implements OnInit {
+
+
+  private modalDataSubscription!: Subscription;
+  private modalDataSubscription2!: Subscription;
+  private modalDataSubscription3!: Subscription;
 
   public cerrado: boolean = false;
   modalsuichtodo!:boolean;
@@ -21,8 +27,8 @@ export class PaginaInicioComponent implements OnInit {
   getLinkActivo(){
 
    this.router.url === '/dashboard-admin/pagina-inicio/list-prestadores-turisticos' ?    this.url = "uno" : this.router.url === '/dashboard-admin/pagina-inicio/list-atractivo-turistico' ?    this.url = "dos" : this.router.url === '/dashboard-admin/pagina-inicio/list-municipio' ?    this.url = "tres" : this.router.url === '/dashboard-admin/pagina-inicio/list-rutas-turisticas' ?    this.url = "cuatro" :    this.url = "cinco";
-    console.log(this.url)
-   return console.log("ok")
+
+
 
   }
 
@@ -44,6 +50,8 @@ export class PaginaInicioComponent implements OnInit {
       this.closemodal();
     }
   }
+
+
 
   openmodaltodo() {
     this.modalService.setModalSuichTodo(true);
@@ -86,23 +94,40 @@ export class PaginaInicioComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.titleService.setTitle('Pal\'Huila - PANEL ADMINISTRADOR');
-    this.modalService.modalsuichtodo$.subscribe((value) => {
+    this.titleService.setTitle('Pal\'Huila - Admin');
+
+    this.modalDataSubscription = this.modalService.modalsuichtodo$.subscribe((value) => {
       this.modalsuichtodo = value;
     });
 
 
-    this.modalService.warningAll$.subscribe((value) => {
+    this.modalDataSubscription2 = this.modalService.warningAll$.subscribe((value) => {
       this.warningAll = value;
     });
 
-    this.modalService.modaldata$.subscribe((value) => {
+    this.modalDataSubscription3 = this.modalService.modaldata$.subscribe((value) => {
       this.modaldata = value;
     });
 
     this.getLinkActivo();
     this.botonActivo = this.url;
 
+
+  }
+
+
+  ngOnDestroy() {
+    if (this.modalDataSubscription) {
+      this.modalDataSubscription.unsubscribe();
+    }
+
+    if (this.modalDataSubscription2) {
+      this.modalDataSubscription2.unsubscribe();
+    }
+
+    if (this.modalDataSubscription3) {
+      this.modalDataSubscription3.unsubscribe();
+    }
 
   }
 }

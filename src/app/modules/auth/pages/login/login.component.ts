@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/modules/auth/services/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { Title } from '@angular/platform-browser';
 
 

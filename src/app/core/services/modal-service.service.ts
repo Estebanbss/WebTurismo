@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ModalServiceService {;
-
-  constructor() { }
+export class ModalServiceService {
+  constructor() {}
 
   private valueSource = new BehaviorSubject<string>('');
   currentValue = this.valueSource.asObservable();
@@ -24,7 +23,7 @@ export class ModalServiceService {;
   warningAll$ = this.warningAllSubject.asObservable();
 
   private modalsuichmuniSubject = new BehaviorSubject<boolean>(false);
-  modalsuichmuni$ = this. modalsuichmuniSubject.asObservable();
+  modalsuichmuni$ = this.modalsuichmuniSubject.asObservable();
 
   private modalsuichatracSubject = new BehaviorSubject<boolean>(false);
   modalsuichatrac$ = this.modalsuichatracSubject.asObservable();
@@ -33,7 +32,15 @@ export class ModalServiceService {;
   modalsuichrutas$ = this.modalsuichrutasSubject.asObservable();
 
   private modalsuichtodoSubject = new BehaviorSubject<boolean>(false);
-  modalsuichtodo$ = this. modalsuichtodoSubject.asObservable();
+  modalsuichtodo$ = this.modalsuichtodoSubject.asObservable();
+
+  private modalPFHeaderSubject = new BehaviorSubject<boolean>(false);
+  modalPFHeader$ = this.modalPFHeaderSubject.asObservable();
+
+  private modalTurnMuniSubject = new BehaviorSubject<boolean>(false);
+  modalTurnMuni$ = this.modalTurnMuniSubject.asObservable();
+
+
 
   setWarningAll(value: boolean) {
     this.warningAllSubject.next(value);
@@ -62,8 +69,17 @@ export class ModalServiceService {;
   setModalSuichTodo(value: boolean) {
     this.modalsuichtodoSubject.next(value);
   }
+
   setData(value: boolean) {
     this.modaldataSubject.next(value);
+  }
+
+  setProfileHeader(value: boolean) {
+    this.modalPFHeaderSubject.next(value);
+  }
+
+  setTurnMuni(value: boolean) {
+    this.modalTurnMuniSubject.next(value);
   }
 
 

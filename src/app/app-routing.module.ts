@@ -1,8 +1,10 @@
+import { PrestadoresModule } from './modules/prestadores/prestadores.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { QuicklinkStrategy } from 'ngx-quicklink'; //libreria para la estrategia de precarga de modulos
 import { authGuard } from './core/guards/auth.guard';
 import { homeGuard } from './core/guards/home.guard';
+import { MunicipioGuard } from './core/guards/municipio.guard';
 
 
 const routes: Routes = [
@@ -11,7 +13,9 @@ const routes: Routes = [
 
   { path: "dashboard-admin", canActivate:[authGuard],  loadChildren: () => import('./modules/dashboard-admin/dashboard-admin.module').then( m => m.DashboardAdminModule )},
 
-  { path: "municipios", canActivate:[authGuard], loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
+  { path: "municipios/:id", canActivate:[authGuard, MunicipioGuard], loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
+
+  { path: "prestadores", canActivate:[authGuard], loadChildren:() => import("./modules/prestadores/prestadores.module").then((m) => m.PrestadoresModule)},
 
   { path: "auth", canActivate:[homeGuard],  loadChildren:() => import("./modules/auth/auth.module").then((m) => m.AuthModule)},
 
