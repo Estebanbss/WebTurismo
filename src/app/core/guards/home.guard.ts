@@ -16,12 +16,10 @@ export class homeGuard {
     try {
       const isLoggedIn = await this.authService.getLoggin();
       if(!isLoggedIn){
-        console.log("Inicia sesión pues, mijo")
         return true;
 
       }
       else{
-        console.log("Tas iniciado, pal Lobby mijo")
         this.router.navigate(['home']);
       }
       return isLoggedIn;
