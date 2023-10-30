@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { PrestadoresService } from 'src/app/core/services/prestadores.service';
 import { Router } from '@angular/router';

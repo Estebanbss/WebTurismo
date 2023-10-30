@@ -127,11 +127,11 @@
       >
         <img
           ngSrc="{{ tile.img }}"
-          width="100"
-          height="100"
+          fill
           alt="{{ tile.alt }}"
+
           loading="lazy"
-          class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-700  hover:ease-in-out"
+          class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-700  hover:ease-in-out "
           draggable="false"
           (click)="enviarInformacion(tile.title)"
         />
@@ -192,8 +192,7 @@
         >
           <img
             ngSrc="assets/img/{{tile.title}}.svg"
-            width="100"
-            height="100"
+            fill
             alt=""
             loading="lazy"
             class="w-20 h-20 mx-auto my-auto"
@@ -254,8 +253,7 @@
         >
           <img
             ngSrc="{{tile.img}}"
-            width="100"
-            height="100"
+            fill
             alt=""
             loading="lazy"
             class="w-full h-[90%] object-cover filter brightness-75 mx-auto my-auto rounded-xl"
@@ -323,23 +321,23 @@
 
       <div
         #carousel
-        class="carousel relative flex flex-row align-middle overflow-hidden"
+        class="carousel relative flex flex-row align-middle overflow-hidden max-h-[500px] h-[500px]"
       >
         <div
           *ngFor="let tile of tilesData"
-          class="bg:min-w-[87%] bg-white rounded-xl py-10 sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/3)] h-[500px] max-h-[500px] relative ml-3"
+          class="bg:min-w-[87%]  bg-white rounded-xl py-10 sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/3)] h-[500px] max-h-[500px] relative ml-3 overflow-hidden"
           draggable="false"
         >
-          <img
-            ngSrc="{{tile.img}}"
-            width="100"
-            height="100"
-            alt=""
-            loading="lazy"
-            class="w-full h-[70%] object-cover filter brightness-75 mx-auto my-auto rounded-t-xl"
-            draggable="false"
+        <div class="w-full h-[70%] relative"><img
+          ngSrc="{{tile.img}}"
+          fill
+          alt=""
+          loading="lazy"
+          class="w-full h-full object-cover filter brightness-75 mx-auto my-auto rounded-t-xl"
+          draggable="false"
 
-          />
+        /></div>
+
           <div class="flex flex-col h-[30%] w-full  m-0 p-0 bg-slate-100 text-gray-600  text-center text-lg px-2 absolute  font-Blinker justify-center"><h4 class=" text-primary-900 text-left text-2xl w-full m-0 leading-3 font-black">{{tile.title}} Evento chevere</h4><h5 class="text-left w-full text-sm leading-3 my-2 font-Work">22 de julio</h5> <p  style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box;" class="text-left w-full text-sm leading-4 my-2 font-Work overflow-hidden">hola buenas esto es un evento increible que corrirá tal dia a tal hora y dal segundo determinado puede avr muertos y etc y demás cosas que se puedan encontrar en un evento popular de un municipio del Huila</p>
             <button class="w-20 ml-auto text-primary-500 font-bold">Ver más ></button>
           </div>
@@ -416,16 +414,18 @@
           class="bg:min-w-[75%] bg-white rounded-xl py-10 sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[350px] max-h-[350px] relative ml-3"
           draggable="false"
         >
+        <div class="relative w-full h-[70%] overflow-hidden">
           <img
             ngSrc="{{tile.img}}"
-            width="100"
-            height="100"
+            fill
             alt=""
             loading="lazy"
-            class="w-full h-[90%] object-cover filter brightness-75 mx-auto my-auto rounded-xl"
+            class="w-full h-full object-fill filter brightness-75 mx-auto my-auto rounded-xl aspect-video"
             draggable="false"
 
           />
+        </div>
+
           <div class="rounded-t-xl flex flex-col h-[20%] w-full  m-0 p-0  text-gray-600  items-center text-center text-lg px-2 absolute  font-Blinker justify-center"><h4 class=" text-primary-600 text-left text-2xl w-full m-0 leading-3 font-black">{{tile.title}} Atractivo</h4><h5 class="text-left w-full text-sm leading-3 my-2 font-Work">{{tile.title}},Colombia,Huila</h5></div>
         </div>
 

@@ -24,12 +24,13 @@ export class NavheaderComponent implements OnInit{
       // console.log(user);
 
   toggleExpanded() {
-    this.expanded = this.expanded === true ? this.expanded = false : this.expanded = true;
+    this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
+    console.log(this.expanded)
     this.expanded2 = false; // Asegura que expanded2 esté en false cuando expanded cambie
   }
 
   toggleExpanded2() {
-    this.expanded2 = this.expanded2 === true ? this.expanded2 = false : this.expanded2 = true;
+    this.expanded2 = !this.expanded2;
     console.log(this.expanded2)
     this.expanded = false; // Asegura que expanded esté en false cuando expanded2 cambie
   }
