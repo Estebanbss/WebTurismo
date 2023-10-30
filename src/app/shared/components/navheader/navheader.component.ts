@@ -16,7 +16,7 @@ export class NavheaderComponent implements OnInit{
 
   private modalDataSubscription!: Subscription;
   expanded?:boolean
-  expanded2?:string = "cerrado"
+  expanded2?:string = "abierto"
   dataUser: any;
   admin: string = 'juanesbs2003@hotmail.com';
   adminButton = false;
