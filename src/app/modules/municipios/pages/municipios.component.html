@@ -35,7 +35,6 @@
             (click)="expandListMuni()"
           >
           <!--!Icono de filtros de municipios-->
-          <!--TODO: Cambiar el municipio dependiendo de lo seleccionado en el arreglo y pintar en select-->
             <h2 class="text-white bg:text-2xl md:text-4xl font-black">
               {{ select }}
             </h2>
@@ -515,7 +514,7 @@
 
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
-        <div class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
+        <div *ngFor="let item of prestadoresYAtractivos" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
 
 
           <!--!Div principal imagen-->

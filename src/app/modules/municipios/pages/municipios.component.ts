@@ -248,8 +248,6 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ]
 
 
-
-
     select: string = "Garzón";// Variable para guardar el municipio seleccionado
 
     turnMuni: boolean = false;// Variable para guardar el estado de la lista de municipios
@@ -273,8 +271,6 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           this.turnMuni = value // Asegura que expanded2 esté en false cuando expanded cambie
       });
     }
-
-
 
 
     //? Método para recibir los datos del observable y de la BD
@@ -303,7 +299,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
         }
       })
 
-    }
+    } //? -> Fin Recibir Información
 
     //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
     filtrarMunicipio() {
