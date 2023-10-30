@@ -1,10 +1,6 @@
 <app-navheader class="mb-10"></app-navheader>
-
-<div (keydown)="onKeyDown($event)" class=".modal h-full">
-  <div class="relative min-h-screen min-w-full flex flex-row">
-    <!-- Sidebar -->
-    <aside *ngIf="cerrado" class="fixed flex flex-col bg-primary-500 z-50 h-full p-4 top-0">
-      <div class="text-white text-4xl text-center mt-12 font-bold">
+  <aside *ngIf="cerrado" class="fixed flex flex-col bg-primary-500 z-50 h-full p-4 top-0 left-0">
+      <div class="text-white text-4xl text-center mt-auto font-bold">
         Pa'l Huila Admin
       </div>
 
@@ -53,7 +49,12 @@
         </div>
       </div>
     </aside>
-    <section (mousedown)="onCloseMousedown($event)" class="w-[90%] h-full mx-auto">
+
+<div (keydown)="onKeyDown($event)" class=".modal mt-[60px] h-full xl:w-[1280px] mx-auto ">
+  <div class="relative min-h-screen min-w-full flex flex-row">
+    <!-- Sidebar -->
+
+    <section (mousedown)="onCloseMousedown($event)" class="min-w-[300px] w-full xl:max-w-[1280px] h-full mx-auto">
       <!-- Página para navegar entres módulos -->
       <div (keydown)="onKeyDown($event)" class="absolute top-0 right-0 left-0 bottom-0" *ngIf="modalsuichtodo === true">
         <app-import-todo></app-import-todo>
@@ -115,7 +116,7 @@
     </section>
 
 
-    <button (click)="hidden()" class="fixed z-50 top-2">
+    <button (click)="hidden()" class="fixed z-50 top-[60px] bg-primary-500 rounded-br-xl xl:top-2 sm:bg-none left-0">
       <svg *ngIf="cerrado" class="fill-white" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960"
         width="48">
         <path d="M508-481 310-679l65-65 263 263-263 262-65-65 198-197Z" />

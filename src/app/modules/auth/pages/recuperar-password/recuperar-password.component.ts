@@ -34,8 +34,6 @@ export class RecuperarPasswordComponent implements OnInit {
     this.titleService.setTitle('Pal\'Huila - Recupera tu contraseña!');
 
 
-    console.log("works")
-
     } ;
 
 

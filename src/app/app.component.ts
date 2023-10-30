@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     const targetElement = event.target as HTMLElement;
 
     // Verifica si el evento no se originó en un elemento con la clase "no-close"
-    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg"  && targetElement.tagName !=="li"  && targetElement.tagName !=="path" && targetElement.tagName !=="span"  && targetElement.tagName !=="ul"    ) {
+    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg"  && targetElement.tagName !=="li"  && targetElement.tagName !=="path" && targetElement.tagName !=="span"  && targetElement.tagName !=="ul" && targetElement.tagName !=="button"    ) {
 
       this.modal.setProfileHeader(false);
       this.modal.setTurnMuni(false);
