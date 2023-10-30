@@ -1,19 +1,19 @@
 <header  class="z-50  bg-primary-500 "> <!-- Encabezado con margen inferior -->
-  <nav class="z-50  bg-primary-500 fixed mx-auto  items-center justify-center left-0  top-0 w-full py-1">
+  <nav class="z-50  bg-primary-500 fixed mx-auto  items-center justify-center left-0  top-0 w-full px-1">
     <!-- Barra de navegación con propiedades de diseño -->
-    <div class="flex justify-center flex-wrap items-center xl:max-w-[1280px] mx-auto"> <!-- Contenedor flexible con alineación central y envoltura de elementos -->
-      <a  routerLink="/home" class="flex  z-50 cursor-pointer"> <!-- Enlace de navegación con margen derecho -->
-        <h1    class="self-center whitespace-nowrap text-white font-Work font-[1000] ms-2 sm:text-3xl xs:text-2xl" >
+    <div class="flex justify-center flex-wrap items-center xl:max-w-[1280px] mx-auto "> <!-- Contenedor flexible con alineación central y envoltura de elementos -->
+      <a  routerLink="/home" class="flex  z-50 cursor-pointer mr-auto justify-center flex-row px-auto"> <!-- Enlace de navegación con margen derecho -->
+        <h1    class="self-center hidden whitespace-nowrap text-white font-Work font-[1000] ms-2 sm:text-3xl xs:text-2xl" >
           Pal'Huila
         </h1> <!-- Texto del logotipo -->
-        <img alt="Pa'lHuilaLogo" class="h-9 sm:h-9" src="assets/img/IsotipoPalH.svg" loading="lazy" dir="ltr">
+        <img alt="Pa'lHuilaLogo" class="h-[60px] mx-auto " src="assets/img/ImagotipoPalH.svg" loading="lazy" dir="ltr">
         <!-- Imagen del logotipo -->
       </a>
       <div class="flex items-center lg:order-2 ml-auto "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
         <button class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
           <!-- Botón para expandir el menú móvil -->
           <svg class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
+            <!-- <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path> -->
           </svg>
         </button>
 
