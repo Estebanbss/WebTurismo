@@ -26,7 +26,7 @@ export class NavheaderComponent implements OnInit{
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
 
-    this.expanded2 = "abierto"
+    this.expanded2 = "cerrado"
   }
 
   toggleExpanded2() {
@@ -74,10 +74,10 @@ export class NavheaderComponent implements OnInit{
     this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
       this.expanded = value;
       if(value === true){
-        this.expanded2 = "cerrado"
+        this.expanded2 = "abierto"
       }
       else{
-
+        this.expanded2 = "cerrado"
       }
     });
 
