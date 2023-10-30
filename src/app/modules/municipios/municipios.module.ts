@@ -6,6 +6,8 @@ import { MunicipiosComponent } from './pages/municipios.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     MunicipiosRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
   ]
 
 })

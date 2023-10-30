@@ -17,6 +17,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
   })
   export class MunicipiosComponent implements OnInit {
 
+    //Página donde estamos
+    page: number = 1;
 
     map!: Map;
 
@@ -442,8 +444,20 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           // Ahora sí, puedes combinar los resultados
           this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
           console.log(this.prestadoresYAtractivos);
+          this.prestadoresYAtractivos = this.shuffleArray(this.prestadoresYAtractivos);
         }
       );
+  }
+
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+        // Generar un índice aleatorio
+        const j = Math.floor(Math.random() * (i + 1));
+
+        // Intercambiar elementos
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   ngOnDestroy() {
