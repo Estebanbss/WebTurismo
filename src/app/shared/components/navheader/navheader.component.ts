@@ -16,7 +16,7 @@ export class NavheaderComponent implements OnInit{
 
   private modalDataSubscription!: Subscription;
   expanded?:boolean
-  expanded2?:boolean
+  expanded2?:string = "cerrado"
   dataUser: any;
   admin: string = 'juanesbs2003@hotmail.com';
   adminButton = false;
@@ -25,13 +25,17 @@ export class NavheaderComponent implements OnInit{
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
-    console.log(this.expanded)
-    this.expanded2 = false; // Asegura que expanded2 esté en false cuando expanded cambie
+
+    this.expanded2 = "abierto"
   }
 
   toggleExpanded2() {
-    this.expanded2 = !this.expanded2;
-    console.log(this.expanded2)
+    if(this.expanded2 === "cerrado"){
+      this.expanded2 = "abierto"
+    }
+    else{
+      this.expanded2 = "cerrado"
+    }
     this.expanded = false; // Asegura que expanded esté en false cuando expanded2 cambie
   }
 
@@ -69,7 +73,12 @@ export class NavheaderComponent implements OnInit{
 
     this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
       this.expanded = value;
-      this.expanded2 = value; // Asegura que expanded2 esté en false cuando expanded cambie
+      if(value === true){
+        this.expanded2 = "cerrado"
+      }
+      else{
+
+      }
     });
 
 

@@ -9,11 +9,11 @@
         <img alt="Pa'lHuilaLogo" class="h-[60px] mx-auto " src="assets/img/ImagotipoPalH.svg" loading="lazy" dir="ltr">
         <!-- Imagen del logotipo -->
       </a>
-      <div class="flex items-center lg:order-2 ml-auto "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
+      <div class="flex items-center lg:order-2 ml-auto gap-5 "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
         <button class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
           <!-- Botón para expandir el menú móvil -->
           <svg class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <!-- <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path> -->
+            <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
           </svg>
         </button>
 
@@ -25,8 +25,8 @@
             <button class=" bg-primary-400 bg:text-xs no-close  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50" (click)="toggleExpanded2()">
 
               <!--espacio de la foto de usuario del usuario-->
-              <img alt="UserProfilePhoto no-close z-40" src="assets/img/pfp.webp">
-              <div class="hidden absolute no-close right-0 w-[400%]   lg:rounded-lg bg-primary-400 text-white  bg:rounded-lg justify-center items-center py-auto font-Work font-regular text-lg " [class.hidden]="!expanded2" >
+              <img alt="UserProfilePhoto no-close z-0 " src="assets/img/pfp.webp">
+              <div class="hidden absolute no-close right-0 w-[400%]   lg:rounded-lg bg-primary-400 text-white  bg:rounded-lg justify-center items-center py-auto font-Work font-regular text-lg " [class.hidden]="expanded2=='abierto'" >
                 <ul class=" text-left mb-0 p-2 no-close">
                   <li class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close " routerLink="">
                     <span class="text-white flex flex-row items-center gap-2 no-close" ><svg class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> {{UserName}}</span>
@@ -54,7 +54,7 @@
 
       <div class="hidden   items-center justify-between lg:flex lg:order-0 lg:w-auto w-full ml-auto mr-auto " id="mobile-menu-2" [class.hidden]="!expanded">
         <!-- Menú desplegable para pantallas grandes -->
-        <ul class="flex flex-col font-regular font-Work mx-auto justify-center lg:flex-row lg:items-center p-0 text-center py-auto my-auto gap-2">
+        <ul class="flex flex-col font-bold font-Work mx-auto justify-center lg:flex-row lg:items-center p-0 text-center py-auto my-auto gap-2">
           <!-- Lista de elementos de navegación -->
           <li class="flex justify-center">
             <button  class="block  border-gray-100 hover:bg-primary-400 lg:border-0    text-white px-4 rounded-full py-2">
