@@ -104,7 +104,7 @@
           >
             Descripción
           </h2>
-          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+          <p *ngIf="municipio !== undefined && municipio.descripcion !== null && municipio.descripcion !== undefined && municipio.descripcion !== '--' " class="text-lg font-Work">
             {{municipio.descripcion}}
           </p>
           <hr class="border-[1px] my-5" />
@@ -114,7 +114,7 @@
           >
             Fiestas y eventos
           </h2>
-          <div *ngIf="municipio !== undefined">
+          <div *ngIf="municipio !== undefined && municipio.fiestasEventos !== null && municipio.fiestasEventos !== '--'">
             <span class="text-lg font-Work">{{municipio.fiestasEventos}}</span>
           </div>
           <!--
@@ -130,7 +130,7 @@
           >
             Hechos historicos
           </h2>
-          <p *ngIf="municipio !== undefined" class="text-lg font-Work">
+          <p *ngIf="municipio !== undefined && municipio.hechosHistoricos !== undefined && municipio.hechosHistoricos !== null && municipio.hechosHistoricos !== '--' " class="text-lg font-Work">
             {{municipio.hechosHistoricos}}
           </p>
         </div>
@@ -161,7 +161,7 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.sitioWeb !== '' && municipio.sitioWeb !== null && municipio.sitioWeb !== '--'"
                   href={{municipio.sitioWeb}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
@@ -180,7 +180,7 @@
                 ><!--!red de web-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.facebook !== '' && municipio.facebook !== null && municipio.facebook !== '--'"
                   href={{municipio.facebook}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
@@ -205,7 +205,7 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.googleMaps !== '' && municipio.googleMaps !== null && municipio.googleMaps !== '--'"
                   href={{municipio.googleMaps}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
@@ -224,7 +224,7 @@
                 ><!--!red de maps-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.instagram !== '' && municipio.instagram !== null && municipio.instagram !== '--'"
                   href={{municipio.instagram}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
@@ -250,7 +250,7 @@
                 <!--!contenedor de 2 redes-->
 
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.twitter !== '' && municipio.twitter != null && municipio.twitter !== '--'"
                   href={{municipio.twitter}}
                   target="_blank"
                   class="w-[50%] flex justify-center"
@@ -271,7 +271,7 @@
                 <!--!red de twitter-->
                 <!--!--------------------------------------------------------------------------------->
                 <a
-                  *ngIf="municipio !== undefined"
+                  *ngIf="municipio !== undefined && municipio.youtube !== '' && municipio.youtube != null && municipio.youtube !== '--'"
                   href={{municipio.youtube}}
                   target="_blank"
                   class="w-[50%] flex justify-center"

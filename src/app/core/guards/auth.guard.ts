@@ -13,7 +13,6 @@ export class authGuard {
     try {
       const isLoggedIn = await this.authService.getLoggin();
       if(!isLoggedIn){
-        console.log("AUTH")
       this.router.navigate(['auth']);
       }
       else{

@@ -1,6 +1,6 @@
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
@@ -212,8 +212,7 @@ export class DashboardComponent implements OnInit {
 
 
     const buttons = document.querySelectorAll("button");// Obtener todos los botones
-    buttons.forEach((button) => {// Por cada botón
-      console.log(button.id);// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
+    buttons.forEach((button) => {// Por cada botón// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
     });
 
 
