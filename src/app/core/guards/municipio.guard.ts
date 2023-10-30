@@ -48,7 +48,7 @@ export class MunicipioGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const municipio:any = route.paramMap.get('id');
 
     if (this.muni.includes(municipio)) {

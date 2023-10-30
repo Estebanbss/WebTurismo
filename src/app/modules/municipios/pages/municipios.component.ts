@@ -422,10 +422,11 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.router.navigate(['/municipios/', this.municipio.name]);
     }
 
+    nombreAtractivo: string = ""
     //? -> Método para traer los datos desde la BD de Prestadores y Atractivos según el municipio
     datosPrestadoresYAtractivos(nombre: string) {
 
-      console.log(this.nombreMunicipio);
+
 
       // Inicializamos las llamadas
       const prestadores$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio(nombre);
@@ -446,8 +447,14 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           // Ahora sí, puedes combinar los resultados
           this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
           console.log(this.prestadoresYAtractivos);
+          this.nombreAtractivo = this.prestadoresYAtractivos[0].name
         }
       );
+
+  }
+
+  navigate() {
+    this.router.navigate(['/prestadores', this.nombreMunicipio, this.nombreAtractivo]);
   }
 
   ngOnDestroy() {

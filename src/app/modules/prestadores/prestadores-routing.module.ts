@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PrestadorComponent } from './pages/prestador/prestador.component';
+import { PrestadorComponent } from './pages/prestador.component';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 const routes: Routes = [
 
@@ -8,8 +11,8 @@ const routes: Routes = [
   {
     path:"",
     children: [
-      {path: 'prestadores', component: PrestadorComponent},
-      {path: "**", redirectTo: "prestadores"}
+      {path: '**', component: PrestadorComponent},
+
     ]
   },
 
@@ -20,4 +23,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrestadoresRoutingModule { }
+export class PrestadoresRoutingModule {
+
+
+ }
