@@ -212,8 +212,7 @@ export class DashboardComponent implements OnInit {
 
 
     const buttons = document.querySelectorAll("button");// Obtener todos los botones
-    buttons.forEach((button) => {// Por cada botón
-      console.log(button.id);// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
+    buttons.forEach((button) => {// Por cada botón// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
     });
 
 
