@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-prestador',
@@ -8,7 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PrestadorComponent {
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private title: Title, private router: Router) {
+    this.title.setTitle('Pal\'Huila - ' );
+
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
       const id1 = params['municipio'];
