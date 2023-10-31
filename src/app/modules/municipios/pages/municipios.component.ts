@@ -107,6 +107,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
         this.selectedServices.delete(service); // Deselecciona el servicio si ya está seleccionado
         //Convertimos el Set en un array para pasar al pipe
         this.pipeSelectedServices = [...this.selectedServices];
+        this.page = 1;
         // console.log(this.pipeSelectedServices);
         // this.pipeSelectedServices.forEach(value => {
         //   console.log(value);
@@ -115,6 +116,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
         this.selectedServices.add(service); // Selecciona el servicio si no está en el conjunto
         //Convertimos el Set en un array para pasar al pipe
         this.pipeSelectedServices = [...this.selectedServices];
+        this.page = 1;
         // console.log(this.pipeSelectedServices);
         // this.pipeSelectedServices.forEach(value => {
         //   console.log(value);
@@ -126,6 +128,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.selectedServices.clear(); // Limpia el conjunto de servicios seleccionados
       //Convertimos el Set en un array para pasar al pipe
       this.pipeSelectedServices = [...this.selectedServices];
+      this.page = 1;
       // console.log(this.pipeSelectedServices);
       // this.pipeSelectedServices.forEach(value => {
       //   console.log(value);
@@ -434,6 +437,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.select = nombre;
       //* Se cambia el nombre por el que vamos a filtrar
       this.nombreMunicipio = nombre;
+      //* Se restablece a la primera página
+      this.page = 1;
       //* Filtramos el municipio que queremos mostrar
       this.filtrarMunicipio();
       this.router.navigate(['/municipios/', this.municipio.name]);
@@ -468,7 +473,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       );
   }
 
-  //Métdo para desorganizar el arreglo de forma aleatoria
+  //? -> Métdo para desorganizar el arreglo de forma aleatoria
   shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
         // Generar un índice aleatorio
