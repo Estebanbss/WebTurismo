@@ -25,6 +25,10 @@ export class PrestadorComponent {
     });
   }
 
+  send(){
+    this.router.navigate(['/prestadores', this.id1, this.id2, 'slider']);
+  }
+
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {
       return inputString;

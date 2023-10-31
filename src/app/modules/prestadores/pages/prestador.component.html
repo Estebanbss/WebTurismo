@@ -1,5 +1,7 @@
 <app-navheader ></app-navheader>
 
+
+
   <!--*nombreMunicipio-->
   <section id="nombrePrestador" class="w-full relative mt-[60px]  min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 ">
     <div class="max-w-[1280px] xl:w-[1280px] bg:w-full  h-[60px] mx-auto flex items-center justify-center xl:justify-start relative">
@@ -56,19 +58,20 @@
     class="relative bg-cover bg-center bg-no-repeat rounded-b-3xl  xl:max-w-[1280] xl:w-[1280px] h-[350px] max-h-[350px] md:h-[600px] md:max-h-[600px] border-2 border-t-0 mx-auto grid grid-flow-col overflow-hidden gap-2 z-0 mt-5"
   ><!--? Galeria de imagenes-->
 
-    <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px]">
-      <img class="object-cover w-full h-full" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+    <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 ">
+      <button class="w-full h-full" (click)="send()">  <img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"> </button>
+
     </div>
 
 
 
       <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
-        <div class="w-full  overflow-hidden">
-          <img class="object-cover w-full h-full" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+        <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 ">
+          <button class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"></button>
         </div>
 
-        <div class="w-full overflow-hidden  ">
-          <img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+        <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100  ">
+          <button class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"></button>
         </div>
 
       </div>

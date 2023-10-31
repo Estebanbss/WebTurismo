@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PrestadorComponent } from './pages/prestador.component';
-import { ActivatedRoute } from '@angular/router';
+import { SliderImgComponent } from './components/slider-img/slider-img.component';
+
 
 
 
@@ -11,9 +12,11 @@ const routes: Routes = [
   {
     path:"",
     children: [
+      {path: ':municipio/:prestador', component: PrestadorComponent},
+      {path: 'slider', component: SliderImgComponent},
       {path: '**', component: PrestadorComponent},
+    ],
 
-    ]
   },
 
 
