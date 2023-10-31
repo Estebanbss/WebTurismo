@@ -454,8 +454,18 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 
   }
 
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+
+
   navigate() {
-    this.router.navigate(['/prestadores', this.nombreMunicipio, this.nombreAtractivo]);
+    this.router.navigate(['/prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(this.nombreAtractivo)]);
   }
 
   ngOnDestroy() {
