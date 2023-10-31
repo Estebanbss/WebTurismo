@@ -100,17 +100,36 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ]
 
     selectedServices = new Set<string>();// Conjunto de servicios seleccionados
+    pipeSelectedServices: String[] = []; //Son los valores que pasamos al pipe
 
     toggleService(service: string) { // Función para seleccionar o deseleccionar un servicio
       if (this.selectedServices.has(service)) {
         this.selectedServices.delete(service); // Deselecciona el servicio si ya está seleccionado
+        //Convertimos el Set en un array para pasar al pipe
+        this.pipeSelectedServices = [...this.selectedServices];
+        // console.log(this.pipeSelectedServices);
+        // this.pipeSelectedServices.forEach(value => {
+        //   console.log(value);
+        // });
       } else {
         this.selectedServices.add(service); // Selecciona el servicio si no está en el conjunto
+        //Convertimos el Set en un array para pasar al pipe
+        this.pipeSelectedServices = [...this.selectedServices];
+        // console.log(this.pipeSelectedServices);
+        // this.pipeSelectedServices.forEach(value => {
+        //   console.log(value);
+        // });
       }
     }
 
     clearSelectedServices() { // Función para deseleccionar todos los servicios
       this.selectedServices.clear(); // Limpia el conjunto de servicios seleccionados
+      //Convertimos el Set en un array para pasar al pipe
+      this.pipeSelectedServices = [...this.selectedServices];
+      // console.log(this.pipeSelectedServices);
+      // this.pipeSelectedServices.forEach(value => {
+      //   console.log(value);
+      // });
     }
 
     botonActivo: string = ''; // Variable para guardar el botón activo
@@ -449,6 +468,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       );
   }
 
+  //Métdo para desorganizar el arreglo de forma aleatoria
   shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
         // Generar un índice aleatorio
