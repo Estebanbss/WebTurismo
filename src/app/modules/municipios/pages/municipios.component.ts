@@ -139,7 +139,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 
 
       this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
-      this.textService.setTitle("Pal'Huila - Municipios!")
+      this.textService.setTitle("Pa'lHuila - Municipios!")
       //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
       this.arrayMunicipio = {
         //id -> Nos lo da firebase

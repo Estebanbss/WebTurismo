@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(private modal: ModalServiceService){}
-  title = `Pal'Huila`;
+  title = `Pa'lHuila`;
   ngOnInit(){
 
   }
