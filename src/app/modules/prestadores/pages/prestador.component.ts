@@ -8,18 +8,30 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./prestador.component.css']
 })
 export class PrestadorComponent {
+  id1: string="";
+  id2: string="";
 
   constructor(private route: ActivatedRoute, private title: Title, private router: Router) {
-    this.title.setTitle('Pal\'Huila - ' );
+    this.title.setTitle('Pal\'Huila - Prestadores!' );
+
 
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
-      const id1 = params['municipio'];
-      const id2 = params['prestador'];
+      this.id1 = this.capitalizeFirstLetter(params['municipio'])
+      this.id2 = params['prestador'];
 
-      console.log('Primer ID:', id1);
-      console.log('Segundo ID:', id2);
+      console.log('Primer ID:', this.id1);
+      console.log('Segundo ID:', this.id2);
     });
   }
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+
 
 }

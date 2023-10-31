@@ -133,6 +133,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ) {
 
 
+
       this.route.params.subscribe(params => this.cambioURL = params['id']);
 
         // Puedes utilizar this.municipioId para realizar acciones basadas en el parámetro.

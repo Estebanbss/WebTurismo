@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
 import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,18 @@ export class AppComponent implements OnInit {
 
 
 
-  constructor(private modal: ModalServiceService){}
+  constructor(private modal: ModalServiceService, private router: Router){
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Lleva la página al principio al cargar una nueva página
+        window.scrollTo(0, 0);
+      }
+    });
+
+
+  }
+
   title = `Pa'lHuila`;
   ngOnInit(){
 

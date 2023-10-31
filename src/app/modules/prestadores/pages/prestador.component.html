@@ -1,22 +1,80 @@
 <app-navheader ></app-navheader>
 
   <!--*nombreMunicipio-->
-  <section id="nombrePrestador" class="w-full relative mt-[60px]  min-h-[60px] max-h-[60px] bg-primary-500 bg-opacity-5 border-b-2 my-auto">
-    <div class="max-w-[1280px] xl:w-[1280px] bg:w-full  h-[60px] mx-auto flex items-center justify-center xl:justify-start">
+  <section id="nombrePrestador" class="w-full relative mt-[60px]  min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 ">
+    <div class="max-w-[1280px] xl:w-[1280px] bg:w-full  h-[60px] mx-auto flex items-center justify-center xl:justify-start relative">
+      <div class="flex flex-col w-full">
+        <div class="flex flex-col  bg:gap-2 md:gap-5 md:flex-row justify-center md:justify-start px-5">
+          <h3 class="text-gray-700 md:text-3xl bg:text-2xl bg:leading-5 font-Blinker font-bold text-center xl:text-left leading-5 items-center flex justify-center md:justify-start z-40">{{id2}}</h3> <!--*nombrePrestador-->
+          <div class="flex flex-row text-center items-center gap-2 justify-center" id="RNT-RM">
+            <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6665 43.75H41.6665C42.7716 43.75 43.8314 43.311 44.6128 42.5296C45.3942 41.7482 45.8332 40.6884 45.8332 39.5833V35.4167H20.8332V39.5833C20.8332 40.6884 20.3942 41.7482 19.6128 42.5296C18.8314 43.311 17.7716 43.75 16.6665 43.75ZM16.6665 43.75C15.5614 43.75 14.5016 43.311 13.7202 42.5296C12.9388 41.7482 12.4998 40.6884 12.4998 39.5833V10.4167C12.4998 9.3116 12.0609 8.25179 11.2794 7.47039C10.498 6.68899 9.43824 6.25 8.33317 6.25C7.2281 6.25 6.16829 6.68899 5.38689 7.47039C4.60549 8.25179 4.1665 9.3116 4.1665 10.4167V16.6667H12.4998" stroke="#39A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M39.5835 35.4167V10.4167C39.5835 9.3116 39.1445 8.25179 38.3631 7.47039C37.5817 6.68899 36.5219 6.25 35.4168 6.25H8.3335" stroke="#39A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M31.2502 16.6665H20.8335" stroke="#39A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M31.2502 25H20.8335" stroke="#39A900" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h4 class=" text-center text-sm font-bold font-work text-primary-500 leading-5 z-40" id="RNT-RM"> RNT - 96660 </h4> <!--*RNT-->
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <h3 class="text-gray-700 text-2xl font-Blinker font-bold text-center xl:text-left ">Nombre Prestador</h3>
+    <div class="flex flex-row justify-center md:justify-start w-full max-w-[1280px] mx-auto px-5 gap-2">
+      <svg width="20" height="20" viewBox="0 0 29 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.4997 18.5854C15.0972 18.5854 15.6889 18.4677 16.2409 18.239C16.7929 18.0103 17.2945 17.6752 17.717 17.2527C18.1395 16.8302 18.4747 16.3286 18.7034 15.7766C18.932 15.2245 19.0497 14.6329 19.0497 14.0354C19.0497 13.4378 18.932 12.8462 18.7034 12.2941C18.4747 11.7421 18.1395 11.2405 17.717 10.818C17.2945 10.3955 16.7929 10.0604 16.2409 9.8317C15.6889 9.60304 15.0972 9.48535 14.4997 9.48535C13.293 9.48535 12.1357 9.96472 11.2824 10.818C10.4291 11.6713 9.94971 12.8286 9.94971 14.0354C9.94971 15.2421 10.4291 16.3994 11.2824 17.2527C12.1357 18.106 13.293 18.5854 14.4997 18.5854V18.5854Z" stroke="#39A900" stroke-width="3"/>
+        <path d="M2.27931 11.3811C5.15223 -1.24808 23.8626 -1.23349 26.721 11.3957C28.3981 18.804 23.7897 25.0748 19.7501 28.954C18.3386 30.3154 16.454 31.0762 14.4929 31.0762C12.5318 31.0762 10.6471 30.3154 9.23556 28.954C5.21056 25.0748 0.602229 18.7894 2.27931 11.3811V11.3811Z" stroke="#39A900" stroke-width="3"/>
+        </svg>
+      <h4 class="text-gray-600 font-semibold z-40">{{id1}},Huila,Colombia</h4>
+    </div>
+
+
+    <div class="absolute min-h-full xl:w-[1280px] max-w-[1280px] w-full right-[50%] translate-x-[50%] h-full my-auto top-0 flex flex-row items-end md:items-center z-30">
+      <div class="xl:w-[1280px] max-w-[1280px] relative gap-2 flex flex-row mx-auto md:mx-0 md:ml-auto px-5 items-end -bottom-5 md:bottom-0 justify-center md:justify-end z-50">
+        <!-- Botón de salvar -->
+        <button id="save" class="ml-auto active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center z-50">
+          <svg class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30">
+            <path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z" />
+          </svg>
+        </button>
+        <!-- Botón de me gusta -->
+        <button id="like" class="active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center z-50">
+          <svg class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor">
+            <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
+          </svg>
+        </button>
+      </div>
     </div>
 
   </section>
   <!--*nombreMunicipio-->
 
 
-  <div class="min-h-screen min-w-screen bg-black bg-opacity-5"><!--!estilizando negro-->
+  <div class="min-h-screen min-w-screen bg-black bg-opacity-5 z-10"><!--!estilizando negro-->
 
   <section
     id="galeriaImagenesPrestador"
-    class=" py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40 xl:max-w-[1280] xl:w-[1280px] h-[500px] border-2 border-t-0 mx-auto"
+    class="relative bg-cover bg-center bg-no-repeat rounded-b-3xl  xl:max-w-[1280] xl:w-[1280px] h-[350px] max-h-[350px] md:h-[600px] md:max-h-[600px] border-2 border-t-0 mx-auto grid grid-flow-col overflow-hidden gap-2 z-0 mt-5"
   ><!--? Galeria de imagenes-->
+
+    <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px]">
+      <img class="object-cover w-full h-full" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+    </div>
+
+
+
+      <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
+        <div class="w-full  overflow-hidden">
+          <img class="object-cover w-full h-full" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+        </div>
+
+        <div class="w-full overflow-hidden  ">
+          <img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg">
+        </div>
+
+      </div>
+
+
+
 
   </section><!--? Galeria de imagenes-->
 
