@@ -1,6 +1,6 @@
 <div class="bg-gray-50 z-50">
   <!-- *header-->
-  <app-navheader></app-navheader>
+  <app-navheader class="z-50 fixed w-full top-0"></app-navheader>
   <!--*fin header-->
 
   <!--!---                                                                               ----->
@@ -10,13 +10,13 @@
   <section
     *ngIf="municipio !== undefined"
     id="Banner"
-    class=" -top-2 py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    class="  py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
     style="background-image:url('{{municipio.pathImagePortada.url}}')"
   >
     <!--!Contenedor del titulo principal-->
-    <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl"></div>
+    <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl z-0 "></div>
     <div
-      class="relative mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
+      class="relative  mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
     >
       <div class="text-center mb-[20] flex flex-col items-center"></div>
     </div>
