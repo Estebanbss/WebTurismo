@@ -249,8 +249,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ]
 
     servicesEAT: string[] = [// Array de servicios de DONDE COMER
-      "Restaurantes",
-      "Tiendas de café",
+      "Restaurante",
+      "Tienda de café",
       "Antojos típicos",
     ]
     servicesGO: string[] = [// Array de servicios de A DONDE IR
@@ -265,7 +265,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       "Guías de turismo",
       "Aventura",
       "Agro y ecoturismo",
-      "Planes y rutas",
+      "Planes o rutas",
       "Artesanías",
       "Eventos",
       "Transporte"
