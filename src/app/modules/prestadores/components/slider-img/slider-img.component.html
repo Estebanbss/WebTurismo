@@ -7,7 +7,7 @@
 
 <div class="flex flex-col  bg-white mx-auto my-auto items-center justify-center h-full w-full rounded-xl ">
 
-  <h5 class="text-gray-700 md:text-4xl bg:text-2xl leading-5 font-Blinker font-semibold z-40 mr-auto ml-10 mt-10">Fotos de prestador</h5> <!--*nombre fotos Prestador-->
+  <h5 class="text-gray-700 md:text-4xl bg:text-2xl leading-5 font-Blinker font-semibold z-40 mr-auto ml-10 mt-10">Fotos de {{id2}}</h5> <!--*nombre fotos Prestador-->
 
   <hr class="border-1 border-gray-300 w-[100%] my-3">
 
@@ -19,11 +19,11 @@
 
 
 
-      <button class="hover:bg-white hover:bg-opacity-20 rounded-full"> <!--todo boton izquierda-->
+      <button (click)="buttonSlider('before')" class="hover:bg-white hover:bg-opacity-20 rounded-full"> <!--todo boton izquierda-->
         <svg class="fill-white z-50" xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
       </button>
 
-      <button class="ml-auto rounded-full hover:bg-white hover:bg-opacity-20 "> <!--todo boton izquierda-->
+      <button (click)="buttonSlider('next')" class="ml-auto rounded-full hover:bg-white hover:bg-opacity-20 "> <!--todo boton izquierda-->
         <svg class="fill-white z-50 " xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
       </button>
 
@@ -37,7 +37,7 @@
           <span class="font-Work text-sm">Galeria</span>
         </button>
 
-        <span class="text-lg font-work font-regular ml-auto mr-2 text-white my-auto">3 de 20</span><!--todo contador de imagenes-->
+        <span class="text-lg font-work font-regular ml-auto mr-2 text-white my-auto">{{count}} de {{imgGallery.length-1}}</span><!--todo contador de imagenes-->
 
       </div>
 
@@ -46,10 +46,10 @@
 
     <div class="relative mx-auto w-auto max-w-full  max-h-full h-auto my-auto "><!--todo aqui es donde se itera las imagenes-->
 
-      <img
+      <img *ngFor="let item of imgGallery"
       alt="Selected Image"
       class="mx-auto w-auto max-w-full max-h-full  h-auto my-auto z-50 "
-      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1"
+      src="{{imgGallery[count]}}"
     />
 
 

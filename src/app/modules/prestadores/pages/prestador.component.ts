@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./prestador.component.css']
 })
 export class PrestadorComponent {
-  id1: string="";
-  id2: string="";
+  id1!: string;
+  id2!: string;
 
   constructor(private route: ActivatedRoute, private title: Title, private router: Router) {
     this.title.setTitle('Pal\'Huila - Prestadores!' );
@@ -20,13 +20,16 @@ export class PrestadorComponent {
       this.id1 = this.capitalizeFirstLetter(params['municipio'])
       this.id2 = params['prestador'];
 
-      console.log('Primer ID:', this.id1);
-      console.log('Segundo ID:', this.id2);
+
     });
   }
 
-  send(){
-    this.router.navigate(['/prestadores', this.id1, this.id2, 'slider']);
+  send() {
+    if (this.id2) {
+      this.router.navigate(['/prestadores', this.id1, this.id2, 'slider']);
+    } else {
+      // Realiza alguna acción cuando id2 no tiene un valor, como mostrar un mensaje de error.
+    }
   }
 
   capitalizeFirstLetter(inputString: string): string {
