@@ -17,6 +17,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
   })
   export class MunicipiosComponent implements OnInit {
 
+    //Página donde estamos
+    page: number = 1;
 
     map!: Map;
 
@@ -98,17 +100,39 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ]
 
     selectedServices = new Set<string>();// Conjunto de servicios seleccionados
+    pipeSelectedServices: String[] = []; //Son los valores que pasamos al pipe
 
     toggleService(service: string) { // Función para seleccionar o deseleccionar un servicio
       if (this.selectedServices.has(service)) {
         this.selectedServices.delete(service); // Deselecciona el servicio si ya está seleccionado
+        //Convertimos el Set en un array para pasar al pipe
+        this.pipeSelectedServices = [...this.selectedServices];
+        this.page = 1;
+        // console.log(this.pipeSelectedServices);
+        // this.pipeSelectedServices.forEach(value => {
+        //   console.log(value);
+        // });
       } else {
         this.selectedServices.add(service); // Selecciona el servicio si no está en el conjunto
+        //Convertimos el Set en un array para pasar al pipe
+        this.pipeSelectedServices = [...this.selectedServices];
+        this.page = 1;
+        // console.log(this.pipeSelectedServices);
+        // this.pipeSelectedServices.forEach(value => {
+        //   console.log(value);
+        // });
       }
     }
 
     clearSelectedServices() { // Función para deseleccionar todos los servicios
       this.selectedServices.clear(); // Limpia el conjunto de servicios seleccionados
+      //Convertimos el Set en un array para pasar al pipe
+      this.pipeSelectedServices = [...this.selectedServices];
+      this.page = 1;
+      // console.log(this.pipeSelectedServices);
+      // this.pipeSelectedServices.forEach(value => {
+      //   console.log(value);
+      // });
     }
 
     botonActivo: string = ''; // Variable para guardar el botón activo
@@ -225,8 +249,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ]
 
     servicesEAT: string[] = [// Array de servicios de DONDE COMER
-      "Restaurantes",
-      "Tiendas de café",
+      "Restaurante",
+      "Tienda de café",
       "Antojos típicos",
     ]
     servicesGO: string[] = [// Array de servicios de A DONDE IR
@@ -241,13 +265,11 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       "Guías de turismo",
       "Aventura",
       "Agro y ecoturismo",
-      "Planes y rutas",
+      "Planes o rutas",
       "Artesanías",
       "Eventos",
       "Transporte"
     ]
-
-
 
 
     select: string = "Garzón";// Variable para guardar el municipio seleccionado
@@ -273,8 +295,6 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           this.turnMuni = value // Asegura que expanded2 esté en false cuando expanded cambie
       });
     }
-
-
 
 
     //? Método para recibir los datos del observable y de la BD
@@ -303,7 +323,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
         }
       })
 
-    }
+    } //? -> Fin Recibir Información
 
     //? -> Método para filtrar el municipio que queremos mostrar dependiendo de lo que elija el usuario
     filtrarMunicipio() {
@@ -417,6 +437,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.select = nombre;
       //* Se cambia el nombre por el que vamos a filtrar
       this.nombreMunicipio = nombre;
+      //* Se restablece a la primera página
+      this.page = 1;
       //* Filtramos el municipio que queremos mostrar
       this.filtrarMunicipio();
       this.router.navigate(['/municipios/', this.municipio.name]);
@@ -446,8 +468,21 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           // Ahora sí, puedes combinar los resultados
           this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
           console.log(this.prestadoresYAtractivos);
+          this.prestadoresYAtractivos = this.shuffleArray(this.prestadoresYAtractivos);
         }
       );
+  }
+
+  //? -> Métdo para desorganizar el arreglo de forma aleatoria
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+        // Generar un índice aleatorio
+        const j = Math.floor(Math.random() * (i + 1));
+
+        // Intercambiar elementos
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   ngOnDestroy() {
