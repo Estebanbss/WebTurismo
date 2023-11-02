@@ -5,7 +5,10 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 @Component({
   selector: 'app-slider-img',
   templateUrl: './slider-img.component.html',
-  styleUrls: ['./slider-img.component.css']
+  styleUrls: ['./slider-img.component.css'],
+  host: {
+    '(document:keydown)': 'onKeyDown($event)'
+  }
 })
 export class SliderImgComponent {
   id1!: string;
@@ -19,9 +22,18 @@ export class SliderImgComponent {
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/f7/82/76/la-huerta-hotel.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/59/43/74/hotel-ms-la-huerta-plus.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/f7/82/76/la-huerta-hotel.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/59/43/74/hotel-ms-la-huerta-plus.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1"
 
   ];
+  modalDataSubscription: any;
+  turnModal: boolean | undefined;
 
   constructor(private route: ActivatedRoute,  private router: Router, private modalService:ModalServiceService) {
 
@@ -45,6 +57,8 @@ export class SliderImgComponent {
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
   }
 
+
+
   buttonSlider(direction: string) {
 
 
@@ -66,11 +80,28 @@ export class SliderImgComponent {
 
   }
 
-  ngOninit(){
-   console.log(this.count)
-   this.count = Number(this.id3);
+  ngOnInit() {
+    // ...
 
   }
+
+  onKeyDown(event: KeyboardEvent) {
+    const targetElement = event.target as HTMLElement;
+
+    // Verifica si el evento no se originó en un elemento con la clase "no-close"
+    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg" && targetElement.tagName !=="li" && targetElement.tagName !=="path" && targetElement.tagName !=="span" && targetElement.tagName !=="ul"     && event.key === "Escape") {
+
+      this.buttonModal();
+    }
+  }
+
+
+
+
+  ngOndestroy(){
+
+  }
+
 
 
   capitalizeFirstLetter(inputString: string): string {

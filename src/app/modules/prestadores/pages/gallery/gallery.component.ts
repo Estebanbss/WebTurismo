@@ -5,12 +5,15 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css']
+  styleUrls: ['./gallery.component.css'],
+  host: {
+    '(document:keydown)': 'onKeyDown($event)'
+  }
 })
 export class GalleryComponent {
   id1!: string;
   id2!: string;
-  id3!: string;
+  id3!: number;
   url: string[] = this.router.url.split('/');
   count: number = 0;
 
@@ -47,6 +50,16 @@ export class GalleryComponent {
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 
+
+  send(option: number) {
+
+
+    this.id3 = option;
+    // Construct the new route with "slider/:option" adde
+    // Navigate to the new route
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${option}`)
+
+  }
   buttonSlider(direction: string) {
 
 
@@ -73,6 +86,18 @@ export class GalleryComponent {
    this.count = Number(this.id3);
 
   }
+
+  onKeyDown(event: KeyboardEvent) {
+    const targetElement = event.target as HTMLElement;
+
+    // Verifica si el evento no se originó en un elemento con la clase "no-close"
+    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg" && targetElement.tagName !=="li" && targetElement.tagName !=="path" && targetElement.tagName !=="span" && targetElement.tagName !=="ul"     && event.key === "Escape") {
+
+      this.buttonModal();
+    }
+  }
+
+
 
 
   capitalizeFirstLetter(inputString: string): string {

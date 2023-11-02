@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
 
       this.modal.setProfileHeader(false);
       this.modal.setTurnMuni(false);
+      this.modal.setTurnSliderP(true);
     }
   }
 

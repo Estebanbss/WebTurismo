@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-prestador',
   templateUrl: './prestador.component.html',
-  styleUrls: ['./prestador.component.css']
+  styleUrls: ['./prestador.component.css'],
+
 })
 export class PrestadorComponent {
   id1!: string;
@@ -68,14 +69,15 @@ export class PrestadorComponent {
 
     this.modalDataSubscription = this.modalService.modalTurnSliderP$.subscribe((value) => {
       this.turnModal = value;
+
     });
-
-
 
   }
 
-  ngOndestroy(){
 
+
+  ngOndestroy(){
+    this.modalDataSubscription.unsubscribe();
   }
 
 }
