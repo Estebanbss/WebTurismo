@@ -7,7 +7,6 @@ const routes: Routes = [
   {
     path:"",
     children: [
-      
       {path: '**', component: MunicipiosComponent},
     ]
   },

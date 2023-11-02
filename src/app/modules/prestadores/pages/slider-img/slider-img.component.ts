@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 
 @Component({
   selector: 'app-slider-img',
@@ -10,7 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SliderImgComponent {
   id1!: string;
   id2!: string;
+  id3!: string;
+  url: string[] = this.router.url.split('/');
   count: number = 0;
+
   imgGallery: string[] = [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
@@ -20,15 +23,26 @@ export class SliderImgComponent {
 
   ];
 
-  constructor(private route: ActivatedRoute,  private router: Router) {
+  constructor(private route: ActivatedRoute,  private router: Router, private modalService:ModalServiceService) {
 
-
+    this.id1= this.url[2];
+    this.id2= decodeURI(this.url[3]);
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
-      this.id1 = this.capitalizeFirstLetter(params['municipio'])
-      this.id2 = params['prestador'];
+      this.id3 = params['option'];
 
     });
+    this.count = Number(this.id3);
+  }
+
+  buttonModal() {
+
+    this.router.navigate(['../../'], { relativeTo: this.route })
+  }
+
+  gallery(){
+
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
   }
 
   buttonSlider(direction: string) {
@@ -47,7 +61,14 @@ export class SliderImgComponent {
         this.count--;
       }
     }
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
 
+
+  }
+
+  ngOninit(){
+   console.log(this.count)
+   this.count = Number(this.id3);
 
   }
 

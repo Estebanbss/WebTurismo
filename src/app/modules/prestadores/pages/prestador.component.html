@@ -1,14 +1,11 @@
-<router-outlet>
-
-  <app-slider-img *ngIf="turnModal" class="z-50"></app-slider-img>
-</router-outlet>
+<router-outlet></router-outlet>
 
 <app-navheader class="z-50" ></app-navheader>
 
 
 
   <!--*nombreMunicipio-->
-  <section id="nombrePrestador" class="w-full relative mt-[20px]  min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 ">
+  <section id="nombrePrestador" class="w-full relative mt-[20px]  min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 z-40">
     <div class="max-w-[1280px] xl:w-[1280px] bg:w-full  h-[60px] mx-auto flex items-center justify-center xl:justify-start relative">
       <div class="flex flex-col w-full">
         <div class="flex flex-col  bg:gap-2 md:gap-5 md:flex-row justify-center md:justify-start px-5">
@@ -72,11 +69,11 @@
 
       <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
         <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 ">
-          <button  (click)="send(1)" class="w-full h-full objec" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[1]}}"></button>
+          <button  (click)="send(1)" class="w-full h-full" ><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[1]}}"></button>
         </div>
 
         <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100  ">
-          <button (click)="send(2)" class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[2]}}"></button>
+          <button (click)="send(2)" class="w-full h-full"><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[2]}}"></button>
         </div>
 
       </div>

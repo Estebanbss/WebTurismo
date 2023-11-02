@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ModalServiceService } from 'src/app/core/services/modal-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prestador',
@@ -11,7 +13,7 @@ export class PrestadorComponent {
   id1!: string;
   id2!: string;
   id3!: number;
-
+  private modalDataSubscription!: Subscription;
   nombreMunicipio!: string;
   nombrePrestador!: string;
 
@@ -27,11 +29,9 @@ export class PrestadorComponent {
   ];
 
 
-  constructor(private route: ActivatedRoute, private title: Title, private router: Router) {
+  constructor(private route: ActivatedRoute, private title: Title, private router: Router, private modalService: ModalServiceService //Inyectamos el servicio del modal
+  ) {
     this.title.setTitle('Pal\'Huila - Prestadores!' );
-
-
-
 
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
@@ -41,18 +41,19 @@ export class PrestadorComponent {
 
 
     });
+
+    this.nombreMunicipio = this.id1
+    this.nombrePrestador = this.id2
+
   }
 
   send(option: number) {
-    const url = this.router.url.split('/');
+
     this.turnModal = true;
     this.id3 = option;
-    this.router.navigate
-
     // Construct the new route with "slider/:option" adde
-
-
     // Navigate to the new route
+    this.router.navigate(['slider', option], { relativeTo: this.route })
 
   }
 
@@ -63,6 +64,18 @@ export class PrestadorComponent {
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
 
+  ngOninit(){
 
+    this.modalDataSubscription = this.modalService.modalTurnSliderP$.subscribe((value) => {
+      this.turnModal = value;
+    });
+
+
+
+  }
+
+  ngOndestroy(){
+
+  }
 
 }

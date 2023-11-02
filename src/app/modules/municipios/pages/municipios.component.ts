@@ -487,7 +487,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 
 
   navigate(option:string) {
-    this.router.navigate(['/prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(option)]);
+    this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(option)]);
   }
 
   //? -> Métdo para desorganizar el arreglo de forma aleatoria

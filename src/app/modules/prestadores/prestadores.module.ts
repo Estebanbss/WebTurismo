@@ -4,8 +4,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PrestadorComponent } from './pages/prestador.component';
 import { NgOptimizedImage } from '@angular/common';
 import { PrestadoresRoutingModule } from './prestadores-routing.module';
-import { GalleryComponent } from './components/gallery/gallery.component';
-import { SliderImgComponent } from './components/slider-img/slider-img.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { SliderImgComponent } from './pages/slider-img/slider-img.component';
 
 
 

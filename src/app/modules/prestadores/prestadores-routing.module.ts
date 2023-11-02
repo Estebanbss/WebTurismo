@@ -1,33 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PrestadorComponent } from './pages/prestador.component';
-import { SliderImgComponent } from './components/slider-img/slider-img.component';
-
-
-
-
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { SliderImgComponent } from './pages/slider-img/slider-img.component';
 
 const routes: Routes = [
-
-
   {
-    path:"",
+    path: '', // Este es el path relativo al path definido en el AppRoutingModule
+    component: PrestadorComponent, // El componente principal para esta sección
     children: [
-      {path: ':municipio/:prestador', component: PrestadorComponent},
-      {path: ':municipio/:prestador/slider/:option', component: SliderImgComponent},
-      {path: '**', component: PrestadorComponent},
-    ],
-
-  },
-
-
+      { path: 'gallery', component: GalleryComponent }, // Ruta para el componente Gallery
+      { path: 'slider', component: SliderImgComponent }, // Ruta para el componente Slider
+      {path: "slider/:option", component: SliderImgComponent}
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrestadoresRoutingModule {
-
-
- }
+export class PrestadoresRoutingModule { }
