@@ -10,26 +10,50 @@ import { Title } from '@angular/platform-browser';
 export class PrestadorComponent {
   id1!: string;
   id2!: string;
+  id3!: number;
+
+  nombreMunicipio!: string;
+  nombrePrestador!: string;
+
+  turnModal: boolean = false;
+
+  imgGallery: string[] = [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/f7/82/76/la-huerta-hotel.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/59/43/74/hotel-ms-la-huerta-plus.jpg?w=1200&h=-1&s=1",
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1"
+
+  ];
+
 
   constructor(private route: ActivatedRoute, private title: Title, private router: Router) {
     this.title.setTitle('Pal\'Huila - Prestadores!' );
+
+
 
 
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
       this.id1 = this.capitalizeFirstLetter(params['municipio'])
       this.id2 = params['prestador'];
+      this.id3 = params['option'];
 
 
     });
   }
 
-  send() {
-    if (this.id2) {
-      this.router.navigate(['/prestadores', this.id1, this.id2, 'slider']);
-    } else {
-      // Realiza alguna acción cuando id2 no tiene un valor, como mostrar un mensaje de error.
-    }
+  send(option: number) {
+    const url = this.router.url.split('/');
+    this.turnModal = true;
+    this.id3 = option;
+    this.router.navigate
+
+    // Construct the new route with "slider/:option" adde
+
+
+    // Navigate to the new route
+
   }
 
   capitalizeFirstLetter(inputString: string): string {

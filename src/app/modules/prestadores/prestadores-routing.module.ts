@@ -6,6 +6,7 @@ import { SliderImgComponent } from './components/slider-img/slider-img.component
 
 
 
+
 const routes: Routes = [
 
 
@@ -13,7 +14,7 @@ const routes: Routes = [
     path:"",
     children: [
       {path: ':municipio/:prestador', component: PrestadorComponent},
-      {path: 'slider', component: SliderImgComponent},
+      {path: ':municipio/:prestador/slider/:option', component: SliderImgComponent},
       {path: '**', component: PrestadorComponent},
     ],
 

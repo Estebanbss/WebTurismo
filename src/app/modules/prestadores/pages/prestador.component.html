@@ -1,4 +1,8 @@
-<app-slider-img class="z-50 hidden"></app-slider-img>
+<router-outlet>
+
+  <app-slider-img *ngIf="turnModal" class="z-50"></app-slider-img>
+</router-outlet>
+
 <app-navheader class="z-50" ></app-navheader>
 
 
@@ -60,7 +64,7 @@
   ><!--? Galeria de imagenes-->
 
     <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 ">
-      <button class="w-full h-full" (click)="send()">  <img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"> </button>
+      <button class="w-full h-full" (click)="send(0)">  <img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[0]}}"> </button>
 
     </div>
 
@@ -68,11 +72,11 @@
 
       <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
         <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 ">
-          <button class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"></button>
+          <button  (click)="send(1)" class="w-full h-full objec" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[1]}}"></button>
         </div>
 
         <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100  ">
-          <button class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="https://media-cdn.tripadvisor.com/media/photo-p/1a/c3/00/ed/area-externa-do-restaurante.jpg"></button>
+          <button (click)="send(2)" class="w-full h-full" routerLink="slider"><img class="object-cover w-full h-full filter brightness-75" src="{{imgGallery[2]}}"></button>
         </div>
 
       </div>
