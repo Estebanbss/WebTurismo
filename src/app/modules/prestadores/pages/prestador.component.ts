@@ -58,6 +58,12 @@ export class PrestadorComponent {
 
   }
 
+  gallery(){
+
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
+  }
+
+
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {
       return inputString;
