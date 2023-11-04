@@ -18,19 +18,18 @@ export class AppComponent implements OnInit {
 
   constructor(private modal: ModalServiceService, private router: Router){
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Lleva la página al principio al cargar una nueva página
-        window.scrollTo(0, 0);
-      }
-    });
 
 
   }
 
   title = `Pa'lHuila`;
-  ngOnInit(){
 
+  ngOnInit(){
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
 
