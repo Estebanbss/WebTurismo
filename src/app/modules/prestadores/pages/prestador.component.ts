@@ -17,6 +17,7 @@ export class PrestadorComponent {
   private modalDataSubscription!: Subscription;
   nombreMunicipio!: string;
   nombrePrestador!: string;
+  buttonGallery: boolean = false;
 
   turnModal: boolean = false;
 
