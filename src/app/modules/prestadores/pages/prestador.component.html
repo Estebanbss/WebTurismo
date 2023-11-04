@@ -60,7 +60,7 @@
     class="relative bg-cover bg-center bg-no-repeat rounded-b-3xl  xl:max-w-[1280] xl:w-[1280px] h-[350px] max-h-[350px] md:h-[600px] md:max-h-[600px] border-2 border-t-0 mx-auto grid grid-flow-col overflow-hidden gap-2 z-0 mt-5"
   ><!--? Galeria de imagenes-->
 
-    <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 filter brightness-75">
+    <div class="w-full col-start-1  h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]">
       <button class="w-full h-full" (click)="send(0)">  <img class="object-cover w-full h-full " src="{{imgGallery[0]}}"> </button>
 
     </div>
@@ -68,11 +68,11 @@
 
 
       <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
-        <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-75 ">
+        <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9] ">
           <button  (click)="send(1)" class="w-full h-full" ><img class="object-cover w-full h-full " src="{{imgGallery[1]}}"></button>
         </div>
 
-        <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-75  ">
+        <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]  ">
           <button (click)="send(2)" class="w-full h-full"><img class="object-cover w-full h-full " src="{{imgGallery[2]}}"></button>
         </div>
 
