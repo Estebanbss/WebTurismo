@@ -67,12 +67,12 @@
 
 
 
-      <div class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
-        <div class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9] ">
+      <div *ngIf="imgGallery[1] != undefined || imgGallery[1] != null && imgGallery[2] != undefined || imgGallery[2] != null " class="md:grid grid-row-2 gap-2 max-h-[600px] hidden">
+        <div *ngIf="imgGallery[1] != undefined || imgGallery[1] != null"  class="w-full  overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9] ">
           <button  (click)="send(1)" class="w-full h-full" ><img class="object-cover w-full h-full " src="{{imgGallery[1]}}"></button>
         </div>
 
-        <div class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]  ">
+        <div *ngIf="imgGallery[2] != undefined || imgGallery[2] != null" class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]  ">
           <button (click)="send(2)" class="w-full h-full"><img class="object-cover w-full h-full " src="{{imgGallery[2]}}"></button>
         </div>
 
