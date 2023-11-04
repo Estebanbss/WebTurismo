@@ -52,6 +52,10 @@ export class PrestadorComponent {
     this.nombreMunicipio = this.id1
     this.nombrePrestador = this.id2
 
+    if(this.imgGallery.length > 3){
+      this.buttonGallery = true;
+    }
+
   }
 
   send(option: number) {
