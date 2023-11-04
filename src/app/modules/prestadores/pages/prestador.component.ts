@@ -21,6 +21,10 @@ export class PrestadorComponent {
 
   turnModal: boolean = false;
 
+  noHaceNada(vacio:null){
+    return vacio;
+  }
+
   imgGallery: string[] = [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
