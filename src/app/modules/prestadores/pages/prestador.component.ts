@@ -12,10 +12,10 @@ import { Map, marker, tileLayer } from 'leaflet';
 
 })
 export class PrestadorComponent {
+  private modalDataSubscription!: Subscription;
   id1!: string;
   id2!: string;
   id3!: number;
-  private modalDataSubscription!: Subscription;
   nombreMunicipio!: string;
   nombrePrestador!: string;
   buttonGallery: boolean = false;
@@ -195,15 +195,25 @@ servi: any = [
   }
 
   previousPage() {
+    const servicios = document.getElementById("Servicios");
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+    window.scrollTo({
+      top: servicios!.offsetTop,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
   }
 
   nextPage() {
+    const servicios = document.getElementById("Servicios");
     if (this.currentPage * this.itemsPerPage < this.servi.length) {
       this.currentPage++;
     }
+    window.scrollTo({
+      top: servicios!.offsetTop,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
   }
 
   ngOnInit(){
