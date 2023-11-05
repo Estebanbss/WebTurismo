@@ -18,8 +18,9 @@ export class PrestadorComponent {
   nombreMunicipio!: string;
   nombrePrestador!: string;
   buttonGallery: boolean = false;
-
   turnModal: boolean = false;
+  pag:string = "Servicios";
+  buttonPags: string[] = ["Servicios","Horarios"];
 
   noHaceNada(vacio:null){
     return vacio;
@@ -75,6 +76,10 @@ export class PrestadorComponent {
   gallery(){
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
+  }
+
+  buttonPag(option:string){
+    this.pag = option;
   }
 
 

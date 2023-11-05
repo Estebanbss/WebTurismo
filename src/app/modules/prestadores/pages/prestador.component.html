@@ -62,7 +62,7 @@
           </svg>
           <h4
             class="text-center text-sm font-bold font-work text-primary-500 leading-5 z-40"
-            id="RNT-RM"
+            id="RNT-RM number"
           >
             RNT - 96660
           </h4>
@@ -211,19 +211,19 @@
   <main class="max-w-[1280px] mx-auto mt-0">
     <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
 
-    <!--!Sección de información del municipio-->
-    <section id="InfoMunicipio" class="flex flex-col mt-5">
-      <!--!Contenedor de la descripcion del municipio-->
+    <!--!Sección de información del prestador-->
+    <section id="InfoPrestador" class="flex flex-col mt-5">
+      <!--!Contenedor de la descripcion del prestador-->
       <div class="flex bg:flex-col md:flex-row min-h-full h-full mb-5">
         <div
           class="relative md:w-[65%] bg:w-full mr-auto p-5 bg-white drop-shadow-xl border-2 flex flex-col rounded-2xl"
         >
-          <!--!Contenedor de la descripcion del municipio-->
-          <h2
+          <!--!Contenedor de la descripcion del prestador-->
+          <h5
             class="text-2xl md:text-3xl font-semibold text-left font-Blinker my-3 text-primary-500"
           >
             Descripción
-          </h2>
+          </h5>
           <!-- *ngIf="municipio !== undefined && municipio.descripcion !== null && municipio.descripcion !== undefined && municipio.descripcion !== '--' " -->
 
           <p class="text-lg font-Work">
@@ -243,18 +243,18 @@
             lo que está en rojo lo hizo chat gpt wtf (esto es texto de ejemplo)
           </p>
 
-          <!--!Contenedor de las fiestas del municipio-->
+          <!--!Contenedor de las fiestas del prestador-->
         </div>
-        <!--!Contenedor de la imagen del municipio-->
+        <!--!Contenedor de la imagen del prestador-->
         <div
           class="md:w-[34%] bg:w-full h-full ml-auto flex flex-col z-0 p-3 gap-5 drop-shadow-xl border-2 bg-white rounded-2xl"
         >
-          <!--!Contenedor de la información adicional del municipio-->
-          <h2
+          <!--!Contenedor de la información adicional del prestador-->
+          <h5
             class="text-2xl md:text-3xl font-semibold text-center font-Blinker text-primary-500 mt-5"
           >
             Contactenos!
-          </h2>
+          </h5>
           <div class="w-full h-full flex flex-col mb-10">
             <!--!div de todas las redes-->
             <!--! REDEEEEEEEEEEEEEEEEES-->
@@ -426,7 +426,32 @@
         </div>
       </div>
     </section>
-    <!--!Fin de la sección de información del municipio-->
+    <!--!Fin de la sección de información del prestador-->
+
+        <!--!Sección de información de los servicios del prestador-->
+        <section id="Servicios" class="flex flex-col ">
+          <!--!Contenedor de la información del prestador-->
+          <div class="flex bg:flex-col md:flex-row min-h-full h-full mb-5">
+            <div
+              class="relative  bg:w-full mr-auto p-5 bg-white drop-shadow-xl border-2 flex flex-col rounded-2xl"
+            >
+            <!--*Parte donde estan los botones de la paginación-->
+            <div id="Paginación servicios" class="flex flex-row gap-5">
+              <button (click)="buttonPag(item)" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-lg">{{item}}</button>
+            </div>
+            <hr class="border-[1px] mb-5" />
+            <!--*Aqui van las paginaciones-->
+            <!--todo pagina servicios-->
+            <div *ngIf="pag === 'Servicios'">
+              hola bros
+            </div>
+            <!--todo pagina horarios-->
+            <div *ngIf="pag === 'Horarios'">
+              hola bres
+            </div>
+            </div>
+            </div>
+            </section>
   </main>
   <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
 </div>
