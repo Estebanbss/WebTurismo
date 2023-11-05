@@ -20,6 +20,8 @@ export class PrestadorComponent {
   buttonGallery: boolean = false;
   turnModal: boolean = false;
   pag:string = "Servicios";
+  currentPage: number = 1; // Página actual
+  itemsPerPage: number = 3; // Cantidad de elementos por página
   buttonPags: string[] = ["Servicios","Horarios"];
 
 /**esto no hace nada  */
@@ -31,76 +33,81 @@ export class PrestadorComponent {
  * An array of objects representing different types of services offered by a provider.
  * Each object has a `title` and an `id` property.
  */
-  servi: any = [
-    {
-      "title": "Alojamiento Urbano",
-      "id": "alojamientoUrbano"
-    },
-    {
-      "title": "Alojamiento Rural",
-      "id": "alojamientoRural"
-    },
-    {
-      "title": "Restaurantes",
-      "id": "restaurantes"
-    },
-    {
-      "title": "Tiendas de Café",
-      "id": "tiendasDeCafe"
-    },
-    {
-      "title": "Antojos típicos",
-      "id": "antojosTipicos"
-    },
-    {
-      "title": "Sitio Natural",
-      "id": "sitioNatural"
-    },
-    {
-      "title": "Patrimonio Cultural",
-      "id": "patrimonioCultural"
-    },
-    {
-      "title": "Miradores",
-      "id": "miradores"
-    },
-    {
-      "title": "Parques Naturales",
-      "id": "parquesNaturales"
-    },
-    {
-      "title": "Agencias de Viajes",
-      "id": "agenciasDeViaje"
-    },
-    {
-      "title": "Centro recreativo",
-      "id": "centroRecreativo"
-    },
-    {
-      "title": "Guias de Turísmo",
-      "id": "guiasDeTurismo"
-    },
-    {
-      "title": "Aventura",
-      "id": "aventura"
-    },
-    {
-      "title": "Agro y eco turismo",
-      "id": "agroYEcoturismo"
-    },
-    {
-      "title": "Planes o Rutas",
-      "id": "planesORutas"
-    },
-    {
-      "title": "Artesanías",
-      "id": "artesanias"
-    },
-    {
-      "title": "Eventos",
-      "id": "eventos"
-    }
-  ];
+servi: any = [
+  {
+    "title": "Alojamiento Urbano",
+    "id": "alojamientoUrbano"
+  },
+  {
+    "title": "Alojamiento Rural",
+    "id": "alojamientoRural"
+  },
+  {
+    "title": "Restaurantes",
+    "id": "restaurantes"
+  },
+  {
+    "title": "Tiendas de Café",
+    "id": "tiendasDeCafe"
+  },
+  {
+    "title": "Antojos típicos",
+    "id": "antojosTipicos"
+  },
+  {
+    "title": "Sitio Natural",
+    "id": "sitioNatural"
+  },
+  {
+    "title": "Patrimonio Cultural",
+    "id": "patrimonioCultural"
+  },
+  {
+    "title": "Miradores",
+    "id": "miradores"
+  },
+  {
+    "title": "Parques Naturales",
+    "id": "parquesNaturales"
+  },
+  {
+    "title": "Agencias de Viaje",
+    "id": "agenciasDeViaje"
+  },
+  {
+    "title": "Centro recreativo",
+    "id": "centroRecreativo"
+  },
+  {
+    "title": "Guia de Turísmo",
+    "id": "guiasDeTurismo"
+  },
+  {
+    "title": "Aventura",
+    "id": "aventura"
+  },
+  {
+    "title": "Agro y eco turismo",
+    "id": "agroYEcoturismo"
+  },
+  {
+    "title": "Planes o Rutas",
+    "id": "planesORutas"
+  },
+  {
+    "title": "Artesanías",
+    "id": "artesanias"
+  },
+  {
+    "title": "Transporte",
+    "id": "transporte"
+  },
+  {
+    "title": "Eventos",
+    "id": "eventos"
+  }
+];
+
 
 
 /**
@@ -184,6 +191,18 @@ export class PrestadorComponent {
       return inputString;
     }
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.servi.length) {
+      this.currentPage++;
+    }
   }
 
   ngOninit(){

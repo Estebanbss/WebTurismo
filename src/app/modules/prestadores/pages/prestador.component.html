@@ -442,11 +442,25 @@
             <hr class="border-[1px] mb-5" />
             <!--*Aqui van las paginaciones-->
             <!--todo pagina servicios-->
-            <div *ngIf="pag === 'Servicios'">
-              hola bros
+            <div class="flex flex-col px-2 gap-10 mt-2" id="Servicios" *ngIf="pag === 'Servicios'">
+              <div *ngFor="let item of servi.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index " class="flex flex-col gap-2">
+                <span id="titleService" class="flex flex-row gap-2 items-center"><img src="assets/img/{{item.title}}.svg" alt="{{item.title}}, imagen" width="30px" height="30px"><h6 class="font-bold font-Blinker text-primary-500 text-lg">{{item.title}}</h6></span>
+                <p id="paragraphService">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
+              </div>
+
+              <!-- Botones de paginación -->
+              <div class="flex flex-row justify-center gap-10">
+                <div class="flex justify-center gap-10">
+                  <button (click)="previousPage()" [ngClass]="{'hidden': currentPage === 1 }" [disabled]="currentPage === 1"><img src="assets/img/left.svg" class="w-[40px]"  alt="left svg"></button>
+                  </div>
+                    <div class="flex justify-center gap-10">
+                      <button (click)="nextPage()" [ngClass]="{'hidden': currentPage * itemsPerPage >= servi.length}" [disabled]="currentPage * itemsPerPage >= servi.length"><img src="assets/img/right.svg" class="w-[40px]" alt="right svg"></button>
+                    </div>
+              </div>
+
             </div>
             <!--todo pagina horarios-->
-            <div *ngIf="pag === 'Horarios'">
+            <div id="Horarios" *ngIf="pag === 'Horarios'">
               hola bres
             </div>
             </div>

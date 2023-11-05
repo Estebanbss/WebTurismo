@@ -138,6 +138,10 @@ export class DashboardComponent implements OnInit {
     {
       "title": "Eventos",
       "desc": "Sumérgete en la vida cultural y social de la región. Descubre eventos que te ofrecen la oportunidad de disfrutar de experiencias únicas y memorables."
+    },
+    {
+      "title": "Transporte",
+      "desc": "Descubre opciones de transporte que te llevarán a todos los rincones de la región y te permitirán explorar de manera cómoda y eficiente."
     }
   ]
 
