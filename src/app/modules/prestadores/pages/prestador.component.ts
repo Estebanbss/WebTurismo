@@ -26,6 +26,10 @@ export class PrestadorComponent {
     return vacio;
   }
 
+/**
+ * An array of objects representing different types of services offered by a provider.
+ * Each object has a `title` and an `id` property.
+ */
   servi: any = [
     {
       "title": "Alojamiento Urbano",
@@ -98,6 +102,9 @@ export class PrestadorComponent {
   ];
 
 
+/**
+ * Array of strings containing URLs for images in the image gallery.
+ */
   imgGallery: string[] = [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
@@ -135,6 +142,10 @@ export class PrestadorComponent {
 
   }
 
+/**
+ * Sends the selected option to the slider component and navigates to the slider route.
+ * @param option - The selected option to be sent to the slider component.
+ */
   send(option: number) {
 
     this.turnModal = true;
@@ -145,16 +156,28 @@ export class PrestadorComponent {
 
   }
 
-  gallery(){
+/**
+ * Navigates to the gallery page for the current prestador.
+ */
+  gallery(): void{
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
   }
 
+/**
+ * Sets the current page option for pagination.
+ * @param option - The selected page option.
+ */
   buttonPag(option:string){
     this.pag = option;
   }
 
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param inputString The string to capitalize.
+ * @returns The capitalized string.
+ */
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {
       return inputString;
