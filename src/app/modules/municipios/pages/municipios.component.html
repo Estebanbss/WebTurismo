@@ -93,21 +93,21 @@
           class="relative md:w-[65%] bg:w-full min-h-[778px] h-full mr-auto p-5 bg-white drop-shadow-xl border-2 flex flex-col rounded-2xl"
         >
         <!--!Contenedor de la descripcion del municipio-->
-          <h2
+          <h3
             class="text-2xl font-semibold text-left font-Blinker my-3 text-primary-500"
           >
             Descripción
-          </h2>
+          </h3>
           <p *ngIf="municipio !== undefined && municipio.descripcion !== null && municipio.descripcion !== undefined && municipio.descripcion !== '--' " class="text-lg font-Work">
             {{municipio.descripcion}}
           </p>
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de las fiestas del municipio-->
-          <h2
+          <h3
             class="text-2xl font-semibold text-left font-Blinker my-3 text-primary-500"
           >
             Fiestas y eventos
-          </h2>
+          </h3>
           <div *ngIf="municipio !== undefined && municipio.fiestasEventos !== null && municipio.fiestasEventos !== '--'">
             <span class="text-lg font-Work">{{municipio.fiestasEventos}}</span>
           </div>
@@ -119,11 +119,11 @@
           -->
           <hr class="border-[1px] my-5" />
           <!--!Contenedor de los hechos historicos del municipio-->
-          <h2
+          <h3
             class="text-2xl font-semibold text-left font-Blinker my-3 text-primary-500"
           >
             Hechos historicos
-          </h2>
+          </h3>
           <p *ngIf="municipio !== undefined && municipio.hechosHistoricos !== undefined && municipio.hechosHistoricos !== null && municipio.hechosHistoricos !== '--' " class="text-lg font-Work">
             {{municipio.hechosHistoricos}}
           </p>
@@ -133,11 +133,11 @@
           class="md:w-[34%] bg:w-full h-full ml-auto flex flex-col z-0 p-3 gap-5 drop-shadow-xl border-2 bg-white rounded-2xl"
         >
         <!--!Contenedor de la información adicional del municipio-->
-          <h2
+          <h3
             class="text-2xl font-semibold text-center font-Blinker text-primary-500"
           >
             Información adicional
-          </h2>
+          </h3>
           <!--!Contenedor del mapa del municipio-->
           <div id="map" class="w-full h-full min-h-[300px] z-0">
             <span class="hidden">Se supone que aqui debe ir un mapa D:</span>
@@ -302,11 +302,11 @@
         class="w-full  bg-white drop-shadow-xl h-36 items-center justify-center flex flex-col gap-5 rounded-t-2xl"
       >
       <!--!titulo de la sección lista de municipios "explora por ti mismo"-->
-        <h2
+        <h3
           class="text-center font-Blinker text-3xl text-primary-500 font-bold"
         >
           Explora por ti mismo
-        </h2>
+        </h3>
 
         <div class="relative w-[80%] h-12 items-center justify-center flex">
           <!--!Input de busqueda-->
