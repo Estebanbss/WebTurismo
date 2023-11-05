@@ -26,6 +26,78 @@ export class PrestadorComponent {
     return vacio;
   }
 
+  servi: any = [
+    {
+      "title": "Alojamiento Urbano",
+      "id": "alojamientoUrbano"
+    },
+    {
+      "title": "Alojamiento Rural",
+      "id": "alojamientoRural"
+    },
+    {
+      "title": "Restaurantes",
+      "id": "restaurantes"
+    },
+    {
+      "title": "Tiendas de Café",
+      "id": "tiendasDeCafe"
+    },
+    {
+      "title": "Antojos típicos",
+      "id": "antojosTipicos"
+    },
+    {
+      "title": "Sitio Natural",
+      "id": "sitioNatural"
+    },
+    {
+      "title": "Patrimonio Cultural",
+      "id": "patrimonioCultural"
+    },
+    {
+      "title": "Miradores",
+      "id": "miradores"
+    },
+    {
+      "title": "Parques Naturales",
+      "id": "parquesNaturales"
+    },
+    {
+      "title": "Agencias de Viajes",
+      "id": "agenciasDeViaje"
+    },
+    {
+      "title": "Centro recreativo",
+      "id": "centroRecreativo"
+    },
+    {
+      "title": "Guias de Turísmo",
+      "id": "guiasDeTurismo"
+    },
+    {
+      "title": "Aventura",
+      "id": "aventura"
+    },
+    {
+      "title": "Agro y eco turismo",
+      "id": "agroYEcoturismo"
+    },
+    {
+      "title": "Planes o Rutas",
+      "id": "planesORutas"
+    },
+    {
+      "title": "Artesanías",
+      "id": "artesanias"
+    },
+    {
+      "title": "Eventos",
+      "id": "eventos"
+    }
+  ];
+
+
   imgGallery: string[] = [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
