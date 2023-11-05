@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
-import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
 
   }
 
+  mostrarBoton: boolean = false;
+
   title = `Pa'lHuila`;
 
   ngOnInit(){
@@ -32,7 +34,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event): void {
+    const scrollPosition = window.scrollY;
+    // Determina la posición en la que deseas mostrar el botón
+    const mostrarEnPosicion = 500; // Ejemplo: muestra el botón cuando el usuario ha desplazado 500 píxeles hacia abajo.
 
+    this.mostrarBoton = scrollPosition > mostrarEnPosicion;
+  }
+
+  toTop(){
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth" // Agregar "smooth" para un desplazamiento suave
+    });
+  }
 
   onKeyDown(event: KeyboardEvent) {
     const targetElement = event.target as HTMLElement;
