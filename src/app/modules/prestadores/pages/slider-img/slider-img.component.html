@@ -39,7 +39,7 @@
           <span class="font-Work text-sm">Galeria</span>
         </button>
 
-        <span class="text-lg font-work font-regular ml-auto mr-2 text-white my-auto">{{count+1}} de {{imgGallery.length}}</span><!--todo contador de imagenes-->
+        <span class="text-lg font-work font-regular ml-auto mr-2 text-white my-auto">{{count}} de {{imgGallery.length}}</span><!--todo contador de imagenes-->
 
       </div>
 
@@ -51,7 +51,7 @@
       <img
       alt="Selected Image"
       class="mx-auto w-auto max-w-full max-h-full  h-auto my-auto z-50 object-cover"
-      src="{{imgGallery[count]}}"
+      src="{{imgGallery[count-1]}}"
     />
 
 

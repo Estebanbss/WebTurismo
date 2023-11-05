@@ -22,6 +22,7 @@ export class PrestadorComponent {
   pag:string = "Servicios";
   buttonPags: string[] = ["Servicios","Horarios"];
 
+/**esto no hace nada  */
   noHaceNada(vacio:null){
     return vacio;
   }

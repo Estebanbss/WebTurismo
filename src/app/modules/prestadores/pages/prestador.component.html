@@ -154,7 +154,7 @@
     <div
       class="w-full col-start-1 h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
     >
-      <button class="w-full h-full" (click)="send(0)">
+      <button class="w-full h-full" (click)="send(1)">
         <img class="object-cover w-full h-full" src="{{ imgGallery[0] }}" />
       </button>
     </div>
@@ -171,7 +171,7 @@
         *ngIf="imgGallery[1] != undefined || imgGallery[1] != null"
         class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
       >
-        <button (click)="send(1)" class="w-full h-full">
+        <button (click)="send(2)" class="w-full h-full">
           <img class="object-cover w-full h-full" src="{{ imgGallery[1] }}" />
         </button>
       </div>
@@ -180,7 +180,7 @@
         *ngIf="imgGallery[2] != undefined || imgGallery[2] != null"
         class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
       >
-        <button (click)="send(2)" class="w-full h-full">
+        <button (click)="send(3)" class="w-full h-full">
           <img class="object-cover w-full h-full" src="{{ imgGallery[2] }}" />
         </button>
       </div>
@@ -461,7 +461,7 @@
 
 <a
 href="https://api.whatsapp.com/send?phone=573126371355&text=Hola quiero más información sobre Pal' Huila!"
-class="fixed w-[60px] h-[60px] bg:bottom-[20px] sm:bottom-[70px] xl:bottom-[30px] right-[10px] bg-[#25d366] text-white rounded-full text-center font-bold text-[40px] z-50"
+class="fixed w-[60px] h-[60px] bg:bottom-[50px] sm:bottom-[70px] xl:bottom-[30px] right-[10px] bg-[#25d366] text-white rounded-full text-center font-bold text-[40px] z-50"
 target="_blank"
 aria-label="Whats"
 >

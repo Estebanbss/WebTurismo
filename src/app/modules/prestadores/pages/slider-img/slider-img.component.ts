@@ -45,7 +45,7 @@ export class SliderImgComponent {
       this.id3 = params['option'];
 
     });
-    this.count = Number(this.id3 === undefined ? 0 : Number(this.id3) > this.imgGallery.length-1 ? 0 : this.id3);
+    this.count = Number(this.id3 === undefined ? 0 : Number(this.id3) > this.imgGallery.length ? 0 : this.id3 );
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
   }
 
@@ -65,14 +65,14 @@ export class SliderImgComponent {
 
 
     if (direction === "next") {
-      if (this.count === this.imgGallery.length-1) {
-        this.count = 0;
+      if (this.count === this.imgGallery.length) {
+        this.count = 1;
       } else {
         this.count++;
       }
     } else {
-      if (this.count === 0) {
-        this.count = (this.imgGallery.length)-1;
+      if (this.count === 1) {
+        this.count = this.imgGallery.length;
       } else {
         this.count--;
       }
