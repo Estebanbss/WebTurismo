@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
+import { Map, marker, tileLayer } from 'leaflet';
 
 @Component({
   selector: 'app-prestador',
@@ -205,18 +206,30 @@ servi: any = [
     }
   }
 
-  ngOninit(){
+  ngOnInit(){
 
     this.modalDataSubscription = this.modalService.modalTurnSliderP$.subscribe((value) => {
       this.turnModal = value;
+
 
     });
 
   }
 
+  ngAfterViewInit(){
+
+    const map = new Map('map').setView([2.19389995105747,-75.6303756116717],13);
+
+    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    }).addTo(map);
+
+    marker([2.19389995105747,-75.6303756116717]).addTo(map)
+
+  }
 
 
-  ngOndestroy(){
+
+  ngOnDestroy(){
     this.modalDataSubscription.unsubscribe();
   }
 

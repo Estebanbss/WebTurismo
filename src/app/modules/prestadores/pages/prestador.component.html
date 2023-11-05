@@ -225,7 +225,7 @@
         >
           <!--!Contenedor de la descripcion del prestador-->
           <h5
-            class="text-2xl md:text-3xl font-semibold text-left font-Blinker my-3 text-primary-500"
+            class="text-xl md:text-2xl font-semibold text-left font-Blinker my-3 text-primary-500"
           >
             Descripción
           </h5>
@@ -256,7 +256,7 @@
         >
           <!--!Contenedor de la información adicional del prestador-->
           <h5
-            class="text-2xl md:text-3xl font-semibold text-center font-Blinker text-primary-500 mt-5"
+            class="text-xl md:text-2xl font-semibold text-center font-Blinker text-primary-500 mt-5"
           >
             Contactenos!
           </h5>
@@ -442,7 +442,7 @@
             >
             <!--*Parte donde estan los botones de la paginación-->
             <div id="Paginación servicios" class="flex flex-row gap-5 px-2">
-              <button (click)="buttonPag(item)" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-lg">{{item}}</button>
+              <button (click)="buttonPag(item); currentPage=1" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-lg">{{item}}</button>
             </div>
             <hr class="border-[1px] mb-5" />
             <!--*Aqui van las paginaciones-->
@@ -458,6 +458,7 @@
                 <div class="flex justify-center gap-10">
                   <button (click)="previousPage()"  [disabled]="currentPage === 1"><img [ngClass]="{'invisible': currentPage === 1 }" src="assets/img/left.svg" class="w-[40px]"  alt="left svg"></button>
                   </div>
+
                     <div class="flex justify-center gap-10">
                       <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= servi.length"><img [ngClass]="{'invisible': currentPage * itemsPerPage >= servi.length}"  src="assets/img/right.svg" class="w-[40px]" alt="right svg"></button>
                     </div>
@@ -466,12 +467,31 @@
             </div>
             <!--todo pagina horarios-->
             <div id="Horarios" *ngIf="pag === 'Horarios'">
-              hola bres
+              Ingreso: permanente Horario: todos los días
             </div>
             </div>
             </div>
             </section>
+
+    <!--?Sección Ubicación-->
+    <section id="Ubicación" class="bg-white h-[500px] md:h-[700px] my-10 w-full mx-auto rounded-xl overflow-hidden">
+      <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto py-10 flex flex-col justify-center ">
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
+        <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Donde nos encontramos?</h5>
+
+        <div id="map" class="w-full h-full mt-auto z-0"><p class="invisible">se supone que aqui va el mapa DDDDDDDDD:</p></div>
+      </div>
+      <hr class="border-[1px] mb-5" />
+
+      <div>
+
+
+      </div>
+
+    </section>
+    <!--?Fin Sección Ubicación-->
   </main>
+
   <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
 </div>
 <!--!estilizando negro-->

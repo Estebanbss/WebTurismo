@@ -56,29 +56,10 @@ export class GalleryComponent {
     this.id3 = option;
     // Construct the new route with "slider/:option" adde
     // Navigate to the new route
-    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${option}`)
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${option+1}`)
 
   }
-  buttonSlider(direction: string) {
 
-
-    if (direction === "next") {
-      if (this.count === this.imgGallery.length-1) {
-        this.count = 0;
-      } else {
-        this.count++;
-      }
-    } else {
-      if (this.count === 0) {
-        this.count = (this.imgGallery.length)-1;
-      } else {
-        this.count--;
-      }
-    }
-    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
-
-
-  }
 
   ngOninit(){
    console.log(this.count)
