@@ -44,11 +44,10 @@ export class NavheaderComponent implements OnInit{
   constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){}
 
   logOut() {
-    this.userService.cerrarSesion()
-      .then(() => {
-        this.router.navigate(['auth/login']);
-      })
-      .catch(error => console.log(error));
+    this.userService.update().then(()=>{
+      this.userService.cerrarSesion().then(()=>{this.router.navigate(['/auth/login']);}).catch((error)=>{console.log(error)})
+     }).catch((error)=>{console.log(error)})
+
 
   }
 

@@ -1,8 +1,12 @@
+import { UserService } from 'src/app/core/services/user.service';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { HostListener } from '@angular/core';
+import { doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { getAuth } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,23 +19,48 @@ import { HostListener } from '@angular/core';
 export class AppComponent implements OnInit {
 
 
-
-  constructor(private modal: ModalServiceService, private router: Router){
+  firestore = getFirestore();
+  auth = getAuth();
+  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService ){
 
 
 
   }
 
   mostrarBoton: boolean = false;
-
+  userSubscription!: Subscription;
   title = `Pa'lHuila`;
-
+  hasExecuted = false;
   ngOnInit(){
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
     });
+    window.addEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
+  }
+
+
+
+  ngAfterViewChecked(){
+    if (!this.hasExecuted) {
+      this.hasExecuted = true;
+      this.userService.getCurrentUser(this.auth).then((user: any) => {
+        if (user) {
+          const docuRef = doc(this.firestore, `users/${user.uid}`)
+
+          if (docuRef) {
+            setDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() }, { merge: true });
+          }
+        }
+      });
+    }
+
+   }
+
+  ngOnDestroy(){
+    window.removeEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -41,6 +70,23 @@ export class AppComponent implements OnInit {
     const mostrarEnPosicion = 500; // Ejemplo: muestra el botón cuando el usuario ha desplazado 500 píxeles hacia abajo.
 
     this.mostrarBoton = scrollPosition > mostrarEnPosicion;
+  }
+
+
+  private updateFechaUltimoLoginBeforeUnload = () => {
+    this.updateFechaUltimoLogin();
+  }
+
+  private updateFechaUltimoLogin() {
+    this.userService.getCurrentUser(this.auth).then((user: any) => {
+      if (user) {
+        const docuRef = doc(this.firestore, `users/${user.uid}`);
+
+        if (docuRef) {
+          setDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() }, { merge: true });
+        }
+      }
+    });
   }
 
   toTop(){

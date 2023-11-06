@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { getAuth } from '@angular/fire/auth';
+import { getDoc, updateDoc } from '@firebase/firestore';
 
 
 @Component({
@@ -17,6 +20,8 @@ export class LoginComponent implements OnInit {
     this.titleService.setTitle('Pal\'Huila - Inicia Sesión!');
   }
 
+  firestore = getFirestore();
+  auth = getAuth();
 
   //Parametro para el formulario
   loginUsuario: FormGroup;
@@ -51,7 +56,6 @@ export class LoginComponent implements OnInit {
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
     // console.log({email, password});
-    console.log("log!")
 
     // Activamos el spinner un momento antes de la promesa, para que en el momento en que esperamos la respuesta se muestre que está pensando el programa
     this.loading = true;
@@ -60,10 +64,39 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(email, password)
       .then((response) => {
+
+
+
         //En el if preguntamos si el usuario está verificado
         if(response.user?.emailVerified) {
           //Redireccionamos al Dashboard
           this.router.navigate(['/home']);
+
+
+          const docuRef = doc(this.firestore, `users/${response.user?.uid}`)
+          getDoc(docuRef).then((doc) => {
+            if(doc.exists()){
+              updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()})
+
+            }else{
+              //!solo por si algo sale mal
+              setDoc(docuRef, {
+                correo: response.user.email,
+                rol: 'usuario',
+                nombreUser: response.user.displayName,
+                fotoUser: response.user.photoURL,
+                uid: response.user.uid,
+                estado: response.user.emailVerified,
+                fechaCreacion: new Date(response.user.metadata.creationTime!).toISOString(),
+                fechaUltimoLogin: new Date(response.user.metadata.lastSignInTime!).toISOString(),
+                numeroTel: response.user.phoneNumber
+              });
+            }
+
+          })
+
+
+
         } else {
           // Redireccionamos al componente Verificar Correo
           this.router.navigate(['/auth']);
@@ -72,7 +105,7 @@ export class LoginComponent implements OnInit {
       .catch((error) => {
         this.loading = false; // Spinner
         // Metodo para gestionar los errores Login
-        alert(this.userService.firebaseError(error.code)); //Manejo de Errores
+
         console.log(error);
       });
 
@@ -82,9 +115,35 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this.userService.loginConGoogle()
       .then(response => {
+        console.log(response)
         //En caso de que el logeo sea exitoso se envía al/home dashboard
         // console.log(response.user);
         this.router.navigate(['/home/dashboard']);
+
+        const docuRef = doc(this.firestore, `users/${response.user?.uid}`)
+        getDoc(docuRef).then((doc) => {
+          if(doc.exists()){
+            updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()})
+
+          }else{
+            setDoc(docuRef, {
+              correo: response.user.email,
+              rol: 'usuario',
+              nombreUser: response.user.displayName,
+              fotoUser: response.user.photoURL,
+              uid: response.user.uid,
+              estado: response.user.emailVerified,
+              fechaCreacion: new Date(response.user.metadata.creationTime!).toISOString(),
+              fechaUltimoLogin: new Date(response.user.metadata.lastSignInTime!).toISOString(),
+              numeroTel: response.user.phoneNumber
+            });
+          }
+
+        })
+
+
+
+
       })
       .catch(error => {
         console.log(error);

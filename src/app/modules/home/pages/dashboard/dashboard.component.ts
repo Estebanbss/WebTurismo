@@ -5,6 +5,8 @@ import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
+import { UserService } from 'src/app/core/services/user.service';
+import { getAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -16,16 +18,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router,
-    private titleService:Title,// Inyecta el servicio ActivatedRoute
+    private titleService:Title,
   ) {
-
 
   }
   ngOnInit(): void {
-    this.titleService.setTitle('Pal\'Huila - Explora!');
+    this.titleService.setTitle('Pal\'Huila - Explora!');;
 
   }
 
+  auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   dataUser: any; // Variable para almacenar los datos del usuario
   admin: string = 'juanesbs2003@hotmail.com'; // Correo del administrador|
@@ -243,13 +245,4 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/municipios/', municipio]); //*Redireccionamos al componente donde enviamos el elemento.
   }
 
-  logOut(): void {// Método para cerrar sesión
-    this.homeService // Cierra la sesión
-      .cerrarSesion()// Llama al método cerrarSesion del servicio HomeService
-      .then(() => {// Si se cierra la sesión
-        // Si se cierra la sesión
-        this.router.navigate(['auth/login']); // Redirige al login
-      })
-      .catch((error) => console.log(error)); // Si no se cierra la sesión, muestra el error
-  }
 }
