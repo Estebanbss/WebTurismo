@@ -146,7 +146,7 @@
 </section>
 <!--*nombreMunicipio-->
 
-<div class="min-h-screen min-w-screen bg-black bg-opacity-5 z-10">
+<div class="w-full h-full bg-black bg-opacity-5 z-10 mb-5">
   <!--!estilizando negro-->
 
   <section
@@ -213,7 +213,7 @@
   </section>
   <!--? Galeria de imagenes-->
 
-  <main class="max-w-[1280px] mx-auto mt-0">
+  <main class="max-w-[1280px] mx-auto mb-5">
     <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
 
     <!--!Sección de información del prestador-->
@@ -225,7 +225,7 @@
         >
           <!--!Contenedor de la descripcion del prestador-->
           <h5
-            class="text-xl md:text-2xl font-semibold text-left font-Blinker my-3 text-primary-500"
+            class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
           >
             Descripción
           </h5>
@@ -256,7 +256,7 @@
         >
           <!--!Contenedor de la información adicional del prestador-->
           <h5
-            class="text-xl md:text-2xl font-semibold text-center font-Blinker text-primary-500 mt-5"
+            class="text-2xl md:text-3xl font-black text-center font-Blinker text-primary-500 mt-5"
           >
             Contactenos!
           </h5>
@@ -450,7 +450,7 @@
             <div class="flex flex-col px-2 gap-10 mt-2" id="Servicios" *ngIf="pag === 'Servicios'">
               <div *ngFor="let item of servi.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index " class="flex flex-col gap-2">
                 <span id="titleService" class="flex flex-row gap-2 items-center"><img src="assets/img/{{item.title}}.svg" alt="{{item.title}}, imagen" width="30px" height="30px"><h6 class="font-bold font-Blinker text-primary-500 text-lg">{{item.title}}</h6></span>
-                <p id="paragraphService">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
+                <p id="paragraphService" class="text-lg font-Work">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
               </div>
 
               <!-- Botones de paginación -->
@@ -474,26 +474,56 @@
             </section>
 
     <!--?Sección Ubicación-->
-    <section id="Ubicación" class="bg-white h-[500px] md:h-[700px] my-10 w-full mx-auto rounded-xl overflow-hidden">
-      <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto py-10 flex flex-col justify-center ">
+    <section id="Ubicación" class="bg-white  mb-5 w-full mx-auto rounded-xl overflow-hidden">
+      <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pt-10 flex flex-col justify-center mb-5">
         <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
         <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Donde nos encontramos?</h5>
 
-        <div id="map" class="w-full h-full mt-auto z-0"><p class="invisible">se supone que aqui va el mapa DDDDDDDDD:</p></div>
+        <div id="map" class="w-full h-full min-h-[500px]   mt-auto z-0 border-4 rounded-xl border-opacity-30 border-primary-500"><p class="invisible">se supone que aqui va el mapa DDDDDDDDD:</p></div>
+
+        <hr class="border-[1px] my-5" />
+
+        <div id="Dirección" class=" px-5 pb-5">
+          <!--*Aqui hay que poner validaciones si existe o no las indicaciones y ocultar si se requiere también se pone la validación total en el div id="Dirección" cuyo caso on existan ninguno de los dos-->
+          <h5 id="titleDirección"
+          class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
+        >
+          Dirección
+        </h5>
+        <p id="paragraphDirección" class="text-lg font-Work">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
+
+        <h5 id="titleIndicacionesAcceso"
+        class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
+      >
+        ¿Como llegar?
+      </h5>
+      <p id="paragraphIndicacionesAcceso " class="text-lg font-Work">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
+
+
+          </div>
       </div>
+
+
+
+
+    </section>
+    <!--?Fin Sección Ubicación-->
+    <section id="Ubicación" class="bg-white h-[500px] md:h-[700px] mb-5 w-full mx-auto rounded-xl overflow-hidden">
+
       <hr class="border-[1px] mb-5" />
-
-      <div>
-
-
-      </div>
 
     </section>
     <!--?Fin Sección Ubicación-->
   </main>
 
   <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
+  <div class="my-5">
+  <p class="invisible">esto se supone que está invisible y nadie lo ve ¿Por qué usted si lo ve?</p>
+  </div>
+
 </div>
+
+<app-navfooter class="relative  mt-5"></app-navfooter>
 <!--!estilizando negro-->
 
 <!--todo aqui se debe hacer una validación de si existe el atributo whatsapp en el arreglo y si no existe no se muestra esta etiqueta "<a>" y si si existe entonces si se muestra el href también se debe hacer 3 concatenaciones la de despues de phone=(numero atributo prestador)+(hola quiero más info sobre (nombre prestador))-->
@@ -528,4 +558,4 @@ c0.1,0.2,2.1,3.2,5.1,4.5c0.7,0.3,1.3,0.5,1.7,0.6c0.7,0.2,1.4,0.2,1.9,0.1c0.6-0.1
   ></path>
 </svg>
 </a>
-<app-navfooter></app-navfooter>
+
