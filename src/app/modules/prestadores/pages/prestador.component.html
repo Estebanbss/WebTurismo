@@ -454,13 +454,13 @@
               </div>
 
               <!-- Botones de paginación -->
-              <div class="flex flex-row justify-center gap-10">
+              <div class="flex flex-row justify-center gap-12 border-y-2 ">
                 <div class="flex justify-center gap-10">
-                  <button (click)="previousPage()"  [disabled]="currentPage === 1"><img [ngClass]="{'invisible': currentPage === 1 }" src="assets/img/left.svg" class="w-[40px]"  alt="left svg"></button>
+                  <button (click)="previousPage()"  [disabled]="currentPage === 1"><img [ngClass]="{'invisible': currentPage === 1 }" src="assets/img/left.svg" class="border-2 w-[40px] bg-white rounded-full hover:bg-black hover:bg-opacity-5"  alt="left svg"></button>
                   </div>
 
                     <div class="flex justify-center gap-10">
-                      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= servi.length"><img [ngClass]="{'invisible': currentPage * itemsPerPage >= servi.length}"  src="assets/img/right.svg" class="w-[40px]" alt="right svg"></button>
+                      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= servi.length"><img [ngClass]="{'invisible': currentPage * itemsPerPage >= servi.length}"  src="assets/img/right.svg" class="border-2 w-[40px] bg-white rounded-full hover:bg-black hover:bg-opacity-5" alt="right svg"></button>
                     </div>
               </div>
 
@@ -507,21 +507,25 @@
 
 
     </section>
-    <!--?Fin Sección Ubicación-->
-    <section id="Ubicación" class="bg-white h-[500px] md:h-[700px] mb-5 w-full mx-auto rounded-xl overflow-hidden">
 
-      <hr class="border-[1px] mb-5" />
+    <!--?Fin Sección Ubicación-->
+
+    <!--? Sección de lista de similares-->
+    <!--todo aqui se debe poner 10 sitios/atractivos/prestadores similares a este relacionando con el municipio y servicios-->
+    <section id="Lista de similares" class=" min-h-[450px] mb-5 w-full mx-auto rounded-xl overflow-hidden py-5">
+      <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Similares</h5>
 
     </section>
-    <!--?Fin Sección Ubicación-->
+
   </main>
 
   <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
-  <div class="my-5">
-  <p class="invisible">esto se supone que está invisible y nadie lo ve ¿Por qué usted si lo ve?</p>
+
+  <div class="my-5"><!--* esto es para dar espacio y que se note la diferencia de espacio entre el nav y el main content (NO BORRAR)-->
+  <BUTTON (click)="noHaceNada(null)" class="invisible">esto se supone que está invisible y nadie lo ve ¿Por qué usted si lo ve?</BUTTON>
   </div>
 
-</div>
+  </div>
 
 <app-navfooter class="relative  mt-5"></app-navfooter>
 <!--!estilizando negro-->

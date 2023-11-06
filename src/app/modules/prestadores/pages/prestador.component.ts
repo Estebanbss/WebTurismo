@@ -25,7 +25,7 @@ export class PrestadorComponent {
   itemsPerPage: number = 3; // Cantidad de elementos por página
   buttonPags: string[] = ["Servicios","Horarios"];
 
-/**esto no hace nada  */
+/**esto no hace nada 👍 */
   noHaceNada(vacio:null){
     return vacio;
   }
