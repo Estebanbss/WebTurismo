@@ -25,7 +25,7 @@
             <button class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50" (click)="toggleExpanded2()">
 
               <!--espacio de la foto de usuario del usuario-->
-              <img alt="UserProfilePhoto no-close z-0 " src="assets/img/pfp.webp">
+              <img alt="UserProfilePhoto no-close z-0 " src="{{pfp}}">
 
               <div class="hidden absolute top-[64px] no-close right-0 w-[400%]   lg:rounded-lg bg-primary-400 text-white  bg:rounded-lg justify-center items-center py-auto font-Work font-regular text-lg overflow-y-visible z-50" [class.hidden]="expanded2=='cerrado'" >
                 <div class="hidden absolute top-0 right-0 rotate-45 bg-primary-400 min-w-[50px] h-[50px] -z-50 rounded-tr-full"  [class.hidden]="expanded2=='cerrado'"> </div>

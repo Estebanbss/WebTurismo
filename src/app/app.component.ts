@@ -50,9 +50,8 @@ export class AppComponent implements OnInit {
         if (user) {
           const docuRef = doc(this.firestore, `users/${user.uid}`)
           const docSnap = await getDoc(docuRef);
-          console.log(docSnap.data());
           this.userService.setRolSubject(docSnap.data()!['rol']);
-
+          console.log("Hi")
           if (docuRef) {
             setDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() }, { merge: true });
           }
@@ -64,7 +63,10 @@ export class AppComponent implements OnInit {
    }
 
   ngOnDestroy(){
-    window.removeEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
+
+      window.removeEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
+      console.log("Hi")
+
   }
 
   @HostListener('window:scroll', ['$event'])

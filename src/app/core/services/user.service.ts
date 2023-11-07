@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 //Servicio de Firebase para la Autenticación
 import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence, updateProfile  } from '@angular/fire/auth';
-import { getFirestore, doc, setDoc, DocumentData, DocumentReference, } from '@angular/fire/firestore';
+import { getFirestore, doc, setDoc, DocumentData, DocumentReference, getDoc, } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -31,33 +31,14 @@ export class UserService {
 
   firestore = getFirestore();
 
-  generateRandom9DigitNumber() {
-    const min = 100000000; // El valor mínimo de 9 dígitos
-    const max = 999999999; // El valor máximo de 9 dígitos
-    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomNumber;
-  }
+
 
   // Crear un Nuevo Usuario
   async register(email:string, password:string) {
     // Vamos a retornar la promesa que nos da el método
     const infoUsuario = await createUserWithEmailAndPassword(this.auth, email, password);
-    const random9DigitNumber = this.generateRandom9DigitNumber();
-    const docuRef = doc(this.firestore, `users/${infoUsuario.user.uid}`)
-
-    setDoc(docuRef, {
-      correo: infoUsuario.user.email,
-      rol: 'usuario',
-      nombre: infoUsuario.user.displayName,
-      userName: `${infoUsuario.user.displayName}${random9DigitNumber}`,
-      fotoUser: infoUsuario.user.photoURL,
-      uid: infoUsuario.user.uid,
-      estado: infoUsuario.user.emailVerified,
-      fechaCreacion: new Date(infoUsuario.user.metadata.creationTime!).toISOString(),
-      fechaUltimoLogin: new Date(infoUsuario.user.metadata.lastSignInTime!).toISOString(),
-      numeroTel: infoUsuario.user.phoneNumber
-    });
     return infoUsuario;
+
   }
 
   //Logear un Usuario
@@ -112,7 +93,7 @@ export class UserService {
 
     return this.auth.setPersistence(browserLocalPersistence).then(()=>{
      const infoUsuario = signInWithPopup(this.auth, new GoogleAuthProvider());
-    return infoUsuario;
+      return infoUsuario;
 
     })
 

@@ -18,6 +18,7 @@ export class NavheaderComponent implements OnInit{
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
   auth = getAuth();
+  pfp: any = this.auth.currentUser!.photoURL;
   expanded?:boolean
   expanded2?:string = "abierto"
   dataUser: any;
