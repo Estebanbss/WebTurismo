@@ -13,9 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 
 
 export class UserService {
-  getDoc(docuRef: DocumentReference<DocumentData, DocumentData>) {
-    throw new Error('Method not implemented.');
-  }
+
 
   infoUsuario: any;
 
@@ -112,10 +110,6 @@ export class UserService {
       //Error Contraseña muy debil
       case 'auth/weak-password':
         return 'Contraseña muy debil';
-
-      //Error Correo inválido
-      case 'auth/invalid-email':
-        return 'Correo inválido';
 
       //Errors La contraseña es Incorrecta
       case 'auth/wrong-password':
