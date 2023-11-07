@@ -138,7 +138,10 @@ export class LoginComponent implements OnInit {
       .catch((error) => {
         this.loading = false; // Spinner
         // Metodo para gestionar los errores Login
-        alert(this.userService.firebaseError(error.code))
+
+          alert(this.userService.firebaseError(error.code))
+
+
       });
 
   }

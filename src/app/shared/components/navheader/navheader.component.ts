@@ -18,12 +18,13 @@ export class NavheaderComponent implements OnInit{
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
   auth = getAuth();
-  pfp: any;
+  pfp!: string | null;
   expanded?:boolean
   expanded2?:string = "abierto"
   dataUser: any;
   adminButton = false;
-  UserName:any;
+  UserName!:string | null;
+  loading = false;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
@@ -73,9 +74,18 @@ export class NavheaderComponent implements OnInit{
       if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
 
+
       }
+
+
       this.UserName = this.auth.currentUser!.displayName;
-      this.pfp= this.auth.currentUser!.photoURL;
+      this.pfp = this.auth.currentUser!.photoURL;
+
+      console.log(this.UserName)
+      console.log(this.pfp)
+
+      this.loading = true;
+
     });
 
 
@@ -83,7 +93,10 @@ export class NavheaderComponent implements OnInit{
 
     } ;
 
+    ngAfterViewChecked(): void {
 
+
+    }
 
 
 

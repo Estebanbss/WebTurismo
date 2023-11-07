@@ -17,7 +17,7 @@
             "allowedCommonJsDependencies": [
               "leaflet"
             ],
-            "baseHref": "/",
+            "baseHref": "https://estebanbss.github.io/WebTurismo/",
             "outputPath": "dist/pal-huila",
             "index": "src/index.html",
             "main": "src/main.ts",
