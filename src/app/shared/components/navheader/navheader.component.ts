@@ -18,12 +18,12 @@ export class NavheaderComponent implements OnInit{
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
   auth = getAuth();
-  pfp: any = this.auth.currentUser!.photoURL;
+  pfp: any;
   expanded?:boolean
   expanded2?:string = "abierto"
   dataUser: any;
   adminButton = false;
-  UserName:any = this.auth.currentUser!.displayName;
+  UserName:any;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
@@ -72,7 +72,10 @@ export class NavheaderComponent implements OnInit{
     this.modalDataSubscription2 = this.userService.rolSubject$.subscribe((value) => {
       if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
+
       }
+      this.UserName = this.auth.currentUser!.displayName;
+      this.pfp= this.auth.currentUser!.photoURL;
     });
 
 
