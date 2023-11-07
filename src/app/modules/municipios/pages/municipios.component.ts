@@ -8,6 +8,7 @@
   import { Subscription } from 'rxjs';
   import { ActivatedRoute, Router } from '@angular/router';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
+import { DetalleService } from 'src/app/core/services/detalle.service';
 
 
   @Component({
@@ -154,6 +155,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       private textService: Title,
       private router: Router,
       private modalService: ModalServiceService,
+      private detalleService: DetalleService
     ) {
 
 
@@ -486,8 +488,16 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 
 
 
-  navigate(option:string) {
-    this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(option)]);
+  navigate(item: any) {
+    //Pasamos los datos al observable, cualquiera que sea: Prestador o Atractivo
+    this.detalleService.changeData(item);
+    //Validamos hacia qué componente deseamos direccionar
+    if ('servicios' in item) { //*Validación para Prestadores
+      // console.log('Se está pasando un Prestador');
+      this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(item.name)]);
+    } else if ('bienOLugar' in item) { //*Validación para Atractivos
+      console.log('Se está pasando un Atractivo');
+    }
   }
 
   //? -> Métdo para desorganizar el arreglo de forma aleatoria
