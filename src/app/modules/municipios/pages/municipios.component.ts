@@ -157,13 +157,14 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
     ) {
 
 
+
       this.route.params.subscribe(params => this.cambioURL = params['id']);
 
         // Puedes utilizar this.municipioId para realizar acciones basadas en el parámetro.
 
 
       this.nombreMunicipio$ = this.homeService.sharingHomeMunicipio; //Compartimos el dato enviado desde el otro componente por medio del observable
-      this.textService.setTitle("Pal'Huila - Municipios!")
+      this.textService.setTitle("Pa'lHuila - Municipios!")
       //? Inicializamos la propiedad municipio de tipo Object que va a ser la que vamos a mostrar en el html
       this.arrayMunicipio = {
         //id -> Nos lo da firebase
@@ -444,10 +445,11 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
       this.router.navigate(['/municipios/', this.municipio.name]);
     }
 
+    nombreAtractivo: string = ""
     //? -> Método para traer los datos desde la BD de Prestadores y Atractivos según el municipio
     datosPrestadoresYAtractivos(nombre: string) {
 
-      console.log(this.nombreMunicipio);
+
 
       // Inicializamos las llamadas
       const prestadores$ = this.mostrarMunicipioService.obtenerPrestadoresPorMunicipio(nombre);
@@ -471,6 +473,21 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
           this.prestadoresYAtractivos = this.shuffleArray(this.prestadoresYAtractivos);
         }
       );
+
+  }
+
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+
+
+  navigate(option:string) {
+    this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(option)]);
   }
 
   //? -> Métdo para desorganizar el arreglo de forma aleatoria

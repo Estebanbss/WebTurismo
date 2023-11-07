@@ -37,7 +37,7 @@ export class PaginaInicioComponent implements OnInit {
 
   activarBoton(boton: string) {// Función para activar el botón seleccionado
     this.botonActivo = boton;// Guarda el botón seleccionado en la variable
-    console.log(this.botonActivo )
+
   }
 
   // Escucha el evento mousedown

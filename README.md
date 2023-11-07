@@ -1,12 +1,12 @@
-# WebTurismo - Pal'Huila
+# WebTurismo - Pa'lHuila
 
-![Imagen de Pal'Huila](https://github.com/CenturHuila/WebTurismo/raw/main/src/assets/img/ImagotipoPalH.svg)
+![Imagen de Pa'lHuila](https://github.com/CenturHuila/WebTurismo/raw/main/src/assets/img/ImagotipoPalH.svg)
 
-Este proyecto se enfoca en la creación y mejora de la página web "Pal'Huila," una plataforma turística para el departamento del Huila.
+Este proyecto se enfoca en la creación y mejora de la página web "Pa'lHuila," una plataforma turística para el departamento del Huila.
 
 ## Descripción
 
-Pal'Huila es una evolución de la anterior aplicación móvil "CenturHuila 3.0," creada en 2021 con recursos SENNOVA. El objetivo principal es promocionar los destinos turísticos y servicios del departamento, abarcando los 37 municipios de la región.
+Pa'lHuila es una evolución de la anterior aplicación móvil "CenturHuila 3.0," creada en 2021 con recursos SENNOVA. El objetivo principal es promocionar los destinos turísticos y servicios del departamento, abarcando los 37 municipios de la región.
 
 ## Objetivo
 

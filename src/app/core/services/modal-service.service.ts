@@ -40,7 +40,12 @@ export class ModalServiceService {
   private modalTurnMuniSubject = new BehaviorSubject<boolean>(false);
   modalTurnMuni$ = this.modalTurnMuniSubject.asObservable();
 
+  private modalTurnSliderPSubject = new BehaviorSubject<boolean>(false);
+  modalTurnSliderP$ = this.modalTurnSliderPSubject.asObservable();
 
+  setTurnSliderP(value: boolean) {
+    this.modalTurnSliderPSubject.next(value);
+  }
 
   setWarningAll(value: boolean) {
     this.warningAllSubject.next(value);

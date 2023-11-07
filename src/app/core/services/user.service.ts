@@ -1,8 +1,10 @@
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 //Servicio de Firebase para la Autenticación
-import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence,  } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence, updateProfile  } from '@angular/fire/auth';
+import { getFirestore, doc, setDoc, DocumentData, DocumentReference, getDoc, } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +13,61 @@ import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, send
 
 
 export class UserService {
+  getDoc(docuRef: DocumentReference<DocumentData, DocumentData>) {
+    throw new Error('Method not implemented.');
+  }
 
+  infoUsuario: any;
 
   //El Auth es nuestro servicio/Clase Firebase que nos mantiene actualizado el estado de nuestros usuarios en la app
-  constructor(private auth: Auth, private router: Router) { }
+  constructor(private auth: Auth) { }
+
+  private rolSubject = new BehaviorSubject<string>("");
+  rolSubject$ = this.rolSubject.asObservable();
+
+  setRolSubject(value: string) {
+    this.rolSubject.next(value);
+  }
+
+  firestore = getFirestore();
+
 
 
   // Crear un Nuevo Usuario
-  register(email:string, password:string) {
+  async register(email:string, password:string) {
     // Vamos a retornar la promesa que nos da el método
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    const infoUsuario = await createUserWithEmailAndPassword(this.auth, email, password);
+    return infoUsuario;
+
   }
 
   //Logear un Usuario
   login(email: string, password: string) {
+
     // Vamos a retornar la promesa que nos da el método
     return this.auth.setPersistence(browserLocalPersistence).then(()=>{
-      return signInWithEmailAndPassword(this.auth, email, password);
+
+      this.infoUsuario = signInWithEmailAndPassword(this.auth, email, password);
+      return this.infoUsuario;
+
 
     })
 
+  }
+
+  getCurrentUser(auth:any) {
+    return new Promise((resolve, reject) => {
+       const unsubscribe = auth.onAuthStateChanged((user: any) => {
+          unsubscribe();
+          resolve(user);
+       }, reject);
+    });
+  }
+
+  update(){
+    const docuRef = doc(this.firestore, `users/${this.auth.currentUser!.uid}`)
+    // updateProfile(this.auth.currentUser!,{}).then(()=>{ }).catch((error)=>{console.log(error)})
+    return setDoc(docuRef,{ fechaUltimoLogin: new Date().toISOString()}, {merge: true})
   }
 
   // Recuperar Usuario
@@ -47,8 +84,6 @@ export class UserService {
 
   //LogOut o Cerrar Sesión
   cerrarSesion() {
-    //Método de Firebase para desloguear
-    // return signOut(this.auth);
     return this.auth.signOut();
   }
 
@@ -57,8 +92,11 @@ export class UserService {
   loginConGoogle() {
 
     return this.auth.setPersistence(browserLocalPersistence).then(()=>{
-      return signInWithPopup(this.auth, new GoogleAuthProvider());
+     const infoUsuario = signInWithPopup(this.auth, new GoogleAuthProvider());
+      return infoUsuario;
+
     })
+
     // Llamámos a la función de Popup y le pasamos el servico auth y un objeto Provider de Google
 
   }
