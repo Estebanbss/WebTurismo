@@ -6,6 +6,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { homeGuard } from './core/guards/home.guard';
 import { MunicipioGuard } from './core/guards/municipio.guard';
 import { adminGuard } from './core/guards/admin.guard';
+import { PrestadorGuard } from './core/guards/prestador.guard';
 
 
 const routes: Routes = [
@@ -16,7 +17,9 @@ const routes: Routes = [
 
   { path: "municipios/:id", canActivate:[authGuard, MunicipioGuard], loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
 
-  { path: "prestadores/:municipio/:prestador", canActivate:[authGuard], loadChildren:() => import("./modules/prestadores/prestadores.module").then((m) => m.PrestadoresModule)},
+  { path: "prestadores/:municipio/:prestador", canActivate:[authGuard,PrestadorGuard], loadChildren:() => import("./modules/prestadores/prestadores.module").then((m) => m.PrestadoresModule)},
+
+  { path: "profile/:id", canActivate:[authGuard], loadChildren:() => import("./modules/perfil/perfil.module").then((m) => m.PerfilModule)},
 
   { path: "auth", canActivate:[homeGuard],  loadChildren:() => import("./modules/auth/auth.module").then((m) => m.AuthModule)},
 

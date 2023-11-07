@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
-import { getAuth, onAuthStateChanged, user } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, } from '@angular/fire/auth';
+import { doc, getDoc, getFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class NavheaderComponent implements OnInit{
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
   auth = getAuth();
+  uid!: string | null;
+  userName!: string | null;
   pfp!: string | null;
   expanded?:boolean
   expanded2?:string = "abierto"
@@ -54,6 +57,9 @@ export class NavheaderComponent implements OnInit{
   }
 
 
+  navigate(){
+    this.router.navigate(['/profile', this.userName]);
+  }
 
 
 
@@ -82,12 +88,21 @@ export class NavheaderComponent implements OnInit{
     });
 
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
+        }
         // El usuario ha iniciado sesión.
         this.UserName = user.displayName;
         this.pfp = user.photoURL;
         this.loading = true;
+
+
       } else {
         // El usuario ha cerrado sesión.
         this.UserName = null;
@@ -95,9 +110,6 @@ export class NavheaderComponent implements OnInit{
         this.loading = false;
       }
     });
-
-
-
 
     } ;
 
