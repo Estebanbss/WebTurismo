@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
                 setDoc(docuRef, {
                   correo: response.user.email,
                   rol: 'usuario',
-                  nombre: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email?.split("@")[0].substring(0,6)) : response.user.displayName,
+                  nombre: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email?.split("@")[0].substring(0,6)) : this.capitalizeFirstLetter(response.user.displayName),
 
                   userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : this.capitalizeFirstLetter( response.user.displayName)}${random9DigitNumber}`,
                   // fotoUser: response.user.photoURL,
