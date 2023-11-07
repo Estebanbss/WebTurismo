@@ -111,6 +111,10 @@ export class UserService {
       case 'auth/weak-password':
         return 'Contraseña muy debil';
 
+      //Error Correo inválido
+      case 'auth/invalid-email':
+        return 'Correo inválido';
+
       //Errors La contraseña es Incorrecta
       case 'auth/wrong-password':
         return 'La contraseña es Incorrecta';
