@@ -13,9 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 
 
 export class UserService {
-  getDoc(docuRef: DocumentReference<DocumentData, DocumentData>) {
-    throw new Error('Method not implemented.');
-  }
+
 
   infoUsuario: any;
 
