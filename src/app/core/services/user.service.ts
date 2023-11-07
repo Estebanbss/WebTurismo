@@ -2,7 +2,8 @@
 import { Injectable } from '@angular/core';
 //Servicio de Firebase para la Autenticación
 import { Auth, User, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, browserLocalPersistence, updateProfile  } from '@angular/fire/auth';
-import { getFirestore, doc, setDoc, } from '@angular/fire/firestore';
+import { getFirestore, doc, setDoc, DocumentData, DocumentReference, } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -12,11 +13,21 @@ import { getFirestore, doc, setDoc, } from '@angular/fire/firestore';
 
 
 export class UserService {
+  getDoc(docuRef: DocumentReference<DocumentData, DocumentData>) {
+    throw new Error('Method not implemented.');
+  }
 
   infoUsuario: any;
 
   //El Auth es nuestro servicio/Clase Firebase que nos mantiene actualizado el estado de nuestros usuarios en la app
   constructor(private auth: Auth) { }
+
+  private rolSubject = new BehaviorSubject<string>("");
+  rolSubject$ = this.rolSubject.asObservable();
+
+  setRolSubject(value: string) {
+    this.rolSubject.next(value);
+  }
 
   firestore = getFirestore();
 

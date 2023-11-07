@@ -1,9 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
-import { getAuth, onAuthStateChanged, updateProfile } from '@angular/fire/auth';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
+import { getAuth, user } from '@angular/fire/auth';
 
 
 @Component({
@@ -15,13 +16,13 @@ import { Subscription } from 'rxjs';
 export class NavheaderComponent implements OnInit{
 
   private modalDataSubscription!: Subscription;
+  private modalDataSubscription2!: Subscription;
+  auth = getAuth();
   expanded?:boolean
   expanded2?:string = "abierto"
   dataUser: any;
-  admin: string = 'juanesbs2003@hotmail.com';
   adminButton = false;
-  auth = getAuth();
-      // console.log(user);
+  UserName:any = this.auth.currentUser!.displayName;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
@@ -48,24 +49,10 @@ export class NavheaderComponent implements OnInit{
       this.userService.cerrarSesion().then(()=>{this.router.navigate(['/auth/login']);}).catch((error)=>{console.log(error)})
      }).catch((error)=>{console.log(error)})
 
-
   }
 
-  defaultUser:string | undefined = this.auth.currentUser?.email?.substring(0,6);
 
 
-
-  UserARRAY:string | undefined | string[] | Promise<void> = this.auth.currentUser?.displayName === null ? this.defaultUser : this.auth.currentUser?.displayName?.split(" ");
-
-  UserName!:string | undefined;
-
-
-  capitalizeFirstLetter(inputString: string): string {
-    if (inputString.length === 0) {
-      return inputString;
-    }
-    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
-  }
 
 
   ngOnInit(){
@@ -81,27 +68,28 @@ export class NavheaderComponent implements OnInit{
     });
 
 
-
-      this.UserName=this.capitalizeFirstLetter(this.UserARRAY!.toString());
-
-
-
-
-     onAuthStateChanged(this.auth, (user) => {
-      if (user?.email === this.admin) {
+    this.modalDataSubscription2 = this.userService.rolSubject$.subscribe((value) => {
+      if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
-      } else {
-        this.adminButton = false;
       }
     });
+
+
 
 
     } ;
 
 
+
+
+
+
     ngOnDestroy() {
       if (this.modalDataSubscription) {
         this.modalDataSubscription.unsubscribe();
+      }
+      if (this.modalDataSubscription2) {
+        this.modalDataSubscription2.unsubscribe();
       }
 
     }

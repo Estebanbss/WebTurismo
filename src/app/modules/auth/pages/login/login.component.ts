@@ -23,6 +23,14 @@ export class LoginComponent implements OnInit {
   firestore = getFirestore();
   auth = getAuth();
 
+
+  defaultUser:string | undefined = this.auth.currentUser?.email?.substring(0,6);
+
+
+
+  UserARRAY:string | undefined | string[] | Promise<void> = this.auth.currentUser?.displayName === null ? this.defaultUser : this.auth.currentUser?.displayName?.split(" ");
+
+  UserName!:string | undefined;
   //Parametro para el formulario
   loginUsuario: FormGroup;
   //Para el Manejo del Spinner colocamos el código
@@ -42,7 +50,16 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
+    this.UserName=this.capitalizeFirstLetter(this.UserARRAY!.toString());
   }
+
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
 
 
   Ojito(){

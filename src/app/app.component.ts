@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { HostListener } from '@angular/core';
-import { doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { doc, getFirestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 
@@ -46,14 +46,18 @@ export class AppComponent implements OnInit {
   ngAfterViewChecked(){
     if (!this.hasExecuted) {
       this.hasExecuted = true;
-      this.userService.getCurrentUser(this.auth).then((user: any) => {
+      this.userService.getCurrentUser(this.auth).then(async (user: any) => {
         if (user) {
           const docuRef = doc(this.firestore, `users/${user.uid}`)
+          const docSnap = await getDoc(docuRef);
+          console.log(docSnap.data());
+          this.userService.setRolSubject(docSnap.data()!['rol']);
 
           if (docuRef) {
             setDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() }, { merge: true });
           }
         }
+
       });
     }
 
