@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
           const docuRef = doc(this.firestore, `users/${user.uid}`)
           const docSnap = await getDoc(docuRef);
           this.userService.setRolSubject(docSnap.data()!['rol']);
-          console.log("Hi")
+
           if (docuRef) {
             setDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() }, { merge: true });
           }
