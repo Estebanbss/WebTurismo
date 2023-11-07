@@ -132,7 +132,8 @@ export class LoginComponent implements OnInit {
 
         } else {
           // Redireccionamos al componente Verificar Correo
-          this.router.navigate(['/auth']);
+          this.router.navigate(['/auth/verificar-correo']);
+          this.userService.cerrarSesion();
         }
       })
       .catch((error) => {

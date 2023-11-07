@@ -81,9 +81,6 @@ export class NavheaderComponent implements OnInit{
       this.UserName = this.auth.currentUser!.displayName;
       this.pfp = this.auth.currentUser!.photoURL;
 
-      console.log(this.UserName)
-      console.log(this.pfp)
-
       this.loading = true;
 
     });

@@ -62,6 +62,13 @@ export class RegistrarUsuarioComponent implements OnInit {
   const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomNumber;
 }
+
+capitalizeFirstLetter(inputString: string): string {
+  if (inputString.length === 0) {
+    return inputString;
+  }
+  return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+}
   // Método que se ejecuta desde el template para registrar usuarios
   registrar() {
     const email = this.registrarUsuario.value.email;
@@ -84,7 +91,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         this.loading = false; // Se desactiva el ícono de carga
         // Mandamos el user al método de Firebase que envía un correo de Verificación.
         this.userService.verificarCorreo(response.user);
-        alert('Registrado! Enviamos un correo electrónico para su Verificación :D');
+
 
         // Lo ideal es redireccionar de un componente a otro o del Registro al Login.
         this.router.navigate(['auth/login']); // Ruteo hacia el login
@@ -106,9 +113,9 @@ export class RegistrarUsuarioComponent implements OnInit {
               setDoc(docuRef, {
                 correo: response.user.email,
                 rol: 'usuario',
-                nombre: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName,
+                nombre: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email!.split("@")[0].substring(0,6)) : this.capitalizeFirstLetter(response.user.displayName),
 
-                userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}${random9DigitNumber}`,
+                userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : this.capitalizeFirstLetter( response.user.displayName)}${random9DigitNumber}`,
                 // fotoUser: response.user.photoURL,
                 fotoUser: docSnap.data()![`${numeroAleatorio}`],
                 uid: response.user.uid,
@@ -118,7 +125,7 @@ export class RegistrarUsuarioComponent implements OnInit {
                 numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
                 bannerImg: null
               });
-              updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
+              updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email!.split("@")[0].substring(0,6)) : this.capitalizeFirstLetter(response.user.displayName)}).then(()=>{ }).catch((error)=>{console.log(error)})
 
             });
 
@@ -129,7 +136,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         })
 
 
-
+        this.router.navigate(['auth/verificar-correo']); // Ruteo hacia el login
       })
       .catch( (error) => {
         this.loading = false; // Se desactiva el ícono de carga.
