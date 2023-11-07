@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
-import { getAuth, user } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, user } from '@angular/fire/auth';
 
 
 @Component({
@@ -78,11 +78,22 @@ export class NavheaderComponent implements OnInit{
       }
 
 
-      this.UserName = this.auth.currentUser!.displayName;
-      this.pfp = this.auth.currentUser!.photoURL;
 
-      this.loading = true;
+    });
 
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.pfp = user.photoURL;
+        this.loading = true;
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
+      }
     });
 
 
@@ -90,7 +101,7 @@ export class NavheaderComponent implements OnInit{
 
     } ;
 
-    ngAfterViewChecked(): void {
+    ngAfterViewChecked(){
 
 
     }
