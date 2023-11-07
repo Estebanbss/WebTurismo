@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
 import { Map, marker, tileLayer } from 'leaflet';
+import { DetalleService } from 'src/app/core/services/detalle.service';
 
 @Component({
   selector: 'app-prestador',
@@ -24,6 +25,11 @@ export class PrestadorComponent {
   currentPage: number = 1; // Página actual
   itemsPerPage: number = 3; // Cantidad de elementos por página
   buttonPags: string[] = ["Servicios","Horarios"];
+
+  prestador: any; // Objeto que traemos desde el detalle de Municipio
+  subscription!: Subscription; //Para manejar la suscripción de los datos
+
+  map!: Map;
 
 /**esto no hace nada 👍 */
   noHaceNada(vacio:null){
@@ -129,7 +135,11 @@ servi: any = [
   ];
 //todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
 
-  constructor(private route: ActivatedRoute, private title: Title, private router: Router, private modalService: ModalServiceService //Inyectamos el servicio del modal
+  constructor(private route: ActivatedRoute,
+    private title: Title,
+    private router: Router,
+    private modalService: ModalServiceService, //Inyectamos el servicio del modal
+    private detalleService: DetalleService
   ) {
     this.title.setTitle('Pal\'Huila - Prestadores!' );
 
@@ -139,6 +149,7 @@ servi: any = [
       this.id2 = params['prestador'];
       this.id3 = params['option'];
 
+      this.cargarPrestador(this.id2);
 
     });
 
@@ -149,6 +160,21 @@ servi: any = [
       this.buttonGallery = true;
     }
 
+    //* Suscribirse para cambios en los datos - Nos trae los objetos de tipo Prestador
+    // this.subscription = this.detalleService.currentData.subscribe(data => {
+    //   this.prestadores = data;
+    //   console.log(this.prestadores);
+    // });
+
+  }
+
+  cargarPrestador(nombre: string) {
+    this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
+      this.prestador = data[0];
+      console.log(this.prestador);
+      //*Se carga el Mapa
+      this.validarCargaDeMapa();
+    });
   }
 
 /**
@@ -226,21 +252,37 @@ servi: any = [
 
   }
 
-  ngAfterViewInit(){
-
-    const map = new Map('map').setView([2.19389995105747,-75.6303756116717],13);
-
-    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    }).addTo(map);
-
-    marker([2.19389995105747,-75.6303756116717]).addTo(map)
-
+  //? -> Método donde vamos a validar que latitud y longitud no dañen la página
+  validarCargaDeMapa() {
+    this.cargarMapa();
   }
+
+  //?- Método para cargar el Mapa
+  cargarMapa() {
+    if (!this.map) { // Verificar si el mapa ya está inicializado
+      this.map = new Map('map').setView([this.prestador.latitud, this.prestador.longitud], 13);
+
+      // Agregar capa de tiles
+      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      }).addTo(this.map);
+
+      // Agregar un marcador
+      marker([this.prestador.latitud, this.prestador.longitud]).addTo(this.map)
+        .bindPopup(this.prestador.name)
+        .openPopup();
+    } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
+      this.map.setView([this.prestador.latitud, this.prestador.longitud], 13);
+      marker([this.prestador.latitud, this.prestador.longitud]).addTo(this.map)
+        .bindPopup(this.prestador.name)
+        .openPopup();
+    }
+  }//? -> Fin Método Cargar Mapa
 
 
 
   ngOnDestroy(){
     this.modalDataSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

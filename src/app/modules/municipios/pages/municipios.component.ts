@@ -489,11 +489,8 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
 
   navigate(item: any) {
-    //Pasamos los datos al observable, cualquiera que sea: Prestador o Atractivo
-    this.detalleService.changeData(item);
     //Validamos hacia qué componente deseamos direccionar
     if ('servicios' in item) { //*Validación para Prestadores
-      // console.log('Se está pasando un Prestador');
       this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(item.name)]);
     } else if ('bienOLugar' in item) { //*Validación para Atractivos
       console.log('Se está pasando un Atractivo');

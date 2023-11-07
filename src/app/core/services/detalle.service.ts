@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  query,
+  where
+} from '@angular/fire/firestore'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetalleService {
 
-  // Los objetos tienen una estructura diferente, usamos any para mayor flexibilidad
-  private dataSource = new BehaviorSubject<any>(null);
-  //Propiedad a la que nos suscribimos para obtener los datos
-  currentData = this.dataSource.asObservable();
+  constructor(private firestore: Firestore) { }
 
-  constructor() { }
+  obtenerPrestador(item: any): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const docRef = collection(this.firestore, `prestadores`);
 
-  // Método para cambiar el valor del objeto
-  changeData(data: any) {
-    this.dataSource.next(data);
+    // Usamos la función where para filtrar por el nombre del prestador
+    const q = query(docRef, where('name', '==', item));
+
+    // Retornamos el observable
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
   }
+
+
+
 }
