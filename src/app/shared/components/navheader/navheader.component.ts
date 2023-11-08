@@ -58,6 +58,7 @@ export class NavheaderComponent implements OnInit{
 
 
   navigate(){
+    console.log(this.userName);
     this.router.navigate(['/profile', this.userName]);
   }
 
