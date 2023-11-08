@@ -17,7 +17,9 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
   })
   export class MunicipiosComponent implements OnInit {
 
+    imgDefault: string ="https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114&_gl=1*16fm2h0*_ga*MjA0ODg4MTY1Mi4xNjk4NTk1OTkz*_ga_CW55HF8NVT*MTY5OTQxMTQ2Ni4xOS4xLjE2OTk0MTE1MDkuMTcuMC4w";
     //Página donde estamos
+
     page: number = 1;
 
     map!: Map;
@@ -423,6 +425,8 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
         marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
           .bindPopup(this.municipio.name)
           .openPopup();
+
+
       } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
         this.map.setView([this.municipio.latitud, this.municipio.longitud], 13);
         marker([this.municipio.latitud, this.municipio.longitud]).addTo(this.map)
@@ -476,6 +480,15 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 
   }
 
+  // En tu componente Angular
+  trackByFunction(index: number, item: any): number {
+    if (item.id) {
+      return item.id; // Utiliza la propiedad "id" como identificador único
+    } else {
+      console.error('El elemento no tiene una propiedad "id" definida. Se usará el índice como identificador.');
+      return index; // Si no hay una propiedad "id", usa el índice como identificador
+    }
+  }
 
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {

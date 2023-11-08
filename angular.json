@@ -17,7 +17,7 @@
             "allowedCommonJsDependencies": [
               "leaflet"
             ],
-            "baseHref": "https://estebanbss.github.io/WebTurismo/",
+            "baseHref": "/",
             "outputPath": "dist/pal-huila",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -73,6 +73,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "hmr": true
+          },
           "configurations": {
             "production": {
               "browserTarget": "pal-huila:build:production"

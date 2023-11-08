@@ -105,13 +105,22 @@ export class PrestadoresService {
           await updateDoc(existingDoc.ref, prestador as object);
           console.log('update');
         } else {
+
+          prestador.pathImages = [];
+          prestador.meGusta = 0;
+          prestador.pathImagePortada = {
+            path: '',
+            url: ''
+          };
+
           // El documento no existe, así que lo agregamos
           await addDoc(prestadorRef, prestador);
+
           console.log('add');
         }
       });
 
-      alert('Se importaron los prestadores correctamente!');
+
     } catch (error) {
       console.error('Error al agregar prestadores:', error);
       alert('Error al agregar los prestadores:');
@@ -134,12 +143,20 @@ export class PrestadoresService {
           await updateDoc(existingDoc.ref, atractivo as object);
           console.log('update');
         } else {
+
+          atractivo.pathImages = [];
+          atractivo.meGusta = 0;
+          atractivo.pathImagePortada = {
+            path: '',
+            url: ''
+          };
+
           // El documento no existe, así que lo agregamos
           await addDoc(atractivoRef, atractivo);
           console.log('add');
         }
-      }),
-        alert('Se importaron los atractivos correctamente!');
+      })
+
     } catch (error) {
       console.error('Error al agregar los atractivos:', error);
       alert('Error al agregar los atractivos');
@@ -162,12 +179,21 @@ export class PrestadoresService {
           await updateDoc(existingDoc.ref, muni as object);
           console.log('update');
         }else{
+
+          muni.pathImages = [];
+          muni.meGusta = 0;
+          muni.pathImagePortada = {
+            path: '',
+            url: ''
+          };
+
+
           // El documento no existe, así que lo agregamos
           await addDoc(muniRef, muni);
           console.log('add');
         }
        });
-      alert('Se importaron los municipios correctamente!');
+
     } catch (error) {
       console.error('Error al agregar los municipios:', error);
       alert('Error al agregar los municipios:');
@@ -188,12 +214,18 @@ export class PrestadoresService {
           await updateDoc(existingDoc.ref, ruta as object);
           console.log('update');
            }else{
+            ruta.pathImages = [];
+            ruta.meGusta = 0;
+            ruta.pathImagePortada = {
+              path: '',
+              url: ''
+            };
           // El documento no existe, así que lo agregamos
           await addDoc(rutaRef, ruta);
           console.log('add');
            }
          });
-      alert('Se importaron las rutas correctamente!');
+
     } catch (error) {
       console.error('Error al agregar rutas:', error);
       alert('Error al agregar las rutas');
@@ -201,7 +233,6 @@ export class PrestadoresService {
       return [];
     }
   }
-
   //? Método para generar los empleados e insertarlos en la base de datos
   //Create - C
   agregarPrestador(prestador: any, files: any, portadaFile: any): Promise<any> {

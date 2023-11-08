@@ -5,7 +5,7 @@ import { Firestore, collection, getDocs, query, where } from '@angular/fire/fire
 @Injectable({
   providedIn: 'root'
 })
-export class PrestadorGuard implements CanActivate {
+export class AtractivoGuard implements CanActivate {
   constructor(private firestore: Firestore, private router: Router) {}
 
   canActivate(
@@ -13,18 +13,18 @@ export class PrestadorGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     const rutaMunicipio = route.paramMap.get('municipio');
-    const rutaPrestador = route.paramMap.get('prestador');
+    const rutaAtractivo = route.paramMap.get('atractivo');
 
     // Creamos una consulta a Firestore
-    const prestadoresRef = collection(this.firestore, "prestadores");
-    const q = query(prestadoresRef, where('name', '==', rutaPrestador));
+    const prestadoresRef = collection(this.firestore, "atractivos");
+    const q = query(prestadoresRef, where('name', '==', rutaAtractivo));
 
     // Devolvemos una promesa que resuelve a un booleano
     return getDocs(q).then(querySnapshot => {
       // Si al menos un documento existe, devuelve true, de lo contrario false
       if(querySnapshot.empty){
-        this.router.navigate(['/municipios/'+rutaMunicipio+'/'+rutaPrestador]);
-        console.log("No está");
+        this.router.navigate(['/municipios/'+rutaMunicipio+'/'+rutaAtractivo]);
+        console.log("No está")
       }
       return !querySnapshot.empty;
     }).catch(error => {
