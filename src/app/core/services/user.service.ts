@@ -14,7 +14,6 @@ import { BehaviorSubject } from 'rxjs';
 
 export class UserService {
 
-
   infoUsuario: any;
 
   //El Auth es nuestro servicio/Clase Firebase que nos mantiene actualizado el estado de nuestros usuarios en la app
