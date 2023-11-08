@@ -45,7 +45,8 @@ export class SliderImgComponent {
       this.id3 = params['option'];
 
     });
-    this.count = Number(this.id3 === undefined ? 1 : Number(this.id3) > this.imgGallery.length ? 1 : this.id3 );
+    this.count = !this.id3 || isNaN(Number(this.id3)) || Number(this.id3) > this.imgGallery.length ? 1 : Number(this.id3);
+
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
   }
 

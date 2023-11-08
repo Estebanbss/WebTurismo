@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { MunicipiosRoutingModule } from './municipios-routing.module';
 import { MunicipiosComponent } from './pages/municipios.component';
@@ -23,7 +23,8 @@ import { FiltroPorServiciosPipe } from './pipes/filtro-por-servicios.pipe'; // <
     CommonModule,
     MunicipiosRoutingModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgOptimizedImage
   ]
 
 })

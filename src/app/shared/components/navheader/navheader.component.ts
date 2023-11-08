@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
-import { getAuth, user } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged, } from '@angular/fire/auth';
+import { doc, getDoc, getFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -18,12 +19,15 @@ export class NavheaderComponent implements OnInit{
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
   auth = getAuth();
-  pfp: any = this.auth.currentUser!.photoURL;
+  uid!: string | null;
+  userName!: string | null;
+  pfp!: string | null;
   expanded?:boolean
   expanded2?:string = "abierto"
   dataUser: any;
   adminButton = false;
-  UserName:any = this.auth.currentUser!.displayName;
+  UserName!:string | null;
+  loading = false;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
@@ -53,6 +57,9 @@ export class NavheaderComponent implements OnInit{
   }
 
 
+  navigate(){
+    this.router.navigate(['/profile', this.userName]);
+  }
 
 
 
@@ -72,15 +79,44 @@ export class NavheaderComponent implements OnInit{
     this.modalDataSubscription2 = this.userService.rolSubject$.subscribe((value) => {
       if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
+
+
+      }
+
+
+
+    });
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
+        }
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.pfp = user.photoURL;
+        this.loading = true;
+
+
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
       }
     });
 
-
-
-
     } ;
 
+    ngAfterViewChecked(){
 
+
+    }
 
 
 

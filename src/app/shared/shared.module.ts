@@ -5,6 +5,7 @@ import { NavheaderComponent } from './components/navheader/navheader.component';
 import { NavfooterComponent } from './components/navfooter/navfooter.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
+import { NgOptimizedImage } from '@angular/common';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ButtonCarouselComponent } from './components/button-carousel/button-car
   imports: [
     CommonModule,
     SharedRoutingModule,
+    NgOptimizedImage
 
   ],
   exports: [

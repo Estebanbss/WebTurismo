@@ -377,9 +377,9 @@
                 class="flex items-center space-x-2 border-primary-50 border-2 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold lg:px-1 lg:py-2.5 px-3 py-2 min-w-[204px] max-h-[50px] text-white rounded-xl justify-center"
               >
                 <img
-                  alt="ButtonFilter{{ title.headingText }}"
-                  class="w-[30px]"
-                  src="../../../assets/img/bed.svg"
+                [alt]="'ButtonFilter ' + title.headingText"
+                class="w-[30px]"
+                [src]="'assets/img/' + (title.headingText === '¿Donde comer?' ? 'Donde comer' : title.headingText === '¿Donde dormir?' ? 'Donde dormir' : title.headingText === '¿A Donde ir?' ? 'Donde ir' : title.headingText === 'Cosas que hacer' ? 'Cosas que hacer' : title.headingText ) + '.svg'"
                 />
                 <h3 class="justify-center mb-0 text">
                   {{ title.headingText }}
@@ -510,7 +510,7 @@
 
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
-        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 10, currentPage: page }; let i = index" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
+        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 6, currentPage: page }; let i = index; trackBy: trackByFunction" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
 
 
           <!--!Div principal imagen-->

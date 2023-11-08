@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
 
   ngAfterViewChecked(){
     if (!this.hasExecuted) {
-      this.hasExecuted = true;
       this.userService.getCurrentUser(this.auth).then(async (user: any) => {
         if (user) {
           const docuRef = doc(this.firestore, `users/${user.uid}`)
@@ -58,6 +57,7 @@ export class AppComponent implements OnInit {
         }
 
       });
+      this.hasExecuted = true;
     }
 
    }

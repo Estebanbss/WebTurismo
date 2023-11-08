@@ -12,6 +12,7 @@ export class authGuard {
   async canActivate(): Promise<boolean> {
     try {
       const isLoggedIn = await this.authService.getLoggin();
+
       if(!isLoggedIn){
       this.router.navigate(['auth']);
       }

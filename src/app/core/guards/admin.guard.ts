@@ -13,9 +13,7 @@ export class adminGuard implements CanActivate {
   async canActivate(): Promise<boolean> {
     try {
       const auth = getAuth();
-      const user = auth.currentUser;
 
-      console.log(auth.currentUser)
       if (!auth.currentUser) {
         // Si el usuario no está autenticado, redirige a la página de inicio de sesión.
         this.router.navigate(['/login']);
