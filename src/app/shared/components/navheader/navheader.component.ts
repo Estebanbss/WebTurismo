@@ -59,7 +59,32 @@ export class NavheaderComponent implements OnInit{
 
   navigate(){
     console.log(this.userName);
-    this.router.navigate(['/profile', this.userName]);
+
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
+
+        this.router.navigate(['/profile', this.userName]);
+        }
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.pfp = user.photoURL;
+        this.loading = true;
+
+
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
+      }
+    });
+
   }
 
 
@@ -89,6 +114,7 @@ export class NavheaderComponent implements OnInit{
     });
 
     const auth = getAuth();
+
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.uid = user.uid;
@@ -114,8 +140,8 @@ export class NavheaderComponent implements OnInit{
 
     } ;
 
-    ngAfterViewChecked(){
 
+    ngAfterViewChecked(){
 
     }
 
