@@ -92,13 +92,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-@firebase/analytics
-Apache-2.0
-
 @firebase/app
-Apache-2.0
-
-@firebase/app-check
 Apache-2.0
 
 @firebase/auth
@@ -110,16 +104,7 @@ Apache-2.0
 @firebase/firestore
 Apache-2.0
 
-@firebase/installations
-Apache-2.0
-
 @firebase/logger
-Apache-2.0
-
-@firebase/messaging
-Apache-2.0
-
-@firebase/remote-config
 Apache-2.0
 
 @firebase/storage
@@ -131,19 +116,11 @@ Apache-2.0
 @firebase/webchannel-wrapper
 Apache-2.0
 
-firebase/analytics
-
 firebase/app
-
-firebase/app-check
 
 firebase/auth
 
 firebase/firestore
-
-firebase/messaging
-
-firebase/remote-config
 
 firebase/storage
 
