@@ -5,6 +5,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 import { Subscription } from 'rxjs';
 import { Map, marker, tileLayer } from 'leaflet';
 import { DetalleService } from 'src/app/core/services/detalle.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-prestador',
@@ -171,12 +172,59 @@ servi: any = [
   cargarPrestador(nombre: string) {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
       this.prestador = data[0];
+
       console.log(this.prestador);
       //*Se carga el Mapa
       this.validarCargaDeMapa();
     });
   }
 
+  //* CODIGO PARA OBTENER LATITUD Y LONGITUD APARTIR DE LINK DE GOOGLE MAPS
+  async obtenerLatitudYLongitud() {
+    // Comprueba si el enlace es probablemente un enlace acortado
+    if (this.prestador.googleMaps.length < 200) { // Ajusta este valor según tu caso
+      console.log('El enlace parece estar acortado. Intentando desacortarlo...');
+
+      try {
+        // Realiza una solicitud HTTP para desacortar el enlace usando un servicio como "unshorten.me"
+        const response = await axios.get(`https://unshorten.me/s/${this.prestador.googleMaps}`).then((response) => {
+
+
+        if (response.status === 200) {
+          const longLink = response.data;
+          console.log('Enlace desacortado:', longLink)
+
+          const coordenadasMatchConArroba = longLink.match(/@([-+]?\d+\.\d+),([-+]?\d+\.\d+)/);
+          const coordenadasMatchSinArroba = longLink.match(/([-+]?\d+\.\d+),\s*([-+]?\d+\.\d+)/);
+
+          if (coordenadasMatchConArroba && coordenadasMatchConArroba.length >= 3) {
+            const latitud = coordenadasMatchConArroba[1];
+            const longitud = coordenadasMatchConArroba[2];
+            console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
+          } else if (coordenadasMatchSinArroba && coordenadasMatchSinArroba.length >= 3) {
+            const latitud = coordenadasMatchSinArroba[1];
+            const longitud = coordenadasMatchSinArroba[2];
+            console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
+          } else {
+            console.error('No se encontraron coordenadas en el enlace de Google Maps.');
+          }
+
+        } else {
+          console.error('Error al desacortar el enlace.');
+        }
+
+        });
+
+
+      } catch (error) {
+        console.error('Error al realizar la solicitud HTTP:', error);
+      }
+    } else {
+
+      console.log('El enlace parece estar en su formato original. No es necesario desacortarlo.');
+      // Aquí puedes manejar la lógica para obtener las coordenadas si el enlace no está acortado.
+    }
+  }
 /**
  * Sends the selected option to the slider component and navigates to the slider route.
  * @param option - The selected option to be sent to the slider component.

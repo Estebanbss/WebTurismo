@@ -73,6 +73,7 @@ export class NavheaderComponent implements OnInit{
         }
         // El usuario ha iniciado sesión.
         this.UserName = user.displayName;
+        this.expanded2 = "cerrado";
 
 
 
@@ -86,7 +87,32 @@ export class NavheaderComponent implements OnInit{
 
   }
 
+  navigateAdmin(){
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
 
+        this.router.navigate(['/dashboard-admin']);
+        }
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.expanded2 = "cerrado";
+
+
+
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
+      }
+    });
+  }
 
 
   ngOnInit(){
