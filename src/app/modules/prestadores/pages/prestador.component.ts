@@ -36,85 +36,8 @@ export class PrestadorComponent {
     return vacio;
   }
 
-/**
- * An array of objects representing different types of services offered by a provider.
- * Each object has a `title` and an `id` property.
- */
-servi: any = [
-  {
-    "title": "Alojamiento Urbano",
-    "id": "alojamientoUrbano"
-  },
-  {
-    "title": "Alojamiento Rural",
-    "id": "alojamientoRural"
-  },
-  {
-    "title": "Restaurantes",
-    "id": "restaurantes"
-  },
-  {
-    "title": "Tiendas de Café",
-    "id": "tiendasDeCafe"
-  },
-  {
-    "title": "Antojos típicos",
-    "id": "antojosTipicos"
-  },
-  {
-    "title": "Sitio Natural",
-    "id": "sitioNatural"
-  },
-  {
-    "title": "Patrimonio Cultural",
-    "id": "patrimonioCultural"
-  },
-  {
-    "title": "Miradores",
-    "id": "miradores"
-  },
-  {
-    "title": "Parques Naturales",
-    "id": "parquesNaturales"
-  },
-  {
-    "title": "Agencias de Viaje",
-    "id": "agenciasDeViaje"
-  },
-  {
-    "title": "Centro recreativo",
-    "id": "centroRecreativo"
-  },
-  {
-    "title": "Guia de Turísmo",
-    "id": "guiasDeTurismo"
-  },
-  {
-    "title": "Aventura",
-    "id": "aventura"
-  },
-  {
-    "title": "Agro y eco turismo",
-    "id": "agroYEcoturismo"
-  },
-  {
-    "title": "Planes o Rutas",
-    "id": "planesORutas"
-  },
-  {
-    "title": "Artesanías",
-    "id": "artesanias"
-  },
-  {
-    "title": "Transporte",
-    "id": "transporte"
-  },
-  {
-    "title": "Eventos",
-    "id": "eventos"
-  }
-];
 
+  servi:any = [];
 
 
 /**
@@ -160,12 +83,6 @@ servi: any = [
       this.buttonGallery = true;
     }
 
-    //* Suscribirse para cambios en los datos - Nos trae los objetos de tipo Prestador
-    // this.subscription = this.detalleService.currentData.subscribe(data => {
-    //   this.prestadores = data;
-    //   console.log(this.prestadores);
-    // });
-
   }
 
   cargarPrestador(nombre: string) {
@@ -174,8 +91,92 @@ servi: any = [
       console.log(this.prestador);
       //*Se carga el Mapa
       this.validarCargaDeMapa();
+
+      /**
+ * An array of objects representing different types of services offered by a provider.
+ * Each object has a `title` and an `id` property.
+ */
+  const servi: any = [
+  {
+    "title": "Alojamiento Urbano",
+    "id": this.prestador.alojamientoUrbano
+  },
+  {
+    "title": "Alojamiento Rural",
+    "id": this.prestador.alojamientoRural
+  },
+  {
+    "title": "Restaurantes",
+    "id": this.prestador.restaurantes
+  },
+  {
+    "title": "Tiendas de Café",
+    "id": this.prestador.tiendasDeCafe
+  },
+  {
+    "title": "Antojos típicos",
+    "id": this.prestador.antojosTipicos
+  },
+  {
+    "title": "Sitio Natural",
+    "id": this.prestador.sitioNatural
+  },
+  {
+    "title": "Patrimonio Cultural",
+    "id": this.prestador.patrimonioCultural
+  },
+  {
+    "title": "Miradores",
+    "id": this.prestador.miradores
+  },
+  {
+    "title": "Parques Naturales",
+    "id": this.prestador.parquesNaturales
+  },
+  {
+    "title": "Agencias de Viaje",
+    "id": this.prestador.agenciasDeViaje
+  },
+  {
+    "title": "Centro recreativo",
+    "id": this.prestador.centroRecreativo
+  },
+  {
+    "title": "Guia de Turísmo",
+    "id": this.prestador.guiasDeTurismo
+  },
+  {
+    "title": "Aventura",
+    "id": this.prestador.aventura
+  },
+  {
+    "title": "Agro y eco turismo",
+    "id": this.prestador.agroYEcoturismo
+  },
+  {
+    "title": "Planes o Rutas",
+    "id": this.prestador.planesORutas
+  },
+  {
+    "title": "Artesanías",
+    "id": this.prestador.artesanias
+  },
+  {
+    "title": "Transporte",
+    "id": this.prestador.transporte
+  },
+  {
+    "title": "Eventos",
+    "id": this.prestador.eventos
+  }
+];
+
+  this.servi = servi;
+
     });
   }
+
+
 
 /**
  * Sends the selected option to the slider component and navigates to the slider route.
@@ -246,25 +247,34 @@ servi: any = [
 
     this.modalDataSubscription = this.modalService.modalTurnSliderP$.subscribe((value) => {
       this.turnModal = value;
-
-
     });
 
   }
 
   //? -> Método donde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
-    //Todo: Hacer los métodos para validar que la latitud y longitud sean números con decimal.
-    //todo: Primero es saber si la variable es un número.
-    const latitud = "";
-    const longitud = 12.184939;
-    if (typeof longitud === "number") {
-      console.log("La variable longitud es de tipo number");
-    } else {
-      console.log("La variable longitud no es de tipo number");
+    //* Hacemos validación de punto decimal para ambos números
+    //* En este caso nos devuelte true en caso de que ambos contengan decimales
+    const num1 = this.hasDecimalPoint(this.prestador.latitud);
+    const num2 = this.hasDecimalPoint(this.prestador.longitud);
+    //* Validación: 1.Tiene que ser tipo number y no debe ser tipo NaN
+    if (((typeof this.prestador.latitud === "number") && (!(Number.isNaN(this.prestador.latitud)))) && ((typeof this.prestador.longitud === "number") && (!(Number.isNaN(this.prestador.longitud))))) {
+    //* En caso de que ambas coordenadas no presenten problema con los puntos decimal ejecutamos el método del Mapa
+    if(num1 && num2) {
+      //* Aquí se ejecuta el Mapa
+      //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
+      this.cargarMapa();
     }
-    this.cargarMapa();
-  }
+    } else {
+      console.log("La latitud o longitud NO es de tipo number o es NaN o no tiene punto decimal");
+    }
+  } //? -> Fin del método validarCargaDeMapa
+
+  //? -> Método para saber si tienen punto decimal
+  hasDecimalPoint(value: any): boolean {
+    //console.log(value);
+    return value.toString().includes('.');
+  } //?- Fin Método
 
   //?- Método para cargar el Mapa
   cargarMapa() {
@@ -287,7 +297,15 @@ servi: any = [
     }
   }//? -> Fin Método Cargar Mapa
 
+  //? -> Pasamos al html el celular 1 - Sirve sólo en celulares
+  get telefonoHref1() {
+    return `tel:${this.prestador.celular1}`;
+  }
 
+  //? -> Pasamos al html el celular 2 - Sirve sólo en celulares
+  get telefonoHref2() {
+    return `tel:${this.prestador.celular2}`;
+  }
 
   ngOnDestroy(){
     this.modalDataSubscription.unsubscribe();
