@@ -255,16 +255,34 @@ servi: any = [
   //? -> Método donde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
     //Todo: Hacer los métodos para validar que la latitud y longitud sean números con decimal.
-    //todo: Primero es saber si la variable es un número.
-    const latitud = "";
+    //Todo: Primero es saber si la variable es un número.
+    const latitud = "3.435345";
     const longitud = 12.184939;
-    if (typeof longitud === "number") {
-      console.log("La variable longitud es de tipo number");
-    } else {
-      console.log("La variable longitud no es de tipo number");
+    let miVariable: number = NaN;
+    //* Hacemos validación de punto decimal para ambos números
+    //* En este caso nos devuelte true en caso de que ambos contengan decimales
+    const num1 = this.hasDecimalPoint(this.prestador.latitud);
+    const num2 = this.hasDecimalPoint(this.prestador.longitud);
+    //* En caso de que ambas coordenadas no presenten problema con los puntos decimal ejecutamos el método del Mapa
+    if(num1 && num2) {
+      //* Aquí se ejecuta el Mapa
+      //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
+      this.cargarMapa();
     }
-    this.cargarMapa();
+    //TODO: Hacer el if como una función con la que podemos pasar las variables para evaluarlas
+    //* Validación: 1.Tiene que ser tipo number y no debe ser tipo NaN
+    if ((typeof longitud === "number") && (!(Number.isNaN(longitud)))) {
+      console.log("La variable es Numero y NO es NaN");
+    } else {
+      console.log("La variable NO es de tipo number o es NaN");
+    }
   }
+
+  //? -> Método para saber si tienen punto decimal
+  hasDecimalPoint(value: any): boolean {
+    //console.log(value);
+    return value.toString().includes('.');
+  } //?- Fin Método
 
   //?- Método para cargar el Mapa
   cargarMapa() {
