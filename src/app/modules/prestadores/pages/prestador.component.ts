@@ -254,6 +254,15 @@ servi: any = [
 
   //? -> Método donde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
+    //Todo: Hacer los métodos para validar que la latitud y longitud sean números con decimal.
+    //todo: Primero es saber si la variable es un número.
+    const latitud = "";
+    const longitud = 12.184939;
+    if (typeof longitud === "number") {
+      console.log("La variable longitud es de tipo number");
+    } else {
+      console.log("La variable longitud no es de tipo number");
+    }
     this.cargarMapa();
   }
 
