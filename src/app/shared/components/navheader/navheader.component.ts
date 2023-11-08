@@ -23,7 +23,7 @@ export class NavheaderComponent implements OnInit{
   userName!: string | null;
   pfp!: string | null;
   expanded?:boolean
-  expanded2?:string = "abierto"
+  expanded2?:string;
   dataUser: any;
   adminButton = false;
   UserName!:string | null;
@@ -36,6 +36,7 @@ export class NavheaderComponent implements OnInit{
   }
 
   toggleExpanded2() {
+    console.log(this.expanded2)
     if(this.expanded2 === "cerrado"){
       this.expanded2 = "abierto"
     }
@@ -58,7 +59,6 @@ export class NavheaderComponent implements OnInit{
 
 
   navigate(){
-    console.log(this.userName);
 
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -73,8 +73,7 @@ export class NavheaderComponent implements OnInit{
         }
         // El usuario ha iniciado sesión.
         this.UserName = user.displayName;
-        this.pfp = user.photoURL;
-        this.loading = true;
+
 
 
       } else {
@@ -89,12 +88,13 @@ export class NavheaderComponent implements OnInit{
 
 
 
+
   ngOnInit(){
 
     this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
       this.expanded = value;
       if(value === true){
-        this.expanded2 = "abierto"
+        this.expanded2 === "abierto" || null ? this.expanded2 = "cerrado" : this.expanded2 = "abierto";
       }
       else{
         this.expanded2 = "cerrado"
@@ -142,6 +142,11 @@ export class NavheaderComponent implements OnInit{
 
 
     ngAfterViewChecked(){
+
+
+
+
+
 
     }
 

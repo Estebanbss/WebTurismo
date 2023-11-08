@@ -279,25 +279,23 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
     select: string = "Garzón";// Variable para guardar el municipio seleccionado
 
-    turnMuni: boolean = false;// Variable para guardar el estado de la lista de municipios
-
-    expandListMuni() {// Función para expandir la lista de municipios
-      this.turnMuni = !this.turnMuni;// Función para expandir la lista de municipios
-    }
+    turnMuni!: boolean// Variable para guardar el estado de la lista de municipios
 
 
-    turnServices: boolean = false;// Variable para guardar el estado de la lista de servicios
-
-    expandListServi() {
-      this.turnServices = !this.turnServices;// Función para expandir la lista de servicios
-    }
 
     ngOnInit(): void {// Función que se ejecuta al iniciar el componente
       //* Llamamos al método que nos trae la información del nombre del municipio desde el otro componente y el arreglo de objetos de tipo municipio desde la BD.
       this.recibirInformacion();
 
       this.modalDataSubscription = this.modalService.modalTurnMuni$.subscribe((value) => {
-          this.turnMuni = value // Asegura que expanded2 esté en false cuando expanded cambie
+
+          if(value === true){
+            this.turnMuni === true || null ? this.turnMuni = false : this.turnMuni = true;
+          }
+          else{
+            this.turnMuni = false
+          }
+
       });
     }
 

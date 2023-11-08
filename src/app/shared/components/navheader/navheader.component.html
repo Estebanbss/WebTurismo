@@ -10,7 +10,7 @@
         <!-- Imagen del logotipo -->
       </a>
       <div class="flex items-center lg:order-2 ml-auto gap-5 "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
-        <button class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
+        <button  class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
           <!-- Botón para expandir el menú móvil -->
           <svg role="img" class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
             <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
@@ -22,10 +22,10 @@
 
         <!--perfil-->
           <div class="relative no-close cursor-none">
-            <button class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50" (click)="toggleExpanded2()">
+            <button id="buttonProfile" class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50">
 
               <!--espacio de la foto de usuario del usuario-->
-              <img *ngIf="loading" alt="UserProfilePhoto no-close z-0 " src="{{pfp}}">
+              <img id="buttonProfile" *ngIf="loading" alt="UserProfilePhoto no-close z-0 " src="{{pfp}}">
 
               <div class="hidden absolute top-[64px] no-close right-0 w-[400%]   lg:rounded-lg bg-primary-400 text-white  bg:rounded-lg justify-center items-center py-auto font-Work font-regular text-lg overflow-y-visible z-50" [class.hidden]="expanded2=='cerrado'" >
                 <div class="hidden absolute top-0 right-0 rotate-45 bg-primary-400 min-w-[50px] h-[50px] -z-50 rounded-tr-full"  [class.hidden]="expanded2=='cerrado'"> </div>
