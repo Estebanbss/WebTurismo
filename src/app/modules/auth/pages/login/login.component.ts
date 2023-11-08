@@ -156,50 +156,42 @@ export class LoginComponent implements OnInit {
         // console.log(response.user);
         this.router.navigate(['/home/dashboard']);
 
+
+        const random9DigitNumber = this.generateRandom9DigitNumber();
+
+        const docuImgpfRef = doc(this.firestore, `users/01profilePictures`)
+
+        const numeroAleatorio = Math.floor(Math.random() * 10) + 1;
+
         const docuRef = doc(this.firestore, `users/${response.user?.uid}`)
-        getDoc(docuRef).then((doc) => {
+        getDoc(docuRef).then(async (doc) => {
           if(doc.exists()){
             updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()})
             this.userService.setRolSubject(doc.data()!['rol'])
 
           }else{
-            const random9DigitNumber = this.generateRandom9DigitNumber();
-            setDoc(docuRef, {
-              correo: response.user.email,
-              rol: 'usuario',
-              nombre: this.capitalizeFirstLetter(response.user.displayName!.split(" ")[0]),
-              userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : this.capitalizeFirstLetter(response.user.displayName.split(" ")[0])}${random9DigitNumber}`,
-              fotoUser: response.user.photoURL,
-              uid: response.user.uid,
-              estado: response.user.emailVerified,
-              fechaCreacion: new Date(response.user.metadata.creationTime!).toISOString(),
-              fechaUltimoLogin: new Date(response.user.metadata.lastSignInTime!).toISOString(),
-              numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
-              bannerImg:null,
+            await getDoc(docuImgpfRef).then((docSnap) => {
+
+              setDoc(docuRef, {
+                correo: response.user.email,
+                rol: 'usuario',
+                nombre: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email!.split("@")[0].substring(0,6)) : this.capitalizeFirstLetter(response.user.displayName),
+
+                userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : this.capitalizeFirstLetter( response.user.displayName)}${random9DigitNumber}`,
+                // fotoUser: response.user.photoURL,
+                fotoUser: docSnap.data()![`${numeroAleatorio}`],
+                uid: response.user.uid,
+                estado: true,
+                fechaCreacion: new Date(response.user.metadata.creationTime!).toISOString(),
+                fechaUltimoLogin: new Date(response.user.metadata.lastSignInTime!).toISOString(),
+                numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
+                bannerImg: null
+              });
+              updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
 
             });
           }
 
-          // await getDoc(docuImgpfRef).then((docSnap) => {
-
-          //   setDoc(docuRef, {
-          //     correo: response.user.email,
-          //     rol: 'usuario',
-          //     nombre: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName,
-
-          //     userName: `${response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}${random9DigitNumber}`,
-          //     // fotoUser: response.user.photoURL,
-          //     fotoUser: docSnap.data()![`${numeroAleatorio}`],
-          //     uid: response.user.uid,
-          //     estado: true,
-          //     fechaCreacion: new Date(response.user.metadata.creationTime!).toISOString(),
-          //     fechaUltimoLogin: new Date(response.user.metadata.lastSignInTime!).toISOString(),
-          //     numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
-          //     bannerImg: null
-          //   });
-          //   updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
-
-          // });
 
         })
 
