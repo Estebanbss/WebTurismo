@@ -23,7 +23,7 @@ export class NavheaderComponent implements OnInit{
   userName!: string | null;
   pfp!: string | null;
   expanded?:boolean
-  expanded2?:string = "abierto"
+  expanded2?:string;
   dataUser: any;
   adminButton = false;
   UserName!:string | null;
@@ -36,6 +36,7 @@ export class NavheaderComponent implements OnInit{
   }
 
   toggleExpanded2() {
+    console.log(this.expanded2)
     if(this.expanded2 === "cerrado"){
       this.expanded2 = "abierto"
     }
@@ -58,10 +59,60 @@ export class NavheaderComponent implements OnInit{
 
 
   navigate(){
-    console.log(this.userName);
-    this.router.navigate(['/profile', this.userName]);
+
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
+
+        this.router.navigate(['/profile', this.userName]);
+        }
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.expanded2 = "cerrado";
+
+
+
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
+      }
+    });
+
   }
 
+  navigateAdmin(){
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        this.uid = user.uid;
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          this.userName = docSnap.data()['userName'];
+
+        this.router.navigate(['/dashboard-admin']);
+        }
+        // El usuario ha iniciado sesión.
+        this.UserName = user.displayName;
+        this.expanded2 = "cerrado";
+
+
+
+      } else {
+        // El usuario ha cerrado sesión.
+        this.UserName = null;
+        this.pfp = null;
+        this.loading = false;
+      }
+    });
+  }
 
 
   ngOnInit(){
@@ -69,7 +120,7 @@ export class NavheaderComponent implements OnInit{
     this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
       this.expanded = value;
       if(value === true){
-        this.expanded2 = "abierto"
+        this.expanded2 === "abierto" || null ? this.expanded2 = "cerrado" : this.expanded2 = "abierto";
       }
       else{
         this.expanded2 = "cerrado"
@@ -89,6 +140,7 @@ export class NavheaderComponent implements OnInit{
     });
 
     const auth = getAuth();
+
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.uid = user.uid;
@@ -114,7 +166,12 @@ export class NavheaderComponent implements OnInit{
 
     } ;
 
+
     ngAfterViewChecked(){
+
+
+
+
 
 
     }

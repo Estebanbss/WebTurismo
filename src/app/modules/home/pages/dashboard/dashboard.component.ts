@@ -1,3 +1,4 @@
+import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
 import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
 import { Router} from '@angular/router';
@@ -5,7 +6,7 @@ import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
-import { UserService } from 'src/app/core/services/user.service';
+
 import { getAuth } from '@angular/fire/auth';
 
 
@@ -19,11 +20,13 @@ export class DashboardComponent implements OnInit {
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router,
     private titleService:Title,
+    private modalService: ModalServiceService,
   ) {
 
   }
   ngOnInit(): void {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
+    this.modalService.setProfileHeader(false);
 
   }
 
@@ -184,6 +187,8 @@ export class DashboardComponent implements OnInit {
     this.isDragging = false;
     this.carousel.nativeElement.classList.remove("dragging");
   }
+
+
 
 
 

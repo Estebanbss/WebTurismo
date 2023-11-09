@@ -5,6 +5,7 @@ import { ModalServiceService } from 'src/app/core/services/modal-service.service
 import { Subscription } from 'rxjs';
 import { Map, marker, tileLayer } from 'leaflet';
 import { DetalleService } from 'src/app/core/services/detalle.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-prestador',
@@ -13,6 +14,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
 })
 export class PrestadorComponent {
+[x: string]: any;
   private modalDataSubscription!: Subscription;
   id1!: string;
   id2!: string;
@@ -87,7 +89,11 @@ export class PrestadorComponent {
 
   cargarPrestador(nombre: string) {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
+      const serviCountSlice: any =[]
       this.prestador = data[0];
+
+
+
       console.log(this.prestador);
       //*Se carga el Mapa
       this.validarCargaDeMapa();
@@ -96,85 +102,115 @@ export class PrestadorComponent {
  * An array of objects representing different types of services offered by a provider.
  * Each object has a `title` and an `id` property.
  */
+
   const servi: any = [
   {
     "title": "Alojamiento Urbano",
-    "id": this.prestador.alojamientoUrbano
+    "id": this.prestador.alojamientoUrbano,
+    "bd": "alojamientoUrbano"
   },
   {
     "title": "Alojamiento Rural",
-    "id": this.prestador.alojamientoRural
+    "id": this.prestador.alojamientoRural,
+    "bd": "alojamientoRural"
   },
   {
     "title": "Restaurantes",
-    "id": this.prestador.restaurantes
+    "id": this.prestador.restaurantes,
+    "bd": "restaurantes"
   },
   {
     "title": "Tiendas de Café",
-    "id": this.prestador.tiendasDeCafe
+    "id": this.prestador.tiendasDeCafe,
+    "bd": "tiendasDeCafe"
   },
   {
     "title": "Antojos típicos",
-    "id": this.prestador.antojosTipicos
+    "id": this.prestador.antojosTipicos,
+    "bd": "antojosTipicos"
   },
   {
     "title": "Sitio Natural",
-    "id": this.prestador.sitioNatural
+    "id": this.prestador.sitioNatural,
+    "bd": "sitioNatural"
   },
   {
     "title": "Patrimonio Cultural",
-    "id": this.prestador.patrimonioCultural
+    "id": this.prestador.patrimonioCultural,
+    "bd": "patrimonioCultural"
   },
   {
     "title": "Miradores",
-    "id": this.prestador.miradores
+    "id": this.prestador.miradores,
+    "bd": "miradores"
   },
   {
     "title": "Parques Naturales",
     "id": this.prestador.parquesNaturales
+    ,"bd": "parquesNaturales"
   },
   {
     "title": "Agencias de Viaje",
-    "id": this.prestador.agenciasDeViaje
+    "id": this.prestador.agenciasDeViaje,
+    "bd": "agenciasDeViaje"
   },
   {
     "title": "Centro recreativo",
-    "id": this.prestador.centroRecreativo
+    "id": this.prestador.centroRecreativo,
+    "bd": "centroRecreativo"
   },
   {
     "title": "Guia de Turísmo",
-    "id": this.prestador.guiasDeTurismo
+    "id": this.prestador.guiasDeTurismo,
+    "bd": "guiasDeTurismo"
   },
   {
     "title": "Aventura",
-    "id": this.prestador.aventura
+    "id": this.prestador.aventura,
+    "bd": "aventura"
   },
   {
     "title": "Agro y eco turismo",
-    "id": this.prestador.agroYEcoturismo
+    "id": this.prestador.agroYEcoturismo,
+    "bd": "agroYEcoturismo"
   },
   {
     "title": "Planes o Rutas",
-    "id": this.prestador.planesORutas
+    "id": this.prestador.planesORutas,
+    "bd": "planesORutas"
   },
   {
     "title": "Artesanías",
-    "id": this.prestador.artesanias
+    "id": this.prestador.artesanias,
+    "bd": "artesanias"
   },
   {
     "title": "Transporte",
-    "id": this.prestador.transporte
+    "id": this.prestador.transporte,
+    "bd": "transporte"
   },
   {
     "title": "Eventos",
-    "id": this.prestador.eventos
+    "id": this.prestador.eventos,
+    "bd": "eventos"
+
   }
 ];
 
-  this.servi = servi;
+
+servi.forEach((servicio: { bd: string | number; }) => {
+  if (this.prestador[servicio.bd] !== "--" && this.prestador[servicio.bd] !== null && this.prestador[servicio.bd] !== undefined) {
+    serviCountSlice.push(servicio);
+  }
+});
+
+console.log(serviCountSlice)
+
+  this.servi = serviCountSlice;
 
     });
   }
+
 
 
 
@@ -250,7 +286,60 @@ export class PrestadorComponent {
     });
 
   }
+  //* CODIGO PARA OBTENER LATITUD Y LONGITUD APARTIR DE LINK DE GOOGLE MAPS
+  async obtenerLatitudYLongitud() {
+    // Comprueba si el enlace es probablemente un enlace acortado
+    if (this.prestador.googleMaps.length < 200) { // Ajusta este valor según tu caso
+      console.log('El enlace parece estar acortado. Intentando desacortarlo...');
 
+      try {
+        // Realiza una solicitud HTTP para desacortar el enlace usando un servicio como "unshorten.me"
+        const response = await axios.get(`https://unshorten.me/s/${this.prestador.googleMaps}`).then((response) => {
+
+
+        if (response.status === 200) {
+          const longLink = response.data;
+          console.log('Enlace desacortado:', longLink)
+
+          const coordenadasMatchConArroba = longLink.match(/@([-+]?\d+\.\d+),([-+]?\d+\.\d+)/);
+          const coordenadasMatchSinArroba = longLink.match(/([-+]?\d+\.\d+),\s*([-+]?\d+\.\d+)/);
+
+          if (coordenadasMatchConArroba && coordenadasMatchConArroba.length >= 3) {
+            const latitud = coordenadasMatchConArroba[1];
+            const longitud = coordenadasMatchConArroba[2];
+            this.prestador.latitud = latitud;
+            this.prestador.longitud = longitud;
+            this.cargarMapa()
+
+            console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
+          } else if (coordenadasMatchSinArroba && coordenadasMatchSinArroba.length >= 3) {
+            const latitud = coordenadasMatchSinArroba[1];
+            const longitud = coordenadasMatchSinArroba[2];
+            this.prestador.latitud = latitud;
+            this.prestador.longitud = longitud;
+            this.cargarMapa()
+
+            console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
+          } else {
+            console.error('No se encontraron coordenadas en el enlace de Google Maps.');
+          }
+
+        } else {
+          console.error('Error al desacortar el enlace.');
+        }
+
+        });
+
+
+      } catch (error) {
+        console.error('Error al realizar la solicitud HTTP:', error);
+      }
+    } else {
+
+      console.log('El enlace parece estar en su formato original. No es necesario desacortarlo.');
+      // Aquí puedes manejar la lógica para obtener las coordenadas si el enlace no está acortado.
+    }
+  }
   //? -> Método donde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
     //* Hacemos validación de punto decimal para ambos números
@@ -266,6 +355,7 @@ export class PrestadorComponent {
       this.cargarMapa();
     }
     } else {
+      this.obtenerLatitudYLongitud();
       console.log("La latitud o longitud NO es de tipo number o es NaN o no tiene punto decimal");
     }
   } //? -> Fin del método validarCargaDeMapa
@@ -299,12 +389,12 @@ export class PrestadorComponent {
 
   //? -> Pasamos al html el celular 1 - Sirve sólo en celulares
   get telefonoHref1() {
-    return `tel:${this.prestador.celular1}`;
+    return `tel:+57${this.prestador.celular1}`;
   }
 
   //? -> Pasamos al html el celular 2 - Sirve sólo en celulares
   get telefonoHref2() {
-    return `tel:${this.prestador.celular2}`;
+    return `tel:+57${this.prestador.celular2}`;
   }
 
   ngOnDestroy(){
