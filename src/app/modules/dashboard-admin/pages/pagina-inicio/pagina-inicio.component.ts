@@ -109,6 +109,8 @@ export class PaginaInicioComponent implements OnInit {
       this.modaldata = value;
     });
 
+    this.modalService.setProfileHeader(false);
+
     this.getLinkActivo();
     this.botonActivo = this.url;
 
