@@ -48,10 +48,16 @@
 
     <div class="relative mx-auto w-auto max-w-full  max-h-full h-auto my-auto "><!--todo aqui es donde se itera las imagenes-->
 
-      <img
+      <img *ngIf="imgGallery[count-1] !== null || imgGallery[count-1] !== undefined"
       alt="Selected Image"
       class="mx-auto w-auto max-w-full max-h-full  h-auto my-auto z-50 object-cover"
       src="{{imgGallery[count-1]}}"
+    />
+
+      <img *ngIf="imgGallery[count-1] == null || imgGallery[count-1] == undefined"
+      alt="Selected Image"
+      class="mx-auto w-auto max-w-full max-h-full  h-auto my-auto z-50 object-cover"
+      src="{{imgDefault}}"
     />
 
 

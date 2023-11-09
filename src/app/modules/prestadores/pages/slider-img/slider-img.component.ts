@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalServiceService } from 'src/app/core/services/modal-service.service';
+import { Subscription } from 'rxjs';
+import { DetalleService } from 'src/app/core/services/detalle.service';
+
 
 @Component({
   selector: 'app-slider-img',
@@ -15,39 +17,35 @@ export class SliderImgComponent {
   id2!: string;
   id3!: string;
   url: string[] = this.router.url.split('/');
-  count: number = 0;
-
+  imgDefault: string = "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114"
+  count!: number;
+  prestador: any; // Objeto que traemos desde el detalle de Municipio
+  subscription!: Subscription; //Para manejar la suscripción de los datos
   imgGallery: string[] = [
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/f7/82/76/la-huerta-hotel.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/59/43/74/hotel-ms-la-huerta-plus.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1",
-    "https://media-cdn.tripadvisor.com/media/photo-s/25/d0/3f/cd/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/25/d0/40/42/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/25/d0/3f/82/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-s/11/36/3e/c8/culinarium-at-mylos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/11/36/3f/5f/the-view.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/11/36/3f/01/bon-appetite.jpg"
-
 
 
   ];//todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
   modalDataSubscription: any;
   turnModal: boolean | undefined;
 
-  constructor(private route: ActivatedRoute,  private router: Router, private modalService:ModalServiceService) {
 
-    this.id1= this.url[2];
-    this.id2= decodeURI(this.url[3]);
+  constructor(private route: ActivatedRoute,  private router: Router, private detalleService:DetalleService) {
+
     this.route.params.subscribe(params => {
-      // params contendrá los valores de los parámetros de ruta
+
+      this.id1= this.url[2];
       this.id3 = params['option'];
+      this.id2= decodeURI(this.url[3]);
 
     });
-    this.count = !this.id3 || isNaN(Number(this.id3)) || Number(this.id3) > this.imgGallery.length ? 1 : Number(this.id3);
+
+    this.cargarPrestador(decodeURI(this.url[3]));
+    console.log(this.imgGallery)
+    console.log(this.count)
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
+
+
   }
 
   buttonModal() {
@@ -59,6 +57,29 @@ export class SliderImgComponent {
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
   }
+
+
+  cargarPrestador(nombre: string) {
+    this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe((data:any) => {
+
+      this.prestador = data[0];
+
+      if(this.prestador.pathImages){
+        this.prestador.pathImages.forEach((element: any) => {
+          this.imgGallery.push(element.url)
+
+         });
+         this.count = !this.id3 || isNaN(Number(this.id3)) || Number(this.id3) > this.imgGallery.length ? 1 : Number(this.id3);
+      }
+
+
+
+    });
+  }
+
+
+
+
 
 
 
@@ -85,7 +106,6 @@ export class SliderImgComponent {
   }
 
   ngOnInit() {
-    // ...
 
   }
 
@@ -103,7 +123,6 @@ export class SliderImgComponent {
 
 
   ngOndestroy(){
-
   }
 
 

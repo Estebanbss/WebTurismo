@@ -74,9 +74,7 @@ export class PrestadorComponent {
     this.nombreMunicipio = this.id1
     this.nombrePrestador = this.id2
 
-    if(this.imgGallery.length > 3){
-      this.buttonGallery = true;
-    }
+
 
   }
 
@@ -88,7 +86,13 @@ export class PrestadorComponent {
         this.wasa = "https://api.whatsapp.com/send?phone=" + this.prestador.whatsapp + "&text=Hola quiero más información sobre "+ this.prestador.name +"!"
       }
       if(this.prestador.pathImages){
-        this.prestador.pathImages.forEach((element: []) => {console.log(element.forEach) });
+        this.prestador.pathImages.forEach((element: any) => {
+          this.imgGallery.push(element.url)
+         });
+      }
+
+      if(this.imgGallery.length > 3){
+        this.buttonGallery = true;
       }
 
 
@@ -204,7 +208,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
 
   this.servi = serviCountSlice;
 
-  this.itemsPerPage = serviCountSlice.length;
+  this.itemsPerPage = 3;
 
     });
   }
@@ -217,8 +221,6 @@ servi.forEach((servicio: { bd: string | number; }) => {
  * @param option - The selected option to be sent to the slider component.
  */
   send(option: number) {
-
-    this.turnModal = true;
     this.id3 = option;
     // Construct the new route with "slider/:option" adde
     // Navigate to the new route
@@ -387,12 +389,12 @@ servi.forEach((servicio: { bd: string | number; }) => {
 
   //? -> Pasamos al html el celular 1 - Sirve sólo en celulares
   get telefonoHref1() {
-    return `tel:+57${this.prestador.celular1}`;
+    return `tel:${this.prestador.celular1}`;
   }
 
   //? -> Pasamos al html el celular 2 - Sirve sólo en celulares
   get telefonoHref2() {
-    return `tel:+57${this.prestador.celular2}`;
+    return `tel:${this.prestador.celular2}`;
   }
 
   ngOnDestroy(){
