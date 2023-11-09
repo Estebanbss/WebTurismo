@@ -74,7 +74,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "hmr": true
+            "hmr": false
           },
           "configurations": {
             "production": {

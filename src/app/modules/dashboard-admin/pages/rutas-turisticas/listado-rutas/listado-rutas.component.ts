@@ -73,6 +73,14 @@ export class ListadoRutasComponent {
     this.getAtractivo();
   }
 
+  toID() {
+    const List = document.getElementById("ListID");
+    window.scrollTo({
+      top: List!.offsetTop,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
+  }
+
   ngOnDestroy() {
     if (this.modalDataSubscription) {
       this.modalDataSubscription.unsubscribe();
