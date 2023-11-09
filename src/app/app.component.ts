@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/core/services/user.service';
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   firestore = getFirestore();
   auth = getAuth();
-  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService ){
+  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2 ){
 
 
 
@@ -140,5 +140,6 @@ export class AppComponent implements OnInit {
     }
 
     }
+
 
 }

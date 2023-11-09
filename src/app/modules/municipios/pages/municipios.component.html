@@ -11,7 +11,7 @@
     *ngIf="municipio !== undefined"
     id="Banner"
     class="  py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
-    style="background-image:url('{{municipio.pathImagePortada.url}}')"
+    style="background-image:url('{{municipio.pathImagePortada?.url}}')"
   >
     <!--!Contenedor del titulo principal-->
     <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl z-0 "></div>
@@ -298,7 +298,7 @@
     <!--!Sección de información de los servicios del municipio-->
     <section id="InfoListaMunicipio" class="">
       <!--!Contenedor de los botones de los servicios-->
-      <div
+      <div id="ListID"
         class="w-full  bg-white drop-shadow-xl h-36 items-center justify-center flex flex-col gap-5 rounded-t-2xl"
       >
       <!--!titulo de la sección lista de municipios "explora por ti mismo"-->
@@ -389,7 +389,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row mt-2 gap-5">
+      <div   class="flex flex-row mt-2 gap-5">
         <!--*---------------------------------------------->
         <div
           *ngIf="turnS === '¿Donde dormir?'"
@@ -503,9 +503,9 @@
 <!--!Fin de la sección de información de los servicios del municipio-->
 
 <!--!Sección de los listados de los servicios del municipio-->
-    <section id="ListadosMunicipios" class="">
+    <section  id="ListadosMunicipios" class="">
 
-      <div class="flex flex-col my-5 gap-5 mx-3 sm:mx-0">
+      <div  class="flex flex-col my-5 gap-5 mx-3 sm:mx-0">
 
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
@@ -557,7 +557,10 @@
 
       </div>
       <!-- Paginación propia de la librería que importamos -->
-      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      <div class="flex flex-row justify-center">
+        <pagination-controls nextLabel="" previousLabel="" class="custom-pagination " (pageChange)="page = $event; toID()"></pagination-controls>
+      </div>
+
 
     </section>
 

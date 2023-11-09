@@ -299,6 +299,14 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       });
     }
 
+    toID() {
+      const List = document.getElementById("ListID");
+      window.scrollTo({
+        top: List!.offsetTop,
+        behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+      });
+    }
+
 
     //? Método para recibir los datos del observable y de la BD
     recibirInformacion() {
