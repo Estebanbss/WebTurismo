@@ -25,8 +25,9 @@ export class PrestadorComponent {
   turnModal: boolean = false;
   pag:string = "Servicios";
   currentPage: number = 1; // Página actual
-  itemsPerPage: number = 3; // Cantidad de elementos por página
+  itemsPerPage!: number; // Cantidad de elementos por página
   buttonPags: string[] = ["Servicios","Horarios"];
+  wasa?: string
 
   prestador: any; // Objeto que traemos desde el detalle de Municipio
   subscription!: Subscription; //Para manejar la suscripción de los datos
@@ -46,18 +47,10 @@ export class PrestadorComponent {
  * Array of strings containing URLs for images in the image gallery.
  */
   imgGallery: string[] = [
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/f8/31/4f/restaurante-hotel.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/dd/91/11/sumergete-en-nuestra.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/f7/82/76/la-huerta-hotel.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/59/43/74/hotel-ms-la-huerta-plus.jpg?w=1200&h=-1&s=1",
-    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/3d/f4/e3/photo5jpg.jpg?w=1200&h=-1&s=1",
-    "https://media-cdn.tripadvisor.com/media/photo-s/25/d0/3f/cd/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/25/d0/40/42/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/25/d0/3f/82/un-comedor-de-400-anos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-s/11/36/3e/c8/culinarium-at-mylos.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/11/36/3f/5f/the-view.jpg",
-    "https://media-cdn.tripadvisor.com/media/photo-w/11/36/3f/01/bon-appetite.jpg"
+
   ];
+
+  imgPortada:string[]=[]
 //todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
 
   constructor(private route: ActivatedRoute,
@@ -91,7 +84,12 @@ export class PrestadorComponent {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
       const serviCountSlice: any =[]
       this.prestador = data[0];
-
+      if(this.prestador.whatsapp !== null){
+        this.wasa = "https://api.whatsapp.com/send?phone=" + this.prestador.whatsapp + "&text=Hola quiero más información sobre "+ this.prestador.name +"!"
+      }
+      if(this.prestador.pathImages){
+        this.prestador.pathImages.forEach((element: []) => {console.log(element.forEach) });
+      }
 
 
       console.log(this.prestador);
@@ -204,9 +202,9 @@ servi.forEach((servicio: { bd: string | number; }) => {
   }
 });
 
-console.log(serviCountSlice)
-
   this.servi = serviCountSlice;
+
+  this.itemsPerPage = serviCountSlice.length;
 
     });
   }
@@ -297,9 +295,9 @@ console.log(serviCountSlice)
         const response = await axios.get(`https://unshorten.me/s/${this.prestador.googleMaps}`).then((response) => {
 
 
-        if (response.status === 200) {
-          const longLink = response.data;
-          console.log('Enlace desacortado:', longLink)
+        if (response.status === 200) { // Comprueba si la solicitud HTTP fue exitosa
+          const longLink = response.data; // Obtiene el enlace desacortado
+          console.log('Enlace desacortado:', longLink) // Muestra el enlace desacortado en la consola
 
           const coordenadasMatchConArroba = longLink.match(/@([-+]?\d+\.\d+),([-+]?\d+\.\d+)/);
           const coordenadasMatchSinArroba = longLink.match(/([-+]?\d+\.\d+),\s*([-+]?\d+\.\d+)/);

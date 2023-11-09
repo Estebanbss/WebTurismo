@@ -106,7 +106,7 @@
       class="xl:w-[1280px] max-w-[1280px] relative gap-2 flex flex-row mx-auto md:mx-0 md:ml-auto px-5 items-end -bottom-5 md:bottom-0 justify-center md:justify-end z-50"
     >
       <!-- Botón de salvar -->
-      <button 
+      <button
         id="save"
         class="ml-auto active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center z-50"
       >
@@ -396,13 +396,9 @@
 
 
               <div  *ngFor="let item of servi.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index "   class="flex flex-col gap-2">
-                <div >
-                  <span id="titleService" class="flex flex-row gap-2 items-center"><img src="assets/img/{{item.title}}.svg" alt="{{item.title}}, imagen" width="30px" height="30px"><h6 class="font-bold font-Blinker text-primary-500 text-lg">{{item.title}}</h6></span>
-                <p id="paragraphService" class="text-lg font-Work">{{item.id}}</p>
-                </div>
-              </div>
 
-              <div>
+                <span id="titleService" class="flex flex-row gap-2 items-center"><img src="assets/img/{{item.title}}.svg" alt="{{item.title}}, imagen" width="30px" height="30px"><h6 class="font-bold font-Blinker text-primary-500 text-lg">{{item.title}}</h6></span>
+                <p id="paragraphService" class="text-lg font-Work">{{item.id}}</p>
 
               </div>
 
@@ -420,7 +416,7 @@
             </div>
             <!--todo pagina horarios-->
             <div id="Horarios" *ngIf="pag === 'Horarios'">
-              Ingreso: permanente Horario: todos los días
+              {{prestador.horarioAtencion}}
             </div>
             </div>
             </div>
@@ -436,21 +432,32 @@
 
         <hr class="border-[1px] my-5" />
 
-        <div id="Dirección" class=" px-5 pb-5">
+        <div id="Dirección"  *ngIf="prestador?.direccion !== null || prestador?.direccion !== '--' || prestador?.direccion !== undefined && prestador?.indicacionesAcceso !== null || prestador?.indicacionesAcceso !== '--' || prestador?.indicacionesAcceso !== undefined "  class=" px-5 pb-5">
           <!--*Aqui hay que poner validaciones si existe o no las indicaciones y ocultar si se requiere también se pone la validación total en el div id="Dirección" cuyo caso on existan ninguno de los dos-->
-          <h5 id="titleDirección"
-          class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
-        >
-          Dirección
-        </h5>
-        <p id="paragraphDirección" class="text-lg font-Work">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
 
-        <h5 id="titleIndicacionesAcceso"
-        class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
-      >
-        ¿Como llegar?
-      </h5>
-      <p id="paragraphIndicacionesAcceso " class="text-lg font-Work">Este es un texto de ejemplo diseñado para facilitar pruebas y desarrollo web. En el mundo del diseño y programación de sitios web, es esencial contar con contenido de prueba que permita evaluar el diseño, la funcionalidad y la presentación de la información. Este párrafo se crea con ese propósito en mente. Los desarrolladores web utilizan textos ficticios como este para rellenar secciones y verificar que el diseño se ajuste correctamente, que los estilos se apliquen de manera uniforme y que los elementos de la página funcionen según lo previsto. En lugar de usar contenido real, los programadores pueden emplear este texto de relleno para lograr pruebas efectivas en sus proyectos.</p>
+          <div  *ngIf="prestador?.direccion !== null || prestador?.direccion !== '--' || prestador?.direccion !== undefined">
+            <h5 id="titleDirección"
+            class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
+          >
+            Dirección
+          </h5>
+          <p id="paragraphDirección" class="text-lg font-Work">{{prestador?.direccion}}</p>
+
+          </div>
+
+          <div *ngIf="prestador?.indicacionesAcceso !== null || prestador?.indicacionesAcceso !== '--' || prestador?.indicacionesAcceso !== undefined ">
+
+            <h5 id="titleIndicacionesAcceso"
+            class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
+          >
+            ¿Como llegar?
+          </h5>
+          <p id="paragraphIndicacionesAcceso " class="text-lg font-Work">{{prestador?.indicacionesAcceso}}</p>
+
+
+          </div>
+
+
 
 
           </div>
@@ -485,8 +492,8 @@
 
 <!--todo aqui se debe hacer una validación de si existe el atributo whatsapp en el arreglo y si no existe no se muestra esta etiqueta "<a>" y si si existe entonces si se muestra el href también se debe hacer 3 concatenaciones la de despues de phone=(numero atributo prestador)+(hola quiero más info sobre (nombre prestador))-->
 
-<a
-href="https://api.whatsapp.com/send?phone=573126371355&text=Hola quiero más información sobre Pal' Huila!"
+<a *ngIf="wasa"
+href="{{wasa}}"
 class="fixed w-[60px] h-[60px] bg:bottom-[50px] sm:bottom-[70px] xl:bottom-[30px] right-[10px] bg-[#25d366] text-white rounded-full text-center font-bold text-[40px] z-30"
 target="_blank"
 aria-label="Whats"
