@@ -21,10 +21,7 @@ export class SliderImgComponent {
   count!: number;
   prestador: any; // Objeto que traemos desde el detalle de Municipio
   subscription!: Subscription; //Para manejar la suscripción de los datos
-  imgGallery: string[] = [
-
-
-  ];//todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
+  imgGallery: string[] = [];//todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
   modalDataSubscription: any;
   turnModal: boolean | undefined;
 
@@ -32,48 +29,42 @@ export class SliderImgComponent {
   constructor(private route: ActivatedRoute,  private router: Router, private detalleService:DetalleService) {
 
     this.route.params.subscribe(params => {
-
       this.id1= this.url[2];
-      this.id3 = params['option'];
+      if(this.count > this.imgGallery.length){
+        this.count = 1;
+      }else{
+        this.count = Number(params['option']);
+      }
+
       this.id2= decodeURI(this.url[3]);
-
     });
-
-    this.cargarPrestador(decodeURI(this.url[3]));
-    console.log(this.imgGallery)
     console.log(this.count)
 
-    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
+    isNaN(this.count) ? this.count = 1 : this.count = this.count;
 
+    this.count > this.imgGallery.length ? this.count = 1 : this.count = this.count;
+
+    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
 
   }
 
   buttonModal() {
-
     this.router.navigate(['../../'], { relativeTo: this.route })
   }
 
   gallery(){
-
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/gallery`)
   }
 
 
   cargarPrestador(nombre: string) {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe((data:any) => {
-
       this.prestador = data[0];
-
       if(this.prestador.pathImages){
         this.prestador.pathImages.forEach((element: any) => {
           this.imgGallery.push(element.url)
-
          });
-         this.count = !this.id3 || isNaN(Number(this.id3)) || Number(this.id3) > this.imgGallery.length ? 1 : Number(this.id3);
       }
-
-
-
     });
   }
 
@@ -85,28 +76,33 @@ export class SliderImgComponent {
 
   buttonSlider(direction: string) {
 
-
     if (direction === "next") {
+
       if (this.count === this.imgGallery.length) {
+        console.log('REINICIO: ',this.count)
         this.count = 1;
       } else {
+        console.log('sumaaaaaaaaaaaaa: ',this.count)
         this.count++;
+        console.log('sumaaaaaaaaaaaaa: ',this.count)
       }
     } else {
+      console.log(this.count)
       if (this.count === 1) {
+        console.log('reinicio: ',this.count)
         this.count = this.imgGallery.length;
       } else {
         this.count--;
+        console.log('restaaaaaaaaaa: ',this.count)
       }
     }
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
 
-
   }
 
   ngOnInit() {
-
+    this.cargarPrestador(decodeURI(this.url[3]));
   }
 
   onKeyDown(event: KeyboardEvent) {

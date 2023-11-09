@@ -318,7 +318,6 @@ servi.forEach((servicio: { bd: string | number; }) => {
             this.prestador.latitud = latitud;
             this.prestador.longitud = longitud;
             this.cargarMapa()
-
             console.log(`Latitud: ${latitud}, Longitud: ${longitud}`);
           } else {
             console.error('No se encontraron coordenadas en el enlace de Google Maps.');
