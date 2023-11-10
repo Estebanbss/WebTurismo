@@ -509,7 +509,7 @@
 
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
-        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 6, currentPage: page }; let i = index; trackBy: trackByFunction" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
+        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 10, currentPage: page }; let i = index; trackBy: trackByFunction" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
 
 
           <!--!Div principal imagen-->
