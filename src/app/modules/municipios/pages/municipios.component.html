@@ -509,7 +509,7 @@
 
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
-        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 6, currentPage: page }; let i = index; trackBy: trackByFunction" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
+        <div *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 10, currentPage: page }; let i = index; trackBy: trackByFunction" class="w-full relative sm:h-[350px]  gap-5 bg-white rounded-2xl drop-shadow-xl mb-5 flex bg:flex-col sm:flex-row">
 
 
           <!--!Div principal imagen-->
@@ -533,7 +533,7 @@
           <!--!Div secundario información-->
 
           <div class="relative flex flex-col w-full h-[350px] sm:py-5 px-5">
-            <span id="contadorCards" class="font-light font-Blinker text-2xl text-primary-500">{{(page - 1) * 10 + i + 1}}.</span>
+            <span id="contadorCards" class="font-light font-Blinker text-2xl text-primary-500">{{(page -  1) * 10 + i + 1}}.</span>
             <h4 id="tituloCard" class="font-bold font-Blinker text-4xl text-gray-800 leading-7">{{item.name}}</h4>
             <h5 id="ubicaciónCard" class="flex flex-row text-lg font-work font-semibold items-center text-gray-500 fill-gray-500"><svg role="img" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{item.municipio}}</h5>
             <p id="descripciónCard" class="overflow-hidden font-Work bg:text-lg md:text-xl text-gray-700 my-auto"  style="-webkit-line-clamp: 4; -webkit-box-orient: vertical;  display: -webkit-box;" >{{item.descripcion}}</p>
