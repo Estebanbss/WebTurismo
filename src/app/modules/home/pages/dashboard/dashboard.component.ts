@@ -172,13 +172,17 @@ export class DashboardComponent implements OnInit {
 
   dragging = (e:MouseEvent) => {
 
-    if(!this.isDragging) return; // Si no se está arrastrando, no hacer nada
+    if(!this.isDragging) return;
+    // Si no se está arrastrando, no hacer nada
     // Si se está arrastrando, calcular la posición del scroll
-    if(this.carousel.nativeElement.contains(e.target)){// Si el elemento contiene el evento
+    if(this.carousel.nativeElement.contains(e.target)){
+      // Si el elemento contiene el evento
       // Mover el scroll horizontal
       this.carousel.nativeElement.classList.add("dragging");
       this.carousel.nativeElement.scrollLeft = this.startScrollLeft - (e.pageX - this.startX)
    }
+
+   
 
   }
 
