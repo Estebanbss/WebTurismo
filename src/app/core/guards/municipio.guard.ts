@@ -30,7 +30,7 @@ export class MunicipioGuard implements CanActivate {
   'Paicol',
   'Palermo',
   'Palestina',
-  'Pital',
+  'El Pital',
   'Pitalito',
   'Rivera',
   'Saladoblanco',

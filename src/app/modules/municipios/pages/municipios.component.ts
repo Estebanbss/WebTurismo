@@ -224,7 +224,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       'Paicol',
       'Palermo',
       'Palestina',
-      'Pital',
+      'El Pital',
       'Pitalito',
       'Rivera',
       'Saladoblanco',
