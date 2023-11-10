@@ -50,7 +50,7 @@ export class PrestadorComponent {
 
   ];
 
-  imgPortada:string[]=[]
+  imgPortada:string = "";
 //todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
 
   constructor(private route: ActivatedRoute,
@@ -85,10 +85,19 @@ export class PrestadorComponent {
       if(this.prestador.whatsapp !== null){
         this.wasa = "https://api.whatsapp.com/send?phone=" + this.prestador.whatsapp + "&text=Hola quiero más información sobre "+ this.prestador.name +"!"
       }
+
       if(this.prestador.pathImages){
         this.prestador.pathImages.forEach((element: any) => {
           this.imgGallery.push(element.url)
          });
+      }
+      if(this.prestador.pathImagePortada.url){
+        this.imgPortada = this.prestador.pathImagePortada.url;
+
+        if(this.imgGallery[0] !== this.prestador.pathImagePortada.url){
+          this.imgGallery.unshift(this.imgPortada)
+
+        }
       }
 
       if(this.imgGallery.length > 3){
@@ -96,7 +105,8 @@ export class PrestadorComponent {
       }
 
 
-      console.log(this.prestador);
+
+
       //*Se carga el Mapa
       this.validarCargaDeMapa();
 

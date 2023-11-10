@@ -23,26 +23,26 @@ export class SliderImgComponent {
   subscription!: Subscription; //Para manejar la suscripción de los datos
   imgGallery: string[] = [];//todo OJITO TIENE QUE SER IGUALITO EL CONTENIDO DEL ARREGLO AL COMPONENTE DE PRESTADOR O SI NO SE DAÑA
   modalDataSubscription: any;
+  imgPortada: string = "";
   turnModal: boolean | undefined;
 
 
   constructor(private route: ActivatedRoute,  private router: Router, private detalleService:DetalleService) {
-
+    this.cargarPrestador(decodeURI(this.url[3]));
     this.route.params.subscribe(params => {
       this.id1= this.url[2];
-      if(this.count > this.imgGallery.length){
+
+      if(this.count > this.imgGallery.length+1){
         this.count = 1;
       }else{
         this.count = Number(params['option']);
       }
 
       this.id2= decodeURI(this.url[3]);
+
     });
-    console.log(this.count)
 
-    isNaN(this.count) ? this.count = 1 : this.count = this.count;
 
-    this.count > this.imgGallery.length ? this.count = 1 : this.count = this.count;
 
     this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
 
@@ -65,7 +65,20 @@ export class SliderImgComponent {
           this.imgGallery.push(element.url)
          });
       }
+      if(this.prestador.pathImagePortada){
+        this.imgPortada = this.prestador.pathImagePortada.url;
+
+        if(this.imgGallery[0] !== this.prestador.pathImagePortada.url){
+
+          this.imgGallery.unshift(this.imgPortada)
+        }
+      }
     });
+
+
+    isNaN(this.count) ? this.count = 1 : this.count = this.count;
+
+    this.count > this.imgGallery.length ? this.count = 1 : this.count = this.count;
   }
 
 
@@ -79,21 +92,20 @@ export class SliderImgComponent {
     if (direction === "next") {
 
       if (this.count === this.imgGallery.length) {
-        console.log('REINICIO: ',this.count)
+
         this.count = 1;
       } else {
-        console.log('sumaaaaaaaaaaaaa: ',this.count)
+
         this.count++;
-        console.log('sumaaaaaaaaaaaaa: ',this.count)
+
       }
     } else {
-      console.log(this.count)
+
       if (this.count === 1) {
-        console.log('reinicio: ',this.count)
+
         this.count = this.imgGallery.length;
       } else {
         this.count--;
-        console.log('restaaaaaaaaaa: ',this.count)
       }
     }
 
@@ -102,7 +114,7 @@ export class SliderImgComponent {
   }
 
   ngOnInit() {
-    this.cargarPrestador(decodeURI(this.url[3]));
+
   }
 
   onKeyDown(event: KeyboardEvent) {

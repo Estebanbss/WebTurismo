@@ -118,7 +118,7 @@ export class NavheaderComponent implements OnInit{
   ngOnInit(){
 
     this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
-      this.expanded = value;
+
       if(value === true){
         this.expanded2 === "abierto" || null ? this.expanded2 = "cerrado" : this.expanded2 = "abierto";
       }

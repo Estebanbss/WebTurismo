@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   'Paicol',
   'Palermo',
   'Palestina',
-  'Pital',
+  'El Pital',
   'Pitalito',
   'Rivera',
   'Saladoblanco',
