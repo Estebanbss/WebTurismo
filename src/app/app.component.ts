@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/core/services/user.service';
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ModalServiceService } from './core/services/modal-service.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   firestore = getFirestore();
   auth = getAuth();
-  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService ){
+  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2 ){
 
 
 
@@ -113,6 +113,8 @@ export class AppComponent implements OnInit {
       this.modal.setTurnMuni(false);
       this.modal.setTurnSliderP(true);
     }
+
+
   }
 
 
@@ -120,11 +122,24 @@ export class AppComponent implements OnInit {
     const targetElement = event.target as HTMLElement;
 
     // Verifica si el evento no se originó en un elemento con la clase "no-close"
-    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg"  && targetElement.tagName !=="li"  && targetElement.tagName !=="path" && targetElement.tagName !=="span"  && targetElement.tagName !=="ul" && targetElement.tagName !=="button"    ) {
+    if (!targetElement.classList.contains('no-close') && targetElement.tagName !=="svg"  && targetElement.tagName !=="li"  && targetElement.tagName !=="path" && targetElement.tagName !=="span"  && targetElement.tagName !=="ul" && targetElement.tagName !=="button" && !targetElement.id.includes("buttonProfile") && !targetElement.id.includes("buttonTurn")    ) {
 
       this.modal.setProfileHeader(false);
       this.modal.setTurnMuni(false);
+
     }
+
+
+    if(targetElement.id.includes("buttonProfile")){
+      this.modal.setProfileHeader(true);
+
     }
+
+    if(targetElement.id.includes("buttonTurn")){
+      this.modal.setTurnMuni(true);
+    }
+
+    }
+
 
 }

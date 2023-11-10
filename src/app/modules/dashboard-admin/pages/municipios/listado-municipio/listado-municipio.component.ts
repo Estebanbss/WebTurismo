@@ -26,6 +26,14 @@ export class ListadoMunicipioComponent implements OnInit {
     }
   }
 
+  toID() {
+    const List = document.getElementById("ListID");
+    window.scrollTo({
+      top: List!.offsetTop,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
+  }
+
   openmodalmuni() {
     this.modalService.setModalSuichMuni(true);
   }

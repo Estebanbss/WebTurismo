@@ -28,6 +28,14 @@ export class ListadoPrestadorComponent implements OnInit {
     }
   }
 
+  toID() {
+    const List = document.getElementById("ListID");
+    window.scrollTo({
+      top: List!.offsetTop,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
+  }
+
 
   openmodalpst() {
     this.modalService.setModalSuichPst(true);

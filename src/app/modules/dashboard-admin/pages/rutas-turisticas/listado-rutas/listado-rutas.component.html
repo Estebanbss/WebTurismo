@@ -4,7 +4,7 @@
     <div class=" w-full p-4">
       <!-- CONTENIDO -->
       <!-- Nuestro título -->
-      <h3 class="text-3xl text-center  font-bold text-gray-500">Listado Rutas</h3>
+      <h3 id="ListID" class="text-3xl text-center  font-bold text-gray-500">Listado Rutas</h3>
       <hr class="h-[1px] border-gray-300 mb-5 border-[1px] ">
       <!-- Botón Para llevarnos al componente de Agregar Prestador -->
       <div class="flex justify-center gap-2">
@@ -94,7 +94,9 @@
 
         </tbody>
       </table> <!-- Fin tabla -->
-      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      <div class="flex flex-row justify-center">
+        <pagination-controls nextLabel="" previousLabel="" class="custom-pagination " (pageChange)="page = $event; toID()"></pagination-controls>
+      </div>
     </div>
   </div>
 </div>
