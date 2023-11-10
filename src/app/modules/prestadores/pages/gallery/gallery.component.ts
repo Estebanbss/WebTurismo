@@ -45,9 +45,7 @@ export class GalleryComponent {
       }
       if(this.prestador.pathImagePortada){
         this.imgPortada = this.prestador.pathImagePortada.url;
-
         if(this.imgGallery[0] !== this.prestador.pathImagePortada.url){
-
           this.imgGallery.unshift(this.imgPortada)
         }
       }
