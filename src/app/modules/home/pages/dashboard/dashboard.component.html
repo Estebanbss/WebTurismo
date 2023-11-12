@@ -38,7 +38,7 @@
       type="text"
       id="Search"
       placeholder="¿Que buscas?"
-      class="w-full rounded-3xl border-white h-[80%] pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
+      class="w-full rounded-3xl border-white h-[80%] pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 font-Work"
     />
 
     <button
@@ -124,8 +124,8 @@
       class="carousel relative flex flex-row align-middle overflow-x-hidden overflow-y-visible "
     >
       <div
-        *ngFor="let tile of tilesData"
-        class="bg:min-w-[75%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3 overflow-hidden hover:rounded-2xl hover:scale-x-[1.04]  "
+        *ngFor="let tile of tilesData; "
+        class="bg:min-w-[75%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] aspect-square relative ml-3 overflow-hidden hover:rounded-2xl hover:scale-x-[1.04]  "
         draggable="false"
       >
         <img
@@ -508,7 +508,7 @@
                 type="text"
                 name="name"
                 id="name"
-                class="peer block w-full bg-white border-0 border-b rounded-md border-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block w-full bg-white border-0 border-b rounded-md border-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder="Tu nombre"
               />
               <label for="name"
@@ -522,7 +522,7 @@
                 autocomplete="email"
                 type="text"
                 name="email"
-                class="peer block w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 "
                 placeholder="Tu email"
               />
               <label for="email"
@@ -535,7 +535,7 @@
                 id="message"
                 name="message"
                 rows="5"
-                class="peer block min-h-[100px] w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block min-h-[100px] w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 "
                 placeholder="Tu mensaje"
               ></textarea>
               <label for="message"

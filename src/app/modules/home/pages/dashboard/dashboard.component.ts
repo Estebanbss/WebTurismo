@@ -182,7 +182,7 @@ export class DashboardComponent implements OnInit {
       this.carousel.nativeElement.scrollLeft = this.startScrollLeft - (e.pageX - this.startX)
    }
 
-   
+
 
   }
 
@@ -193,7 +193,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
+  trackByFn(index: number, item: any): number {
+    return item.id; // Utiliza un identificador único para tus elementos
+  }
 
 
   private async fetchUrls(): Promise<string[]> {
