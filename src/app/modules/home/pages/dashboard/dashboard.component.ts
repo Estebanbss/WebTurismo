@@ -1,6 +1,6 @@
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { getDownloadURL, getStorage, ref } from '@angular/fire/storage';
-import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, QueryList, Host } from '@angular/core';
 import { Router} from '@angular/router';
 import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
@@ -27,6 +27,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
+  }
+
+  ngOnDestroy(): void {
 
   }
 
@@ -153,43 +156,119 @@ export class DashboardComponent implements OnInit {
   tilesDataCategorias: Municipio[] = []; // Array de categorías
 
   randomuni = [...this.muni]; // Copia de los municipios
-  isDragging = false; startX!: number; startScrollLeft: any; // Variables para el scroll horizontal
+  isDragging = false; startX!: number; startScrollLeft: any; velocityX:any; // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
-
+  scrollEndThreshold = 150; // Ajusta según sea necesario
   @ViewChild("carousel") carousel!: ElementRef;
-  @ViewChild("arrowButtons") arrowButtons!:QueryList<ElementRef>;
-  @HostListener("mousedown",[ "$event" ])
-
-  dragStart = (e:MouseEvent) => {
-
+  @ViewChild('leftButton') leftButton!: ElementRef;
+  @ViewChild('rightButton') rightButton!: ElementRef;
+  @HostListener("mousedown", ["$event"])
+  dragStart = (event: MouseEvent) => {
+    this.carousel.nativeElement.style.scrollBehavior = 'auto';
     this.isDragging = true;
-    this.startX = e.pageX
-    this.startScrollLeft =  this.carousel.nativeElement.scrollLeft;
+    this.velocityX = 0;
+
+    if (event instanceof MouseEvent) {
+      this.startX = event.pageX;
+      this.startScrollLeft = this.carousel.nativeElement.scrollLeft;
+    } else{
+
+    }
+  };
+
+@HostListener("mousemove", ["$event"])
+dragging = (event: MouseEvent) => {
+  this.carousel.nativeElement.style.scrollBehavior = 'auto';
+  if (!this.isDragging) return;
+
+  let pageX: number;
+
+  if (event instanceof MouseEvent) {
+    pageX = event.pageX;
+  } else{}
+
+  const delta = pageX! - this.startX;
+  this.velocityX = delta;
+
+  if (this.carousel.nativeElement.contains(event.target as Node)) {
+    this.carousel.nativeElement.classList.add("dragging");
+    this.carousel.nativeElement.scrollLeft =
+      this.startScrollLeft - delta;
+  }
+};
+
+@HostListener("mouseup", ["$event"])
+dragStop = (event: MouseEvent) => {
+
+  if (event instanceof MouseEvent) {
+  this.isDragging = false;
+  this.carousel.nativeElement.classList.remove("dragging");
+
+  const animateScroll = () => {
+    if (Math.abs(this.velocityX) > 1) {
+      this.carousel.nativeElement.scrollLeft +=
+        Math.sign(this.velocityX) * Math.sqrt(Math.abs(this.velocityX));
+      this.velocityX *= 0; // Puedes ajustar este factor según sea necesario
+      requestAnimationFrame(animateScroll);
+    } else {
+
+    }
+  };
+
+  animateScroll();
+} else{}
+};
+
+buttonScroll(direction: string) {
+  this.carousel.nativeElement.style.scrollBehavior = 'smooth';
+  const scrollAmount = this.carousel.nativeElement.clientWidth * 1;
+
+  if (direction == 'left') {
+    this.carousel.nativeElement.scrollLeft -= scrollAmount;
+  } else {
+    this.carousel.nativeElement.scrollLeft += scrollAmount;
   }
 
+  // Agregar desplazamiento suave
 
-  @HostListener("mousemove",[ "$event" ])
 
-  dragging = (e:MouseEvent) => {
+}
 
-    if(!this.isDragging) return; // Si no se está arrastrando, no hacer nada
-    // Si se está arrastrando, calcular la posición del scroll
-    if(this.carousel.nativeElement.contains(e.target)){// Si el elemento contiene el evento
-      // Mover el scroll horizontal
-      this.carousel.nativeElement.classList.add("dragging");
-      this.carousel.nativeElement.scrollLeft = this.startScrollLeft - (e.pageX - this.startX)
-   }
-
+  trackByFn(index: number, item: any): number {
+    return item.id; // Utiliza un identificador único para tus elementos
   }
 
-  @HostListener("mouseup",[ "$event" ])
-  dragStop = (e:MouseEvent) => {
-    this.isDragging = false;
-    this.carousel.nativeElement.classList.remove("dragging");
+  checkScrollEnd() {
+    const element = this.carousel.nativeElement;
+    const scrollEnd = element.scrollWidth - element.clientWidth;
+    const leftButton = this.leftButton.nativeElement;
+    const rightButton = this.rightButton.nativeElement;
+
+    if (element.scrollLeft >= scrollEnd - this.scrollEndThreshold) {
+      rightButton.classList.add('hidden');
+
+    }
+
+    if (element.scrollLeft < scrollEnd - this.scrollEndThreshold) {
+      rightButton.classList.remove('hidden');
+      rightButton.classList.add('block');
+    }
+
+    if(element.scrollLeft > this.scrollEndThreshold){
+      leftButton.classList.remove('hidden');
+      leftButton.classList.add('block');
+    }
+
+    if(element.scrollLeft == 0){
+      leftButton.classList.add('hidden');
+    }
   }
 
-
-
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    this.checkScrollEnd();
+  }
 
 
   private async fetchUrls(): Promise<string[]> {

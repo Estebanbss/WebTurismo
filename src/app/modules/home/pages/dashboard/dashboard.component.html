@@ -23,10 +23,10 @@
     class="relative mx-auto bg:h-[250px] md:h-[400px] justify-center flex flex-col items-center"
   >
     <div class="text-center mb-[20] flex flex-col items-center border-2 border-b-0 border-white border-opacity-50 p-2">
-      <h2 class="font-extrabold font-Blinker bg:text-[5vw] xl:text-6xl text-white">Descubre el Huila</h2>
+      <h2 class="font-extrabold font-Blinker bg:text-[7vw] sm:text-[5vw] xl:text-6xl text-white">Descubre el Huila</h2>
     </div>
     <div class="text-center mb-[20] flex flex-col items-center border-2  border-white p-2 border-opacity-50">
-      <h2 class="font-medium font-Blinker bg:text-[4vw] xl:text-4xl text-white">un paraíso de paisajes, cultura y experiencias inolvidables</h2>
+      <h2 class="font-medium font-Blinker bg:text-[6vw] sm:text-[4vw] xl:text-4xl text-white">un paraíso de paisajes, cultura y experiencias inolvidables</h2>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
       type="text"
       id="Search"
       placeholder="¿Que buscas?"
-      class="w-full rounded-3xl border-white h-[80%] pe-10 shadow-sm bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 drop-shadow-2xl font-Work"
+      class="w-full rounded-3xl border-white h-[80%] pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 font-Work"
     />
 
     <button
@@ -68,21 +68,21 @@
 <!--?fin Contenedor de la busqueda principal -->
 
 <!--?Sección de Municipios populares-->
-<section id="Municipios Populares" class="xl:w-[1280px] mx-auto">
+<section id="Municipios Populares" class="xl:w-[1280px] mx-auto mt-24">
   <!--?Contenedor de el titulo principal y parrafo explicativo-->
 
   <!--?Este se divide en 2 en el cual cuando llega a determinado punto de la pantalla cambia el tipo de flex y también su ancho total los dos inicialmente en pantallas pequeñas ocupa un ancho de 100% y luego en "md" ocupa 50% cada uno en total hay 2 divs-->
 
   <div
-    class="flex bg:flex-col md:flex-row h-36 justify-center items-center mx-10 mt-20 mb-10"
+    class="flex bg:flex-col md:flex-row h-36 justify-center items-center mx-10  mb-10"
   >
     <!--?Div 1-->
     <div class="bg:w-full md:w-[50%] text-primary-500">
-      <h2 class="font-Blinker text-center text-xl md:text-2xl font-black">
+      <h2 class="font-Blinker text-center text-xl md:text-2xl font-black leading-3 opacity-70">
         ¿Donde ir?
       </h2>
       <h3
-        class="font-Blinker text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-2"
+        class="font-Blinker text-center bg:leading-7 text-4xl md:text-5xl md:leading-10 font-black mb-2"
       >
         Municipios Populares
       </h3>
@@ -106,33 +106,34 @@
 
   <!--?Colección de municipios-->
   <div class="relative">
-    <svg
+    <button #leftButton class=""
+    id="left" (click)="buttonScroll('left')">
+      <svg
       role="button"
-      #arrowButtons
-      id="left"
       class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
-      height="60"
+      height="40"
       viewBox="0 -960 960 960"
-      width="60"
+      width="40"
     >
       <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
     </svg>
+    </button>
+
 
     <div
       #carousel
-      class="carousel relative flex flex-row align-middle overflow-x-hidden overflow-y-visible "
+      class="carousel relative flex flex-row align-middle  overflow-y-visible overflow-x-scroll "
     >
       <div
-        *ngFor="let tile of tilesData"
-        class="bg:min-w-[75%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[300px] max-h-[300px] relative ml-3 overflow-hidden hover:rounded-2xl hover:scale-x-[1.04]  "
+        *ngFor="let tile of tilesData; "
+        class="bg:min-w-[80%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] aspect-square relative ml-3 overflow-hidden hover:rounded-2xl hover:scale-x-[1.04]  "
         draggable="false"
       >
         <img
           ngSrc="{{ tile.img }}"
           fill
           alt="{{ tile.alt }}"
-
           loading="lazy"
           class="w-full h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-400  hover:ease-in-out "
           draggable="false"
@@ -145,18 +146,21 @@
         </h3>
       </div>
     </div>
-    <svg
+
+    <button #rightButton class=""
+    id="right"  (click)="buttonScroll('right')">
+      <svg
       role="button"
-      #arrowButtons
-      id="right"
       class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
-      height="60"
+      height="40"
       viewBox="0 -960 960 960"
-      width="60"
+      width="40"
     >
       <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
     </svg>
+    </button>
+
   </div>
 
   <!--?Fin Colección de municipios-->
@@ -508,7 +512,7 @@
                 type="text"
                 name="name"
                 id="name"
-                class="peer block w-full bg-white border-0 border-b rounded-md border-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block w-full bg-white border-0 border-b rounded-md border-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder="Tu nombre"
               />
               <label for="name"
@@ -522,7 +526,7 @@
                 autocomplete="email"
                 type="text"
                 name="email"
-                class="peer block w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 "
                 placeholder="Tu email"
               />
               <label for="email"
@@ -535,7 +539,7 @@
                 id="message"
                 name="message"
                 rows="5"
-                class="peer block min-h-[100px] w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 drop-shadow-2xl"
+                class="peer block min-h-[100px] w-full appearance-none border-0 border-b rounded-md border-white bg-white py-2.5 px-3 text-base font-semibold focus:placeholder:text-white text-white focus:border-blue-600 focus:outline-none focus:ring-0 "
                 placeholder="Tu mensaje"
               ></textarea>
               <label for="message"

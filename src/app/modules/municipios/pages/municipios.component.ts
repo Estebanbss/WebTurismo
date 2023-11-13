@@ -14,7 +14,8 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
   @Component({
     selector: 'app-municipios',
     templateUrl: './municipios.component.html',
-    styleUrls: ['./municipios.component.css']
+    styleUrls: ['./municipios.component.css'],
+
   })
   export class MunicipiosComponent implements OnInit {
 
@@ -142,6 +143,10 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
     activarBoton(boton: string) {// Función para activar el botón seleccionado
       this.botonActivo = boton;// Guarda el botón seleccionado en la variable
+    }
+
+    trackByFn(index: number, item: any): number {
+      return item.id; // Utiliza un identificador único para tus elementos
     }
 
     clearBotonActivo() {// Función para desactivar el botón seleccionado
@@ -488,15 +493,6 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
   }
 
-  // En tu componente Angular
-  trackByFunction(index: number, item: any): number {
-    if (item.id) {
-      return item.id; // Utiliza la propiedad "id" como identificador único
-    } else {
-      console.error('El elemento no tiene una propiedad "id" definida. Se usará el índice como identificador.');
-      return index; // Si no hay una propiedad "id", usa el índice como identificador
-    }
-  }
 
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {

@@ -12,11 +12,13 @@
   <hr class="border-1 border-gray-300 w-[100%] my-3">
 
   <div class="grid md:grid-cols-2 md2:grid-cols-3 2xl:grid-cols-4  overflow-y-scroll gap-2 w-full h-full ">
-    <button (click)="send(i)" *ngFor="let item of imgGallery; let i = index" class=" w-[300px] h-[300px] hover:scale-[1.02]   xl:w-[350px] xl:h-[350px] mx-auto my-auto rounded-xl overflow-hidden">
+    <button (click)="send(i)" *ngFor="let item of imgGallery; let i = index; trackBy: trackByFn" class="relative w-[300px] h-[300px] hover:scale-[1.02]   xl:w-[350px] xl:h-[350px] mx-auto my-auto rounded-xl overflow-hidden">
       <img
         alt="Selected Image"
         class="object-cover w-full h-full"
-        [src]="item"
+        [ngSrc]="item"
+        fill
+        loading="lazy"
       />
     </button>
   </div>

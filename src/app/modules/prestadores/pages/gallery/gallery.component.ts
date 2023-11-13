@@ -58,6 +58,9 @@ export class GalleryComponent {
   }
 
 
+  trackByFn(index: number, item: any): number {
+    return item.id; // Utiliza un identificador único para tus elementos
+  }
 
   buttonModal() {
 
