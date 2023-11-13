@@ -15,3 +15,20 @@
   pointer-events: none;
 
 }
+
+::-webkit-scrollbar {
+  width: 2px; /* Ajusta el valor según tu preferencia para hacerla más delgada o más ancha */
+  background-color: #f1f1f1;
+  height: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #38a90070;
+  border-radius: 5px;
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #38a900c7;
+}
