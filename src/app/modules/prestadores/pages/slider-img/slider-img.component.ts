@@ -29,22 +29,11 @@ export class SliderImgComponent {
 
   constructor(private route: ActivatedRoute,  private router: Router, private detalleService:DetalleService) {
     this.cargarPrestador(decodeURI(this.url[3]));
-    this.route.params.subscribe(params => {
-      this.id1= this.url[2];
-
-      if(this.count > this.imgGallery.length+1){
-        this.count = 1;
-      }else{
-        this.count = Number(params['option']);
-      }
-
-      this.id2= decodeURI(this.url[3]);
-
-    });
 
 
 
-    this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
+
+
 
   }
 
@@ -73,12 +62,26 @@ export class SliderImgComponent {
           this.imgGallery.unshift(this.imgPortada)
         }
       }
+
+      this.route.params.subscribe(params => {
+        this.id1= this.url[2];
+        this.count = Number(params['option']);
+
+        console.log(this.imgGallery);
+        if(this.count > this.imgGallery.length || isNaN(this.count)){
+          this.count = 1;
+        }else{
+          this.count = Number(params['option']);
+        }
+
+        this.id2= decodeURI(this.url[3]);
+
+      });
+
+      this.router.navigateByUrl(`/prestadores/${this.id1}/${this.id2}/slider/${this.count}`)
+
     });
 
-
-    isNaN(this.count) ? this.count = 1 : this.count = this.count;
-
-    this.count > this.imgGallery.length ? this.count = 1 : this.count = this.count;
   }
 
 
