@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
+    this.serviShuffle.sort(this.comparacionAleatoria);
   }
 
   ngOnDestroy(): void {
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
   'Villavieja',
   'Yaguará', // ... (tu lista de municipios)
   ];
-
+  comparacionAleatoria = () => Math.random() - 0.5;
   servi:any = [
     {
       "title": "Alojamiento Urbano",
@@ -116,7 +117,7 @@ export class DashboardComponent implements OnInit {
       "desc": "Embárcate en aventuras naturales inolvidables. Visita parques naturales donde la biodiversidad y la belleza escénica te dejarán sin aliento."
     },
     {
-      "title": "Agencias de Viajes",
+      "title": "Agencias de Viaje",
       "desc": "Planifica tu próxima aventura con expertos en viajes. Descubre agencias de viajes que te ayudarán a diseñar la escapada perfecta."
     },
     {
@@ -124,7 +125,7 @@ export class DashboardComponent implements OnInit {
       "desc": "Disfruta de entretenimiento y diversión en un solo lugar. Explora centros recreativos que ofrecen actividades emocionantes para toda la familia."
     },
     {
-      "title": "Guias de Turísmo",
+      "title": "Guia de Turísmo",
       "desc": "Descubre la región con la ayuda de expertos locales. Conoce guías de turismo que te llevarán a explorar los lugares más fascinantes."
     },
     {
@@ -153,85 +154,114 @@ export class DashboardComponent implements OnInit {
     }
   ]
 
+  serviShuffle: any = [...this.servi];
+
   tilesDataCategorias: Municipio[] = []; // Array de categorías
 
   randomuni = [...this.muni]; // Copia de los municipios
-  isDragging = false; startX!: number; startScrollLeft: any; velocityX:any; // Variables para el scroll horizontal
+  isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
   scrollEndThreshold = 150; // Ajusta según sea necesario
-  @ViewChild("carousel") carousel!: ElementRef;
-  @ViewChild('leftButton') leftButton!: ElementRef;
-  @ViewChild('rightButton') rightButton!: ElementRef;
+  @ViewChild("carouselMuni") carouselMuni!: ElementRef;
+  @ViewChild("carouselServi") carouselServi!: ElementRef;
+  @ViewChild('leftButtonMuni') leftButtonMuni!: ElementRef;
+  @ViewChild('rightButtonMuni') rightButtonMuni!: ElementRef;
+  @ViewChild('leftButtonServi') leftButtonServi!: ElementRef;
+  @ViewChild('rightButtonServi') rightButtonServi!: ElementRef;
   @HostListener("mousedown", ["$event"])
+
+
   dragStart = (event: MouseEvent) => {
-    this.carousel.nativeElement.style.scrollBehavior = 'auto';
-    this.isDragging = true;
-    this.velocityX = 0;
 
-    if (event instanceof MouseEvent) {
+
+    if (event instanceof MouseEvent && event.target === this.carouselMuni.nativeElement) {
+      this.carouselMuni.nativeElement.style.scrollBehavior = 'auto';
+      this.isDragging = true;
+      this.velocityX = 0;
       this.startX = event.pageX;
-      this.startScrollLeft = this.carousel.nativeElement.scrollLeft;
-    } else{
-
+      this.startScrollLeftMuni = this.carouselMuni.nativeElement.scrollLeft;
     }
+
+    if (event instanceof MouseEvent && event.target === this.carouselServi.nativeElement) {
+      this.carouselServi.nativeElement.style.scrollBehavior = 'auto';
+      this.isDragging = true;
+      this.velocityX = 0;
+      this.startX = event.pageX;
+      this.startScrollLeftServi = this.carouselServi.nativeElement.scrollLeft;
+    }
+
+
   };
 
 @HostListener("mousemove", ["$event"])
 dragging = (event: MouseEvent) => {
-  this.carousel.nativeElement.style.scrollBehavior = 'auto';
   if (!this.isDragging) return;
 
-  let pageX: number;
+  let pageX: number | undefined;
 
   if (event instanceof MouseEvent) {
     pageX = event.pageX;
-  } else{}
-
+  }
   const delta = pageX! - this.startX;
-  this.velocityX = delta;
 
-  if (this.carousel.nativeElement.contains(event.target as Node)) {
-    this.carousel.nativeElement.classList.add("dragging");
-    this.carousel.nativeElement.scrollLeft =
-      this.startScrollLeft - delta;
+  if (pageX !== undefined && event.target === this.carouselMuni.nativeElement && this.isDragging)  {
+    this.carouselMuni.nativeElement.classList.add("dragging");
+    this.carouselMuni.nativeElement.style.scrollBehavior = 'auto';
+
+    this.velocityX = delta;
+    this.carouselMuni.nativeElement.scrollLeft = this.startScrollLeftMuni - delta;
+  }
+  if (pageX !== undefined && event.target === this.carouselServi.nativeElement && this.isDragging)  {
+    this.carouselServi.nativeElement.classList.add("dragging");
+    this.carouselServi.nativeElement.style.scrollBehavior = 'auto';
+
+    this.velocityX = delta;
+    this.carouselServi.nativeElement.scrollLeft = this.startScrollLeftServi - delta;
   }
 };
 
 @HostListener("mouseup", ["$event"])
 dragStop = (event: MouseEvent) => {
 
-  if (event instanceof MouseEvent) {
+
   this.isDragging = false;
-  this.carousel.nativeElement.classList.remove("dragging");
 
-  const animateScroll = () => {
-    if (Math.abs(this.velocityX) > 1) {
-      this.carousel.nativeElement.scrollLeft +=
-        Math.sign(this.velocityX) * Math.sqrt(Math.abs(this.velocityX));
-      this.velocityX *= 0; // Puedes ajustar este factor según sea necesario
-      requestAnimationFrame(animateScroll);
-    } else {
+  if (this.carouselMuni.nativeElement.contains(event.target as Node)) {
+    if (!(event instanceof MouseEvent) || event.target !== this.carouselMuni.nativeElement) return;
+    this.carouselMuni.nativeElement.classList.remove("dragging");
 
-    }
-  };
+  }
+  if (this.carouselServi.nativeElement.contains(event.target as Node)) {
+    if (!(event instanceof MouseEvent) || event.target !== this.carouselServi.nativeElement) return;
+    this.carouselServi.nativeElement.classList.remove("dragging");
 
-  animateScroll();
-} else{}
+  }
 };
 
-buttonScroll(direction: string) {
-  this.carousel.nativeElement.style.scrollBehavior = 'smooth';
-  const scrollAmount = this.carousel.nativeElement.clientWidth * 1;
+[key: string]: any;
 
-  if (direction == 'left') {
-    this.carousel.nativeElement.scrollLeft -= scrollAmount;
-  } else {
-    this.carousel.nativeElement.scrollLeft += scrollAmount;
+buttonScroll(direction: string, buttonId: string, carouselName: string) {
+
+
+  // Accede dinámicamente a la propiedad 'carousel' de la instancia actual
+  const carousel = this[carouselName];
+
+  if (carousel) {
+    carousel.nativeElement.style.scrollBehavior = 'smooth';
+    const scrollAmount = carousel.nativeElement.clientWidth * 1;
+
+    if (buttonId === 'leftMuni' && direction === 'left') {
+      carousel.nativeElement.scrollLeft -= scrollAmount;
+    } else if (buttonId === 'rightMuni' && direction === 'right') {
+      carousel.nativeElement.scrollLeft += scrollAmount;
+    }
+
+    if (buttonId === 'leftServi' && direction === 'left') {
+      carousel.nativeElement.scrollLeft -= scrollAmount;
+    } else if (buttonId === 'rightServi' && direction === 'right') {
+      carousel.nativeElement.scrollLeft += scrollAmount;
+    }
   }
-
-  // Agregar desplazamiento suave
-
-
 }
 
   trackByFn(index: number, item: any): number {
@@ -239,29 +269,28 @@ buttonScroll(direction: string) {
   }
 
   checkScrollEnd() {
-    const element = this.carousel.nativeElement;
-    const scrollEnd = element.scrollWidth - element.clientWidth;
-    const leftButton = this.leftButton.nativeElement;
-    const rightButton = this.rightButton.nativeElement;
+    const muni = this.carouselMuni.nativeElement;
+    const servi = this.carouselServi.nativeElement;
+    const scrollEndMuni = muni.scrollWidth - muni.clientWidth;
+    const scrollEndServi = servi.scrollWidth - servi.clientWidth;
+    const leftButtonMuni = this.leftButtonMuni.nativeElement;
+    const rightButtonMuni = this.rightButtonMuni.nativeElement;
+    const leftButtonServi = this.leftButtonServi.nativeElement;
+    const rightButtonServi = this.rightButtonServi.nativeElement;
 
-    if (element.scrollLeft >= scrollEnd - this.scrollEndThreshold) {
-      rightButton.classList.add('hidden');
+        // Lógica para servi
+        rightButtonServi.classList.toggle('hidden', servi.scrollLeft >= scrollEndServi - this.scrollEndThreshold);
+        rightButtonServi.classList.toggle('block', servi.scrollLeft < scrollEndServi - this.scrollEndThreshold);
+        leftButtonServi.classList.toggle('hidden', servi.scrollLeft === 0);
+        leftButtonServi.classList.toggle('block', servi.scrollLeft > this.scrollEndThreshold);
 
-    }
+    // Lógica para muni
+    rightButtonMuni.classList.toggle('hidden', muni.scrollLeft >= scrollEndMuni - this.scrollEndThreshold);
+    rightButtonMuni.classList.toggle('block', muni.scrollLeft < scrollEndMuni - this.scrollEndThreshold);
+    leftButtonMuni.classList.toggle('hidden', muni.scrollLeft === 0);
+    leftButtonMuni.classList.toggle('block', muni.scrollLeft > this.scrollEndThreshold);
 
-    if (element.scrollLeft < scrollEnd - this.scrollEndThreshold) {
-      rightButton.classList.remove('hidden');
-      rightButton.classList.add('block');
-    }
 
-    if(element.scrollLeft > this.scrollEndThreshold){
-      leftButton.classList.remove('hidden');
-      leftButton.classList.add('block');
-    }
-
-    if(element.scrollLeft == 0){
-      leftButton.classList.add('hidden');
-    }
   }
 
   ngAfterViewChecked(): void {
@@ -295,15 +324,10 @@ buttonScroll(direction: string) {
 
     const map = new Map('map').setView([2.19389995105747,-75.6303756116717],13);
 
-    tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
     }).addTo(map);
 
     marker([2.19389995105747,-75.6303756116717]).addTo(map)
-
-
-    const buttons = document.querySelectorAll("button");// Obtener todos los botones
-    buttons.forEach((button) => {// Por cada botón// Mostrar en consola el id del botón //TODO: esto lo hacia para tener en cuenta los botones para hacer el desplazamiento del scroll por boton como en el draggable
-    });
 
 
     this.fetchUrls().then((urls) => {// Obtener los URLs de las imágenes
