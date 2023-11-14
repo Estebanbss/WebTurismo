@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
       "desc": "Disfruta de entretenimiento y diversión en un solo lugar. Explora centros recreativos que ofrecen actividades emocionantes para toda la familia."
     },
     {
-      "title": "Guia de Turísmo",
+      "title": "Guías de Turismo",
       "desc": "Descubre la región con la ayuda de expertos locales. Conoce guías de turismo que te llevarán a explorar los lugares más fascinantes."
     },
     {
@@ -155,10 +155,11 @@ export class DashboardComponent implements OnInit {
   ]
 
   serviShuffle: any = [...this.servi];
+  randomuni = [...this.muni]; // Copia de los municipios
 
   tilesDataCategorias: Municipio[] = []; // Array de categorías
 
-  randomuni = [...this.muni]; // Copia de los municipios
+
   isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
   scrollEndThreshold = 150; // Ajusta según sea necesario

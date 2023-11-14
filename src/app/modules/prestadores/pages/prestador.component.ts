@@ -172,7 +172,7 @@ export class PrestadorComponent {
     "bd": "centroRecreativo"
   },
   {
-    "title": "Guia de Turísmo",
+    "title": "Guías de Turismo",
     "id": this.prestador.guiasDeTurismo,
     "bd": "guiasDeTurismo"
   },

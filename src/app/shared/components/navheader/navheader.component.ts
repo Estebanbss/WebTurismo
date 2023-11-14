@@ -140,10 +140,12 @@ export class NavheaderComponent implements OnInit{
     });
 
     const auth = getAuth();
+    
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.uid = user.uid;
+
         const firestore = getFirestore();
         const docRef = doc(firestore, 'users', user.uid);
         const docSnap = await getDoc(docRef);

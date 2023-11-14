@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser';
 import { doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { getAuth, updateProfile } from '@angular/fire/auth';
 import { getDoc, updateDoc } from '@firebase/firestore';
-import { FirebaseError } from '@angular/fire/app';
 
 
 @Component({
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, //Inyectamos la clase para el formulario
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router,
-    private titleService: Title //Inyectamos la clase Router para dirigirnos a otros componentes
+    private titleService: Title
   ) {
     this.loginUsuario = this.fb.group({
       //En el template colocamos las propiedades para traer los valores
@@ -195,6 +194,16 @@ export class LoginComponent implements OnInit {
 
         })
 
+      // const addAdminRole =  firebase.functions().httpsCallable('addAdminRole');
+      // addAdminRole({ email: 'usuario@example.com' })
+      //   .then((result) => {
+      //     // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
+      //     console.log(result.data.message);
+      //   })
+      //   .catch((error) => {
+      //     // Manejar el error, por ejemplo, mostrar un mensaje de error
+      //     console.error("Error al invocar la función:", error);
+      //   });
 
 
 
