@@ -172,7 +172,7 @@ export class PrestadorComponent {
     "bd": "centroRecreativo"
   },
   {
-    "title": "Guia de Turísmo",
+    "title": "Guías de Turismo",
     "id": this.prestador.guiasDeTurismo,
     "bd": "guiasDeTurismo"
   },
@@ -381,7 +381,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
       this.map = new Map('map').setView([this.prestador.latitud, this.prestador.longitud], 13);
 
       // Agregar capa de tiles
-      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
       }).addTo(this.map);
 
       // Agregar un marcador

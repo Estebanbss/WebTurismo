@@ -21,17 +21,17 @@ export class NavheaderComponent implements OnInit{
   auth = getAuth();
   uid!: string | null;
   userName!: string | null;
-  pfp!: string | null;
+  pfp!: string;
   expanded?:boolean
   expanded2?:string;
   dataUser: any;
   adminButton = false;
-  UserName!:string | null;
+  userButton = false;
+  displayName!:string | null;
   loading = false;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
-
     this.expanded2 = "cerrado"
   }
 
@@ -48,7 +48,13 @@ export class NavheaderComponent implements OnInit{
 
 
 
-  constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){}
+  constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){
+    this.displayName = this.auth.currentUser!.displayName;
+
+    this.obtenerfoto();
+
+    this.obtenerUsuario().then(()=>{":D"});
+  }
 
   logOut() {
     this.userService.update().then(()=>{
@@ -58,60 +64,19 @@ export class NavheaderComponent implements OnInit{
   }
 
 
-  navigate(){
+navigate(){
 
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
-
-        this.router.navigate(['/profile', this.userName]);
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.expanded2 = "cerrado";
-
-
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
+      this.router.navigate(['/profile', this.userName]);
 
   }
 
+
+
   navigateAdmin(){
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
 
         this.router.navigate(['/dashboard-admin']);
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.expanded2 = "cerrado";
 
 
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
   }
 
 
@@ -132,51 +97,36 @@ export class NavheaderComponent implements OnInit{
       if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
 
-
       }
-
-
 
     });
 
-    const auth = getAuth();
-
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.pfp = user.photoURL;
-        this.loading = true;
-
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
 
     } ;
 
-
-    ngAfterViewChecked(){
-
-
-
+    async obtenerUsuario(){
+      const firestore = getFirestore();
+      const docRef = doc(firestore, 'users', this.auth.currentUser!.uid);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()){
+        this.userName = docSnap.data()['userName'];
+        this.userButton = true;
+        console.log("bruh")
+      }
 
 
 
     }
 
 
+    obtenerfoto(){
+      if(this.auth.currentUser!.photoURL !== null && this.loading === false){
+        this.pfp = this.auth.currentUser!.photoURL!;
+
+        this.loading = true;
+
+      }
+    }
 
 
     ngOnDestroy() {
@@ -191,6 +141,4 @@ export class NavheaderComponent implements OnInit{
 
 
 }
-
-
 
