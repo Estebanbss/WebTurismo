@@ -8,6 +8,7 @@ import { MunicipioGuard } from './core/guards/municipio.guard';
 import { adminGuard } from './core/guards/admin.guard';
 import { PrestadorGuard } from './core/guards/prestador.guard';
 import { UserGuard } from './core/guards/user.guard';
+import { AtractivoGuard } from './core/guards/atractivo.guard';
 
 
 const routes: Routes = [
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: "municipios/:id", canActivate:[authGuard, MunicipioGuard], loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
 
   { path: "prestadores/:municipio/:prestador", canActivate:[authGuard,PrestadorGuard], loadChildren:() => import("./modules/prestadores/prestadores.module").then((m) => m.PrestadoresModule)},
+
+  { path: "atractivos/:municipio/:atractivo", canActivate:[authGuard,AtractivoGuard], loadChildren:() => import("./modules/atractivos/atractivos.module").then((m) => m.AtractivosModule)},
 
   { path: "profile/:id", canActivate:[authGuard, UserGuard], loadChildren:() => import("./modules/perfil/perfil.module").then((m) => m.PerfilModule)},
 

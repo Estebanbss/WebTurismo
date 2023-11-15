@@ -508,7 +508,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     if ('servicios' in item) { //*Validación para Prestadores
       this.router.navigate(['prestadores', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(item.name)]);
     } else if ('bienOLugar' in item) { //*Validación para Atractivos
-      console.log('Se está pasando un Atractivo');
+      this.router.navigate(['atractivos', this.capitalizeFirstLetter(this.nombreMunicipio), this.capitalizeFirstLetter(item.name)]);
     }
   }
 
