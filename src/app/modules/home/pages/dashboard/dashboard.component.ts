@@ -8,6 +8,7 @@ import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
 
 import { getAuth } from '@angular/fire/auth';
+import { DetalleService } from 'src/app/core/services/detalle.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private titleService:Title,
     private modalService: ModalServiceService,
+    private detalle: DetalleService
   ) {
 
   }
@@ -28,6 +30,15 @@ export class DashboardComponent implements OnInit {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
+    this.randomuni.sort(this.comparacionAleatoria);
+    this.detalle.obtenerPrestadoresAleatorios(10).then((prestadores) => {
+      this.prestadoresrandom = prestadores;
+      console.log("response prestadores: ", prestadores)
+    }).then()
+    this.detalle.obtenerAtractivosAleatorios(10).then((atractivos) => {
+      this.atractivosrandom = atractivos;
+      console.log("response atractivos: ", atractivos)
+    }).then()
   }
 
   ngOnDestroy(): void {
@@ -38,7 +49,8 @@ export class DashboardComponent implements OnInit {
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   dataUser: any; // Variable para almacenar los datos del usuario
   admin: string = 'juanesbs2003@hotmail.com'; // Correo del administrador|
-
+  prestadoresrandom: any = []; // Array de prestadores aleatorios
+  atractivosrandom: any = []; // Array de prestadores aleatorios
   muni: string[] = [ // Array de municipios del Huila
   'Acevedo',
   'Aipe',

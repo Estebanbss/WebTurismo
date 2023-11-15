@@ -189,6 +189,7 @@ export class LoginComponent implements OnInit {
               updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
 
             });
+            this.userService.cerrarSesion();
           }
 
 

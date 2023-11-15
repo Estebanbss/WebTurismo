@@ -21,7 +21,7 @@ export class NavheaderComponent implements OnInit{
   auth = getAuth();
   uid!: string | null;
   userName!: string | null;
-  pfp!: string | null;
+  pfp!: string;
   expanded?:boolean
   expanded2?:string;
   dataUser: any;
@@ -48,7 +48,10 @@ export class NavheaderComponent implements OnInit{
 
 
 
-  constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){}
+  constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){
+
+    this.UserName = this.auth.currentUser!.displayName;
+  }
 
   logOut() {
     this.userService.update().then(()=>{
@@ -60,58 +63,16 @@ export class NavheaderComponent implements OnInit{
 
   navigate(){
 
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
 
         this.router.navigate(['/profile', this.userName]);
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.expanded2 = "cerrado";
-
-
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
 
   }
 
   navigateAdmin(){
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
 
         this.router.navigate(['/dashboard-admin']);
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.expanded2 = "cerrado";
 
 
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
   }
 
 
@@ -132,53 +93,38 @@ export class NavheaderComponent implements OnInit{
       if(value === "admin" || value === "superadmin"){
         this.adminButton = true;
 
-
       }
-
-
 
     });
 
-    const auth = getAuth();
-    
 
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        this.uid = user.uid;
+    this.obtenerfoto();
 
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
-          this.userName = docSnap.data()['userName'];
-        }
-        // El usuario ha iniciado sesión.
-        this.UserName = user.displayName;
-        this.pfp = user.photoURL;
-        this.loading = true;
-
-
-      } else {
-        // El usuario ha cerrado sesión.
-        this.UserName = null;
-        this.pfp = null;
-        this.loading = false;
-      }
-    });
+    this.obtenerUsuario().then(()=>{":D"});
 
     } ;
 
-
-    ngAfterViewChecked(){
-
-
-
+    async obtenerUsuario(){
+      const firestore = getFirestore();
+      const docRef = doc(firestore, 'users', this.auth.currentUser!.uid);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()){
+        this.userName = docSnap.data()['userName'];
+      }
 
 
 
     }
 
 
+    obtenerfoto(){
+      if(this.auth.currentUser!.photoURL !== null && this.loading === false){
+        this.pfp = this.auth.currentUser!.photoURL!;
+
+        this.loading = true;
+
+      }
+    }
 
 
     ngOnDestroy() {
@@ -193,6 +139,4 @@ export class NavheaderComponent implements OnInit{
 
 
 }
-
-
 
