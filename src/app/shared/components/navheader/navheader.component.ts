@@ -26,12 +26,12 @@ export class NavheaderComponent implements OnInit{
   expanded2?:string;
   dataUser: any;
   adminButton = false;
-  UserName!:string | null;
+  userButton = false;
+  displayName!:string | null;
   loading = false;
 
   toggleExpanded() {
     this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
-
     this.expanded2 = "cerrado"
   }
 
@@ -49,8 +49,11 @@ export class NavheaderComponent implements OnInit{
 
 
   constructor(private userService: UserService, private router: Router,   private modalService: ModalServiceService,){
+    this.displayName = this.auth.currentUser!.displayName;
 
-    this.UserName = this.auth.currentUser!.displayName;
+    this.obtenerfoto();
+
+    this.obtenerUsuario().then(()=>{":D"});
   }
 
   logOut() {
@@ -61,12 +64,13 @@ export class NavheaderComponent implements OnInit{
   }
 
 
-  navigate(){
+navigate(){
 
-
-        this.router.navigate(['/profile', this.userName]);
+      this.router.navigate(['/profile', this.userName]);
 
   }
+
+
 
   navigateAdmin(){
 
@@ -98,10 +102,6 @@ export class NavheaderComponent implements OnInit{
     });
 
 
-    this.obtenerfoto();
-
-    this.obtenerUsuario().then(()=>{":D"});
-
     } ;
 
     async obtenerUsuario(){
@@ -110,6 +110,8 @@ export class NavheaderComponent implements OnInit{
       const docSnap = await getDoc(docRef);
       if(docSnap.exists()){
         this.userName = docSnap.data()['userName'];
+        this.userButton = true;
+        console.log("bruh")
       }
 
 

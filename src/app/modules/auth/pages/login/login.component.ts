@@ -90,7 +90,6 @@ export class LoginComponent implements OnInit {
         //En el if preguntamos si el usuario está verificado
         if(response.user?.emailVerified) {
           //Redireccionamos al Dashboard
-          this.router.navigate(['/home']);
 
           const random9DigitNumber = this.generateRandom9DigitNumber();
 
@@ -100,7 +99,7 @@ export class LoginComponent implements OnInit {
           const docuRef = doc(this.firestore, `users/${response.user?.uid}`)
           getDoc(docuRef).then(async (doc) => {
             if(doc.exists()){
-              updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()})
+              updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()}).then((response)=>{  this.router.navigate(['/home']);}).catch((error)=>{console.log(error)})
               this.userService.setRolSubject(doc.data()!['rol'])
             }else{
               await getDoc(docuImgpfRef).then((docSnap) => {
@@ -120,7 +119,7 @@ export class LoginComponent implements OnInit {
                   numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
                   bannerImg: null
                 });
-                updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
+                updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{this.router.navigate }).catch((error)=>{console.log(error)}).then((response)=>{  this.router.navigate(['/home']);}).catch((error)=>{console.log(error)})
 
               });
             }
@@ -153,7 +152,6 @@ export class LoginComponent implements OnInit {
         console.log(response)
         //En caso de que el logeo sea exitoso se envía al/home dashboard
         // console.log(response.user);
-        this.router.navigate(['/home/dashboard']);
 
 
         const random9DigitNumber = this.generateRandom9DigitNumber();
@@ -165,7 +163,8 @@ export class LoginComponent implements OnInit {
         const docuRef = doc(this.firestore, `users/${response.user?.uid}`)
         getDoc(docuRef).then(async (doc) => {
           if(doc.exists()){
-            updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()})
+            updateDoc(docuRef, {fechaUltimoLogin: new Date().toISOString()}).then((response)=>{  this.router.navigate(['/home']);}).catch((error)=>{console.log(error)})
+
             this.userService.setRolSubject(doc.data()!['rol'])
 
           }else{
@@ -186,14 +185,11 @@ export class LoginComponent implements OnInit {
                 numeroTel: response.user.phoneNumber === null || undefined ? "0" : response.user.phoneNumber,
                 bannerImg: null
               });
-              updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? response.user.email?.split("@")[0].substring(0,6) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)})
+              updateProfile(response.user, {photoURL:docSnap.data()![`${numeroAleatorio}`], displayName: response.user.displayName === null || undefined ? this.capitalizeFirstLetter(response.user.email!.split("@")[0].substring(0,6)) : response.user.displayName}).then(()=>{ }).catch((error)=>{console.log(error)}).then((response)=>{  this.router.navigate(['/home']);}).catch((error)=>{console.log(error)})
 
             });
-            this.userService.cerrarSesion();
           }
-
-
-        })
+        }).then(()=>{})
 
       // const addAdminRole =  firebase.functions().httpsCallable('addAdminRole');
       // addAdminRole({ email: 'usuario@example.com' })
