@@ -486,7 +486,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
           // Ahora sí, puedes combinar los resultados
           this.prestadoresYAtractivos = [...this.prestadores, ...this.atractivos];
-          console.log(this.prestadoresYAtractivos);
+          // console.log(this.prestadoresYAtractivos);
           this.prestadoresYAtractivos = this.shuffleArray(this.prestadoresYAtractivos);
         }
       );

@@ -33,11 +33,11 @@ export class DashboardComponent implements OnInit {
     this.randomuni.sort(this.comparacionAleatoria);
     this.detalle.obtenerPrestadoresAleatorios(10).then((prestadores) => {
       this.prestadoresrandom = prestadores;
-      console.log("response prestadores: ", prestadores)
+      // console.log("response prestadores: ", prestadores)
     }).then()
     this.detalle.obtenerAtractivosAleatorios(10).then((atractivos) => {
       this.atractivosrandom = atractivos;
-      console.log("response atractivos: ", atractivos)
+      // console.log("response atractivos: ", atractivos)
     }).then()
   }
 

@@ -19,11 +19,12 @@
         [ngSrc]="item"
         fill
         loading="lazy"
+        (load)="checkImageLoaded(i)"
       />
       <div>
 
       </div>
-      <app-spinner *ngIf="imgGallery[count-1] == null || imgGallery[count-1] == undefined"></app-spinner>
+      <app-spinner *ngIf="!imageLoaded[i]" class="relative w-[300px] h-[300px] hover:scale-[1.02]   xl:w-[350px] xl:h-[350px] mx-auto my-auto rounded-xl overflow-hidden"></app-spinner>
     </button>
 
 

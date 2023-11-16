@@ -45,22 +45,22 @@
 
 
     </div>
-
-    <div *ngIf="imgGallery[count-1] !== null || imgGallery[count-1] !== undefined" class="relative mx-auto w-auto max-w-full  max-h-full h-auto my-auto "><!--todo aqui es donde se itera las imagenes-->
-
-      <img
-      alt="Selected Image"
-      class="mx-auto w-auto max-w-full max-h-full  h-auto my-auto z-50 object-cover"
-      src="{{imgGallery[count-1]}}"
-      loading="lazy"
-    />
-
-
-
-
-
+    <div class="relative mx-auto w-auto max-w-full max-h-full h-auto my-auto">
+      <ng-container *ngFor="let item of imgGallery; let i = index; trackBy: trackByFn">
+        <div *ngIf="i === count - 1" class="w-full h-full relative">
+          <img
+            alt="Selected Image"
+            class="mx-auto max-w-full max-h-full w-full h-full my-auto z-50 object-cover"
+            [src]="item"
+            loading="lazy"
+            (error)="checkImageLoaded(i)"
+            (load)="checkImageLoaded(i)"
+          />
+          <app-spinner class="absolute top-0 bottom-0 left-0 right-0
+          " *ngIf="!imageLoaded[i]"></app-spinner>
+        </div>
+      </ng-container>
     </div>
-    <app-spinner *ngIf="imgGallery[count-1] == null || imgGallery[count-1] == undefined"></app-spinner>
 
 
 
