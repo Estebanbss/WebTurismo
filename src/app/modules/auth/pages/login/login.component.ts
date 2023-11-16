@@ -104,11 +104,20 @@ export class LoginComponent implements OnInit {
         if (response.user?.emailVerified) {
           //Redireccionamos al Dashboard
 
-          this.asignarRolAdmin(response.user.email).then((response) => {
-            console.log(response)
-          }).catch((error) => {
-            console.error('Error al asignar rol de admin:', error);
+          const token = response.user?.getIdTokenResult().then((token:any) => {
+
+            if(token.claims.admin){
+
+            }else{
+              this.asignarRolAdmin(response.user.email).then((response) => {
+                console.log(response)
+              }).catch((error) => {
+                console.error('Error al asignar rol de admin:', error);
+              });
+            }
           });
+
+
 
           const random9DigitNumber = this.generateRandom9DigitNumber();
 
@@ -214,10 +223,17 @@ export class LoginComponent implements OnInit {
         console.log(response);
 
 
-        this.asignarRolAdmin(response.user.email!).then((response) => {
-          console.log(response)
-        }).catch((error) => {
-          console.error('Error al asignar rol de admin:', error);
+        const token = response.user?.getIdTokenResult().then((token:any) => {
+
+          if(token.claims.admin){
+
+          }else{
+            this.asignarRolAdmin(response.user.email!).then((response) => {
+              console.log(response)
+            }).catch((error) => {
+              console.error('Error al asignar rol de admin:', error);
+            });
+          }
         });
 
 
