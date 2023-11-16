@@ -22,10 +22,10 @@ export class AtractivoComponent {
   nombreAtractivo!: string;
   buttonGallery: boolean = false;
   turnModal: boolean = false;
-  pag:string = "Servicios";
+  pag:string = "Actividades";
   currentPage: number = 1; // Página actual
   itemsPerPage!: number; // Cantidad de elementos por página
-  buttonPags: string[] = ["Servicios","Horarios"];
+  buttonPags: string[] = ["Actividades","Horarios", "Recomendaciones"];
   wasa?: string
 
   atractivo: any; // Objeto que traemos desde el detalle de Municipio
