@@ -6,7 +6,6 @@ import { HomeService } from 'src/app/core/services/home.service';
 import { Municipio } from 'src/app/core/common/municipio-model';
 import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
-
 import { getAuth } from '@angular/fire/auth';
 import { DetalleService } from 'src/app/core/services/detalle.service';
 
@@ -47,8 +46,6 @@ export class DashboardComponent implements OnInit {
 
   auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
-  dataUser: any; // Variable para almacenar los datos del usuario
-  admin: string = 'juanesbs2003@hotmail.com'; // Correo del administrador|
   prestadoresrandom: any = []; // Array de prestadores aleatorios
   atractivosrandom: any = []; // Array de prestadores aleatorios
   muni: string[] = [ // Array de municipios del Huila

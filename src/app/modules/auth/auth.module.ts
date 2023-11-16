@@ -9,7 +9,9 @@ import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-cor
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -26,7 +28,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireFunctionsModule
 
   ]
 

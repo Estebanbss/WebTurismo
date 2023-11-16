@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { getAuth, updateProfile } from '@angular/fire/auth';
 import { getDoc, updateDoc } from '@firebase/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, //Inyectamos la clase para el formulario
     private userService: UserService, //Inyectamos el servicio con métodos de Firebase y manejo de Errores
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private fns: AngularFireFunctions
   ) {
     this.loginUsuario = this.fb.group({
       //En el template colocamos las propiedades para traer los valores
@@ -46,28 +48,46 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  capitalizeFirstLetter(inputString: string): string {
+  /**
+   * Capitalizes the first letter of a given string.
+   * @param inputString - The string to capitalize the first letter of.
+   * @returns The input string with the first letter capitalized.
+   */
+  capitalizeFirstLetter({ inputString }: { inputString: string; }): string {
     if (inputString.length === 0) {
       return inputString;
     }
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
 
-  Ojito() {
+  /**
+   * Toggles the visibility of the password input field and the eye icon.
+   * Also changes the color of the eye icon.
+   */
+  Ojito(): void {
     this.Color == 'stroke-primary-500'
       ? (this.Color = 'stroke-primary-600')
       : (this.Color = 'stroke-primary-500');
     this.type == 'password' ? (this.type = 'text') : (this.type = 'password');
     this.eye == true ? (this.eye = false) : (this.eye = true);
   }
-  generateRandom9DigitNumber() {
+  /**
+   * Generates a random 9-digit number.
+   * @returns The generated random number.
+   */
+  generateRandom9DigitNumber(): number {
     const min = 100000000; // El valor mínimo de 9 dígitos
     const max = 999999999; // El valor máximo de 9 dígitos
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNumber;
   }
   //Se ejecuta el login con el envío del Formulario
-  login() {
+  /**
+   * Executes the Firebase login logic and redirects the user to the dashboard if the login is successful and the user is verified.
+   * If the user is not verified, redirects to the "Verify Email" component.
+   * @returns void
+   */
+  login(): void {
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
     // console.log({email, password});
@@ -83,6 +103,12 @@ export class LoginComponent implements OnInit {
         //En el if preguntamos si el usuario está verificado
         if (response.user?.emailVerified) {
           //Redireccionamos al Dashboard
+
+          this.asignarRolAdmin(response.user.email).then((response) => {
+            console.log(response)
+          }).catch((error) => {
+            console.error('Error al asignar rol de admin:', error);
+          });
 
           const random9DigitNumber = this.generateRandom9DigitNumber();
 
@@ -108,14 +134,13 @@ export class LoginComponent implements OnInit {
                   nombre:
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
-                          response.user.email?.split('@')[0].substring(0, 6)
-                        )
-                      : this.capitalizeFirstLetter(response.user.displayName),
+                        { inputString: response.user.email?.split('@')[0].substring(0, 6) }                        )
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName }),
 
                   userName: `${
                     response.user.displayName === null || undefined
                       ? response.user.email?.split('@')[0].substring(0, 6)
-                      : this.capitalizeFirstLetter(response.user.displayName)
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName })
                   }${random9DigitNumber}`,
                   // fotoUser: response.user.photoURL,
                   fotoUser: docSnap.data()![`${numeroAleatorio}`],
@@ -155,6 +180,8 @@ export class LoginComponent implements OnInit {
               });
             }
           });
+
+
         } else {
           // Redireccionamos al componente Verificar Correo
           this.router.navigate(['/auth/verificar-correo']);
@@ -169,14 +196,30 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  asignarRolAdmin(email: string): Promise<any> {
+    const addAdminRole = this.fns.httpsCallable('addAdminRole');
+    return addAdminRole({ email }).toPromise();
+  }
   //LogIn con Servicio de Google
-  loginWithGoogle() {
+  /**
+   * Logs in the user with their Google account.
+   * If successful, it generates a random 9-digit number, creates a new user document in Firestore with the user's information, and navigates to the home dashboard.
+   * If the user document already exists, it updates the document with the user's latest login date and navigates to the home dashboard.
+   * @returns void
+   */
+  loginWithGoogle(): void {
     this.userService
       .loginConGoogle()
       .then((response) => {
         console.log(response);
-        //En caso de que el logeo sea exitoso se envía al/home dashboard
-        // console.log(response.user);
+
+
+        this.asignarRolAdmin(response.user.email!).then((response) => {
+          console.log(response)
+        }).catch((error) => {
+          console.error('Error al asignar rol de admin:', error);
+        });
+
 
         const random9DigitNumber = this.generateRandom9DigitNumber();
 
@@ -205,14 +248,13 @@ export class LoginComponent implements OnInit {
                   nombre:
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
-                          response.user.email!.split('@')[0].substring(0, 6)
-                        )
-                      : this.capitalizeFirstLetter(response.user.displayName),
+                        { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName }),
 
                   userName: `${
                     response.user.displayName === null || undefined
                       ? response.user.email?.split('@')[0].substring(0, 6)
-                      : this.capitalizeFirstLetter(response.user.displayName)
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName })
                   }${random9DigitNumber}`,
                   // fotoUser: response.user.photoURL,
                   fotoUser: docSnap.data()![`${numeroAleatorio}`],
@@ -235,8 +277,7 @@ export class LoginComponent implements OnInit {
                   displayName:
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
-                          response.user.email!.split('@')[0].substring(0, 6)
-                        )
+                        { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
                       : response.user.displayName,
                 })
                   .then(() => {})
@@ -254,16 +295,7 @@ export class LoginComponent implements OnInit {
           })
           .then(() => {});
 
-        // const addAdminRole =  firebase.functions().httpsCallable('addAdminRole');
-        // addAdminRole({ email: 'usuario@example.com' })
-        //   .then((result) => {
-        //     // Manejar la respuesta, por ejemplo, mostrar un mensaje de éxito
-        //     console.log(result.data.message);
-        //   })
-        //   .catch((error) => {
-        //     // Manejar el error, por ejemplo, mostrar un mensaje de error
-        //     console.error("Error al invocar la función:", error);
-        //   });
+
       })
       .catch((error) => {
         console.log(error);

@@ -61,12 +61,7 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    // Limpia el caché
-    localStorage.removeItem('cachedUserName');
-    localStorage.removeItem('cachedUserButton');
-    // ...otros datos en caché
-
-    // Resto de tu código para cerrar sesión
+    localStorage.clear();
     this.userService.update().then(() => {
       this.userService.cerrarSesion().then(() => {
         this.router.navigate(['/auth/login']);
@@ -78,9 +73,9 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     });
   }
 
-
   navigate() {
-    this.router.navigate(['/profile', this.userName === null || this.userName === undefined ? this.cachedUserName : this.userName]);
+    console.log("bruh")
+    this.router.navigate(['/profile', this.userName === null || this.userName === undefined ? this.cachedUserName : this.router.navigate(['/home'])]);
   }
 
   navigateAdmin() {
@@ -95,7 +90,6 @@ export class NavheaderComponent implements OnInit, OnDestroy {
         this.expanded2 = "cerrado";
       }
     });
-
     this.modalDataSubscription2 = this.userService.rolSubject$.subscribe((value) => {
       if (value === "admin" || value === "superadmin") {
         this.adminButton = true;
@@ -126,22 +120,18 @@ export class NavheaderComponent implements OnInit, OnDestroy {
       if (docSnap.exists()) {
         this.userName = docSnap.data()['userName'];
         this.userButton = true;
-
         this.cachedUserName = this.userName;
         this.cachedUserButton = this.userButton;
-
-        // Almacenar en caché los datos de usuario en localStorage
         localStorage.setItem('cachedUserName', this.cachedUserName!);
         localStorage.setItem('cachedUserButton', this.cachedUserButton ? 'true' : 'false');
+
       }
     }
     console.log("no sé si se entró en la petición de firebase o se obtuvo de caché")
   }
 
   ngOnDestroy() {
-    // Restaurar el estado de autenticación en localStorage
     localStorage.setItem('authenticated', this.authenticated ? 'true' : 'false');
-
     if (this.modalDataSubscription) {
       this.modalDataSubscription.unsubscribe();
     }
