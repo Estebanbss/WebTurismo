@@ -5,6 +5,7 @@ import { RegistrarUsuarioComponent } from './pages/registrar-usuario/registrar-u
 import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-correo.component';
 import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar-password.component';
 
+
 const routes: Routes = [
 
   {

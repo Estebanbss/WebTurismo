@@ -5,6 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {ScrollingModule}from '@angular/cdk/scrolling'
 
 
 
@@ -22,7 +23,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     HomeRoutingModule,
     NgOptimizedImage,
-    SharedModule
+    SharedModule,
+    ScrollingModule
 
 
 

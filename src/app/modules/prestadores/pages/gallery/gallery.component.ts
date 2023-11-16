@@ -16,6 +16,11 @@ export class GalleryComponent {
   id1!: string;
   id2!: string;
   id3!: number;
+  imageLoaded: boolean[] = [];
+
+  checkImageLoaded(index: number): void {
+    this.imageLoaded[index] = true;
+  }
   url: string[] = this.router.url.split('/');
   imgDefault: string = "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114"
   count!: number;
