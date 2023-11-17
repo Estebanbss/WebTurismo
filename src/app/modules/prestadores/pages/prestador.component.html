@@ -160,7 +160,9 @@
       class="w-full col-start-1 h-[350px] md:h-[600px] max-h-[350px] md:max-h-[600px] hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
     >
       <button class="w-full h-full" (click)="send(1)">
-        <img class="object-cover w-full h-full" src="{{ imgPortada }}" />
+        <img class="object-cover w-full h-full" *ngIf="imgPortada" src="{{ imgPortada }}" (load)="imgPortada" />
+        <app-spinner class="absolute top-0 bottom-0 left-0 right-0
+        " *ngIf="!imgPortada"></app-spinner>
       </button>
     </div>
 
@@ -177,7 +179,9 @@
         class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
       >
         <button (click)="send(2)" class="w-full h-full">
-          <img class="object-cover w-full h-full" src="{{ imgGallery[1] }}" />
+          <img class="object-cover w-full h-full" *ngIf="imgGallery[1]" src="{{ imgGallery[1] }}"  (load)="imgGallery[1]" />
+          <app-spinner class="absolute top-0 bottom-0 left-0 right-0
+          " *ngIf="!imgGallery[1]"></app-spinner>
         </button>
       </div>
 
@@ -186,7 +190,9 @@
         class="w-full overflow-hidden hover:scale-[1.02] hover:brightness-100 filter brightness-[.9]"
       >
         <button (click)="send(3)" class="w-full h-full">
-          <img class="object-cover w-full h-full" src="{{ imgGallery[2] }}" />
+          <img class="object-cover w-full h-full" *ngIf="imgGallery[2]" src="{{ imgGallery[2] }}" (load)="imgGallery[2]" />
+          <app-spinner class="absolute top-0 bottom-0 left-0 right-0
+          " *ngIf="!imgGallery[2]"></app-spinner>
         </button>
       </div>
     </div>

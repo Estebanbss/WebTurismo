@@ -74,10 +74,14 @@ export class PrestadorComponent {
     this.nombreMunicipio = this.id1
     this.nombrePrestador = this.id2
 
-
-
   }
 
+  imageLoaded: boolean[] = [];
+
+  checkImageLoaded(index: number): void {
+    this.imageLoaded[index] = true;
+  }
+  
   cargarPrestador(nombre: string) {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
       const serviCountSlice: any =[]
