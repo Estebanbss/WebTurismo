@@ -8,6 +8,7 @@ import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
 import { getAuth } from '@angular/fire/auth';
 import { DetalleService } from 'src/app/core/services/detalle.service';
+import { ImageCacheService } from 'src/app/core/services/image-cache.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private titleService:Title,
     private modalService: ModalServiceService,
-    private detalle: DetalleService
+    private detalle: DetalleService,
+    private imageCacheService: ImageCacheService,
   ) {
 
   }
