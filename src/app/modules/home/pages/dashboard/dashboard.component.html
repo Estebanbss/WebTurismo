@@ -111,7 +111,7 @@
     id="leftMuni" (click)="buttonScroll('left', leftButtonMuni.id, 'carouselMuni')">
       <svg
       role="button"
-      class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+      class="absolute z-40  fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
       height="40"
       viewBox="0 -960 960 960"
@@ -175,9 +175,9 @@
 
 <!--?Sección de Categorias más buscadas-->
 
-<section id="Categorias" class="bg-slate-100 h-[600px] max-h-[750px] my-10 w-full mx-auto overflow-hidden">
-  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 ">
-    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-10">Categorias más buscadas</h2>
+<section id="Categorias" class="bg-slate-100 h-[600px] max-h-[750px] my-20 w-full mx-auto overflow-hidden flex flex-row items-center ">
+  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 flex flex-col gap-5">
+    <h2 class="font-Blinker flex flex-row items-center text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black justify-center">Categorias más buscadas</h2>
 <!--*----------------------------------------------------------------------------------------------------------------------------->
 <div class="relative">
   <button #leftButtonServi class="" draggable="false"
@@ -214,6 +214,7 @@
           alt="{{tile.title}} Icono"
           loading="lazy"
           draggable="false"
+          class="cursor-pointer"
 
         />
         </div>
@@ -278,17 +279,16 @@
       >
         <div
           *ngFor="let tile of prestadoresrandom;let i = index; "
-          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl cursor-pointer "
+          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl  "
           draggable="false "
-          (click)="navigate(tile)"
         >
         <div class="w-full h-full bg-white rounded-2xl">
           <div class="w-full h-[65%] relative flex flex-col justify-center ">
             <div class="relative w-full h-full mx-auto my-auto flex flex-col justify-center items-center">
 
-              <img
+              <img  (click)="navigate(tile)"
               src="{{tile.pathImagePortada.url}}"
-              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto "
+              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto cursor-pointer "
               alt="{{tile.name}}Image"
               loading="lazy"
               draggable="false"
@@ -304,8 +304,8 @@
             </div>
           </div>
 
-          <div class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
-            <h3 class="text-2xl font-extrabold text-center leading-6  text-primary-500">{{tile.name}}</h3>
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+            <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6 cursor-pointer  text-primary-500">{{tile.name}}</h3>
             <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
             <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
         </div>
@@ -420,7 +420,7 @@
 
 <!--?Sección Gastronomia-->
 
-<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-40 ">
+<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-20 mb-20">
   <div class="bg:w-full xl:w-[1280px] mx-auto py-10">
     <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-14">Gastronomia Huilense</h2>
     <div class="w-full relative">
@@ -442,10 +442,10 @@
 
 <!--?Sección Atractivos-->
 
-<section id="Atractivos Naturales" class="bg-white h-[700px] flex justify-center items-center  w-full mx-auto ">
+<section id="Atractivos Naturales" class="bg-white h-[700px] flex justify-center items-center  w-full mx-auto mb-20">
   <div class="bg:w-full xl:w-[1280px] mx-auto  ">
-    <h2 class="font-Blinker px-10 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
-    <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium ">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
+    <h2 class="font-Blinker px-10 mb-5 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
+    <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium mb-10">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
     <div class="relative">
       <button #leftButtonAtrac class="" draggable="false"
       id="leftAtrac" (click)="buttonScroll('left', leftButtonAtrac.id, 'carouselAtrac')">
@@ -468,17 +468,17 @@
       >
         <div
           *ngFor="let tile of atractivosrandom;let i = index; "
-          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl cursor-pointer "
+          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl  "
           draggable="false "
-          (click)="navigate(tile)"
         >
         <div class="w-full h-full bg-white rounded-2xl">
           <div class="w-full h-[65%] relative flex flex-col justify-center ">
             <div class="relative w-full h-full mx-auto my-auto flex flex-col justify-center items-center">
 
               <img
+              (click)="navigate(tile)"
               src="{{tile.pathImagePortada.url}}"
-              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto "
+              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto cursor-pointer "
               alt="{{tile.name}}Image"
               loading="lazy"
               draggable="false"
@@ -494,8 +494,8 @@
             </div>
           </div>
 
-          <div class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
-            <h3 class="text-2xl font-extrabold text-center leading-6  text-primary-500">{{tile.name}}</h3>
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+            <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6  text-primary-500 cursor-pointer">{{tile.name}}</h3>
             <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
             <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
         </div>
