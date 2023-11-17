@@ -39,6 +39,20 @@ export class AuthService {
     });
   }
 
+
+  getUID(): Promise<string> {
+    return new Promise<string>((resolve) => {
+      onAuthStateChanged(this.afAuth, async (user) => {
+        if (user) {
+          resolve(user.uid);
+        } else {
+          resolve("");
+        }
+      });
+    });
+  }
+
+
   private async fetchUserDetails(uid: string): Promise<any> {
     const firestore = getFirestore();
     const docRef = doc(firestore, 'users', uid);
@@ -52,7 +66,7 @@ export class AuthService {
     }
   }
 
-  private getUserDetailsFromLocalStorage(uid: string): any {
+   getUserDetailsFromLocalStorage(uid: string): any {
     const userDetails = localStorage.getItem(`userDetails-${uid}`);
     return userDetails ? JSON.parse(userDetails) : null;
   }
@@ -66,7 +80,7 @@ export class AuthService {
       const user = this.afAuth.currentUser;
       await signOut(this.afAuth);
       if (user) {
-        localStorage.removeItem(`userDetails-${user.uid}`);
+        localStorage.clear();
       }
       console.log('Caché limpiado después de cerrar sesión.');
     } catch (error) {

@@ -8,7 +8,8 @@ import { Map, marker, tileLayer } from 'leaflet';
 import { Title } from '@angular/platform-browser';
 import { getAuth } from '@angular/fire/auth';
 import { DetalleService } from 'src/app/core/services/detalle.service';
-import { ImageCacheService } from 'src/app/core/services/image-cache.service';
+import { IndexedDBService } from 'src/app/core/services/indexedDB.service';
+
 
 
 @Component({
@@ -23,7 +24,8 @@ export class DashboardComponent implements OnInit {
     private titleService:Title,
     private modalService: ModalServiceService,
     private detalle: DetalleService,
-    private imageCacheService: ImageCacheService,
+    private indexedDB: IndexedDBService
+
   ) {
 
   }
@@ -62,6 +64,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['atractivos', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
     }
   }
+
 
   auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
@@ -203,210 +206,52 @@ export class DashboardComponent implements OnInit {
   @ViewChild('rightButtonPresta') rightButtonPresta!: ElementRef;
   @ViewChild('leftButtonAtrac') leftButtonAtrac!: ElementRef;
   @ViewChild('rightButtonAtrac') rightButtonAtrac!: ElementRef;
-  @HostListener("mousedown", ["$event"])
-
-
-  dragStart = (event: MouseEvent) => {
-
-
-    if (event instanceof MouseEvent && event.target === this.carouselMuni.nativeElement) {
-      this.carouselMuni.nativeElement.style.scrollBehavior = 'auto';
-      this.isDragging = true;
-      this.velocityX = 0;
-      this.startX = event.pageX;
-      this.startScrollLeftMuni = this.carouselMuni.nativeElement.scrollLeft;
-    }
-
-    if (event instanceof MouseEvent && event.target === this.carouselServi.nativeElement) {
-      this.carouselServi.nativeElement.style.scrollBehavior = 'auto';
-      this.isDragging = true;
-      this.velocityX = 0;
-      this.startX = event.pageX;
-      this.startScrollLeftServi = this.carouselServi.nativeElement.scrollLeft;
-    }
-    if (event instanceof MouseEvent && event.target === this.carouselPresta.nativeElement) {
-      this.carouselPresta.nativeElement.style.scrollBehavior = 'auto';
-      this.isDragging = true;
-      this.velocityX = 0;
-      this.startX = event.pageX;
-      this.startScrollLeftPresta = this.carouselPresta.nativeElement.scrollLeft;
-    }
-    if (event instanceof MouseEvent && event.target === this.carouselAtrac.nativeElement) {
-      this.carouselAtrac.nativeElement.style.scrollBehavior = 'auto';
-      this.isDragging = true;
-      this.velocityX = 0;
-      this.startX = event.pageX;
-      this.startScrollLeftAtrac = this.carouselAtrac.nativeElement.scrollLeft;
-    }
-
-  };
-
-@HostListener("mousemove", ["$event"])
-dragging = (event: MouseEvent) => {
-  if (!this.isDragging) return;
-
-  let pageX: number | undefined;
-
-  if (event instanceof MouseEvent) {
-    pageX = event.pageX;
-  }
-  const delta = pageX! - this.startX;
-
-  if (pageX !== undefined && event.target === this.carouselMuni.nativeElement && this.isDragging)  {
-    this.carouselMuni.nativeElement.classList.add("dragging");
-    this.carouselMuni.nativeElement.style.scrollBehavior = 'auto';
-
-    this.velocityX = delta;
-    this.carouselMuni.nativeElement.scrollLeft = this.startScrollLeftMuni - delta;
-  }
-
-  if (pageX !== undefined && event.target === this.carouselServi.nativeElement && this.isDragging)  {
-    this.carouselServi.nativeElement.classList.add("dragging");
-    this.carouselServi.nativeElement.style.scrollBehavior = 'auto';
-
-    this.velocityX = delta;
-    this.carouselServi.nativeElement.scrollLeft = this.startScrollLeftServi - delta;
-  }
-
-  if (pageX !== undefined && event.target === this.carouselPresta.nativeElement && this.isDragging)  {
-    this.carouselPresta.nativeElement.classList.add("dragging");
-    this.carouselPresta.nativeElement.style.scrollBehavior = 'auto';
-
-    this.velocityX = delta;
-    this.carouselPresta.nativeElement.scrollLeft = this.startScrollLeftPresta - delta;
-  }
-
-  if (pageX !== undefined && event.target === this.carouselAtrac.nativeElement && this.isDragging)  {
-    this.carouselAtrac.nativeElement.classList.add("dragging");
-    this.carouselAtrac.nativeElement.style.scrollBehavior = 'auto';
-
-    this.velocityX = delta;
-    this.carouselAtrac.nativeElement.scrollLeft = this.startScrollLeftAtrac - delta;
-  }
-
-};
-
-@HostListener("mouseup", ["$event"])
-dragStop = (event: MouseEvent) => {
-
-
-  this.isDragging = false;
-
-  if (this.carouselMuni.nativeElement.contains(event.target as Node)) {
-    if (!(event instanceof MouseEvent) || event.target !== this.carouselMuni.nativeElement) return;
-    this.carouselMuni.nativeElement.classList.remove("dragging");
-
-  }
-  if (this.carouselServi.nativeElement.contains(event.target as Node)) {
-    if (!(event instanceof MouseEvent) || event.target !== this.carouselServi.nativeElement) return;
-    this.carouselServi.nativeElement.classList.remove("dragging");
-
-  }
-  if (this.carouselPresta.nativeElement.contains(event.target as Node)) {
-    if (!(event instanceof MouseEvent) || event.target !== this.carouselPresta.nativeElement) return;
-    this.carouselPresta.nativeElement.classList.remove("dragging");
-
-  }
-  if (this.carouselAtrac.nativeElement.contains(event.target as Node)) {
-    if (!(event instanceof MouseEvent) || event.target !== this.carouselAtrac.nativeElement) return;
-    this.carouselAtrac.nativeElement.classList.remove("dragging");
-
-  }
-};
 
 [key: string]: any;
 
 buttonScroll(direction: string, buttonId: string, carouselName: string) {
-
-
-  // Accede dinámicamente a la propiedad 'carousel' de la instancia actual
   const carousel = this[carouselName];
-  console.log(carouselName)
 
   if (carousel) {
     carousel.nativeElement.style.scrollBehavior = 'smooth';
     const scrollAmount = carousel.nativeElement.clientWidth * 1;
 
-    if (buttonId === 'leftMuni' && direction === 'left') {
-      carousel.nativeElement.scrollLeft -= scrollAmount;
-    } else if (buttonId === 'rightMuni' && direction === 'right') {
-      carousel.nativeElement.scrollLeft += scrollAmount;
-    }
-
-    if (buttonId === 'leftServi' && direction === 'left') {
-      carousel.nativeElement.scrollLeft -= scrollAmount;
-    } else if (buttonId === 'rightServi' && direction === 'right') {
-      carousel.nativeElement.scrollLeft += scrollAmount;
-    }
-    if (buttonId === 'leftPresta' && direction === 'left') {
-      carousel.nativeElement.scrollLeft -= scrollAmount;
-    } else if (buttonId === 'rightPresta' && direction === 'right') {
-      carousel.nativeElement.scrollLeft += scrollAmount;
-    }
-    if (buttonId === 'leftAtrac' && direction === 'left') {
-      carousel.nativeElement.scrollLeft -= scrollAmount;
-    } else if (buttonId === 'rightAtrac' && direction === 'right') {
-      carousel.nativeElement.scrollLeft += scrollAmount;
+    if (
+      (buttonId.startsWith('left') && direction === 'left') ||
+      (buttonId.startsWith('right') && direction === 'right')
+    ) {
+      const scrollDirection = buttonId.startsWith('left') ? -scrollAmount : scrollAmount;
+      carousel.nativeElement.scrollLeft += scrollDirection;
     }
   }
 }
+
 
   trackByFn(index: number, item: any): number {
     return item.id; // Utiliza un identificador único para tus elementos
   }
 
-  checkScrollEnd() {
-    const muni = this.carouselMuni.nativeElement;
-    const servi = this.carouselServi.nativeElement;
-    const presta = this.carouselPresta.nativeElement;
-    const atrac = this.carouselAtrac.nativeElement;
-    const scrollEndMuni = muni.scrollWidth - muni.clientWidth;
-    const scrollEndServi = servi.scrollWidth - servi.clientWidth;
-    const scrollEndPresta = presta.scrollWidth - presta.clientWidth;
-    const scrollEndAtrac = atrac.scrollWidth - atrac.clientWidth;
-    const leftButtonMuni = this.leftButtonMuni.nativeElement;
-    const rightButtonMuni = this.rightButtonMuni.nativeElement;
-    const leftButtonServi = this.leftButtonServi.nativeElement;
-    const rightButtonServi = this.rightButtonServi.nativeElement;
-    const leftButtonPresta = this.leftButtonPresta.nativeElement;
-    const rightButtonPresta = this.rightButtonPresta.nativeElement;
-    const leftButtonAtrac = this.leftButtonAtrac.nativeElement;
-    const rightButtonAtrac = this.rightButtonAtrac.nativeElement;
+  checkScrollEnd(element: ElementRef, leftButton: ElementRef, rightButton: ElementRef) {
+    const el = element.nativeElement;
+    const scrollEnd = el.scrollWidth - el.clientWidth;
+    const leftBtn = leftButton.nativeElement;
+    const rightBtn = rightButton.nativeElement;
 
-        // Lógica para servi
-        rightButtonServi.classList.toggle('hidden', servi.scrollLeft >= scrollEndServi - this.scrollEndThreshold);
-        rightButtonServi.classList.toggle('block', servi.scrollLeft < scrollEndServi - this.scrollEndThreshold);
-        leftButtonServi.classList.toggle('hidden', servi.scrollLeft === 0);
-        leftButtonServi.classList.toggle('block', servi.scrollLeft > this.scrollEndThreshold);
-
-    // Lógica para muni
-    rightButtonMuni.classList.toggle('hidden', muni.scrollLeft >= scrollEndMuni - this.scrollEndThreshold);
-    rightButtonMuni.classList.toggle('block', muni.scrollLeft < scrollEndMuni - this.scrollEndThreshold);
-    leftButtonMuni.classList.toggle('hidden', muni.scrollLeft === 0);
-    leftButtonMuni.classList.toggle('block', muni.scrollLeft > this.scrollEndThreshold);
-
-    // Lógica para presta
-    rightButtonPresta.classList.toggle('hidden', presta.scrollLeft >= scrollEndPresta - this.scrollEndThreshold);
-    rightButtonPresta.classList.toggle('block', presta.scrollLeft < scrollEndPresta - this.scrollEndThreshold);
-    leftButtonPresta.classList.toggle('hidden', presta.scrollLeft === 0);
-    leftButtonPresta.classList.toggle('block', presta.scrollLeft > this.scrollEndThreshold);
-
-    // Lógica para atrac
-    rightButtonAtrac.classList.toggle('hidden', atrac.scrollLeft >= scrollEndAtrac - this.scrollEndThreshold);
-    rightButtonAtrac.classList.toggle('block', atrac.scrollLeft < scrollEndAtrac - this.scrollEndThreshold);
-    leftButtonAtrac.classList.toggle('hidden', atrac.scrollLeft === 0);
-    leftButtonAtrac.classList.toggle('block', atrac.scrollLeft > this.scrollEndThreshold);
-
-
-
+    rightBtn.classList.toggle('hidden', el.scrollLeft >= scrollEnd - this.scrollEndThreshold);
+    rightBtn.classList.toggle('block', el.scrollLeft < scrollEnd - this.scrollEndThreshold);
+    leftBtn.classList.toggle('hidden', el.scrollLeft === 0);
+    leftBtn.classList.toggle('block', el.scrollLeft > this.scrollEndThreshold);
   }
+
+
+
 
   ngAfterViewChecked(): void {
-    //Called after every check of the component's view. Applies to components only.
-    //Add 'implements AfterViewChecked' to the class.
-    this.checkScrollEnd();
+  this.checkScrollEnd(this.carouselMuni, this.leftButtonMuni, this.rightButtonMuni);
+  this.checkScrollEnd(this.carouselServi, this.leftButtonServi, this.rightButtonServi);
+  this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
+  this.checkScrollEnd(this.carouselAtrac, this.leftButtonAtrac, this.rightButtonAtrac);
   }
-
 
   private async fetchUrls(): Promise<string[]> {
     // Método para obtener los URLs de las imágenes
@@ -422,41 +267,50 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
         return ''; // Retornar una cadena vacía en caso de error
       }
     });
-
     return Promise.all(promises);// Retornar los URLs
   }
 
 
-  ngAfterViewInit(): void {// Después de inicializar la vista
+  ngAfterViewInit(): void {
+    // Configura tu mapa aquí...
 
-
-    const map = new Map('map').setView([2.19389995105747,-75.6303756116717],13);
-
-    tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
-    }).addTo(map);
-
-    marker([2.19389995105747,-75.6303756116717]).addTo(map)
-
-
-    this.fetchUrls().then((urls) => {// Obtener los URLs de las imágenes
-      // Almacenar los URLs en tilesData
-      this.tilesData = this.randomuni.map((municipio, index) => ({// Por cada municipio
-        title: municipio,// Título del municipio
-        img: urls[index],// URL de la imagen
-        alt: `${municipio}image`,// Texto alternativo de la imagen
-      }));
+    // Intenta obtener el array de URLs de imágenes de IndexedDB
+    this.indexedDB.getImages("imagesMuni").then((cachedUrlsArray) => {
+      if (cachedUrlsArray && cachedUrlsArray.length > 0) {
+        // Si las URLs están en caché, úsalas
+        this.setupTilesData(cachedUrlsArray);
+        console.log('Usando imágenes en caché');
+      } else {
+        // Si no están en caché, obtén las URLs y guárdalas en IndexedDB
+        console.log('No hay imágenes en caché, obteniendo de Firebase');
+        this.fetchUrls().then((urls:any) => {
+          // Guarda el array completo de URLs en IndexedDB
+          this.indexedDB.saveImages(urls,"imagesMuni").then(() => {
+            this.setupTilesData(urls);
+          }).catch(error => {
+            console.error('Error al guardar imágenes en IndexedDB', error);
+          });
+        });
+      }
+    }).catch(error => {
+      console.error('Error al recuperar imágenes de IndexedDB', error);
     });
+  }
 
+
+  private setupTilesData(urls: (string | string[])[]) {
+    console.log(urls[0][0])
+    this.tilesData = this.randomuni.map((municipio, index) => ({
+      title: municipio,
+      img: urls[index][0],
+      alt: `${municipio} image`,
+    }));
 
   }
 
+
   //? Creamos un método para obtener el nombre del elemento seleccionado a la hora de hacer click sobre la imágen, y a su vez de enviar la información al componente al que vamos a redireccionar la vista.
   enviarInformacion(municipio: any) {
-    //* Primero obtenemos el elemento que queremos.
-    //console.log(municipio);
-    /*
-    routerLink="/municipios"
-    */
     this.homeService.sendHomeMunicipioData = municipio; //*Enviamos el municipio seleccionado por medio de observables.
     this.router.navigate(['/municipios/', municipio]); //*Redireccionamos al componente donde enviamos el elemento.
   }

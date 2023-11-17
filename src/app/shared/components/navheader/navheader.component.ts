@@ -20,17 +20,23 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   expanded2 = "cerrado";
   adminButton = false;
   userButton = false;
+  cachedadminButton = false;
   displayName!: string | null;
+  uid!: string | null;
 
   constructor(
     private router: Router,
     private modalService: ModalServiceService,
     private authService: AuthService // Inyección del servicio de autenticación
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.setupAuthListener();
     this.setupModalSubscriptions();
+    this.userName = localStorage.getItem('cachedUserName');
+    this.userButton = this.userName ? true : false;
   }
 
   private setupAuthListener() {
@@ -40,12 +46,9 @@ export class NavheaderComponent implements OnInit, OnDestroy {
         this.displayName = user.displayName;
         this.userName = userDetails.userName;
         this.pfp = user.photoURL;
-        if (userDetails.rol === "admin" || userDetails.rol === "superadmin") {
-          this.adminButton = true;
-        }else{
-          this.adminButton = false;
-        }
-        console.log(userDetails)
+        this.uid = user.uid;
+        console.log(userDetails.rol)
+        userDetails.rol === 'admin' || userDetails.rol === "superadmin" ? this.adminButton = true : this.adminButton = false;
       }
     });
   }
@@ -68,14 +71,15 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   }
 
   navigate() {
+    console.log(this.userName, "o", localStorage.getItem('cachedUserName'))
+
     const userToNavigate = this.userName || localStorage.getItem('cachedUserName');
     this.router.navigate(['/profile', userToNavigate]);
   }
 
   navigateAdmin() {
-    if (this.adminButton) {
-      this.router.navigate(['/dashboard-admin']);
-    }
+    console.log(this.adminButton, "o", this.cachedadminButton)
+    this.router.navigate(['/dashboard-admin']);
   }
 
   ngOnDestroy() {
