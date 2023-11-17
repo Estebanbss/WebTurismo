@@ -16,6 +16,11 @@ export class SliderImgComponent {
   id1!: string;
   id2!: string;
   id3!: string;
+  imageLoaded: boolean[] = [];
+
+  checkImageLoaded(index: number): void {
+    this.imageLoaded[index] = true;
+  }
   url: string[] = this.router.url.split('/');
   imgDefault: string = "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114"
   count!: number;
@@ -29,12 +34,6 @@ export class SliderImgComponent {
 
   constructor(private route: ActivatedRoute,  private router: Router, private detalleService:DetalleService) {
     this.cargarPrestador(decodeURI(this.url[3]));
-
-
-
-
-
-
   }
 
   buttonModal() {
@@ -46,6 +45,10 @@ export class SliderImgComponent {
   }
 
 
+  trackByFn(index: number, item: any): number {
+    return item.id; // Utiliza un identificador único para tus elementos
+  }
+  
   cargarPrestador(nombre: string) {
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe((data:any) => {
       this.prestador = data[0];
@@ -67,7 +70,6 @@ export class SliderImgComponent {
         this.id1= this.url[2];
         this.count = Number(params['option']);
 
-        console.log(this.imgGallery);
         if(this.count > this.imgGallery.length || isNaN(this.count)){
           this.count = 1;
         }else{
