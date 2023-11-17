@@ -30,11 +30,11 @@ export class DashboardComponent implements OnInit {
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
     this.randomuni.sort(this.comparacionAleatoria);
-    this.detalle.obtenerPrestadoresAleatorios(10).then((prestadores) => {
+    this.detalle.obtenerPrestadoresAleatorios(9,"Garzón").then((prestadores) => {
       this.prestadoresrandom = prestadores;
       // console.log("response prestadores: ", prestadores)
     }).then()
-    this.detalle.obtenerAtractivosAleatorios(10).then((atractivos) => {
+    this.detalle.obtenerAtractivosAleatorios(9,"Garzón").then((atractivos) => {
       this.atractivosrandom = atractivos;
       // console.log("response atractivos: ", atractivos)
     }).then()
@@ -42,6 +42,23 @@ export class DashboardComponent implements OnInit {
 
   ngOnDestroy(): void {
 
+  }
+  capitalizeFirstLetter(inputString: string): string {
+    if (inputString.length === 0) {
+      return inputString;
+    }
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  }
+
+
+
+  navigate(item: any) {
+    //Validamos hacia qué componente deseamos direccionar
+    if ('servicios' in item) { //*Validación para Prestadores
+      this.router.navigate(['prestadores', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
+    } else if ('bienOLugar' in item) { //*Validación para Atractivos
+      this.router.navigate(['atractivos', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
+    }
   }
 
   auth = getAuth();
@@ -169,15 +186,21 @@ export class DashboardComponent implements OnInit {
   tilesDataCategorias: Municipio[] = []; // Array de categorías
 
 
-  isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  // Variables para el scroll horizontal
+  isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  startScrollLeftPresta: any;  startScrollLeftAtrac: any; // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
   scrollEndThreshold = 150; // Ajusta según sea necesario
   @ViewChild("carouselMuni") carouselMuni!: ElementRef;
   @ViewChild("carouselServi") carouselServi!: ElementRef;
+  @ViewChild("carouselPresta") carouselPresta!: ElementRef;
+  @ViewChild("carouselAtrac") carouselAtrac!: ElementRef;
   @ViewChild('leftButtonMuni') leftButtonMuni!: ElementRef;
   @ViewChild('rightButtonMuni') rightButtonMuni!: ElementRef;
   @ViewChild('leftButtonServi') leftButtonServi!: ElementRef;
   @ViewChild('rightButtonServi') rightButtonServi!: ElementRef;
+  @ViewChild('leftButtonPresta') leftButtonPresta!: ElementRef;
+  @ViewChild('rightButtonPresta') rightButtonPresta!: ElementRef;
+  @ViewChild('leftButtonAtrac') leftButtonAtrac!: ElementRef;
+  @ViewChild('rightButtonAtrac') rightButtonAtrac!: ElementRef;
   @HostListener("mousedown", ["$event"])
 
 
@@ -199,7 +222,20 @@ export class DashboardComponent implements OnInit {
       this.startX = event.pageX;
       this.startScrollLeftServi = this.carouselServi.nativeElement.scrollLeft;
     }
-
+    if (event instanceof MouseEvent && event.target === this.carouselPresta.nativeElement) {
+      this.carouselPresta.nativeElement.style.scrollBehavior = 'auto';
+      this.isDragging = true;
+      this.velocityX = 0;
+      this.startX = event.pageX;
+      this.startScrollLeftPresta = this.carouselPresta.nativeElement.scrollLeft;
+    }
+    if (event instanceof MouseEvent && event.target === this.carouselAtrac.nativeElement) {
+      this.carouselAtrac.nativeElement.style.scrollBehavior = 'auto';
+      this.isDragging = true;
+      this.velocityX = 0;
+      this.startX = event.pageX;
+      this.startScrollLeftAtrac = this.carouselAtrac.nativeElement.scrollLeft;
+    }
 
   };
 
@@ -221,6 +257,7 @@ dragging = (event: MouseEvent) => {
     this.velocityX = delta;
     this.carouselMuni.nativeElement.scrollLeft = this.startScrollLeftMuni - delta;
   }
+
   if (pageX !== undefined && event.target === this.carouselServi.nativeElement && this.isDragging)  {
     this.carouselServi.nativeElement.classList.add("dragging");
     this.carouselServi.nativeElement.style.scrollBehavior = 'auto';
@@ -228,6 +265,23 @@ dragging = (event: MouseEvent) => {
     this.velocityX = delta;
     this.carouselServi.nativeElement.scrollLeft = this.startScrollLeftServi - delta;
   }
+
+  if (pageX !== undefined && event.target === this.carouselPresta.nativeElement && this.isDragging)  {
+    this.carouselPresta.nativeElement.classList.add("dragging");
+    this.carouselPresta.nativeElement.style.scrollBehavior = 'auto';
+
+    this.velocityX = delta;
+    this.carouselPresta.nativeElement.scrollLeft = this.startScrollLeftPresta - delta;
+  }
+
+  if (pageX !== undefined && event.target === this.carouselAtrac.nativeElement && this.isDragging)  {
+    this.carouselAtrac.nativeElement.classList.add("dragging");
+    this.carouselAtrac.nativeElement.style.scrollBehavior = 'auto';
+
+    this.velocityX = delta;
+    this.carouselAtrac.nativeElement.scrollLeft = this.startScrollLeftAtrac - delta;
+  }
+
 };
 
 @HostListener("mouseup", ["$event"])
@@ -246,6 +300,16 @@ dragStop = (event: MouseEvent) => {
     this.carouselServi.nativeElement.classList.remove("dragging");
 
   }
+  if (this.carouselPresta.nativeElement.contains(event.target as Node)) {
+    if (!(event instanceof MouseEvent) || event.target !== this.carouselPresta.nativeElement) return;
+    this.carouselPresta.nativeElement.classList.remove("dragging");
+
+  }
+  if (this.carouselAtrac.nativeElement.contains(event.target as Node)) {
+    if (!(event instanceof MouseEvent) || event.target !== this.carouselAtrac.nativeElement) return;
+    this.carouselAtrac.nativeElement.classList.remove("dragging");
+
+  }
 };
 
 [key: string]: any;
@@ -255,6 +319,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
   // Accede dinámicamente a la propiedad 'carousel' de la instancia actual
   const carousel = this[carouselName];
+  console.log(carouselName)
 
   if (carousel) {
     carousel.nativeElement.style.scrollBehavior = 'smooth';
@@ -271,6 +336,16 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     } else if (buttonId === 'rightServi' && direction === 'right') {
       carousel.nativeElement.scrollLeft += scrollAmount;
     }
+    if (buttonId === 'leftPresta' && direction === 'left') {
+      carousel.nativeElement.scrollLeft -= scrollAmount;
+    } else if (buttonId === 'rightPresta' && direction === 'right') {
+      carousel.nativeElement.scrollLeft += scrollAmount;
+    }
+    if (buttonId === 'leftAtrac' && direction === 'left') {
+      carousel.nativeElement.scrollLeft -= scrollAmount;
+    } else if (buttonId === 'rightAtrac' && direction === 'right') {
+      carousel.nativeElement.scrollLeft += scrollAmount;
+    }
   }
 }
 
@@ -281,12 +356,20 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   checkScrollEnd() {
     const muni = this.carouselMuni.nativeElement;
     const servi = this.carouselServi.nativeElement;
+    const presta = this.carouselPresta.nativeElement;
+    const atrac = this.carouselAtrac.nativeElement;
     const scrollEndMuni = muni.scrollWidth - muni.clientWidth;
     const scrollEndServi = servi.scrollWidth - servi.clientWidth;
+    const scrollEndPresta = presta.scrollWidth - presta.clientWidth;
+    const scrollEndAtrac = atrac.scrollWidth - atrac.clientWidth;
     const leftButtonMuni = this.leftButtonMuni.nativeElement;
     const rightButtonMuni = this.rightButtonMuni.nativeElement;
     const leftButtonServi = this.leftButtonServi.nativeElement;
     const rightButtonServi = this.rightButtonServi.nativeElement;
+    const leftButtonPresta = this.leftButtonPresta.nativeElement;
+    const rightButtonPresta = this.rightButtonPresta.nativeElement;
+    const leftButtonAtrac = this.leftButtonAtrac.nativeElement;
+    const rightButtonAtrac = this.rightButtonAtrac.nativeElement;
 
         // Lógica para servi
         rightButtonServi.classList.toggle('hidden', servi.scrollLeft >= scrollEndServi - this.scrollEndThreshold);
@@ -299,6 +382,19 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     rightButtonMuni.classList.toggle('block', muni.scrollLeft < scrollEndMuni - this.scrollEndThreshold);
     leftButtonMuni.classList.toggle('hidden', muni.scrollLeft === 0);
     leftButtonMuni.classList.toggle('block', muni.scrollLeft > this.scrollEndThreshold);
+
+    // Lógica para presta
+    rightButtonPresta.classList.toggle('hidden', presta.scrollLeft >= scrollEndPresta - this.scrollEndThreshold);
+    rightButtonPresta.classList.toggle('block', presta.scrollLeft < scrollEndPresta - this.scrollEndThreshold);
+    leftButtonPresta.classList.toggle('hidden', presta.scrollLeft === 0);
+    leftButtonPresta.classList.toggle('block', presta.scrollLeft > this.scrollEndThreshold);
+
+    // Lógica para atrac
+    rightButtonAtrac.classList.toggle('hidden', atrac.scrollLeft >= scrollEndAtrac - this.scrollEndThreshold);
+    rightButtonAtrac.classList.toggle('block', atrac.scrollLeft < scrollEndAtrac - this.scrollEndThreshold);
+    leftButtonAtrac.classList.toggle('hidden', atrac.scrollLeft === 0);
+    leftButtonAtrac.classList.toggle('block', atrac.scrollLeft > this.scrollEndThreshold);
+
 
 
   }

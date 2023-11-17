@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { Subscription } from 'rxjs';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
-import { doc, getDoc, getFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/core/services/auth.service'; // Servicio de autenticación
 
 @Component({
   selector: 'app-navheader',
@@ -14,127 +13,73 @@ import { doc, getDoc, getFirestore } from '@angular/fire/firestore';
 export class NavheaderComponent implements OnInit, OnDestroy {
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
-  auth = getAuth();
-  uid!: string | null;
+
   userName!: string | null;
   pfp!: string;
-  expanded?: boolean;
-  expanded2?: string;
-  dataUser: any;
+  expanded = false;
+  expanded2 = "cerrado";
   adminButton = false;
   userButton = false;
   displayName!: string | null;
-  loading!: boolean;
 
-  // Variables de caché para datos de usuario
-  cachedUserName: string | null = localStorage.getItem('cachedUserName');
-  cachedUserButton = localStorage.getItem('cachedUserButton') === 'true';
-  cachedUserPhotoURL: string | null = null;
-  authenticated = localStorage.getItem('authenticated') === 'true';
+  constructor(
+    private router: Router,
+    private modalService: ModalServiceService,
+    private authService: AuthService // Inyección del servicio de autenticación
+  ) {}
 
-  constructor(private userService: UserService, private router: Router, private modalService: ModalServiceService) {
-    onAuthStateChanged(this.auth, (user) => {
-      this.authenticated = !!user;
-      console.log(this.authenticated);
-      localStorage.setItem('authenticated', this.authenticated ? 'true' : 'false');
+  ngOnInit() {
+    this.setupAuthListener();
+    this.setupModalSubscriptions();
+  }
 
-      if (this.authenticated) {
-        console.log("pa obtener foto")
-        this.displayName = this.auth.currentUser!.displayName;
-        this.obtenerfoto();
+  private setupAuthListener() {
+    this.authService.onAuthStateChanged((user, userDetails) => {
+      if (user) {
+        this.userButton = true;
+        this.displayName = user.displayName;
+        this.userName = userDetails.userName;
+        this.pfp = user.photoURL;
+        if (userDetails.rol === "admin" || userDetails.rol === "superadmin") {
+          this.adminButton = true;
+        }else{
+          this.adminButton = false;
+        }
+        console.log(userDetails)
       }
+    });
+  }
+
+  private setupModalSubscriptions() {
+    this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe(value => {
+      this.expanded2 = value ? "abierto" : "cerrado";
     });
   }
 
   toggleExpanded() {
-    this.expanded = this.expanded == true ? this.expanded = false : this.expanded = true;
-    this.expanded2 = "cerrado";
-  }
-
-  toggleExpanded2() {
-    if (this.expanded2 === "cerrado") {
-      this.expanded2 = "abierto";
-    } else {
-      this.expanded2 = "cerrado";
-    }
-    this.expanded = false;
+    this.expanded = !this.expanded;
+    this.expanded2 = this.expanded ? "cerrado" : "abierto";
   }
 
   logOut() {
-    localStorage.clear();
-    this.userService.update().then(() => {
-      this.userService.cerrarSesion().then(() => {
-        this.router.navigate(['/auth/login']);
-      }).catch((error) => {
-        console.log(error);
-      });
-    }).catch((error) => {
-      console.log(error);
-    });
+    this.authService.logout()
+      .then(() => this.router.navigate(['/auth/login']))
+      .catch(error => console.error('Error logging out:', error));
   }
 
   navigate() {
-    console.log("bruh")
-    this.router.navigate(['/profile', this.userName === null || this.userName === undefined ? this.cachedUserName : this.router.navigate(['/home'])]);
+    const userToNavigate = this.userName || localStorage.getItem('cachedUserName');
+    this.router.navigate(['/profile', userToNavigate]);
   }
 
   navigateAdmin() {
-    this.router.navigate(['/dashboard-admin']);
-  }
-
-  ngOnInit() {
-    this.modalDataSubscription = this.modalService.modalPFHeader$.subscribe((value) => {
-      if (value === true) {
-        this.expanded2 === "abierto" || null ? this.expanded2 = "cerrado" : this.expanded2 = "abierto";
-      } else {
-        this.expanded2 = "cerrado";
-      }
-    });
-    this.modalDataSubscription2 = this.userService.rolSubject$.subscribe((value) => {
-      if (value === "admin" || value === "superadmin") {
-        this.adminButton = true;
-      }
-    });
-  }
-
-  async obtenerfoto() {
-    console.log("condicion obtener foto")
-    if (this.authenticated && (this.cachedUserPhotoURL === null || this.loading === false || this.loading === undefined)) {
-      console.log("se cumple la condicion")
-      this.pfp = this.auth.currentUser!.photoURL!;
-      this.cachedUserPhotoURL = this.pfp;
-      this.obtenerUsuario();
-      this.loading = true;
-      console.log("se asigno la foto y loading true y se va a obtener usuario")
+    if (this.adminButton) {
+      this.router.navigate(['/dashboard-admin']);
     }
-  }
-
-  async obtenerUsuario() {
-    console.log("estoy en obtener usuario y verifico caché")
-    if (this.authenticated && this.cachedUserName === null) {
-      console.log("amigo se obtuvo de firebase y se almacenó en caché")
-      const firestore = getFirestore();
-      const docRef = doc(firestore, 'users', this.auth.currentUser!.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        this.userName = docSnap.data()['userName'];
-        this.userButton = true;
-        this.cachedUserName = this.userName;
-        this.cachedUserButton = this.userButton;
-        localStorage.setItem('cachedUserName', this.cachedUserName!);
-        localStorage.setItem('cachedUserButton', this.cachedUserButton ? 'true' : 'false');
-
-      }
-    }
-    console.log("no sé si se entró en la petición de firebase o se obtuvo de caché")
   }
 
   ngOnDestroy() {
-    localStorage.setItem('authenticated', this.authenticated ? 'true' : 'false');
-    if (this.modalDataSubscription) {
-      this.modalDataSubscription.unsubscribe();
-    }
+    this.modalDataSubscription.unsubscribe();
     if (this.modalDataSubscription2) {
       this.modalDataSubscription2.unsubscribe();
     }
