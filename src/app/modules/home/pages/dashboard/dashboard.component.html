@@ -111,7 +111,7 @@
     id="leftMuni" (click)="buttonScroll('left', leftButtonMuni.id, 'carouselMuni')">
       <svg
       role="button"
-      class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+      class="absolute z-40  fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
       xmlns="http://www.w3.org/2000/svg"
       height="40"
       viewBox="0 -960 960 960"
@@ -175,9 +175,9 @@
 
 <!--?Sección de Categorias más buscadas-->
 
-<section id="Categorias" class="bg-slate-100 h-[600px] my-10 w-full mx-auto">
-  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 ">
-    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-10">Categorias más buscadas</h2>
+<section id="Categorias" class="bg-slate-100 h-[600px] max-h-[750px] my-20 w-full mx-auto overflow-hidden flex flex-row items-center ">
+  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 flex flex-col gap-5">
+    <h2 class="font-Blinker flex flex-row items-center text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black justify-center">Categorias más buscadas</h2>
 <!--*----------------------------------------------------------------------------------------------------------------------------->
 <div class="relative">
   <button #leftButtonServi class="" draggable="false"
@@ -197,7 +197,7 @@
 
   <div
     #carouselServi
-    class="carousel relative flex flex-row align-middle   overflow-x-scroll "
+    class="carousel relative flex flex-row align-middle   overflow-x-scroll overflow-y-hidden overflow-hidden "
   >
     <div
       *ngFor="let tile of serviShuffle; "
@@ -214,6 +214,7 @@
           alt="{{tile.title}} Icono"
           loading="lazy"
           draggable="false"
+          class="cursor-pointer"
 
         />
         </div>
@@ -257,8 +258,8 @@
     <h2 class="font-Blinker px-10 text-primary-500 text-center  md:text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Sitios más populares</h2>
     <p class="font-Work text-center md:text-left bg:text-sm md:text-xl m-0 bg:mb-20 xs0:mb-10 text-gray-700">Destinos mágicos que te sorprenderán en cada paso. Sumérgete en la historia, maravíllate con paisajes impresionantes y disfruta de la autenticidad de su gente. Explora nuestras recomendaciones y vive una aventura inolvidable en cada destino.</p>
     <div class="relative">
-      <button #leftButtonServi class="" draggable="false"
-      id="leftServi" (click)="buttonScroll('left', leftButtonServi.id, 'carouselServi')">
+      <button #leftButtonPresta class="" draggable="false"
+      id="leftPresta" (click)="buttonScroll('left', leftButtonPresta.id, 'carouselPresta')">
         <svg
         role="button"
         class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
@@ -273,40 +274,48 @@
 
 
       <div
-        #carouselServi
-        class="carousel relative flex flex-row align-middle   overflow-x-scroll "
+        #carouselPresta
+        class="carousel relative flex flex-row align-middle   overflow-x-scroll gap-3 min-h-[500px]  "
       >
         <div
-          *ngFor="let tile of serviShuffle; "
-          class="bg:min-w-[96.5%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] aspect-square relative mx-[6.4px] overflow-hidden hover:rounded-2xl hover:scale-x-[1.04] rounded:2xl "
+          *ngFor="let tile of prestadoresrandom;let i = index; "
+          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl  "
           draggable="false "
         >
         <div class="w-full h-full bg-white rounded-2xl">
-          <div class="w-full h-[50%] relative flex flex-col justify-center ">
-            <div class="relative h-20 w-20 mx-auto my-auto flex flex-col justify-center items-center">
+          <div class="w-full h-[65%] relative flex flex-col justify-center ">
+            <div class="relative w-full h-full mx-auto my-auto flex flex-col justify-center items-center">
 
-              <img
-              ngSrc="assets/img/{{tile.title}}.svg"
-              fill
-              alt="{{tile.title}} Icono"
+              <img  (click)="navigate(tile)"
+              src="{{tile.pathImagePortada.url}}"
+              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto cursor-pointer "
+              alt="{{tile.name}}Image"
               loading="lazy"
               draggable="false"
-
             />
+                          <!--*Boton de guardar-->
+           <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+          </button>
+           <!--*Boton de me gusta-->
+          <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+          </button>
             </div>
           </div>
 
-          <div class="absolute bottom-0 w-full h-[50%] bg-primary-500 rounded-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white">
-            <h3 class="text-2xl font-extrabold text-center  ">{{tile.title}}</h3>
-            <p class="text-lg leading-4 text-center">{{tile.desc}}</p>
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+            <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6 cursor-pointer  text-primary-500">{{tile.name}}</h3>
+            <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
+            <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
         </div>
         </div>
 
         </div>
       </div>
 
-      <button #rightButtonServi class="" draggable="false"
-      id="rightServi"  (click)="buttonScroll('right', rightButtonServi.id, 'carouselServi')">
+      <button #rightButtonPresta class="" draggable="false"
+      id="rightPresta"  (click)="buttonScroll('right', rightButtonPresta.id, 'carouselPresta')">
         <svg
         role="button"
         class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
@@ -411,7 +420,7 @@
 
 <!--?Sección Gastronomia-->
 
-<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-40 ">
+<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-20 mb-20">
   <div class="bg:w-full xl:w-[1280px] mx-auto py-10">
     <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-14">Gastronomia Huilense</h2>
     <div class="w-full relative">
@@ -433,61 +442,81 @@
 
 <!--?Sección Atractivos-->
 
-<section id="Atractivos Naturales" class="bg-white h-[700px] flex justify-center items-center  w-full mx-auto ">
-  <div class="bg:w-full xl:w-[1280px] mx-auto  ">
-    <h2 class="font-Blinker px-10 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
-    <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium ">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
+<section id="Atractivos Naturales" class="bg-slate-100 h-[800px] flex justify-center items-center  w-full mx-auto">
+  <div class="bg:w-full xl:w-[1280px] mx-auto mt-28 ">
+    <h2 class="font-Blinker px-10 mb-5 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
+    <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium mb-10">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
     <div class="relative">
-      <svg
+      <button #leftButtonAtrac class="" draggable="false"
+      id="leftAtrac" (click)="buttonScroll('left', leftButtonAtrac.id, 'carouselAtrac')">
+        <svg
         role="button"
-        #arrowButtons
-        id="left"
         class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
         xmlns="http://www.w3.org/2000/svg"
-        height="60"
+        height="40"
         viewBox="0 -960 960 960"
-        width="60"
+        width="40"
       >
         <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
       </svg>
+      </button>
+
 
       <div
-        #carousel
-        class="carousel relative flex flex-row align-middle overflow-hidden"
+        #carouselAtrac
+        class="carousel relative flex flex-row align-middle min-h-[500px]   overflow-x-scroll gap-3 "
       >
         <div
-          *ngFor="let tile of tilesData"
-          class="bg:min-w-[75%] bg-white rounded-xl py-10 sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] h-[350px] max-h-[350px] relative ml-3"
-          draggable="false"
+          *ngFor="let tile of atractivosrandom;let i = index; "
+          class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl  "
+          draggable="false "
         >
-        <div class="relative w-full h-[90%] overflow-hidden">
-          <img
-            ngSrc="{{tile.img}}"
-            fill
-            alt=""
-            loading="lazy"
-            class="w-full h-full object-fill filter brightness-75 mx-auto my-auto rounded-xl aspect-video"
-            draggable="false"
+        <div class="w-full h-full bg-white rounded-2xl">
+          <div class="w-full h-[65%] relative flex flex-col justify-center ">
+            <div class="relative w-full h-full mx-auto my-auto flex flex-col justify-center items-center">
 
-          />
+              <img
+              (click)="navigate(tile)"
+              src="{{tile.pathImagePortada.url}}"
+              class="w-full h-full object-cover filter brightness-75 mx-auto my-auto cursor-pointer "
+              alt="{{tile.name}}Image"
+              loading="lazy"
+              draggable="false"
+            />
+                          <!--*Boton de guardar-->
+           <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+          </button>
+           <!--*Boton de me gusta-->
+          <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+          </button>
+            </div>
+          </div>
+
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+            <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6  text-primary-500 cursor-pointer">{{tile.name}}</h3>
+            <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
+            <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
+        </div>
         </div>
 
-          <div class="rounded-t-xl flex flex-col h-[20%] w-full  m-0 p-0  text-gray-600  items-center text-center text-lg px-2 absolute  font-Blinker justify-center"><h4 class=" text-primary-600 text-left text-2xl w-full m-0 leading-3 font-black">{{tile.title}} Atractivo</h4><h5 class="text-left w-full text-sm leading-3 my-2 font-Work">{{tile.title}},Colombia,Huila</h5></div>
         </div>
-
       </div>
-      <svg
+
+      <button #rightButtonAtrac class="" draggable="false"
+      id="rightAtrac"  (click)="buttonScroll('right', rightButtonAtrac.id, 'carouselAtrac')">
+        <svg
         role="button"
-        #arrowButtons
-        id="right"
         class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
         xmlns="http://www.w3.org/2000/svg"
-        height="60"
+        height="40"
         viewBox="0 -960 960 960"
-        width="60"
+        width="40"
       >
         <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
       </svg>
+      </button>
 
     </div>
 
@@ -506,11 +535,12 @@
 
 
 <!--?Sección "contactenos"-->
-<section class="bg-white pt-20" id="contactenos">
+<section     class="bg-slate-100 pt-24  pb-24"
+style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
   <!-- ?Fondo verde oscuro en forma de elipse -->
   <div
-    class="bg-primary-500 pt-24 pb-24"
-    style="clip-path: ellipse(80% 100% at center top)"
+  class="bg-primary-500 pt-24  pb-24"
+  style="clip-path: ellipse(80% 100% at center top)"
   >
     <div class="xl:w-[1280px] mx-auto flex flex-col">
       <h6
