@@ -18,12 +18,12 @@ export class IndexedDBService {
       };
 
       openRequest.onsuccess = () => {
-        console.log("bruh")
+
         resolve(openRequest.result);
       };
 
       openRequest.onerror = () => {
-        console.log("error")
+
         reject(openRequest.error);
       };
     });

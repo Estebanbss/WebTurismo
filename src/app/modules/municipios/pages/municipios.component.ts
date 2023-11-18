@@ -385,7 +385,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       // console.log(this.municipio.length);
       // console.log(this.municipio);
       if(this.arrayMunicipio.length === 0) { //Si está vacío
-        console.log('Está ingresando a un municipio que no exíste');
+
         this.municipios.forEach((muni) => {
           //console.log(muni);
           let nameMuni = muni.name.trim();

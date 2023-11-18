@@ -278,11 +278,11 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     this.indexedDB.getImages("imagesMuni").then((cachedUrlsArray) => {
       if (cachedUrlsArray && cachedUrlsArray.length > 0) {
         // Si las URLs están en caché, úsalas
+        console.log("cacheMuni taked")
         this.setupTilesData(cachedUrlsArray);
-        console.log('Usando imágenes en caché');
       } else {
         // Si no están en caché, obtén las URLs y guárdalas en IndexedDB
-        console.log('No hay imágenes en caché, obteniendo de Firebase');
+        console.log("cacheMuni not taked i need firebase")
         this.fetchUrls().then((urls:any) => {
           // Guarda el array completo de URLs en IndexedDB
           this.indexedDB.saveImages(urls,"imagesMuni").then(() => {
@@ -298,11 +298,10 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   }
 
 
-  private setupTilesData(urls: (string | string[])[]) {
-    console.log(urls[0][0])
+  private setupTilesData(urls:any) {
     this.tilesData = this.randomuni.map((municipio, index) => ({
       title: municipio,
-      img: urls[index][0],
+      img: urls[index].url,
       alt: `${municipio} image`,
     }));
 

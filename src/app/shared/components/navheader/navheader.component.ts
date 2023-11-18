@@ -47,7 +47,6 @@ export class NavheaderComponent implements OnInit, OnDestroy {
         this.userName = userDetails.userName;
         this.pfp = user.photoURL;
         this.uid = user.uid;
-        console.log(userDetails.rol)
         userDetails.rol === 'admin' || userDetails.rol === "superadmin" ? this.adminButton = true : this.adminButton = false;
       }
     });
@@ -71,14 +70,11 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   }
 
   navigate() {
-    console.log(this.userName, "o", localStorage.getItem('cachedUserName'))
-
     const userToNavigate = this.userName || localStorage.getItem('cachedUserName');
     this.router.navigate(['/profile', userToNavigate]);
   }
 
   navigateAdmin() {
-    console.log(this.adminButton, "o", this.cachedadminButton)
     this.router.navigate(['/dashboard-admin']);
   }
 

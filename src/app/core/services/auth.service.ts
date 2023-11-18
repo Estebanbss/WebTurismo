@@ -26,11 +26,9 @@ export class AuthService {
       if (user) {
         let userDetails = this.getUserDetailsFromLocalStorage(user.uid);
         if (!userDetails) {
-          console.log('Obteniendo detalles del usuario desde Firebase...');
           userDetails = await this.fetchUserDetails(user.uid);
           this.setUserDetailsInLocalStorage(user.uid, userDetails);
         } else {
-          console.log('Detalles del usuario obtenidos del localStorage.');
         }
         callback(user, userDetails);
       } else {
