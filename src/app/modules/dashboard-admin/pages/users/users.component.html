@@ -1,3 +1,4 @@
+<!--* Modal de borrar usuario-->
 <div *ngIf="mostrarModal"
   class="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-red-900 bg-opacity-75 z-40"
 >
@@ -32,7 +33,57 @@
 
   </div>
 </div>
+<!--* Modal de borrar usuario-->
 
+<!--todo modal de actualizar usuario-->
+<div *ngIf="mostrarUser" class="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-blue-900 bg-opacity-75 z-40">
+  <div class="relative flex-col justify-center w-[90%] h-[600px] xl:w-[700px] xl:h-[600px] mx-auto bg-white rounded-lg">
+    <div class="flex flex-col h-full my-auto gap-5 px-10 py-10">
+      <!-- Título con el nombre del usuario -->
+      <label class="text-3xl text-blue-700 font-black text-center">Actualizar a {{usuarioSeleccionado.nombre}}</label>
+      <label>Cuenta creada el: {{ usuarioSeleccionado.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+      <label>Último login: {{ usuarioSeleccionado.fechaUltimoLogin | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+
+
+      <!-- Formulario para actualizar la información -->
+      <form (ngSubmit)="actualizarUsuario(true, usuarioSeleccionado)">
+        <div class="flex flex-col gap-4">
+          <!-- Campos de entrada para cada atributo del usuario -->
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Nombre:</label>
+            <input type="text" [(ngModel)]="usuarioSeleccionado.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Nombre de Usuario:</label>
+            <input type="text" [(ngModel)]="usuarioSeleccionado.userName" name="userName" placeholder="Nombre de usuario" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+          </div>
+          <div class="flex flex-col gap-1 font-work text-xl font-medium">
+            <label class="font-Work text-lg">Rol:</label>
+            <select [(ngModel)]="usuarioSeleccionado.rol" name="rol" class="input-style" id="rol">
+              <option value="usuario">usuario</option>
+              <option value="admin">admin</option>
+              <option value="superadmin">superadmin</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Numero telefonico:</label>
+          <input type="text" [(ngModel)]="usuarioSeleccionado.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+          </div>
+          <!-- ... otros campos según sea necesario ... -->
+        </div>
+
+        <!-- Botones para actualizar y cancelar -->
+        <div class="flex flex-row gap-5 mt-auto justify-center">
+          <button type="submit" class="btn-style  px-2 py-2 text-center text-xl min-w-[100px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
+          <button type="button" (click)="actualizarUsuario(false)" class="btn-style px-2 py-2 text-center text-xl min-w-[100px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--todo modal de actualizar usuario-->
 
 <div class="overflow-hidden ">
   <h3 id="ListID" class="text-3xl text-center  font-bold text-gray-500">Listado de Usuarios</h3>
@@ -61,7 +112,7 @@
   <span class="border flex justify-center h-full items-center col-span-3">{{item.nombre}}</span>
   <span class="border flex justify-center h-full items-center">{{item.rol}}</span>
   <span class="md:flex bg:hidden border justify-center flex h-full items-center col-span-2">{{item.correo}}</span>
-  <span *ngIf="rol === 'superadmin'" class="border flex justify-center h-full items-center gap-2"><i class="fa-solid fa-pen-to-square fa-lg text-blue-500 mr-5 cursor-pointer"></i><i (click)="modal(true); usuarioSeleccionado=item.uid" class="fa-solid fa-trash-can fa-lg text-red-500 cursor-pointer"></i></span>
+  <span *ngIf="rol === 'superadmin'" class="border flex justify-center h-full items-center gap-2"><i (click)="user(true); usuarioSeleccionado=item" class="fa-solid fa-pen-to-square fa-lg text-blue-500 mr-5 cursor-pointer"></i><i (click)="modal(true); usuarioSeleccionado=item" class="fa-solid fa-trash-can fa-lg text-red-500 cursor-pointer"></i></span>
 </div>
 
   </div>

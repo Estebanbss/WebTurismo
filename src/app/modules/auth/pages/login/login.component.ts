@@ -127,6 +127,7 @@ export class LoginComponent implements OnInit {
           const docuRef = doc(this.firestore, `users/${response.user?.uid}`);
           getDoc(docuRef).then(async (doc) => {
             if (doc.exists()) {
+              updateProfile(response.user, { displayName: doc.data()!['nombre'], photoURL: doc.data()!['fotoUser'] })
               updateDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() })
                 .then((response) => {
                   this.router.navigate(['/home']);
@@ -247,6 +248,7 @@ export class LoginComponent implements OnInit {
         getDoc(docuRef)
           .then(async (doc) => {
             if (doc.exists()) {
+              updateProfile(response.user, { displayName: doc.data()!['nombre'], photoURL: doc.data()!['fotoUser'] })
               updateDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() })
                 .then((response) => {
                   this.router.navigate(['/home']);

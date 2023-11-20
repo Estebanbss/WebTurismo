@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, onAuthStateChanged, signOut, deleteUser,  } from '@angular/fire/auth';
-import { Firestore, collection, collectionData, doc, getDoc, getFirestore, orderBy, query } from '@angular/fire/firestore';
+import { Auth, onAuthStateChanged, signOut, deleteUser, updateProfile,  } from '@angular/fire/auth';
+import { Firestore, collection, collectionData, doc, getDoc, getFirestore, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Users } from '../common/place.interface';
 import { deleteDoc } from '@angular/fire/firestore';
@@ -69,12 +69,18 @@ export class AuthService {
     return deleteDoc(usuarioRef);
   }
 
+  actualizarUsuario(uid: string, usuario: any): Promise<void> {
+    const usuarioRef = doc(this.firestore, 'users', uid);
+    return updateDoc(usuarioRef, usuario);
+  }
+
   private async fetchUserDetails(uid: string): Promise<any> {
     const firestore = getFirestore();
     const docRef = doc(firestore, 'users', uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      updateProfile(this.afAuth.currentUser!, { displayName: docSnap.data()!['nombre'], photoURL: docSnap.data()!['fotoUser'], })
       return docSnap.data();
     } else {
       console.error('No se encontraron detalles del usuario.');
@@ -97,7 +103,7 @@ export class AuthService {
       await signOut(this.afAuth);
       if (user) {
         localStorage.clear();
-      
+
       }
       console.log('Caché limpiado después de cerrar sesión.');
     } catch (error) {

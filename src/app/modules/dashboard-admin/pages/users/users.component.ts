@@ -1,3 +1,4 @@
+import { user } from '@angular/fire/auth';
 import { Component } from '@angular/core';
 import { Users } from 'src/app/core/common/place.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -14,6 +15,7 @@ export class UsersComponent {
     this.authService.onAuthStateChanged((user, userDetails) => {this.rol = userDetails?.rol; console.log(this.rol)});
   }
   mostrarModal = false; // Variable para controlar la visualización del modal
+  mostrarUser = false; // Variable para controlar la visualización del modal
    // Variables para filtros
    filtroNombre: string = '';
    filtroRol: string = ''
@@ -25,7 +27,7 @@ export class UsersComponent {
    totalAdmins: number = 0;
    totalPaginas: number = 0;
    rol?: string;
-   usuarioSeleccionado: string = "";
+   usuarioSeleccionado: any;
   //llama la función de obtener usuarios para guardarlo en una variable global llamado usuarios.
   ngOnInit(): void {
     this.obtenerUsuarios();
@@ -34,10 +36,8 @@ export class UsersComponent {
   //función para obtener los usuarios
   obtenerUsuarios(){
     this.authService.obtenerUsuarios().subscribe((data) => {
-      console.log(data)
       this.usuarios = data;
       this.totalAdmins = this.usuarios.filter(usuario => usuario.rol === "admin" || usuario.rol === "superadmin").length;
-      console.log(this.totalAdmins)
      });
 
   }
@@ -97,16 +97,35 @@ export class UsersComponent {
         this.mostrarModal = false;
        }
     }
-
-    borrarUsuario(choose: boolean, uid: string){
-      console.log(uid)
+    // Función para abrir el modal
+    user(choose: boolean) {
       if(choose){
+        this.mostrarUser = true;}
+      else{
+        this.mostrarUser = false;
+       }
+    }
 
-        console.log("Usuario borrado")
+    borrarUsuario(choose: boolean, user: any){
+      if(choose){
+        this.authService.eliminarUsuario(user.uid);
         this.modal(false)
      }else{
-        console.log("Usuario no borrado")
+
         this.modal(false)
+     }
+    }
+
+    actualizarUsuario(choose: boolean, user?:any){
+      console.log("bruh")
+      console.log(choose)
+      if(choose){
+        console.log("entré")
+        this.authService.actualizarUsuario(user.uid, user);
+        this.user(false)
+     }else{
+
+        this.user(false)
      }
 
     }

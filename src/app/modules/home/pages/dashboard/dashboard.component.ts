@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
+    this.randomuni.sort(this.comparacionAleatoria);
     this.detalle.obtenerPrestadoresAleatorios(9,"Garzón").then((prestadores) => {
       this.prestadoresrandom = prestadores;
       // console.log("response prestadores: ", prestadores)
@@ -63,7 +64,6 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['atractivos', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
     }
   }
-
 
   auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
@@ -183,13 +183,9 @@ export class DashboardComponent implements OnInit {
       "desc": "Descubre opciones de transporte que te llevarán a todos los rincones de la región y te permitirán explorar de manera cómoda y eficiente."
     }
   ]
-
   serviShuffle: any = [...this.servi];
   randomuni = [...this.muni]; // Copia de los municipios
-
   tilesDataCategorias: Municipio[] = []; // Array de categorías
-
-
   isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  startScrollLeftPresta: any;  startScrollLeftAtrac: any; // Variables para el scroll horizontal
   tilesData: Municipio[] = []; // Array de municipios
   scrollEndThreshold = 150; // Ajusta según sea necesario
@@ -224,7 +220,6 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     }
   }
 }
-
 
   trackByFn(index: number, item: any): number {
     return item.id; // Utiliza un identificador único para tus elementos
@@ -269,7 +264,6 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
         }
       }
     }));
-    console.log("urlsByMunicipio: ", urlsByMunicipio)
     return urlsByMunicipio;
   }
 
@@ -281,20 +275,10 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     // Intenta obtener el array de URLs de imágenes de IndexedDB
     this.indexedDB.getImages("imagesMuni").then((cachedUrlsArray) => {
       if (cachedUrlsArray && cachedUrlsArray.length > 0) {
-    // Convertir el arreglo de URLs a un objeto por municipio
-      const urlsByMunicipio: { [key: string]: string } = cachedUrlsArray.reduce((acc: { [key: string]: string }, url, index) => {
-        acc[this.randomuni[index]] = url;
-        return acc;
-      }, {});
-        this.setupTilesData(urlsByMunicipio);
+          this.setupTilesData(cachedUrlsArray)
       } else {
-
-        // Si no están en caché, obtén las URLs y guárdalas en IndexedDB
         console.log("cacheMuni not taked i need firebase")
         this.fetchUrls().then((urls:any) => {
-          console.log(urls)
-          console.log(Array.isArray(urls))
-          // Guarda el array completo de URLs en IndexedDB
           this.indexedDB.saveImages(urls,"imagesMuni").then(() => {
             this.setupTilesData(urls);
           }).catch(error => {
@@ -308,15 +292,13 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   }
 
 
-  private setupTilesData(urlsByMunicipio: { [key: string]: string }) {
-    console.log(urlsByMunicipio)
+  private setupTilesData(urlsByMunicipio:any) {
     this.tilesData = this.randomuni.map((municipio) => ({
       title: municipio,
-      img: urlsByMunicipio[municipio], // Accede a la URL directamente usando la clave del municipio
+      img: urlsByMunicipio.find((muni:any) => muni.id === municipio).url, // Accede a la URL directamente usando la clave del municipio
       alt: `${municipio} image`,
     }));
 
-    console.log("this.tilesData: ", this.tilesData)
   }
 
 

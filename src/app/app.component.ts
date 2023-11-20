@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
 
   ngOnDestroy(){
       window.removeEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
-      console.log("Hi")
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -78,8 +77,8 @@ export class AppComponent implements OnInit {
 
 
   private updateFechaUltimoLoginBeforeUnload = () => {
-    localStorage.clear();
     this.updateFechaUltimoLogin();
+    localStorage.clear();
   }
 
   private updateFechaUltimoLogin() {
