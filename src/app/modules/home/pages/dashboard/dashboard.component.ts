@@ -269,36 +269,55 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
 
 
-  ngAfterViewInit(): void {
-    // Configura tu mapa aquí...
-
-    // Intenta obtener el array de URLs de imágenes de IndexedDB
-    this.indexedDB.getImages("imagesMuni").then((cachedUrlsArray) => {
+  async ngAfterViewInit(): Promise<void> {
+    try {
+      const cachedUrlsArray = await this.indexedDB.getImages("imagesMuni");
       if (cachedUrlsArray && cachedUrlsArray.length > 0) {
-          this.setupTilesData(cachedUrlsArray)
+        this.setupTilesData(cachedUrlsArray);
       } else {
-        console.log("cacheMuni not taked i need firebase")
-        this.fetchUrls().then((urls:any) => {
-          this.indexedDB.saveImages(urls,"imagesMuni").then(() => {
-            this.setupTilesData(urls);
-          }).catch(error => {
-            console.error('Error al guardar imágenes en IndexedDB', error);
-          });
-        });
+        console.log("cacheMuni not taken, need firebase");
+        const urls = await this.fetchUrls();
+        await this.indexedDB.saveImages(urls, "imagesMuni");
+        this.setupTilesData(urls);
       }
-    }).catch(error => {
-      console.error('Error al recuperar imágenes de IndexedDB', error);
-    });
+    } catch (error) {
+      console.error('Error en IndexedDB o Firebase:', error);
+    }
   }
 
 
-  private setupTilesData(urlsByMunicipio:any) {
-    this.tilesData = this.randomuni.map((municipio) => ({
-      title: municipio,
-      img: urlsByMunicipio.find((muni:any) => muni.id === municipio).url, // Accede a la URL directamente usando la clave del municipio
-      alt: `${municipio} image`,
-    }));
+  private setupTilesData(urlsByMunicipio: { [key: string]: string } | any[]) {
+    console.log("urlsByMunicipio", urlsByMunicipio);
 
+    try {
+      if (Array.isArray(urlsByMunicipio)) {
+        const imagesData = this.randomuni.map((municipio) => {
+          const matchingUrl = urlsByMunicipio.find((muni) => muni.id === municipio);
+          return {
+            title: municipio,
+            img: matchingUrl ? matchingUrl.url : '', // Si se encuentra la URL, la asigna; de lo contrario, una cadena vacía
+            alt: `${municipio} image`,
+          };
+        });
+        this.tilesData = imagesData;
+      } else if (typeof urlsByMunicipio === 'object' && Object.keys(urlsByMunicipio).length > 0) {
+        // Si es un objeto y no está vacío
+        const imagesData = this.randomuni.map((municipio) => {
+          const url = urlsByMunicipio[municipio];
+          return {
+            title: municipio,
+            img: url || '', // Si la URL existe, la asigna; de lo contrario, una cadena vacía
+            alt: `${municipio} image`,
+          };
+        });
+
+        this.tilesData = imagesData;
+      } else {
+        console.error('El parámetro urlsByMunicipio no es un objeto válido o un arreglo no vacío.');
+      }
+    } catch (error) {
+      console.error('Error al configurar los datos de las imágenes:', error);
+    }
   }
 
 

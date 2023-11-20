@@ -7,6 +7,7 @@ import { HostListener } from '@angular/core';
 import { doc, getFirestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
+import { IndexedDBService } from './core/services/indexedDB.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 
   firestore = getFirestore();
   auth = getAuth();
-  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2 ){
+  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2,private indexedDBService: IndexedDBService ){
 
 
 
@@ -78,7 +79,6 @@ export class AppComponent implements OnInit {
 
   private updateFechaUltimoLoginBeforeUnload = () => {
     this.updateFechaUltimoLogin();
-    localStorage.clear();
   }
 
   private updateFechaUltimoLogin() {
