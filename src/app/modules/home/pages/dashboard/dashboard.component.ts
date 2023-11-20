@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
-    this.randomuni.sort(this.comparacionAleatoria);
     this.detalle.obtenerPrestadoresAleatorios(9,"Garzón").then((prestadores) => {
       this.prestadoresrandom = prestadores;
       // console.log("response prestadores: ", prestadores)
@@ -253,22 +252,27 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   this.checkScrollEnd(this.carouselAtrac, this.leftButtonAtrac, this.rightButtonAtrac);
   }
 
-  private async fetchUrls(): Promise<string[]> {
-    // Método para obtener los URLs de las imágenes
-    const promises: Promise<string>[] = this.randomuni.map(async (municipio) => {// Por cada municipio
-      const pathReference = ref(this.storage, `Banner/${municipio}.webp`);// Obtener la referencia del storage
-      try {// Intentar obtener el URL
-        const url = await getDownloadURL(pathReference);// Obtener el URL
-        return url;// Retornar el URL
-      } catch (error:any) {// Si no se puede obtener el URL
-        if (error.code === 'storage/object-not-found') {// Si el error es porque no existe el archivo
-          console.log(`File doesn't exist for ${municipio}`);// Mostrar en consola que no existe el archivo
-        }// Si no es porque no existe el archivo
-        return ''; // Retornar una cadena vacía en caso de error
+  private async fetchUrls(): Promise<{ [key: string]: string }> {
+    const urlsByMunicipio: { [key: string]: string } = {};
+
+    await Promise.all(this.randomuni.map(async (municipio) => {
+      const pathReference = ref(this.storage, `Banner/${municipio}.webp`);
+
+      try {
+        const url = await getDownloadURL(pathReference);
+        urlsByMunicipio[municipio] = url;
+      } catch (error:any) {
+        if (error.code === 'storage/object-not-found') {
+          console.log(`File doesn't exist for ${municipio}`);
+        } else {
+          console.error(`Error fetching URL for ${municipio}:`, error);
+        }
       }
-    });
-    return Promise.all(promises);// Retornar los URLs
+    }));
+    console.log("urlsByMunicipio: ", urlsByMunicipio)
+    return urlsByMunicipio;
   }
+
 
 
   ngAfterViewInit(): void {
@@ -277,13 +281,19 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     // Intenta obtener el array de URLs de imágenes de IndexedDB
     this.indexedDB.getImages("imagesMuni").then((cachedUrlsArray) => {
       if (cachedUrlsArray && cachedUrlsArray.length > 0) {
-        // Si las URLs están en caché, úsalas
-        console.log("cacheMuni taked")
-        this.setupTilesData(cachedUrlsArray);
+    // Convertir el arreglo de URLs a un objeto por municipio
+      const urlsByMunicipio: { [key: string]: string } = cachedUrlsArray.reduce((acc: { [key: string]: string }, url, index) => {
+        acc[this.randomuni[index]] = url;
+        return acc;
+      }, {});
+        this.setupTilesData(urlsByMunicipio);
       } else {
+
         // Si no están en caché, obtén las URLs y guárdalas en IndexedDB
         console.log("cacheMuni not taked i need firebase")
         this.fetchUrls().then((urls:any) => {
+          console.log(urls)
+          console.log(Array.isArray(urls))
           // Guarda el array completo de URLs en IndexedDB
           this.indexedDB.saveImages(urls,"imagesMuni").then(() => {
             this.setupTilesData(urls);
@@ -298,14 +308,17 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   }
 
 
-  private setupTilesData(urls:any) {
-    this.tilesData = this.randomuni.map((municipio, index) => ({
+  private setupTilesData(urlsByMunicipio: { [key: string]: string }) {
+    console.log(urlsByMunicipio)
+    this.tilesData = this.randomuni.map((municipio) => ({
       title: municipio,
-      img: urls[index].url,
+      img: urlsByMunicipio[municipio], // Accede a la URL directamente usando la clave del municipio
       alt: `${municipio} image`,
     }));
 
+    console.log("this.tilesData: ", this.tilesData)
   }
+
 
 
   //? Creamos un método para obtener el nombre del elemento seleccionado a la hora de hacer click sobre la imágen, y a su vez de enviar la información al componente al que vamos a redireccionar la vista.

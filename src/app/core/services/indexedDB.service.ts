@@ -41,19 +41,25 @@ export class IndexedDBService {
     });
   }
 
-  async saveImages(images: string[],id:string): Promise<void> {
+  async saveImages(images: { [key: string]: string }, id: string): Promise<void> {
     const db = await this.dbPromise;
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(id, 'readwrite');
       const store = transaction.objectStore(id);
-      images.forEach((img, index) => {
-        store.put({ id: index, url: img });
-      });
 
-      transaction.oncomplete = () => resolve();
-      transaction.onerror = () => reject(transaction.error);
+      if (typeof images === 'object' && Object.keys(images).length > 0) {
+        Object.keys(images).forEach((key) => {
+          store.put({ id: key, url: images[key] });
+        });
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error);
+      } else {
+        reject(new Error('Images is either not an object or empty'));
+      }
     });
   }
+
+
 
   // async getData(key: string): Promise<any[]> {
   //   const db = await this.dbPromise;

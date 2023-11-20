@@ -1,3 +1,4 @@
+import { user } from '@angular/fire/auth';
 //Interfaz Base para Modelar nuestros datos - Base Modelo de Nuestros Objetos.
 //Podemos extender los datos si es necesario con otra interfaz usando extends o integrar una interfaz y funciones dentro de otra para hacerla más robusta.
 
@@ -136,5 +137,19 @@ export interface Ruta extends Place {
   //pathImagePortada?: PathImage;
 }
 
+
+export interface Users {
+  bannerImg?: string;
+  correo: string;
+  estado: boolean;
+  fechaCreacion: Date;
+  feachaUltimaLogin: Date;
+  fotoUser?: string;
+  nombre: string;
+  numeroTel?: number;
+  rol: string;
+  uid: string;
+  username: string;
+ }
 //Se puede crear otro tipo de interfaces con el fin de modelar otros tipos de datos distintos
 //Ejemplo sería categorías

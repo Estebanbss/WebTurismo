@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Auth, onAuthStateChanged, signOut } from '@angular/fire/auth';
-import { doc, getDoc, getFirestore } from '@angular/fire/firestore';
+import { Auth, onAuthStateChanged, signOut, deleteUser,  } from '@angular/fire/auth';
+import { Firestore, collection, collectionData, doc, getDoc, getFirestore, orderBy, query } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Users } from '../common/place.interface';
+import { deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private afAuth: Auth) { }
+  constructor(private afAuth: Auth,    private firestore: Firestore,
+  ) { }
 
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
@@ -24,8 +28,10 @@ export class AuthService {
   onAuthStateChanged(callback: (user: any, userDetails: any) => void) {
     onAuthStateChanged(this.afAuth, async (user) => {
       if (user) {
+        console.log("si está lo tomo de cache si no pues...")
         let userDetails = this.getUserDetailsFromLocalStorage(user.uid);
         if (!userDetails) {
+          console.log("firebase")
           userDetails = await this.fetchUserDetails(user.uid);
           this.setUserDetailsInLocalStorage(user.uid, userDetails);
         } else {
@@ -50,6 +56,18 @@ export class AuthService {
     });
   }
 
+  obtenerUsuarios(): Observable<Users[]> {
+    const usuariosRef = collection(this.firestore, 'users');
+
+    const q = query(usuariosRef, orderBy('nombre', 'asc'));
+
+    return collectionData(q, { idField: 'uid' }) as Observable<Users[]>;
+  }
+
+  eliminarUsuario(uid: string): Promise<void> {
+    const usuarioRef = doc(this.firestore, 'users', uid);
+    return deleteDoc(usuarioRef);
+  }
 
   private async fetchUserDetails(uid: string): Promise<any> {
     const firestore = getFirestore();
@@ -79,6 +97,7 @@ export class AuthService {
       await signOut(this.afAuth);
       if (user) {
         localStorage.clear();
+      
       }
       console.log('Caché limpiado después de cerrar sesión.');
     } catch (error) {

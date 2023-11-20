@@ -36,6 +36,7 @@ import { WarningModule } from './components/warning/warning.module';
 import { WarningALLModule } from './components/warning-all/warning-all.module';
 import { DataModule } from './components/data/data.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UsersComponent } from './pages/users/users.component';
 
 
 
@@ -58,6 +59,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     BotonServiciosPipe,
     BotonMunicipioPipe,
     BotonZonaPipe,
+    UsersComponent,
 
   ],
   imports: [

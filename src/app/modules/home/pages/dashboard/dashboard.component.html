@@ -132,13 +132,13 @@
         draggable="false "
       >
         <img
-          ngSrc="{{ tile.img }}"
-          fill
-          alt="{{ tile.alt }}"
-          loading="lazy"
-          class="w-full relative h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-400  hover:ease-in-out  select-none"
-          draggable="false"
-          (click)="enviarInformacion(tile.title)"
+        [src]="tile.img"
+        fill
+        [alt]="tile.alt"
+        loading="lazy"
+        class="w-full relative h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-400  hover:ease-in-out  select-none"
+        draggable="false"
+        (click)="enviarInformacion(tile.title)"
         />
         <h3
           class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white pointer-events-none select-none"
@@ -304,7 +304,7 @@
             </div>
           </div>
 
-          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-2 border-t-0  border-opacity-50">
             <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6 cursor-pointer  text-primary-500">{{tile.name}}</h3>
             <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
             <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
@@ -494,7 +494,7 @@
             </div>
           </div>
 
-          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-4 border-t-0  border-opacity-50">
+          <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-2 border-t-0  border-opacity-50">
             <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6  text-primary-500 cursor-pointer">{{tile.name}}</h3>
             <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
             <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
