@@ -20,6 +20,7 @@ export class UserGuard implements CanActivate {
 
     // Devolvemos una promesa que resuelve a un booleano
     return getDocs(q).then(querySnapshot => {
+      console.log(q)
       // Si al menos un documento existe, devuelve true, de lo contrario false
       if(querySnapshot.empty){
         this.router.navigate(['/home']);
