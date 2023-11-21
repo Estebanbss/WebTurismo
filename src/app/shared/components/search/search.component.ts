@@ -20,16 +20,30 @@ export class SearchComponent {
 
   }
 
-  //? Método para hacer las búsquedas en Angolia
   onSearch($event: any) {
-    //*Llamamos al servicio
-    this.searchService.search($event.target?.value).then(res => {
-      this.results = res.hits;
-      console.log(this.results);
-    }).catch(error => {
-      // Maneja el error adecuadamente
-      console.error('Error en la búsqueda:', error);
-    });
+    // Obtiene el valor del input y verifica que no sea una cadena vacía
+    const query = $event.target?.value;
+    if (query) {
+      // Si hay una consulta, llama al servicio de búsqueda para Prestadores
+      this.searchService.search(query).then(res => {
+        this.results = res.hits;
+        console.log(this.results);
+      }).catch(error => {
+        console.error('Error en la búsqueda:', error);
+      });
+
+      // Llama al servicio de búsqueda para Atractivos
+      this.searchService.search2(query).then(res => {
+        // Asumiendo que quieres combinar los resultados de ambos servicios
+        this.results = [...this.results, ...res.hits];
+        console.log(this.results);
+      }).catch(error => {
+        console.error('Error en la búsqueda:', error);
+      });
+    } else {
+      // Si la consulta está vacía, puedes optar por limpiar los resultados existentes
+      this.results = [];
+    }
   }
 
   //? Método para Navegar al detalle de Municipio
