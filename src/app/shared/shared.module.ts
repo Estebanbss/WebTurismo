@@ -6,14 +6,19 @@ import { NavfooterComponent } from './components/navfooter/navfooter.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
 import { NgOptimizedImage } from '@angular/common';
-
+import { SearchComponent } from './components/search/search.component';
+import { SearchAtractivoComponent } from './components/search-atractivo/search-atractivo.component';
+import { SearchPrestadorComponent } from './components/search-prestador/search-prestador.component';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
     NavheaderComponent,
     NavfooterComponent,
-    ButtonCarouselComponent
+    ButtonCarouselComponent,
+    SearchComponent,
+    SearchAtractivoComponent,
+    SearchPrestadorComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +30,10 @@ import { NgOptimizedImage } from '@angular/common';
     SpinnerComponent,
     NavheaderComponent,
     NavfooterComponent,
-    ButtonCarouselComponent
+    ButtonCarouselComponent,
+    SearchComponent,
+    SearchAtractivoComponent,
+    SearchPrestadorComponent
   ]
 })
 export class SharedModule {
