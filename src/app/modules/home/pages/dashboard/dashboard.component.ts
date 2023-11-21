@@ -287,7 +287,6 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
 
   private setupTilesData(urlsByMunicipio: { [key: string]: string } | any[]) {
-    console.log("urlsByMunicipio", urlsByMunicipio);
 
     try {
       if (Array.isArray(urlsByMunicipio)) {

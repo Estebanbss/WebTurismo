@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, onAuthStateChanged, signOut, deleteUser, updateProfile,  } from '@angular/fire/auth';
-import { Firestore, collection, collectionData, doc, getDoc, getFirestore, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, QuerySnapshot, collection, collectionData, doc, getDoc, getDocs, getFirestore, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Users } from '../common/place.interface';
 import { deleteDoc } from '@angular/fire/firestore';
@@ -11,7 +11,9 @@ import { deleteDoc } from '@angular/fire/firestore';
 export class AuthService {
 
   constructor(private afAuth: Auth,    private firestore: Firestore,
-  ) { }
+  ) {this.onAuthStateChanged((user, userDetails) => {this.uid = user.uid }) }
+
+    uid!: string;
 
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
@@ -28,10 +30,8 @@ export class AuthService {
   onAuthStateChanged(callback: (user: any, userDetails: any) => void) {
     onAuthStateChanged(this.afAuth, async (user) => {
       if (user) {
-        console.log("si está lo tomo de cache si no pues...")
         let userDetails = this.getUserDetailsFromLocalStorage(user.uid);
         if (!userDetails) {
-          console.log("firebase")
           userDetails = await this.fetchUserDetails(user.uid);
           this.setUserDetailsInLocalStorage(user.uid, userDetails);
         } else {
@@ -64,6 +64,26 @@ export class AuthService {
     return collectionData(q, { idField: 'uid' }) as Observable<Users[]>;
   }
 
+  obtenerUsuario(uid: string): Observable<Users> {
+    const usuarioRef = doc(this.firestore, 'users', uid);
+    return getDoc(usuarioRef) as unknown as Observable<Users>;
+   }
+
+   obtenerUsuarioPorUserName(userName: string): Observable<Users[]> {
+    const usuariosRef = collection(this.firestore, 'users');
+    const queryByUserName = query(usuariosRef, where('userName', '==', userName));
+
+    return new Observable<Users[]>((observer) => {
+      getDocs(queryByUserName).then((snapshot: QuerySnapshot<any>) => {
+        const users: Users[] = [];
+        snapshot.forEach((doc) => {
+          users.push({ id: doc.id, ...doc.data() } as Users);
+        });
+        observer.next(users);
+      });
+    });
+  }
+
   eliminarUsuario(uid: string): Promise<void> {
     const usuarioRef = doc(this.firestore, 'users', uid);
     return deleteDoc(usuarioRef);
@@ -74,7 +94,15 @@ export class AuthService {
     return updateDoc(usuarioRef, usuario);
   }
 
-  private async fetchUserDetails(uid: string): Promise<any> {
+  async updateUserDetailsInLocalStorage() {
+    const userDetails = await this.fetchUserDetails(this.uid);
+    if (userDetails) {
+      const uid = userDetails.uid;
+      this.setUserDetailsInLocalStorage(uid, userDetails);
+    }
+  }
+
+  async fetchUserDetails(uid: string): Promise<any> {
     const firestore = getFirestore();
     const docRef = doc(firestore, 'users', uid);
     const docSnap = await getDoc(docRef);
@@ -93,7 +121,7 @@ export class AuthService {
     return userDetails ? JSON.parse(userDetails) : null;
   }
 
-  private setUserDetailsInLocalStorage(uid: string, userDetails: any): void {
+  setUserDetailsInLocalStorage(uid: string, userDetails: any): void {
     localStorage.setItem(`userDetails-${uid}`, JSON.stringify(userDetails));
   }
 

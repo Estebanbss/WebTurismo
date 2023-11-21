@@ -267,12 +267,12 @@ export class LoginComponent implements OnInit {
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
                         { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
-                      : this.capitalizeFirstLetter({ inputString: response.user.displayName }),
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName.split(' ')[0] }),
 
                   userName: `${
                     response.user.displayName === null || undefined
                       ? response.user.email?.split('@')[0].substring(0, 6)
-                      : this.capitalizeFirstLetter({ inputString: response.user.displayName })
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName.split(' ')[0]  })
                   }${random9DigitNumber}`,
                   // fotoUser: response.user.photoURL,
                   fotoUser: docSnap.data()![`${numeroAleatorio}`],
@@ -296,7 +296,7 @@ export class LoginComponent implements OnInit {
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
                         { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
-                      : response.user.displayName,
+                      : response.user.displayName.split(' ')[0],
                 })
                   .then(() => {})
                   .catch((error) => {

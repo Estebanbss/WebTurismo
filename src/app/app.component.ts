@@ -8,6 +8,8 @@ import { doc, getFirestore, setDoc, getDoc } from '@angular/fire/firestore';
 import { getAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { IndexedDBService } from './core/services/indexedDB.service';
+import { AuthService } from './core/services/auth.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
 
   firestore = getFirestore();
   auth = getAuth();
-  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2,private indexedDBService: IndexedDBService ){
+  constructor(private modal: ModalServiceService, private router: Router, private userService: UserService, private renderer: Renderer2,private indexedDBService: IndexedDBService, private authService: AuthService ){
 
 
 
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
   userSubscription!: Subscription;
   title = `Pa'lHuila`;
   hasExecuted = false;
+  uid!: string;
   ngOnInit(){
 
     this.router.events.subscribe((event) => {
@@ -40,7 +43,16 @@ export class AppComponent implements OnInit {
       }
     });
     window.addEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
+    this.authService.onAuthStateChanged((user, userDetails) => {
+      if (user) {
+        this.uid = user.uid;
+      }
+      this.authService.updateUserDetailsInLocalStorage();
+    });
+
   }
+
+
 
 
 

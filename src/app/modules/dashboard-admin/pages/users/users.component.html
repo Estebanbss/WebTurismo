@@ -37,12 +37,15 @@
 
 <!--todo modal de actualizar usuario-->
 <div *ngIf="mostrarUser" class="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-blue-900 bg-opacity-75 z-40">
-  <div class="relative flex-col justify-center w-[90%] h-[600px] xl:w-[700px] xl:h-[600px] mx-auto bg-white rounded-lg">
+  <div class="relative flex-col justify-center w-[90%] h-[650px] xl:w-[700px] xl:h-[650px] mx-auto bg-white rounded-lg">
     <div class="flex flex-col h-full my-auto gap-5 px-10 py-10">
       <!-- Título con el nombre del usuario -->
       <label class="text-3xl text-blue-700 font-black text-center">Actualizar a {{usuarioSeleccionado.nombre}}</label>
-      <label>Cuenta creada el: {{ usuarioSeleccionado.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</label>
-      <label>Último login: {{ usuarioSeleccionado.fechaUltimoLogin | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+      <div class="flex flex-row gap-5 justify-center">
+        <label>Cuenta creada el: {{ usuarioSeleccionado.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+        <label>Último login: {{ usuarioSeleccionado.fechaUltimoLogin | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+      </div>
+      <label class="flex flex-row justify-center">UID: <strong>{{ usuarioSeleccionado.uid }}</strong></label>
 
 
       <!-- Formulario para actualizar la información -->
@@ -76,8 +79,8 @@
 
         <!-- Botones para actualizar y cancelar -->
         <div class="flex flex-row gap-5 mt-auto justify-center">
-          <button type="submit" class="btn-style  px-2 py-2 text-center text-xl min-w-[100px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
-          <button type="button" (click)="actualizarUsuario(false)" class="btn-style px-2 py-2 text-center text-xl min-w-[100px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
+          <button type="submit" class="btn-style  px-2 py-2 text-center text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
+          <button type="button" (click)="actualizarUsuario(false)" class="btn-style px-2 py-2  text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
         </div>
       </form>
     </div>
