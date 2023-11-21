@@ -6,6 +6,7 @@ import { NavfooterComponent } from './components/navfooter/navfooter.component';
 import { SharedRoutingModule } from './shared-routing.module';
 import { ButtonCarouselComponent } from './components/button-carousel/button-carousel.component';
 import { NgOptimizedImage } from '@angular/common';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NgOptimizedImage } from '@angular/common';
     SpinnerComponent,
     NavheaderComponent,
     NavfooterComponent,
-    ButtonCarouselComponent
+    ButtonCarouselComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { NgOptimizedImage } from '@angular/common';
     SpinnerComponent,
     NavheaderComponent,
     NavfooterComponent,
-    ButtonCarouselComponent
+    ButtonCarouselComponent,
+    SearchComponent
   ]
 })
 export class SharedModule {

@@ -7,7 +7,7 @@ import algoliasearch from 'algoliasearch/lite';
 })
 export class SearchService {
 
-  /*Credenciales Algolia*/
+  /*Credenciales Algolia de Pal'Huila*/
   private applicationID = 'EGSCCYSL0C';
   private searchOnlyAPIKey = '1fe452840ab7d65e2eaba1251694a41f';
   private indiceDeAlgolia = 'prestadores_index';
