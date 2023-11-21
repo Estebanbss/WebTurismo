@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class UsersComponent {
    // Inyección de dependencias
   constructor(private authService: AuthService)  {
-    this.authService.onAuthStateChanged((user, userDetails) => {this.rol = userDetails?.rol; console.log(this.rol)});
+    this.authService.onAuthStateChanged((user, userDetails) => {this.rol = userDetails?.rol;});
   }
   mostrarModal = false; // Variable para controlar la visualización del modal
   mostrarUser = false; // Variable para controlar la visualización del modal
@@ -117,11 +117,9 @@ export class UsersComponent {
     }
 
     actualizarUsuario(choose: boolean, user?:any){
-      console.log("bruh")
-      console.log(choose)
       if(choose){
-        console.log("entré")
         this.authService.actualizarUsuario(user.uid, user);
+        this.authService.updateUserDetailsInLocalStorage();
         this.user(false)
      }else{
 

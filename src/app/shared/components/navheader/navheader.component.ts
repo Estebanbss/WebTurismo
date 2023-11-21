@@ -35,6 +35,7 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setupAuthListener();
     this.setupModalSubscriptions();
+    this.authService.updateUserDetailsInLocalStorage();
     this.userName = localStorage.getItem('cachedUserName');
     this.userButton = this.userName ? true : false;
   }
@@ -43,7 +44,7 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     this.authService.onAuthStateChanged((user, userDetails) => {
       if (user) {
         this.userButton = true;
-        this.displayName = user.displayName;
+        this.displayName = user.displayName.split(" ")[0];
         this.userName = userDetails.userName;
         this.pfp = user.photoURL;
         this.uid = user.uid;

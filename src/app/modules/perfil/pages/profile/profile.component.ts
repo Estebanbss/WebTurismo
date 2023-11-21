@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router,  } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
-import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +9,20 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute, private modalService: ModalServiceService) {
-    this.route.params.subscribe(params => this.profileId = params['id']);
-  }
-  profileId!: string;
-
+  constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, private modalService: ModalServiceService) {this.auth.onAuthStateChanged((user, userDetails) => {this.userauth = user;}) }
+    profileId!: string;
+    user:any;
+    userauth:any;
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.modalService.setProfileHeader(false);
+    this.route.params.subscribe(params => {
+      this.profileId = params['id'];
+      if (this.profileId) {
+        this.auth.obtenerUsuarioPorUserName(this.profileId).subscribe((user) => {
+          this.user = user[0];
+        });
+      }
+      this.modalService.setProfileHeader(false);
+    });
+
   }
 }

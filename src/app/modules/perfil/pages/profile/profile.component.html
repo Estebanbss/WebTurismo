@@ -1,6 +1,21 @@
 
 <app-navheader></app-navheader>
-<main class="bg-black bg-opacity-50">
-a
+<main class="bg-black bg-opacity-5">
+<div class="w-full max-h-[350px] min-h-[350px]  relative flex justify-center">
+  <div class="w-full max-h-[350px] overflow-hidden  flex justify-center rounded-b-3xl">
+    <img *ngIf="user?.bannerImg != null" class="w-full h-full object-cover object-center " src="{{user?.bannerImg}}" >
+    <div *ngIf="user?.bannerImg === null" class="w-full h-full object-cover object-center  bg-black opacity-20 " ></div>
+  </div>
+  <div class="bg-white absolute w-full min-h-[200px] rounded-md p-5 -bottom-10 xl:max-w-[1280px] z-50">
+    <div *ngIf="user?.uid === userauth?.uid" class="absolute right-5"><button class="rounded-xl flex flex-row border bg:px-2 md:px-3 py-2 font-work font-semibold"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>Editar</button></div>
+    <div class="flex flex-col justify-center items-center"><span class="bg:w-[80px] md:w-[100px] bg:h-[80px] md:h-[100px] max-w-[100px] max-h-[100px] rounded-full bg-black bg-opacity-5 overflow-hidden"><img *ngIf="user?.fotoUser != null" src="{{user?.fotoUser}}" class="w-full h-full object-cover object-center" ></span>
+    </div>
+    <h3 class="flex flex-row justify-center font-work text-lg font-semibold">@{{user?.userName}}</h3>
+    <h4 class="flex flex-row justify-center font-work text-2xl font-bold">{{user?.nombre}}</h4>
+  </div>
+  </div>
+  <div class="xl:w-[1280px] min-h-[500px] max-w-[1280px] relative mx-auto">
+
+  </div>
 </main>
 <app-navfooter></app-navfooter>
