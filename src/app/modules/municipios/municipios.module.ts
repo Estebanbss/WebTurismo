@@ -8,6 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FiltroPorServiciosPipe } from './pipes/filtro-por-servicios.pipe'; // <-- import the module
+import { FormsModule } from '@angular/forms';
+import { FiltroTextoPipe } from './pipes/filtro-texto.pipe';
 
 
 
@@ -15,6 +17,7 @@ import { FiltroPorServiciosPipe } from './pipes/filtro-por-servicios.pipe'; // <
   declarations: [
     MunicipiosComponent,
     FiltroPorServiciosPipe,
+    FiltroTextoPipe
 
 
   ],
@@ -24,7 +27,8 @@ import { FiltroPorServiciosPipe } from './pipes/filtro-por-servicios.pipe'; // <
     MunicipiosRoutingModule,
     SharedModule,
     NgxPaginationModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FormsModule,
   ]
 
 })

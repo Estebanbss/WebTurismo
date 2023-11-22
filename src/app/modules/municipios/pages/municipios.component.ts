@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+  import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
   import { Map, marker, tileLayer } from 'leaflet';
   import { Title } from '@angular/platform-browser';
   import { Observable, combineLatest } from 'rxjs';
@@ -17,12 +17,75 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     styleUrls: ['./municipios.component.css'],
 
   })
+
+
   export class MunicipiosComponent implements OnInit {
+    @ViewChild('resultsList') resultsList!: ElementRef;
+    @ViewChildren('resultItems') resultItems!: QueryList<ElementRef>;
+    selectedIndex: number = -1;
+    onKeydown(event: KeyboardEvent): void {
+      switch (event.key) {
+        case 'ArrowDown':
+          this.navigateResults(1);
+          break;
+        case 'ArrowUp':
+          this.navigateResults(-1);
+          break;
+        case 'Enter':
+          if (this.selectedIndex !== -1) {
+            this.navigate(this.prestadoresYAtractivos[this.selectedIndex]);
+          }
+          break;
+      }
+    }
+
+    navigateResults(direction: number): void {
+      this.selectedIndex += direction;
+      if (this.selectedIndex < 0) {
+        this.selectedIndex = 0; // No ir más arriba de la lista
+      } else if (this.selectedIndex > this.prestadoresYAtractivos.length - 1) {
+        this.selectedIndex = this.prestadoresYAtractivos.length - 1; // No ir más abajo de la lista
+      }
+      this.ensureVisible();
+    }
+
+    onContainerClick(event: MouseEvent): void {
+      // Prevenir que el evento de clic se propague hasta el document
+      event.stopPropagation();
+    }
+
+
+    ensureVisible(): void {
+      this.resultItems.changes.subscribe(() => {
+        const activeItem = this.resultItems.toArray()[this.selectedIndex];
+        if (activeItem) {
+          const container = this.resultsList.nativeElement;
+          const itemElement = activeItem.nativeElement;
+
+          // Verificar si el ítem está fuera de la vista
+          const itemTop = itemElement.offsetTop;
+          const itemBottom = itemTop + itemElement.offsetHeight;
+          const containerTop = container.scrollTop;
+          const containerBottom = containerTop + container.offsetHeight;
+
+          if (itemTop < containerTop) {
+            // Si el ítem está por encima de la vista
+            container.scrollTop = itemTop;
+          } else if (itemBottom > containerBottom) {
+            // Si el ítem está por debajo de la vista
+            container.scrollTop = itemBottom - container.offsetHeight;
+          }
+        }
+      });
+    }
+
 
     imgDefault: string ="https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114&_gl=1*16fm2h0*_ga*MjA0ODg4MTY1Mi4xNjk4NTk1OTkz*_ga_CW55HF8NVT*MTY5OTQxMTQ2Ni4xOS4xLjE2OTk0MTE1MDkuMTcuMC4w";
     //Página donde estamos
 
     page: number = 1;
+
+    inputext: string = '';
 
     map!: Map;
 
