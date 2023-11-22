@@ -10,9 +10,6 @@ export class FiltroTextoPipe implements PipeTransform {
       return prestadoresYAtractivos;
     }
     inputext = inputext.toLowerCase();
-    console.log(inputext)
-    console.log(prestadoresYAtractivos)
-
     return prestadoresYAtractivos.filter(item =>
       this.quitarTildes(item.name.toLowerCase()).includes(inputext) ||
       this.quitarTildes(item.municipio.toLowerCase()).includes(inputext) ||

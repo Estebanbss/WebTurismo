@@ -27,16 +27,28 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       switch (event.key) {
         case 'ArrowDown':
           this.navigateResults(1);
+
           break;
         case 'ArrowUp':
           this.navigateResults(-1);
           break;
         case 'Enter':
           if (this.selectedIndex !== -1) {
-            this.navigate(this.prestadoresYAtractivos[this.selectedIndex]);
+            if(this.item){
+              this.navigate(this.item);
+            }
+
           }
           break;
       }
+    }
+
+
+
+    item:any
+    choose(item: any): void {
+      this.item = item;
+      console.log(item)
     }
 
     navigateResults(direction: number): void {
@@ -522,6 +534,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       this.page = 1;
       //* Filtramos el municipio que queremos mostrar
       this.filtrarMunicipio();
+      this.inputext = '';
       this.router.navigate(['/municipios/', this.municipio.name]);
     }
 
