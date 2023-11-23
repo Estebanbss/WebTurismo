@@ -308,37 +308,41 @@
           Explora por ti mismo
         </h3>
 
-        <div class="relative w-[80%] h-12 items-center justify-center flex">
-          <!--!Input de busqueda-->
-          <input
-            type="text"
-            id="Search"
-            placeholder="¿Que buscas?"
-            class="w-full border-2 border-gray-300 rounded-3xl  h-[80%] pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7  font-Work"
-          />
-          <!--!Boton de busqueda-->
-          <button
-            type="button"
-            class="text-gray-600 hover:text-gray-400 absolute right-0 top-[50%] translate-y-[-50%] h-[50%] mr-5"
-          >
-          <!--!Icono de busqueda-->
-            <svg
-              role="button"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="3"
-              stroke="currentColor"
-              class="w-full h-full"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-          </button>
+        <div class="w-full relative mb-10">
+
+
+          <div   (click)="onContainerClick($event)" #searchContainer class="absolute mx-auto w-full xl:w-[1200px] p-1 z-40 left-0 right-0" >
+            <!-- Input de búsqueda -->
+            <div class="flex items-center justify-center">
+              <input #searchInput class="w-full p-3 text-base xl:text-lg rounded-full border-2 border-gray-300 focus:outline-none focus:border-primary-500 "
+                     type="text"
+                     (keydown)="onKeydown($event)"
+                     placeholder="Buscar..."
+                     autocomplete="off"
+                      [(ngModel)]="inputext"
+                     >
+            </div>
+
+            <!-- Lista de resultados -->
+            <ul #resultsList *ngIf="inputext !== null && inputext !== ' ' && inputext !=='' " class="w-full relative max-h-[600px] overflow-y-auto bg-white rounded-b-xl">
+
+              <li #resultItems  *ngFor="let item of prestadoresYAtractivos | filtroText:inputext ; let i = index"
+                  class="cursor-pointer p-2 hover:bg-gray-100 px-4 font-Work font-regular text-lg"
+                  [class]="selectedIndex === i ? 'cursor-pointer p-2 hover:bg-gray-100 px-4 bg-gray-200 border-l-4 border-l-primary-500' : 'cursor-pointer p-2 hover:bg-gray-100 px-4'"
+                  [ngClass]="selectedIndex === i ? '{{choose(item)}}' :'' "
+                  (click)="navigate(item)"
+                  (mouseover)="selectedIndex = i;"
+                  (mouseleave)="selectedIndex = -1;"
+                  >
+                  >
+                {{ item.name }}
+              </li>
+            </ul>
+          </div>
         </div>
+
+
+
       </div>
       <!--!Contenedor de los botones de los servicios-->
       <div

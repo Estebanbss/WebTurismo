@@ -127,6 +127,7 @@ export class LoginComponent implements OnInit {
           const docuRef = doc(this.firestore, `users/${response.user?.uid}`);
           getDoc(docuRef).then(async (doc) => {
             if (doc.exists()) {
+              updateProfile(response.user, { displayName: doc.data()!['nombre'], photoURL: doc.data()!['fotoUser'] })
               updateDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() })
                 .then((response) => {
                   this.router.navigate(['/home']);
@@ -247,6 +248,7 @@ export class LoginComponent implements OnInit {
         getDoc(docuRef)
           .then(async (doc) => {
             if (doc.exists()) {
+              updateProfile(response.user, { displayName: doc.data()!['nombre'], photoURL: doc.data()!['fotoUser'] })
               updateDoc(docuRef, { fechaUltimoLogin: new Date().toISOString() })
                 .then((response) => {
                   this.router.navigate(['/home']);
@@ -265,12 +267,12 @@ export class LoginComponent implements OnInit {
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
                         { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
-                      : this.capitalizeFirstLetter({ inputString: response.user.displayName }),
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName.split(' ')[0] }),
 
                   userName: `${
                     response.user.displayName === null || undefined
                       ? response.user.email?.split('@')[0].substring(0, 6)
-                      : this.capitalizeFirstLetter({ inputString: response.user.displayName })
+                      : this.capitalizeFirstLetter({ inputString: response.user.displayName.split(' ')[0]  })
                   }${random9DigitNumber}`,
                   // fotoUser: response.user.photoURL,
                   fotoUser: docSnap.data()![`${numeroAleatorio}`],
@@ -294,7 +296,7 @@ export class LoginComponent implements OnInit {
                     response.user.displayName === null || undefined
                       ? this.capitalizeFirstLetter(
                         { inputString: response.user.email!.split('@')[0].substring(0, 6) }                        )
-                      : response.user.displayName,
+                      : response.user.displayName.split(' ')[0],
                 })
                   .then(() => {})
                   .catch((error) => {

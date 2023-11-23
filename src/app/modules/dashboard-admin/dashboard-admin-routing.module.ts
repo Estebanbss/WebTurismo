@@ -15,6 +15,7 @@ import { EditarPrestadorComponent } from './pages/prestadores-turisticos/editar-
 import { EditarAtractivoComponent } from './pages/atractivos-turisticos/editar-atractivo/editar-atractivo.component';
 import { EditarMunicipioComponent } from './pages/municipios/editar-municipio/editar-municipio.component';
 import { EditarRutasComponent } from './pages/rutas-turisticas/editar-rutas/editar-rutas.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
         { path: 'list-atractivo-turistico', component: ListadoAtractivoComponent},
         { path: 'list-municipio', component: ListadoMunicipioComponent },
         { path: 'list-rutas-turisticas', component: ListadoRutasComponent },
+        { path: 'users', component: UsersComponent },
         //Componentes Agregar
         { path: 'agregar-prestadores-turisticos', component: AgregarPrestadorComponent},
         { path: 'agregar-atractivo-turistico', component: AgregarAtractivoComponent},

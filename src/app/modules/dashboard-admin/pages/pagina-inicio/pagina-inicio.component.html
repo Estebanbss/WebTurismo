@@ -25,9 +25,15 @@
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="openmodaldata()">
           Información
         </button>
-        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex flex-row justify-center" (click)="openmodaldata()">
-          <svg role="img" class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> Usuarios
-        </button>
+        <button routerLink="users"
+        class=" text-white border-white-500 w-[200px] mx-auto  rounded-b-lg text-center text-lg font-semibold h-10 justify-center items-center flex flex-row border"
+        [ngClass]="{
+          'bg-purple-500  border-purple-400': botonActivo === 'cinco'
+        }" (click)="activarBoton('cinco')">
+        <span [ngClass]="{
+            ' text-white': botonActivo === 'cinco'
+          }" class="text-white-500 flex flex-row justify-center items-center"><svg role="img" class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> Users</span>
+      </button>
       </div>
 
       <div class="bottom-5 flex flex-col gap-2 mt-auto">

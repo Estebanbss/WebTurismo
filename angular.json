@@ -15,7 +15,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "leaflet"
+              "leaflet",
+              "algoliasearch/lite"
             ],
             "baseHref": "/",
             "outputPath": "dist/pal-huila",

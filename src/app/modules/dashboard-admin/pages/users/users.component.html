@@ -1,0 +1,140 @@
+<!--* Modal de borrar usuario-->
+<div *ngIf="mostrarModal"
+  class="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-red-900 bg-opacity-75 z-40"
+>
+  <div
+    class="relative flex-col justify-center w-[90%] h-[500px] xl:w-[700px] xl:h-[500px] mx-auto bg-white  rounded-lg"
+  >
+    <div
+      class="flex flex-col justify-center items-center h-full my-auto gap-5 px-10"
+    >
+      <label class="text-4xl text-red-700 font-black text-center"
+        >¿Seguro que quiere eliminar este usuario?</label
+      >
+      <div class="flex flex-row gap-5">
+
+        <button
+        (click)="borrarUsuario(true, usuarioSeleccionado)"
+        class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-2 rounded text-2xl flex gap-3 disabled:bg-red-900 disabled:text-white-600 disabled:cursor-not-allowed disabled:opacity-50 enabled:bg-red-700 enabled:text-white enabled:hover:bg-red-600 min-w-[100px] justify-center"
+      >
+        Si
+      </button>
+      <button
+        (click)="borrarUsuario(false, usuarioSeleccionado)"
+        class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-2 rounded text-2xl flex gap-3 disabled:bg-blue-900 disabled:text-white-600 disabled:cursor-not-allowed disabled:opacity-50 enabled:bg-blue-700 enabled:text-white enabled:hover:bg-blue-600 min-w-[100px] justify-center"
+      >
+        No
+      </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+<!--* Modal de borrar usuario-->
+
+<!--todo modal de actualizar usuario-->
+<div *ngIf="mostrarUser" class="absolute flex justify-center items-center top-0 left-0 right-0 bottom-0 bg-blue-900 bg-opacity-75 z-40">
+  <div class="relative flex-col justify-center w-[90%] h-[650px] xl:w-[700px] xl:h-[650px] mx-auto bg-white rounded-lg">
+    <div class="flex flex-col h-full my-auto gap-5 px-10 py-10">
+      <!-- Título con el nombre del usuario -->
+      <label class="text-3xl text-blue-700 font-black text-center">Actualizar a {{usuarioSeleccionado.nombre}}</label>
+      <div class="flex flex-row gap-5 justify-center">
+        <label>Cuenta creada el: {{ usuarioSeleccionado.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+        <label>Último login: {{ usuarioSeleccionado.fechaUltimoLogin | date:'yyyy-MM-dd HH:mm:ss' }}</label>
+      </div>
+      <label class="flex flex-row justify-center">UID: <strong>{{ usuarioSeleccionado.uid }}</strong></label>
+
+
+      <!-- Formulario para actualizar la información -->
+      <form (ngSubmit)="actualizarUsuario(true, usuarioSeleccionado)">
+        <div class="flex flex-col gap-4">
+          <!-- Campos de entrada para cada atributo del usuario -->
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Nombre:</label>
+            <input type="text" [(ngModel)]="usuarioSeleccionado.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Nombre de Usuario:</label>
+            <input type="text" [(ngModel)]="usuarioSeleccionado.userName" name="userName" placeholder="Nombre de usuario" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+          </div>
+          <div class="flex flex-col gap-1 font-work text-xl font-medium">
+            <label class="font-Work text-lg">Rol:</label>
+            <select [(ngModel)]="usuarioSeleccionado.rol" name="rol" class="input-style" id="rol">
+              <option value="usuario">usuario</option>
+              <option value="admin">admin</option>
+              <option value="superadmin">superadmin</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="font-Work text-lg">Numero telefonico:</label>
+          <input type="text" [(ngModel)]="usuarioSeleccionado.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+          </div>
+          <!-- ... otros campos según sea necesario ... -->
+        </div>
+
+        <!-- Botones para actualizar y cancelar -->
+        <div class="flex flex-row gap-5 mt-auto justify-center">
+          <button type="submit" class="btn-style  px-2 py-2 text-center text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
+          <button type="button" (click)="actualizarUsuario(false)" class="btn-style px-2 py-2  text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--todo modal de actualizar usuario-->
+
+<div class="overflow-hidden ">
+  <h3 id="ListID" class="text-3xl text-center  font-bold text-gray-500">Listado de Usuarios</h3>
+  <hr class="h-[1px] border-gray-300 mb-5 border-[1px] ">
+     <h3 class="text-xl font-semibold font-work text-primary-500 text-center mb-5" >Total de usuarios: {{usuarios.length}} - Administradores: {{totalAdmins}}</h3>
+
+    <!-- Filtros -->
+
+    <input type="text" class="form-control w-full rounded-3xl border-2 border-gray-300 h-12 pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7  font-Work" placeholder="Buscar por nombre" [(ngModel)]="filtroNombre" (input)="actualizarPaginas()">
+
+    <div class="w-full gap-2 my-2 flex flex-row justify-center"> <!-- ngModel -> se tiene que importar FormsModule en app module y colocar un name al input -->
+      <span class="text-xl text-center  font-bold text-gray-500 justify-center items-center flex " >Filtro por rol:</span>
+    <select [(ngModel)]="filtroRol" (change)="paginaActual = 1" (click)="actualizarPaginas()" class="px-2 py-2 border-[1px] rounded-lg border-gray-500 w-[140px]">
+      <option value="">Todos</option>
+      <option *ngFor="let rol of obtenerRolesUnicos()" [value]="rol">{{ rol }}</option>
+    </select>
+  </div>
+
+  <div class="w-full min-h-[550px]">
+  <!--headers-->
+
+  <div class="w-full max-h-[50px] h-[50px] grid bg:grid-cols-5 md:grid-cols-7 font-semibold text-xl font-Blinker text-white"><span class="border-2 justify-center flex flex-row items-center bg-primary-500 bg-opacity-50 col-span-3">Nombre</span><span class="border-2 justify-center flex flex-row items-center bg-primary-500 bg-opacity-50">Rol</span><span class="border-2 justify-center flex flex-row items-center md:flex bg:hidden  bg-primary-500 bg-opacity-50 col-span-2">Correo</span><span *ngIf="rol === 'superadmin'" class="border-2 justify-center flex flex-row items-center md:flex bg-primary-500 bg-opacity-50"></span></div>
+
+<!-- Lista de usuarios filtrada y paginada -->
+<div class="w-full max-h-[50px] h-[50px] grid bg:grid-cols-5 md:grid-cols-7 justify-center items-center text-work font-medium" *ngFor="let item of filtrarUsuarios() | slice: (paginaActual - 1) * itemsPorPagina : paginaActual * itemsPorPagina">
+  <span class="border flex justify-center h-full items-center col-span-3">{{item.nombre}}</span>
+  <span class="border flex justify-center h-full items-center">{{item.rol}}</span>
+  <span class="md:flex bg:hidden border justify-center flex h-full items-center col-span-2">{{item.correo}}</span>
+  <span *ngIf="rol === 'superadmin'" class="border flex justify-center h-full items-center gap-2"><i (click)="user(true); usuarioSeleccionado=item" class="fa-solid fa-pen-to-square fa-lg text-blue-500 mr-5 cursor-pointer"></i><i (click)="modal(true); usuarioSeleccionado=item" class="fa-solid fa-trash-can fa-lg text-red-500 cursor-pointer"></i></span>
+</div>
+
+  </div>
+
+<!-- Agregar controles de paginación -->
+<div class="flex justify-center gap-5">
+  <button (click)="paginaActual = paginaActual - 1" [disabled]="paginaActual === 1"><img [ngClass]="{'invisible': paginaActual === 1 }" src="assets/img/left.svg" class="border-2 w-[40px] bg-white rounded-full hover:bg-black hover:bg-opacity-5"  alt="left svg"></button>
+
+<!--Boton de pagina-->
+
+<div>
+  <ng-container *ngIf="usuarios.length > itemsPorPagina">
+    <button *ngFor="let item of botonesPaginacion() "
+            [ngClass]="{'bg-primary-500 text-white': item === paginaActual, 'bg-white': item !== paginaActual}"
+            (click)="paginaActual = item"
+            class="border-2 w-[40px] h-[40px] bg-white rounded-full hover:bg-black hover:bg-opacity-5">{{item}}</button>
+  </ng-container>
+</div>
+
+  <button (click)="paginaActual = paginaActual + 1" [disabled]="filtrarUsuarios().length < itemsPorPagina"><img [ngClass]="{'invisible': paginaActual * itemsPorPagina >= filtrarUsuarios().length}"  src="assets/img/right.svg" class="border-2 w-[40px] bg-white rounded-full hover:bg-black hover:bg-opacity-5" alt="right svg"></button>
+</div>
+</div>
