@@ -13,6 +13,16 @@ export class MostrarMunicipioService {
 
   //? SECCIÓN LEER
 
+  obtenerPrestador(): Observable<any> {
+
+    const prestadoresRef = collection(this.firestore, 'prestadores');
+
+    const q = query(prestadoresRef, orderBy('name', 'asc'));
+
+    return collectionData(q, { idField: 'id' }) as Observable<any>;
+  }
+
+
   //? -> Creamos un método para obtener los datos de una colección
   //Read - R
   obtenerMunicipios(): Observable<any> {
@@ -25,7 +35,7 @@ export class MostrarMunicipioService {
 
     //Retornamos el observable que nos devuelve una función anónima a la que nos debemos suscribir y en la que recibimos los datos solicitados de la colección
     return collectionData(q, { idField: 'id' }) as Observable<any>;
-  } //? -> Fin del método obtener Prestador
+  } //? -> Fin del método obtener Municipios
 
   //Todo: Método para traer los atractivos SIN espacios
   obtenerAtractivosPorMunicipio(nombreMunicipio: string): Observable<any> {
