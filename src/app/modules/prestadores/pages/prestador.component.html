@@ -480,7 +480,78 @@
     <!--todo aqui se debe poner 10 sitios/atractivos/prestadores similares a este relacionando con el municipio y servicios-->
     <section id="Lista de similares" class=" min-h-[450px] mb-5 w-full mx-auto rounded-xl overflow-hidden py-5">
       <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Similares</h5>
+      <div class="relative">
+        <button #leftButtonPresta class="" draggable="false"
+        id="leftPresta" (click)="buttonScroll('left', leftButtonPresta.id, 'carouselPresta')">
+          <svg
+          role="button"
+          class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40"
+          viewBox="0 -960 960 960"
+          width="40"
+        >
+          <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+        </svg>
+        </button>
 
+
+        <div
+          #carouselPresta
+          class="carousel relative flex flex-row align-middle   overflow-x-scroll gap-3 min-h-[500px]  "
+        >
+          <div
+            *ngFor="let tile of prestadoresrandom;let i = index; "
+            class="bg:min-w-[96.5%] sm:min-w-[calc(100%/2)] lg:min-w-[calc(97.5%/3)] aspect-square relative  overflow-hidden hover:rounded-2xl  rounded:2xl rounded-2xl  "
+            draggable="false "
+          >
+          <div class="w-full h-full bg-white rounded-2xl">
+            <div class="w-full h-[65%] relative flex flex-col justify-center ">
+              <div class="relative w-full h-full mx-auto my-auto flex flex-col justify-center items-center">
+
+                <img  (click)="navigate(tile)"
+                src="{{tile.pathImagePortada.url}}"
+                class="w-full h-full object-cover filter brightness-75 mx-auto my-auto cursor-pointer "
+                alt="{{tile.name}}Image"
+                loading="lazy"
+                draggable="false"
+              />
+                            <!--*Boton de guardar-->
+             <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+              <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+            </button>
+             <!--*Boton de me gusta-->
+            <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+              <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+            </button>
+              </div>
+            </div>
+
+            <div  class="absolute bottom-0 w-full h-[35%]  rounded-b-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white border-2 border-t-0  border-opacity-50">
+              <h3 (click)="navigate(tile)" class="text-2xl font-extrabold text-center leading-6 cursor-pointer  text-primary-500">{{tile.name}}</h3>
+              <h4 class="text-xl font-medium text-center leading-5 mb-2 flex flex-row justify-center text-primary-500"><svg role="img" class="fill-primary-500 stroke-2" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{tile.municipio}}</h4>
+              <p class="text-lg leading-5 text-center overflow-hidden text-gray-500 font-Work" style="-webkit-line-clamp: 3; -webkit-box-orient: vertical;  display: -webkit-box">{{tile.descripcion}}</p>
+          </div>
+          </div>
+
+          </div>
+        </div>
+
+        <button #rightButtonPresta class="" draggable="false"
+        id="rightPresta"  (click)="buttonScroll('right', rightButtonPresta.id, 'carouselPresta')">
+          <svg
+          role="button"
+          class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40"
+          viewBox="0 -960 960 960"
+          width="40"
+        >
+          <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+        </svg>
+        </button>
+
+      </div>
     </section>
 
   </main>

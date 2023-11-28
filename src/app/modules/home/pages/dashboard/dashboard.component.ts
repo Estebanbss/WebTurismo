@@ -34,11 +34,12 @@ export class DashboardComponent implements OnInit {
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
     this.randomuni.sort(this.comparacionAleatoria);
-    this.detalle.obtenerPrestadoresAleatorios(9,"Garzón").then((prestadores) => {
+    this.getRutas()
+    this.detalle.obtenerPrestadoresAleatorios(9).then((prestadores) => {
       this.prestadoresrandom = prestadores;
       // console.log("response prestadores: ", prestadores)
     }).then()
-    this.detalle.obtenerAtractivosAleatorios(9,"Garzón").then((atractivos) => {
+    this.detalle.obtenerAtractivosAleatorios(9).then((atractivos) => {
       this.atractivosrandom = atractivos;
       // console.log("response atractivos: ", atractivos)
     }).then()
@@ -54,7 +55,33 @@ export class DashboardComponent implements OnInit {
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
 
+  getRutas(){
+    this.detalle.obtenerTodasLasRutas().subscribe((rutas) => {this.ruta = rutas });
+    console.log(this.ruta)
 
+  }
+    cargarMapa() {
+
+      if (!this.map) { // Verificar si el mapa ya está inicializado
+        this.map = new Map('map').setView([this.ruta[0].latitud, this.ruta[0].longitud], 13);
+
+        // Agregar capa de tiles
+        tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
+        }).addTo(this.map);
+
+        // Agregar un marcador
+        marker([this.ruta[0].latitud, this.ruta[0].longitud]).addTo(this.map)
+          .bindPopup(this.ruta[0].name)
+          .openPopup();
+
+
+      } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
+        this.map.setView([this.ruta[0].latitud, this.ruta[0].longitud], 13);
+        marker([this.ruta[0].latitud, this.ruta[0].longitud]).addTo(this.map)
+          .bindPopup(this.ruta[0].name)
+          .openPopup();
+      }
+    }//? -> Fin Método Cargar Mapa
 
   navigate(item: any) {
     //Validamos hacia qué componente deseamos direccionar
@@ -65,6 +92,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  map:any
+  ruta:any
   auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   prestadoresrandom: any = []; // Array de prestadores aleatorios
@@ -245,6 +274,9 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   this.checkScrollEnd(this.carouselServi, this.leftButtonServi, this.rightButtonServi);
   this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
   this.checkScrollEnd(this.carouselAtrac, this.leftButtonAtrac, this.rightButtonAtrac);
+  if(this.ruta != undefined || this.ruta != null && this.map == null || this.map == undefined){
+    this.cargarMapa()
+  }
   }
 
   private async fetchUrls(): Promise<{ [key: string]: string }> {
