@@ -279,9 +279,10 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
     cargarDocumentos() {
       this.pestadoresSubsciption = this.mostrarMunicipioService.obtenerPrestadoresPaginacionUno().subscribe(documentos => {
-        this.litadoPrestadores = documentos;
         if (documentos.length > 0) {
           this.ultimoDocumento = documentos[documentos.length - 1];
+          documentos = this.shuffleArray(documentos);
+          this.litadoPrestadores = documentos;
           console.log("Nuevo ultimoDocumento: ", this.ultimoDocumento);
         } else {
           console.log("No hay más documentos para cargar");
@@ -291,9 +292,10 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
     cargarMasDocumentos() {
       this.prestadores2Subscription = this.mostrarMunicipioService.obtenerPrestadoresPaginacion(true, this.ultimoDocumento).subscribe(documentos => {
-        this.litadoPrestadores = [...this.litadoPrestadores, ...documentos];
         if (documentos.length > 0) {
           this.ultimoDocumento = documentos[documentos.length - 1];
+          documentos = this.shuffleArray(documentos);
+          this.litadoPrestadores = [...this.litadoPrestadores, ...documentos];
           console.log("Nuevo ultimoDocumento: ", this.ultimoDocumento);
         } else {
           console.log("No hay más documentos para cargar");
