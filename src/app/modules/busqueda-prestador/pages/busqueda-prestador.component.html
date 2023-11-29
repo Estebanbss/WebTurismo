@@ -1,6 +1,6 @@
 <div class="bg-gray-50 z-50">
   <!-- *header-->
-  <app-navheader class="z-50 fixed w-full top-0"></app-navheader>
+  <!-- <app-navheader class="z-50 fixed w-full top-0"></app-navheader> -->
   <!--*fin header-->
 
   <!--!---                                                                               ----->
@@ -61,7 +61,7 @@
             <!-- Lista de resultados -->
             <ul #resultsList *ngIf="inputext !== null && inputext !== ' ' && inputext !=='' " class="w-full relative max-h-[600px] overflow-y-auto bg-white rounded-b-xl">
 
-              <li #resultItems  *ngFor="let item of prestadoresYAtractivos | filtroText:inputext ; let i = index"
+              <li #resultItems  *ngFor="let item of litadoPrestadores | filtroText:inputext ; let i = index"
                   class="cursor-pointer p-2 hover:bg-gray-100 px-4 font-Work font-regular text-lg"
                   [class]="selectedIndex === i ? 'cursor-pointer p-2 hover:bg-gray-100 px-4 bg-gray-200 border-l-4 border-l-primary-500' : 'cursor-pointer p-2 hover:bg-gray-100 px-4'"
                   [ngClass]="selectedIndex === i ? '{{choose(item)}}' :'' "
@@ -249,7 +249,7 @@
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
 
-        <ng-container *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 10, currentPage: page }; let i = index; trackBy: trackByFn">
+        <ng-container *ngFor="let item of litadoPrestadores | filtroPorServicios:pipeSelectedServices; let i = index; trackBy: trackByFn">
           <div class="w-full relative sm:min-h-[350px]  gap-5 bg-white rounded-2xl border-black border-4 border-opacity-10 mb-5 flex bg:flex-col sm:flex-row">
 
               <!--!Div principal imagen-->
@@ -301,9 +301,10 @@
 
       </div>
       <!-- Paginación propia de la librería que importamos -->
-      <div class="flex flex-row justify-center">
+      <!-- <div class="flex flex-row justify-center">
         <pagination-controls nextLabel="" previousLabel="" class="custom-pagination " (pageChange)="page = $event; toID()"></pagination-controls>
-      </div>
+      </div> -->
+      <button (click)="cargarMasDocumentos()" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-xl">Ver más</button>
 
 
     </section>
