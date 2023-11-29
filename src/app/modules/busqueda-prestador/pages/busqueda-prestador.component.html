@@ -43,38 +43,7 @@
         </h3>
 
         <!--* SECCIÓN DEL FILTRO ESCRITO -->
-        <div class="w-full relative mb-10">
-
-
-          <div   (click)="onContainerClick($event)" #searchContainer class="absolute mx-auto w-full xl:w-[1200px] p-1 z-40 left-0 right-0" >
-            <!-- Input de búsqueda -->
-            <div class="flex items-center justify-center">
-              <input #searchInput class="w-full p-3 text-base xl:text-lg rounded-full border-2 border-gray-300 focus:outline-none focus:border-primary-500 "
-                     type="text"
-                     (keydown)="onKeydown($event)"
-                     placeholder="Buscar..."
-                     autocomplete="off"
-                      [(ngModel)]="inputext"
-                     >
-            </div>
-
-            <!-- Lista de resultados -->
-            <ul #resultsList *ngIf="inputext !== null && inputext !== ' ' && inputext !=='' " class="w-full relative max-h-[600px] overflow-y-auto bg-white rounded-b-xl">
-
-              <li #resultItems  *ngFor="let item of litadoPrestadores | filtroText:inputext ; let i = index"
-                  class="cursor-pointer p-2 hover:bg-gray-100 px-4 font-Work font-regular text-lg"
-                  [class]="selectedIndex === i ? 'cursor-pointer p-2 hover:bg-gray-100 px-4 bg-gray-200 border-l-4 border-l-primary-500' : 'cursor-pointer p-2 hover:bg-gray-100 px-4'"
-                  [ngClass]="selectedIndex === i ? '{{choose(item)}}' :'' "
-                  (click)="navigate(item)"
-                  (mouseover)="selectedIndex = i;"
-                  (mouseleave)="selectedIndex = -1;"
-                  >
-                  >
-                {{ item.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
+        <app-search-prestador></app-search-prestador>
 
         <!--* FIN SECCIÓN DEL FILTRO ESCRITO -->
 
