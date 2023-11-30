@@ -150,11 +150,6 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
       //************************************* */
 
-      {
-        headingText: '¿A Donde ir?',
-        routerlink: "/home"
-      },
-
       //************************************* */
 
       {

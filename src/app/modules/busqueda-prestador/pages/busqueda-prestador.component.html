@@ -126,31 +126,6 @@
         </div>
       <!--*---------------------------------------------->
       <!--*---------------------------------------------->
-        <div
-          *ngIf="turnS === '¿A Donde ir?'"
-          id="GO"
-          class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
-        >
-          <button
-            (click)="clearSelectedServices()"
-            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
-          >
-            Todos
-          </button>
-
-          <button
-            *ngFor="let item of servicesGO"
-            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
-            [ngClass]="{
-              'bg-primary-500 text-white border-primary-500':
-                selectedServices.has(item),
-              'bg-white text-gray-600': !selectedServices.has(item)
-            }"
-            (click)="toggleService(item)"
-          >
-            {{ item }}
-          </button>
-        </div>
       <!--*---------------------------------------------->
       <!--*---------------------------------------------->
         <div
