@@ -1,46 +1,28 @@
-<!-- <input type="text" (keyup)="onSearch($event)" placeholder="Buscar...">
-<ul>
-  <li *ngFor="let item of results">{{ item.nombre }}</li>
-</ul> -->
+<!-- Contenedor de la búsqueda principal -->
 
-<!--todo: Contenedor de la busqueda principal-->
-<div class="absolute right-0 left-0 bottom-2 flex flex-col bg:w-[85%] xl:w-[1200px] mx-auto">
-  <div class="relative h-12 items-center justify-center flex">
-    <input class="absolute w-full rounded-3xl border-white h-[80%] pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 font-Work" type="text" (keyup)="onSearch($event)" placeholder="Buscar...">
 
-    <!-- <input
-      autocomplete="on"
-      type="text"
-      id="Search"
-      placeholder="¿Que buscas?"
-      class="w-full rounded-3xl border-white h-[80%] pe-10  bg:text-base xl:text-lg flex flex-col items-center py-4.5 px-7 font-Work"
-    />
-
-    <button
-      type="button"
-      class="text-gray-600 hover:text-gray-400 absolute right-0 top-[50%] translate-y-[-50%] h-[50%] mr-5 "
-    >
-      <svg
-        role="button"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="3"
-        stroke="currentColor"
-        class="w-full h-full"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-        />
-      </svg>
-    </button> -->
+<div   (click)="onContainerClick($event)" #searchContainer class="absolute mx-auto w-full xl:w-[1200px] p-1 z-40 left-0 right-0" >
+  <!-- Input de búsqueda -->
+  <div class="flex items-center justify-center">
+    <input #searchInput class="w-full p-3 text-base xl:text-lg rounded-full border-2 border-gray-300 focus:outline-none focus:border-primary-500 "
+           type="text"
+           (keyup)="onSearch($event)"
+           (keydown)="onKeydown($event)"
+           placeholder="Buscar..."
+           autocomplete="off">
   </div>
 
-  </div>
-  <ul  class="w-full absolute right-0 left-0 bottom-0 bg:w-[85%] xl:w-[1200px] bg-rose-500">
-    <li class="cursor-pointer hover:bg-black hover:bg-opacity-20" *ngFor="let item of results; let i = index" (click)="navigate(item)">{{item.name}}</li>
+  <!-- Lista de resultados -->
+  <ul #resultsList *ngIf="results.length > 0" class="w-full relative max-h-[600px] overflow-y-auto bg-white rounded-b-xl">
+
+    <li #resultItems  *ngFor="let item of results; let i = index"
+        class="cursor-pointer p-2 hover:bg-gray-100 px-4 font-Work font-regular text-lg"
+        [class]="selectedIndex === i ? 'cursor-pointer p-2 hover:bg-gray-100 px-4 bg-gray-200 border-l-4 border-l-primary-500' : 'cursor-pointer p-2 hover:bg-gray-100 px-4'"
+        (click)="navigate(item)"
+        (mouseover)="selectedIndex = i"
+        (mouseleave)="selectedIndex = -1">
+        >
+      {{ item.name }}
+    </li>
   </ul>
-  <!--todo: FIN Contenedor de la busqueda principal-->
-
+</div>

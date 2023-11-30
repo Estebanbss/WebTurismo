@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, orderBy, query, where } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, collection, collectionData, limit, orderBy, query, startAfter, startAt, where } from '@angular/fire/firestore';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MostrarMunicipioService {
+
 
   constructor(
     private firestore: Firestore
@@ -25,7 +26,7 @@ export class MostrarMunicipioService {
 
     //Retornamos el observable que nos devuelve una función anónima a la que nos debemos suscribir y en la que recibimos los datos solicitados de la colección
     return collectionData(q, { idField: 'id' }) as Observable<any>;
-  } //? -> Fin del método obtener Prestador
+  } //? -> Fin del método obtener Municipios
 
   //Todo: Método para traer los atractivos SIN espacios
   obtenerAtractivosPorMunicipio(nombreMunicipio: string): Observable<any> {
@@ -72,5 +73,55 @@ export class MostrarMunicipioService {
     // Retornamos el observable
     return collectionData(q, { idField: 'id' }) as Observable<any>;
   }
+
+  //? SECCIÓN DE LEER PERO PARA EL MÓDULO DE BUSQUEDA PRESTADOR
+
+    // Método para obtener los documentos con paginación
+    obtenerPrestadoresPaginacionUno(): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'prestadores');
+
+      let q = query(prestadoresRef, orderBy('id'), limit(10));
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
+
+    // Método para obtener los documentos con paginación
+    obtenerPrestadoresPaginacion(paginaSiguiente: boolean, ultimoDocumento: any): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'prestadores');
+
+      let q;
+      if (paginaSiguiente && ultimoDocumento) {
+        q = query(prestadoresRef, orderBy('id'), startAfter(ultimoDocumento.id), limit(10));
+      } else {
+        q = query(prestadoresRef, orderBy('id'), limit(10));
+      }
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
+
+    //? SECCIÓN DE LEER PERO PARA EL MÓDULO DE BUSQUEDA ATRACTIVO
+
+    // Método para obtener los documentos con paginación
+    obtenerAtractivosPaginacionUno(): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'atractivos');
+
+      let q = query(prestadoresRef, orderBy('id'), limit(10));
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
+
+    // Método para obtener los documentos con paginación
+    obtenerAtractivosPaginacion(paginaSiguiente: boolean, ultimoDocumento: any): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'atractivos');
+
+      let q;
+      if (paginaSiguiente && ultimoDocumento) {
+        q = query(prestadoresRef, orderBy('id'), startAfter(ultimoDocumento.id), limit(10));
+      } else {
+        q = query(prestadoresRef, orderBy('id'), limit(10));
+      }
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
 
 }
