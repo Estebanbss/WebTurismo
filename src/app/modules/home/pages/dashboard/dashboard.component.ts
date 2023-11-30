@@ -43,6 +43,14 @@ export class DashboardComponent implements OnInit {
       this.atractivosrandom = atractivos;
       // console.log("response atractivos: ", atractivos)
     }).then()
+
+        let currentIndex = 0;
+
+    // Iniciar el cambio cada 5 segundos
+    setInterval(() => {
+      this.selectGastronomySrc = this.gastronomySRC[currentIndex];
+      currentIndex = (currentIndex + 1) % this.gastronomySRC.length;
+    }, 5000);
   }
 
   ngOnDestroy(): void {
@@ -55,32 +63,52 @@ export class DashboardComponent implements OnInit {
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
 
-  getRutas(){
-    this.detalle.obtenerTodasLasRutas().subscribe((rutas) => {this.ruta = rutas });
-    console.log(this.ruta)
+    getRutas(){
+      this.detalle.obtenerTodasLasRutas().subscribe((rutas) => {this.ruta = rutas;this.cargarMapa(rutas[0])});
+    }
 
-  }
-    cargarMapa() {
+    changeRoute(direction:string){
+      if(direction === "right"){
+        if(this.ruta.indexOf(this.actualRuta) !== this.ruta.length-1){
+        this.cargarMapa(this.ruta[this.ruta.indexOf(this.actualRuta)+1])
+        }
+        else{
+          this.cargarMapa(this.ruta[0])
+        }
+      }else{
+        if(this.ruta.indexOf(this.actualRuta) === 0){
+          this.cargarMapa(this.ruta[this.ruta.length-1])
+        }else{
+            this.cargarMapa(this.ruta[this.ruta.indexOf(this.actualRuta)-1])
+           }
 
+      }
+    }
+
+    cargarMapa(item:any) {
+
+      const rutas = item;
+      this.actualRuta = rutas;
       if (!this.map) { // Verificar si el mapa ya está inicializado
-        this.map = new Map('map').setView([this.ruta[0].latitud, this.ruta[0].longitud], 13);
+        this.map = new Map('map').setView([rutas.latitud, rutas.longitud], 13);
 
         // Agregar capa de tiles
         tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
         }).addTo(this.map);
 
         // Agregar un marcador
-        marker([this.ruta[0].latitud, this.ruta[0].longitud]).addTo(this.map)
-          .bindPopup(this.ruta[0].name)
+        marker([rutas.latitud, rutas.longitud]).addTo(this.map)
+          .bindPopup(rutas.name)
           .openPopup();
 
 
       } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
-        this.map.setView([this.ruta[0].latitud, this.ruta[0].longitud], 13);
-        marker([this.ruta[0].latitud, this.ruta[0].longitud]).addTo(this.map)
-          .bindPopup(this.ruta[0].name)
+        this.map.setView([rutas.latitud, rutas.longitud], 13);
+        marker([rutas.latitud, rutas.longitud]).addTo(this.map)
+          .bindPopup(rutas.name)
           .openPopup();
       }
+
     }//? -> Fin Método Cargar Mapa
 
   navigate(item: any) {
@@ -92,8 +120,16 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  actualRuta:any
   map:any
   ruta:any
+  gastronomySRC: string[] = [
+    "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/gastronomySRC%2Farepas.jpg?alt=media&token=f8c779be-2e0e-41be-a4cc-1c62eb6cdeae",
+    "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/gastronomySRC%2Fasadohuilense.jpg?alt=media&token=4a7c691a-fc4d-4f44-85ee-1b576bdb861b",
+    "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/gastronomySRC%2Fbizcochoscuajada.jpg?alt=media&token=62f82ade-89ac-4004-89a6-8a8dd71417b4",
+    "https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/gastronomySRC%2Ftamal.jpg?alt=media&token=f63225f9-f82d-4231-925e-b80ef30ee58b"
+  ]
+  selectGastronomySrc:any;
   auth = getAuth();
   storage = getStorage(); // Variable para almacenar el storage de Firebase
   prestadoresrandom: any = []; // Array de prestadores aleatorios
@@ -222,6 +258,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild("carouselServi") carouselServi!: ElementRef;
   @ViewChild("carouselPresta") carouselPresta!: ElementRef;
   @ViewChild("carouselAtrac") carouselAtrac!: ElementRef;
+  @ViewChild("carouselRuta") carouselRuta!: ElementRef;
+
   @ViewChild('leftButtonMuni') leftButtonMuni!: ElementRef;
   @ViewChild('rightButtonMuni') rightButtonMuni!: ElementRef;
   @ViewChild('leftButtonServi') leftButtonServi!: ElementRef;
@@ -230,6 +268,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild('rightButtonPresta') rightButtonPresta!: ElementRef;
   @ViewChild('leftButtonAtrac') leftButtonAtrac!: ElementRef;
   @ViewChild('rightButtonAtrac') rightButtonAtrac!: ElementRef;
+  @ViewChild('leftButtonRuta') leftButtonRuta!: ElementRef;
+  @ViewChild('rightButtonRuta') rightButtonRuta!: ElementRef;
 
 [key: string]: any;
 
@@ -274,9 +314,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   this.checkScrollEnd(this.carouselServi, this.leftButtonServi, this.rightButtonServi);
   this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
   this.checkScrollEnd(this.carouselAtrac, this.leftButtonAtrac, this.rightButtonAtrac);
-  if(this.ruta != undefined || this.ruta != null && this.map == null || this.map == undefined){
-    this.cargarMapa()
-  }
+
   }
 
   private async fetchUrls(): Promise<{ [key: string]: string }> {
@@ -315,6 +353,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     } catch (error) {
       console.error('Error en IndexedDB o Firebase:', error);
     }
+
   }
 
 

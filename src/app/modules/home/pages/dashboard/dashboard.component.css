@@ -34,3 +34,7 @@
 }
 
 
+/* Clase para la transición suave */
+.smooth-transition {
+  transition: opacity 0.1s ease-in-out;
+}
