@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, limit, orderBy, query, startAfter, startAt, where } from '@angular/fire/firestore';
+import { DocumentSnapshot, Firestore, collection, collectionData, getDocs, limit, orderBy, query, startAfter, startAt, where } from '@angular/fire/firestore';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -76,14 +76,50 @@ export class MostrarMunicipioService {
 
   //? SECCIÓN DE LEER PERO PARA EL MÓDULO DE BUSQUEDA PRESTADOR
 
-    // Método para obtener los documentos con paginación
-    obtenerPrestadoresPaginacionUno(): Observable<any> {
-      const prestadoresRef = collection(this.firestore, 'prestadores');
+  obtenerPrestadoresPaginacionUno(): Observable<any> {
+    const batchSize = 10;
 
-      let q = query(prestadoresRef, orderBy('id'), limit(10));
+    // Obtener un documento aleatorio
+    const prestadoresRef = collection(this.firestore, 'prestadores');
 
-      return collectionData(q, { idField: 'id' }) as Observable<any>;
+     this.obtenerDocumentoAleatorio(prestadoresRef)
+      .then((randomDoc) => {
+        if (!randomDoc) {
+          // Manejar el caso en el que no se pudo obtener un documento aleatorio
+          return null;
+        }
+
+        // Consultar documentos a partir del documento aleatorio obtenido
+        const q = query(
+          prestadoresRef,
+          orderBy('id'),
+          startAt(randomDoc.id),
+          limit(batchSize)
+        );
+
+        return collectionData(q, { idField: 'id' }) as Observable<any>;
+      })
+      .catch((error) => {
+        // Manejar el error si ocurre algún problema al obtener el documento aleatorio
+        console.error("Error al obtener documento aleatorio:", error);
+        return null;
+      });
+  }
+
+  async obtenerDocumentoAleatorio(ref: any): Promise<DocumentSnapshot<any> | null> {
+    const snapshot = await getDocs(ref);
+    const randomIndex = Math.floor(Math.random() * snapshot.size);
+    let count = 0;
+
+    for (const docSnap of snapshot.docs) {
+      if (count === randomIndex) {
+        return docSnap;
+      }
+      count++;
     }
+
+    return null; // Si no se encuentra ningún documento aleatorio
+  }
 
     // Método para obtener los documentos con paginación
     obtenerPrestadoresPaginacion(paginaSiguiente: boolean, ultimoDocumento: any): Observable<any> {
