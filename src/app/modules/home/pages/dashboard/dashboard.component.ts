@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
   'Campoalegre',
   'Colombia',
   'Elías',
-  'El Agrado',
+  'Agrado',
   'Garzón',
   'Gigante',
   'Guadalupe',

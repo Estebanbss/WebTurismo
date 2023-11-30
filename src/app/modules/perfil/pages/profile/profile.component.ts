@@ -13,6 +13,9 @@ export class ProfileComponent {
     profileId!: string;
     user:any;
     userauth:any;
+    pag:string = "Mis sitios";
+    currentPage: number = 1; // Página actual
+    buttonPags: string[] = ["Mis sitios","Likes"];
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.profileId = params['id'];
@@ -24,5 +27,8 @@ export class ProfileComponent {
       this.modalService.setProfileHeader(false);
     });
 
+  }
+  buttonPag(option:string){
+    this.pag = option;
   }
 }

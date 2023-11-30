@@ -113,7 +113,7 @@ datocurioso(){
       direccion: this.data[0][index].direccion === undefined  ? '--' : this.data[0][index].direccion,
       indicacionesAcceso: this.data[0][index].indicacionesAcceso === undefined  ? '--' : this.data[0][index].indicacionesAcceso,
       googleMaps: this.data[0][index].googleMaps === undefined  ? '--' : this.data[0][index].googleMaps,
-      latitud: this.data[0][index].latitud === undefined || "--" || null  ? 0 : this.data[0][index].latitud,
+      latitud: (this.data[0][index].latitud)*1 === undefined || "--" || null  ? 0 : (this.data[0][index].latitud)*1,
       longitud: this.data[0][index].longitud === undefined || "--" || null  ? 0 : (this.data[0][index].longitud)*-1,
       whatsapp:this.data[0][index].whatsapp === undefined  ? 0 : this.procesarValor(this.data[0][index].whatsapp),
       celular1:this.data[0][index].celular1 === undefined  ? 0 : this.procesarValor(this.data[0][index].celular1),

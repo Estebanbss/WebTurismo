@@ -84,7 +84,7 @@ datocurioso(){
        direccionBarrioVereda: this.data[0][index].direccionBarrioVereda === undefined  ? '--' : this.data[0][index].direccionBarrioVereda,
        indicacionesAcceso: this.data[0][index].indicacionesAcceso === undefined  ? '--' : this.data[0][index].indicacionesAcceso,
        googleMaps: this.data[0][index].googleMaps === undefined  ? '--' : this.data[0][index].googleMaps,
-       latitud: this.data[0][index].latitud === undefined || "--" || null  ? 0 : this.data[0][index].latitud,
+       latitud: (this.data[0][index].latitud)*1 === undefined || "--" || null  ? 0 : (this.data[0][index].latitud)*1,
        longitud: this.data[0][index].longitud === undefined || "--" || null  ? 0 : (this.data[0][index].longitud)*-1,
        actividades: this.data[0][index].actividades === undefined  ? '--' : this.data[0][index].actividades,
        horarioAtencion: this.data[0][index].horarioAtencion === undefined  ? '--' : this.data[0][index].horarioAtencion,

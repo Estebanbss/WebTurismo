@@ -33,8 +33,3 @@
   background-color: #38a900c7;
 }
 
-
-/* Clase para la transición suave */
-.smooth-transition {
-  transition: opacity 0.1s ease-in-out;
-}

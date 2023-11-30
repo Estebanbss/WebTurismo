@@ -15,7 +15,7 @@ export class MunicipioGuard implements CanActivate {
   'Campoalegre',
   'Colombia',
   'Elías',
-  'El Agrado',
+  'Agrado',
   'Garzón',
   'Gigante',
   'Guadalupe',
