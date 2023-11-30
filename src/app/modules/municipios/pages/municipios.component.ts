@@ -289,7 +289,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       'Campoalegre',
       'Colombia',
       'Elías',
-      'El Agrado',
+      'Agrado',
       'Garzón',
       'Gigante',
       'Guadalupe',

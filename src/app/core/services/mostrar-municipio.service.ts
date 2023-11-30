@@ -99,4 +99,29 @@ export class MostrarMunicipioService {
       return collectionData(q, { idField: 'id' }) as Observable<any>;
     }
 
+    //? SECCIÓN DE LEER PERO PARA EL MÓDULO DE BUSQUEDA ATRACTIVO
+
+    // Método para obtener los documentos con paginación
+    obtenerAtractivosPaginacionUno(): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'atractivos');
+
+      let q = query(prestadoresRef, orderBy('id'), limit(10));
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
+
+    // Método para obtener los documentos con paginación
+    obtenerAtractivosPaginacion(paginaSiguiente: boolean, ultimoDocumento: any): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'atractivos');
+
+      let q;
+      if (paginaSiguiente && ultimoDocumento) {
+        q = query(prestadoresRef, orderBy('id'), startAfter(ultimoDocumento.id), limit(10));
+      } else {
+        q = query(prestadoresRef, orderBy('id'), limit(10));
+      }
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+    }
+
 }

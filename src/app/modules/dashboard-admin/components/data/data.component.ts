@@ -39,7 +39,7 @@ export class DataComponent {
     'Campoalegre',
     'Colombia',
     'Elías',
-    'El Agrado',
+    'Agrado',
     'Garzón',
     'Gigante',
     'Guadalupe',
