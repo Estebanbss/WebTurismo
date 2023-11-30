@@ -19,6 +19,10 @@ const routes: Routes = [
 
   { path: "municipios/:id", canActivate:[authGuard, MunicipioGuard], loadChildren:() => import("./modules/municipios/municipios.module").then((m) => m.MunicipiosModule)},
 
+  { path: "busqueda-prestador", canActivate:[authGuard], loadChildren:() => import("./modules/busqueda-prestador/busqueda-prestador.module").then((m) => m.BusquedaPrestadorModule)},
+
+  { path: "busqueda-atractivo", canActivate:[authGuard], loadChildren:() => import("./modules/busqueda-atractivo/busqueda-atractivo.module").then((m) => m.BusquedaAtractivoModule)},
+
   { path: "prestadores/:municipio/:prestador", canActivate:[authGuard,PrestadorGuard], loadChildren:() => import("./modules/prestadores/prestadores.module").then((m) => m.PrestadoresModule)},
 
   { path: "atractivos/:municipio/:atractivo", canActivate:[authGuard,AtractivoGuard], loadChildren:() => import("./modules/atractivos/atractivos.module").then((m) => m.AtractivosModule)},

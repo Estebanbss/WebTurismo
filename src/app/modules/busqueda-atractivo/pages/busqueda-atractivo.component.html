@@ -1,0 +1,365 @@
+<div class="bg-gray-50 z-50">
+  <!-- *header-->
+  <app-navheader class="z-50 fixed w-full top-0"></app-navheader>
+  <!--*fin header-->
+
+  <!--!---                                                                               ----->
+
+  <!--!Sección Banner en esta sección tiene tanto el titulo principal como la busqueda-->
+
+  <section
+    id="Banner"
+    class="  py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+    style="background-image:url('{{imgDefault}}')"
+  >
+    <!--!Contenedor del titulo principal-->
+    <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl z-0 "></div>
+    <div
+      class="relative  mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
+    >
+      <div class="text-center mb-[20] flex flex-col items-center"></div>
+    </div>
+
+
+    </section>
+
+  <!--!Contenedor principal-->
+
+  <!--!MAIN DE TODO--> <!--*MAINNNNNNNNNNNNNNNNNN DE TODOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+  <main class="max-w-[1280px] min-h-screen mx-auto mt-0">
+
+
+    <!--!Sección de información de los servicios del municipio-->
+    <section id="InfoListaMunicipio" class="">
+      <!--!Contenedor de los botones de los servicios-->
+      <div id="ListID"
+        class="w-full  bg-white  h-36 items-center justify-center flex flex-col gap-5 rounded-t-2xl"
+      >
+      <!--!titulo de la sección lista de municipios "explora por ti mismo"-->
+        <h3
+          class="text-center font-Blinker text-3xl text-primary-500 font-bold"
+        >
+          Explora por ti mismo
+        </h3>
+
+        <!--* SECCIÓN DEL FILTRO ESCRITO -->
+        <app-search-atractivo></app-search-atractivo>
+
+        <!--* FIN SECCIÓN DEL FILTRO ESCRITO -->
+
+      </div>
+      <!--!Contenedor de los botones de los servicios-->
+      <div
+        class="flex flex-row text-gray-600 font-Work font-normal gap-2 overflow-hidden bg-primary-500 rounded-b-xl w-full"
+      >
+      <!---->
+        <div
+          class="mx-auto w-full overflow-x-scroll scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+        >
+          <div class="xs1:mt-0 bg:max-w-auto max-w-full z-50">
+            <div
+              class="flex flex-row gap-4 items-center overscroll-y-contain md2:justify-center bg-primary-500 h-20 rounded-b-xl px-5 text-white"
+            >
+            <!--!Boton que activa todos los servicios-->
+              <button
+                (click)="clearBotonActivo(); clearSelectedServices(); turnServicesOption('none')"
+                class="flex items-center space-x-2 border-primary-50 border-2 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold lg:px-1 lg:py-2.5 px-3 py-2 min-w-[204px] max-h-[50px] text-white rounded-xl justify-center"
+              >
+                <h1 class="justify-center mb-0 text">Todo</h1>
+              </button>
+              <!--!Boton que itera todos los tipos de categoria DORMIR, DONDE COMER , A DONDE IR, COSAS QUE HACER-->
+              <!--*NG CLASS aplica unos estilos SOLO si se cumple la condición de que el botonActivo sea igual al nombre te el Heading Text-->
+              <!--*Para cambiar que boton sea seleccionado se utiliza (click) para disparar DOS FUNCIONES en la que estan "activar boton" y "turnServicesOption" la primera función cambia la variable global de tipo string llamada botonActivo al paramatro enviado en este caso es "tile.headingText" tomado de la iteración del arreglo "titles"; La otra función lo que hace basicamente es lo mismo pero en arreglo, añadiendo al arreglo los botones seleccionados y a la misma vez si se da de nuevo click verifica que el argumento recibido esta o no está en el arreglo para borrarlo o agregarlo  -->
+              <button
+                *ngFor="let title of titles; let i = index"
+                [ngClass]="{
+                  'bg-primary-400 text-white border-primary-400':
+                    botonActivo === title.headingText
+                }"
+                (click)="
+                  activarBoton(title.headingText);
+                  turnServicesOption(title.headingText);
+                  clearSelectedServices()
+                "
+                class="flex items-center space-x-2 border-primary-50 border-2 focus:outline-none focus:ring-4 focus:ring-primary-300 font-Work font-bold lg:px-1 lg:py-2.5 px-3 py-2 min-w-[204px] max-h-[50px] text-white rounded-xl justify-center"
+              >
+                <img
+                [alt]="'ButtonFilter ' + title.headingText"
+                class="w-[30px]"
+                [src]="'assets/img/' + (title.headingText === '¿Donde comer?' ? 'Donde comer' : title.headingText === '¿Donde dormir?' ? 'Donde dormir' : title.headingText === '¿A Donde ir?' ? 'Donde ir' : title.headingText === 'Cosas que hacer' ? 'Cosas que hacer' : title.headingText ) + '.svg'"
+                />
+                <h3 class="justify-center mb-0 text">
+                  {{ title.headingText }}
+                </h3>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div   class="flex flex-row mt-2 gap-5">
+        <!--*---------------------------------------------->
+        <div
+          *ngIf="turnS === '¿Donde dormir?'"
+          id="SLEEP"
+          class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
+        >
+          <button
+            (click)="clearSelectedServices()"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+          >
+            Todos
+          </button>
+
+          <button
+            *ngFor="let item of servicesSLEEP"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+            [ngClass]="{
+              'bg-primary-500 text-white border-primary-500':
+                selectedServices.has(item),
+              'bg-white text-gray-600': !selectedServices.has(item)
+            }"
+            (click)="toggleService(item)"
+          >
+            {{ item }}
+          </button>
+        </div>
+      <!--*---------------------------------------------->
+      <!--*---------------------------------------------->
+        <div
+          *ngIf="turnS === '¿A Donde ir?'"
+          id="GO"
+          class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
+        >
+          <button
+            (click)="clearSelectedServices()"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+          >
+            Todos
+          </button>
+
+          <button
+            *ngFor="let item of servicesGO"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+            [ngClass]="{
+              'bg-primary-500 text-white border-primary-500':
+                selectedServices.has(item),
+              'bg-white text-gray-600': !selectedServices.has(item)
+            }"
+            (click)="toggleService(item)"
+          >
+            {{ item }}
+          </button>
+        </div>
+      <!--*---------------------------------------------->
+      <!--*---------------------------------------------->
+        <div
+          *ngIf="turnS === 'Cosas que hacer'"
+          id="EAT"
+          class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
+        >
+          <button
+            (click)="clearSelectedServices()"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+          >
+            Todos
+          </button>
+
+          <button
+            *ngFor="let item of servicesDO"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+            [ngClass]="{
+              'bg-primary-500 text-white border-primary-500':
+                selectedServices.has(item),
+              'bg-white text-gray-600': !selectedServices.has(item)
+            }"
+            (click)="toggleService(item)"
+          >
+            {{ item }}
+          </button>
+        </div>
+      <!--*---------------------------------------------->
+      <!--*---------------------------------------------->
+        <div
+          *ngIf="turnS === '¿Donde comer?'"
+          id="EAT"
+          class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
+        >
+          <button
+            (click)="clearSelectedServices()"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+          >
+            Todos
+          </button>
+
+          <button
+            *ngFor="let item of servicesEAT"
+            class="flex flex- items-center min-w-[153px] border-gray-400 bg-white rounded-lg py-2 border-[1.5px] text-center text-gray-600 justify-center px-[2px]"
+            [ngClass]="{
+              'bg-primary-500 text-white border-primary-500':
+                selectedServices.has(item),
+              'bg-white text-gray-600': !selectedServices.has(item)
+            }"
+            (click)="toggleService(item)"
+          >
+            {{ item }}
+          </button>
+        </div>
+      <!--*---------------------------------------------->
+      </div>
+    </section>
+<!--!Fin de la sección de información de los servicios del municipio-->
+
+<!--!Sección de los listados de los servicios del municipio-->
+    <section  id="ListadosMunicipios" class="">
+
+      <div  class="flex flex-col my-5 gap-5 mx-3 sm:mx-0">
+
+          <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
+        <!--*Sección de imagen-->
+
+        <ng-container *ngFor="let item of litadoAtractivos | filtroPorServicios:pipeSelectedServices; let i = index; trackBy: trackByFn">
+          <div class="w-full relative sm:min-h-[350px]  gap-5 bg-white rounded-2xl border-black border-4 border-opacity-10 mb-5 flex bg:flex-col sm:flex-row">
+
+              <!--!Div principal imagen-->
+          <div class=" bg:w-full sm:min-w-[350px] sm:max-w-[350px] md2:min-h-full relative">
+            <!--*imagen-->
+            <div class="relative max-w-full w-[100%] aspect-rato-1-1 overflow-hidden
+              mx-0 px-0 flex justify-center items-center">
+
+              <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto ">
+              <!--*Boton de guardar-->
+           <button id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+             <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
+           </button>
+            <!--*Boton de me gusta-->
+           <button id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+             <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+           </button>
+            </div>
+
+        </div>
+        <!--!Div secundario información-->
+
+        <div class="relative flex flex-col w-full h-[350px] sm:py-5 px-5">
+          <span id="contadorCards" class="font-light font-Blinker text-2xl text-primary-500">{{(page - 1) * 10 + i + 1}}.</span>
+          <h4 id="tituloCard" class="font-bold font-Blinker text-4xl text-gray-800 leading-7">{{item.name}}</h4>
+          <h5 id="ubicaciónCard" class="flex flex-row text-lg font-work font-semibold items-center text-gray-500 fill-gray-500"><svg role="img" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>{{item.municipio}}</h5>
+          <p id="descripciónCard" class="overflow-hidden font-Work bg:text-lg md:text-xl text-gray-700 my-auto"  style="-webkit-line-clamp: 4; -webkit-box-orient: vertical;  display: -webkit-box;" >{{item.descripcion}}</p>
+          <button
+          (click)="navigate(item)"
+
+          class="flex flex- items-center w-[50%] xl:w-[300px] mx-auto sm:mx-0 bg-primary-500 rounded-full py-2 border-[1.5px] text-center text-white font-bold justify-center px-[2px]"
+        >
+          Ver más
+        </button>
+
+        </div>
+
+          </div>
+
+
+
+
+      </ng-container>
+
+                <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
+
+
+
+
+      </div>
+      <!-- Paginación propia de la librería que importamos -->
+      <!-- <div class="flex flex-row justify-center">
+        <pagination-controls nextLabel="" previousLabel="" class="custom-pagination " (pageChange)="page = $event; toID()"></pagination-controls>
+      </div> -->
+      <button (click)="cargarMasDocumentos()" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-xl">Ver más</button>
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--!Fin Sección de los listados de los servicios del municipio-->
+  </main>
+<!--!MAIN DE TODO--> <!--*MAINNNNNNNNNNNNNNNNNN DE TODOOOOOOOOOOOOOOOOOOOOOOOOOO-->
+
+  <!--!Fin contenedor principal-->
+
+  <!--!---                                                                               ----->
+
+  <!--*footer-->
+</div>
+<app-navfooter class="bg-white"></app-navfooter>
+
+<!--*fin footer-->
