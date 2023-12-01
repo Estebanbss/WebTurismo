@@ -139,4 +139,13 @@ export class AuthService {
       throw error;
     }
   }
+  private sharedData: any;
+
+  setData(data: any) {
+    this.sharedData = data;
+  }
+
+  getData(): any {
+    return this.sharedData;
+  }
 }

@@ -294,16 +294,16 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     return item.id; // Utiliza un identificador único para tus elementos
   }
 
-  checkScrollEnd(element: ElementRef, leftButton: ElementRef, rightButton: ElementRef) {
-    const el = element.nativeElement;
-    const scrollEnd = el.scrollWidth - el.clientWidth;
-    const leftBtn = leftButton.nativeElement;
-    const rightBtn = rightButton.nativeElement;
+  checkScrollEnd(element?: ElementRef, leftButton?: ElementRef, rightButton?: ElementRef) {
+    const el = element?.nativeElement;
+    const scrollEnd = el?.scrollWidth - el?.clientWidth;
+    const leftBtn = leftButton?.nativeElement;
+    const rightBtn = rightButton?.nativeElement;
 
-    rightBtn.classList.toggle('hidden', el.scrollLeft >= scrollEnd - this.scrollEndThreshold);
-    rightBtn.classList.toggle('block', el.scrollLeft < scrollEnd - this.scrollEndThreshold);
-    leftBtn.classList.toggle('hidden', el.scrollLeft === 0);
-    leftBtn.classList.toggle('block', el.scrollLeft > this.scrollEndThreshold);
+    rightBtn?.classList.toggle('hidden', el.scrollLeft >= scrollEnd - this.scrollEndThreshold);
+    rightBtn?.classList.toggle('block', el.scrollLeft < scrollEnd - this.scrollEndThreshold);
+    leftBtn?.classList.toggle('hidden', el.scrollLeft === 0);
+    leftBtn?.classList.toggle('block', el.scrollLeft > this.scrollEndThreshold);
   }
 
 

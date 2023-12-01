@@ -12,11 +12,20 @@ export class ModaleditComponent {
 
 constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService ) {this.authService.onAuthStateChanged((user, userDetails) => {this.userauth = user;}) }
   profileId!: string;
+  portadaFile!: File;
+  modalPf: boolean = false;
+  modalBanner!: boolean;
   user:any;
   userauth:any;
   buttonModal() {
 
     this.router.navigate(['../'], { relativeTo: this.route })
+
+  }
+
+  buttonModal2() {
+
+    this.modalPf = false;
 
   }
 
@@ -40,7 +49,10 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
       }
 
     });
-    console.log(this.user, this.userauth)
+  }
+
+  turnPf(){
+    this.modalPf = true;
   }
 
   actualizarUsuario(choose: boolean, user?:any){
@@ -54,5 +66,26 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
    }
 
   }
+
+  selectedImages2: any[] = [];
+
+    //? -> Método para Cargar la imágen de portada o imágen principal
+    uploadFilePortada($event: any) {
+      this.selectedImages2 = []; //Vaciamos el arreglo de imágenes
+      const files = $event.target.files as FileList;
+      this.portadaFile = $event.target.files[0];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          this.selectedImages2.push(e.target.result);
+        };
+
+        reader.readAsDataURL(file);
+      }
+      // console.log(this.portadaFile);
+    }
 
 }

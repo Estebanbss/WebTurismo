@@ -1,5 +1,8 @@
-<div (keydown)="onKeyDown($event)"  class="bg-black fixed min-h-screen min-w-scren h-full w-full z-50 bg-opacity-40"></div>
-<div class="fixed min-w-[60%] w-[90%] h-[50%] md:w-[60%] md:h-[90%] md:min-h-[90%] md:max-w-[60%]  max-h-[90%] z-50  right-[50%] translate-x-[50%] flex flex-col items-center justify-center translate-y-[50%] bottom-[50%]">
+
+
+
+<div (keydown)="onKeyDown($event)"  class="bg-black fixed min-h-screen min-w-scren h-full w-full z-40 bg-opacity-40"></div>
+<div class="fixed min-w-[60%] w-[90%] h-[50%] md:w-[60%] md:h-[90%] md:min-h-[90%] md:max-w-[60%]  max-h-[90%] z-40  right-[50%] translate-x-[50%] flex flex-col items-center justify-center translate-y-[50%] bottom-[50%]">
 
 <button class="absolute top-5 right-5" (click)="buttonModal()">
   <svg role="button" viewBox="0 0 24 24" width="20px" height="20px" class="d Vb UmNoP"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.94 12L4.47 5.53l1.06-1.06L12 10.94l6.47-6.47 1.06 1.06L13.06 12l6.47 6.47-1.06 1.06L12 13.06l-6.47 6.47-1.06-1.06L10.94 12z"></path></svg>
@@ -9,7 +12,8 @@
 
 
   <div class="grid md:grid-cols-2 md2:grid-cols-3 2xl:grid-cols-4  gap-2 w-full h-full p-5">
-  <button class="bg:w-[80px] md:w-[100px] bg:h-[80px] md:h-[100px] max-w-[100px] max-h-[100px] rounded-full bg-black bg-opacity-5 overflow-hidden"><img *ngIf="user?.fotoUser != null" src="{{user?.fotoUser}}" class="w-full h-full object-cover object-center" ></button>
+
+  <button (click)="turnPf()" class="bg:w-[80px] md:w-[100px] bg:h-[80px] md:h-[100px] max-w-[100px] max-h-[100px] rounded-full bg-black bg-opacity-100 overflow-hidden"><img *ngIf="user?.fotoUser != null" src="{{user?.fotoUser}}" class="w-full h-full object-cover object-center" ></button>
 
 
 
@@ -18,6 +22,37 @@
 
 </div>
 
+
+
+</div>
+
+
+<div *ngIf="modalPf" class="fixed min-w-[50%] w-[80%] h-[40%] md:w-[50%] md:h-[80%] md:min-h-[80%] md:max-w-[50%]  max-h-[80%] z-50  right-[50%] translate-x-[50%] flex flex-col items-center justify-center translate-y-[50%] bottom-[50%]">
+
+<button class="absolute top-5 right-5" (click)="buttonModal2()">
+  <svg role="button" viewBox="0 0 24 24" width="20px" height="20px" class="d Vb UmNoP"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.94 12L4.47 5.53l1.06-1.06L12 10.94l6.47-6.47 1.06 1.06L13.06 12l6.47 6.47-1.06 1.06L12 13.06l-6.47 6.47-1.06-1.06L10.94 12z"></path></svg>
+</button>
+
+<div class="flex flex-col border  bg-white mx-auto my-auto items-center h-full w-full rounded-xl mb-auto round">
+
+
+  <div class="grid md:grid-cols-2 md2:grid-cols-3 2xl:grid-cols-4  gap-2 w-full h-full p-5">
+    <div class="relative p-6 border-2 border-red-500 border-dashed rounded-md my-2">
+
+      <input
+        type="file"
+        accept="image/*"
+        class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+        (change)="uploadFilePortada($event)">
+      <div class="flex items-center justify-center space-x-2">
+        <svg role="button" class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H5a1 1 0 110-2h5V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        <span class="text-red-500 font-medium">Aqui va la imagen de portada</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
 
 </div>

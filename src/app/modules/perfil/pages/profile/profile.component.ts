@@ -26,7 +26,8 @@ export class ProfileComponent {
       }
       this.modalService.setProfileHeader(false);
     });
-
+    console.log(this.router.url);
+    this.auth.setData(this.router.url);
   }
   buttonPag(option:string){
     this.pag = option;
