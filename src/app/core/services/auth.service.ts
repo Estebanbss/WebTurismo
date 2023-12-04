@@ -9,6 +9,7 @@ import { deleteDoc } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class AuthService {
+  storage: any;
 
   constructor(private afAuth: Auth,    private firestore: Firestore,
   ) {this.onAuthStateChanged((user, userDetails) => {this.uid = user.uid }) }
@@ -92,6 +93,25 @@ export class AuthService {
   actualizarUsuario(uid: string, usuario: any): Promise<void> {
     const usuarioRef = doc(this.firestore, 'users', uid);
     return updateDoc(usuarioRef, usuario);
+  }
+
+  async actualizarFotoPerfil(uid: string, photo: File) {
+    const filePath = `users/pfp/${uid}`;
+    const fileRef = this.storage.ref(filePath);
+
+    try {
+      // Subir la foto al Storage
+      await this.storage.upload(filePath, photo);
+
+      // Obtener la URL de descarga de la foto subida
+      const downloadURL = await fileRef.getDownloadURL().toPromise();
+
+      console.log('Foto de perfil actualizada con éxito en Storage y Firestore');
+      return downloadURL; // Retorna la URL de descarga para usarla si es necesario
+    } catch (error) {
+      console.error('Error al actualizar la foto de perfil:', error);
+      throw error;
+    }
   }
 
   async updateUserDetailsInLocalStorage() {

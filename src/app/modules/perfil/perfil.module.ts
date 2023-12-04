@@ -15,7 +15,7 @@ import { ModaleditComponent } from './modaledit/modaledit.component';
   imports: [
     CommonModule,
     PerfilRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class PerfilModule { }

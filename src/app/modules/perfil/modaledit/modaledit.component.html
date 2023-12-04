@@ -36,20 +36,32 @@
 <div class="flex flex-col border  bg-white mx-auto my-auto items-center h-full w-full rounded-xl mb-auto round">
 
 
-  <div class="grid md:grid-cols-2 md2:grid-cols-3 2xl:grid-cols-4  gap-2 w-full h-full p-5">
-    <div class="relative p-6 border-2 border-red-500 border-dashed rounded-md my-2">
+  <div class="  gap-2 w-full h-full p-5">
+    <div class="relative flex flex-col justify-center p-6 border-2 border-red-500 border-dashed rounded-md my-2 h-full" *ngIf="!fotoSeleccionada">
 
       <input
-        type="file"
-        accept="image/*"
-        class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-        (change)="uploadFilePortada($event)">
-      <div class="flex items-center justify-center space-x-2">
+      type="file"
+      accept="image/*"
+      class="absolute top-0 left-0 bottom-0 w-full h-full opacity-0 cursor-pointer"
+      (change)="uploadFilePortada($event)">
+
+
+      <div class="flex flex-row items-center justify-center space-x-2"  >
         <svg role="button" class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H5a1 1 0 110-2h5V3a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-        <span class="text-red-500 font-medium">Aqui va la imagen de portada</span>
+        <span class="text-red-500 font-medium">Ingrese la nueva foto de perfil</span>
       </div>
 
     </div>
+    <div class="w-full h-full flex flex-col justify-center items-center">
+      <div class="w-[350px] h-[350px]">
+        <div class="w-full h-full" *ngIf="fotoSeleccionada">
+          <img [src]="crearURL(fotoSeleccionada)" alt="Foto seleccionada">
+          <!-- Agrega aquí la lógica para el crop si es necesario -->
+        </div>
+      </div>
+      <button *ngIf="fotoSeleccionada"  class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-full absolute bottom-0">Actualizar</button>
+    </div>
+
   </div>
 
 </div>

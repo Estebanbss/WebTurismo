@@ -1,7 +1,8 @@
-import { relative } from '@angular-devkit/core';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+
 
 @Component({
   selector: 'app-modaledit',
@@ -26,8 +27,9 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
   buttonModal2() {
 
     this.modalPf = false;
-
+    this.fotoSeleccionada = null;
   }
+
 
   onKeyDown(event: KeyboardEvent) {
     const targetElement = event.target as HTMLElement;
@@ -69,23 +71,17 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
 
   selectedImages2: any[] = [];
 
-    //? -> Método para Cargar la imágen de portada o imágen principal
-    uploadFilePortada($event: any) {
-      this.selectedImages2 = []; //Vaciamos el arreglo de imágenes
-      const files = $event.target.files as FileList;
-      this.portadaFile = $event.target.files[0];
+  crearURL(objeto: Blob): string {
+    return window.URL.createObjectURL(objeto);
+  }
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
+ fotoSeleccionada: File | null = null;
 
-        reader.onload = (e: any) => {
-          this.selectedImages2.push(e.target.result);
-        };
-
-        reader.readAsDataURL(file);
-      }
-      // console.log(this.portadaFile);
+  uploadFilePortada(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      this.fotoSeleccionada = files[0];
     }
+  }
 
 }
