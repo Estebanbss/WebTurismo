@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { getAuth } from '@angular/fire/auth';
 import { DetalleService } from 'src/app/core/services/detalle.service';
 import { IndexedDBService } from 'src/app/core/services/indexedDB.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -18,17 +19,31 @@ import { IndexedDBService } from 'src/app/core/services/indexedDB.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+
+  //? - Propiedad Para almacenar los datos del Formulario
+  form: FormGroup;
+
+  // ? -> Lo vamos a utilizar en el ngIf del span del aviso una vez enviado el Form
+  submitted = false; //Para saber si se envió el form de manera correcta.
+
   constructor(
     private homeService: HomeService, // Inyecta el servicio HomeService
     private router: Router,
     private titleService:Title,
     private modalService: ModalServiceService,
     private detalle: DetalleService,
-    private indexedDB: IndexedDBService
-
+    private indexedDB: IndexedDBService,
+    private fb: FormBuilder, // Modulo para Formulario - Permite validar el formulario de manera sencilla.
   ) {
-
+    //Aquí inicializamos propiedades.
+    //Formulario - Se declaran las variables que lo conforman.
+    this.form = this.fb.group({
+      nombre: ['', Validators.required],
+      correo: ['', Validators.required],
+      mensaje: ['', Validators.required]
+    })
   }
+
   ngOnInit(): void {
     this.titleService.setTitle('Pal\'Huila - Explora!');;
     this.modalService.setProfileHeader(false);
@@ -42,11 +57,44 @@ export class DashboardComponent implements OnInit {
       this.atractivosrandom = atractivos;
       // console.log("response atractivos: ", atractivos)
     }).then()
+
+    //this.agregarMail();
   }
 
-  ngOnDestroy(): void {
+  //Método para el contacto por mail
+  agregarMail() {
 
-  }
+    this.submitted = true; //Confirmamos que se envió el formulario.
+
+    //Si el método es inválido no ejecuta la lógica de agregar,
+    //Es inválido cuando no se han llenado todos los datos
+    if(this.form.invalid) {
+      return;
+    }
+
+    const mensaje = `${this.form.value.nombre}, ${this.form.value.correo}, " ${this.form.value.mensaje} "`
+    //console.log(mensaje);
+
+    const formularioMail = {
+      to: ['proyectocenturhuila@gmail.com'],
+      message: {
+        html: mensaje,
+        subject: 'Contacto de Usuario',
+        text: 'This is the plaintext section of the email body'
+      }
+    }
+    console.log(formularioMail);
+
+    this.homeService.addMail(formularioMail).then(() => {
+      alert('Se envió el mensaje');
+      this.submitted = false;
+      this.form.reset();
+    }).catch( error => {
+      console.log(error);
+    })
+
+  } //? -> fin agregarMail
+
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {
       return inputString;
