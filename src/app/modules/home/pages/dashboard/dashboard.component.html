@@ -491,10 +491,13 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
       <hr
         class="border-primary-200 opacity-100 border-4 w-[80%] mx-auto my-0"
       />
+      <span *ngIf="submitted && form.invalid" class="text-center bg-green-700 text-red-600">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
       <div class="flex">
         <form
           action="https://api.web3forms.com/submit"
           class="mt-10 mx-auto xl:w-[1280px] bg:w-full px-10"
+          [formGroup]="form"
+          (ngSubmit)="agregarMail()"
         >
           <!-- This is a working contact form.
              Get your free access key from: https://web3forms.com/  -->
@@ -502,6 +505,7 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
           <div class="grid xl:grid-col-3">
             <div class="relative z-0 mr-5">
               <input
+                formControlName="nombre"
                 autocomplete="name"
                 type="text"
                 name="name"
@@ -516,6 +520,7 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
             </div>
             <div class="relative z-0 ml-5">
               <input
+                formControlName="correo"
                 id="email"
                 autocomplete="email"
                 type="text"
@@ -530,6 +535,7 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
             </div>
             <div class="relative z-0 col-span-2 mt-10">
               <textarea
+                formControlName="mensaje"
                 id="message"
                 name="message"
                 rows="5"

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Auth} from '@angular/fire/auth';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +11,10 @@ export class HomeService {
   //? Propiedad para compartir el nombre del municipio que seleccione el usuario
   private sharingNombreMunicipio: BehaviorSubject<string> = new BehaviorSubject<string>('Garzón');
 
-  constructor(private auth: Auth,) { }
+  constructor(private auth: Auth,
+              private firestore: Firestore) {
+
+   }
 
   //? SECCIÓN COMPARTIR INFORMACIÓN
 
@@ -33,6 +37,12 @@ export class HomeService {
     return this.auth.signOut(); //Método de AngularFireAuth
   }
 
-
+  addMail(mail: any): Promise<any> {
+    //? CARGA DE DATOS A FIRESTORE
+    //Creamos una referencia a la colleción
+    const mailRef = collection(this.firestore, 'mail'); // Servicio y nombre de la colección
+    //Añadimos en un documento la referencia y los datos que lo componen
+    return addDoc(mailRef, mail); // Retorna una Promesa
+  }
 
 }
