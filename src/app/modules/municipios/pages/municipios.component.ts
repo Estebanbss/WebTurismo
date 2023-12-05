@@ -9,6 +9,7 @@
   import { ActivatedRoute, Router } from '@angular/router';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
 import { DetalleService } from 'src/app/core/services/detalle.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 
   @Component({
@@ -124,6 +125,12 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     //? -> Objeto de tipo municipio que vamos a mostrar
     municipio: any;
 
+    //? -> Unique ID para cada Usuario
+    uid!: string;
+
+    //? -> Objeto de tipo User guardado en la BD
+    userDetails: any;
+
     private nombreMunicipioSubscription!: Subscription;
     private municipiosSubscription!: Subscription;
     private modalDataSubscription!: Subscription;
@@ -231,6 +238,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     cambioURL: string = '';
 
     constructor(
+      private authService: AuthService,
       private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
       private mostrarMunicipioService: MostrarMunicipioService,
       private route: ActivatedRoute,
@@ -599,6 +607,60 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     }
     return array;
   }
+
+
+  //? -> Método me gusta
+  meGusta(item: any) {
+    //*Item hace referencia al Prestador o Atractivo
+    //console.log('Me gusta: ', item);
+
+    //* Traigo el usuario actual que quiero actualizar con los meGusta
+    this.authService.onAuthStateChanged((user, userDetails) => {
+      if (user && userDetails) {
+        this.uid = user.uid; //* uid -> Desde Firebase
+        this.userDetails = userDetails; //* userDetails -> Objeto traido desde la BD de la colección users
+
+        //?Aquí tengo que Actualizar el documento en la colección users
+        //*Debemos definir en qué arreglo de MeGusta queremos guardar el resultado
+        if ('servicios' in item) { //?Validación para Prestadores
+
+        } else if ('bienOLugar' in item) { //?Validación para Atractivos
+          //*Si el usuario ya tiene la propiedad no la agrega, de lo contrario lo hace y en ambos caso añade el sitio que le gusta
+          if (!('atractivosMeGusta' in this.userDetails)) {
+            this.userDetails.atractivosMeGusta = [item.id]; // Inicializa la propiedad si no existe
+          } else {
+            //? Se hace la validación de que si ya está guardado el id entonces no lo guarde, en ese caso lo quite.
+            //this.userDetails.atractivosMeGusta = [];
+            if (this.userDetails.atractivosMeGusta.includes(item.id)) {
+              //*El ID ya existe en el arreglo.
+              // Encuentra la posición del ID en el arreglo
+              let indice = this.userDetails.atractivosMeGusta.indexOf(item.id);
+              // Elimina el elemento de esa posición
+              this.userDetails.atractivosMeGusta.splice(indice, 1);
+              console.log("ID eliminado del arreglo.");
+            } else {
+              //*El ID no se encuentra en el arreglo.
+              this.userDetails.atractivosMeGusta.push(item.id); //Se Agrega el id que me gustó
+              console.log("ID agregado al arreglo.");
+            }
+          }
+
+          console.log(this.userDetails);
+
+          //*Aquí se actualiza la información del objeto en la BD
+          this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
+            console.log('Se actualizó con éxito a la Base de Datos');
+          }).catch(() => {
+            console.log('Ha ocurrido un error en la inserción a Base de Datos');
+          }) //*Como último paso actualizamos el objeto
+
+        }
+
+      }
+      this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
+    });
+
+  } //? -> MeGusta Final
 
   ngOnDestroy() {
       // Desuscribirse para evitar pérdidas de memoria
