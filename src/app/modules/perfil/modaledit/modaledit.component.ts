@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -11,13 +12,15 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 })
 export class ModaleditComponent {
 
-constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService ) {this.authService.onAuthStateChanged((user, userDetails) => {this.userauth = user;}) }
+constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,private cdr: ChangeDetectorRef,private sanitizer: DomSanitizer) {this.authService.onAuthStateChanged((user, userDetails) => {this.userauth = user;}) }
   profileId!: string;
   portadaFile!: File;
   modalPf: boolean = false;
   modalBanner!: boolean;
   user:any;
   userauth:any;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
   buttonModal() {
 
     this.router.navigate(['../'], { relativeTo: this.route })
@@ -28,6 +31,7 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
 
     this.modalPf = false;
     this.fotoSeleccionada = null;
+    this.modalBanner = false;
   }
 
 
@@ -57,16 +61,18 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
     this.modalPf = true;
   }
 
+  turnBanner(){
+    this.modalBanner = true;
+  }
+
   actualizarUsuario(choose: boolean, user?:any){
     if(choose){
       this.authService.actualizarUsuario(user.uid, user);
       this.authService.updateUserDetailsInLocalStorage();
       this.user(false)
    }else{
-
       this.user(false)
    }
-
   }
 
   selectedImages2: any[] = [];
@@ -77,11 +83,54 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
 
  fotoSeleccionada: File | null = null;
 
-  uploadFilePortada(event: any) {
-    const files = event.target.files;
-    if (files && files.length > 0) {
+ uploadFilePortada(event: any) {
+  const files = event.target.files;
+  this.imageChangedEvent = event;
+  if (files && files.length > 0) {
+    setTimeout(() => {
       this.fotoSeleccionada = files[0];
-    }
+      this.cdr.detectChanges(); // Notificar a Angular sobre el cambio
+    }, 0);
   }
+}
+
+
+
+previewImage: any = '';
+
+imageCropped(event: ImageCroppedEvent) {
+  this.previewImage = event.objectUrl
+  this.croppedImage = event.blob; // O event.objectUrl dependiendo de lo que retorne ngx-image-cropper
+}
+
+
+imageLoaded(image: LoadedImage) {
+    // show cropper
+}
+cropperReady() {
+    // cropper ready
+}
+loadImageFailed() {
+    // show message
+}
+
+actualizarImage(uid: string) {
+  if (this.croppedImage) {
+      this.authService.actualizarFotoPerfil(uid, this.croppedImage).then(() => {
+          this.buttonModal2();
+          this.buttonModal();
+      });
+  }
+}
+
+actualizarBanner(uid: string) {
+  if (this.croppedImage) {
+      this.authService.actualizarBanner(uid, this.croppedImage).then(() => {
+          this.buttonModal2();
+          this.buttonModal();
+      });
+  }
+}
+
 
 }

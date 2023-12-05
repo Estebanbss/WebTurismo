@@ -4,18 +4,21 @@ import { Firestore, QuerySnapshot, collection, collectionData, doc, getDoc, getD
 import { Observable } from 'rxjs';
 import { Users } from '../common/place.interface';
 import { deleteDoc } from '@angular/fire/firestore';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL } from '@angular/fire/storage';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  storage: any;
+
 
   constructor(private afAuth: Auth,    private firestore: Firestore,
   ) {this.onAuthStateChanged((user, userDetails) => {this.uid = user.uid }) }
 
     uid!: string;
-
+    storage = getStorage();
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       onAuthStateChanged(this.afAuth, async (user) => {
@@ -97,19 +100,45 @@ export class AuthService {
 
   async actualizarFotoPerfil(uid: string, photo: File) {
     const filePath = `users/pfp/${uid}`;
-    const fileRef = this.storage.ref(filePath);
+    const storageRef = ref(this.storage, filePath);
 
     try {
       // Subir la foto al Storage
-      await this.storage.upload(filePath, photo);
+      const snapshot = await uploadBytes(storageRef, photo);
 
       // Obtener la URL de descarga de la foto subida
-      const downloadURL = await fileRef.getDownloadURL().toPromise();
+      const downloadURL = await getDownloadURL(snapshot.ref);
 
-      console.log('Foto de perfil actualizada con éxito en Storage y Firestore');
-      return downloadURL; // Retorna la URL de descarga para usarla si es necesario
+      // Actualizar la URL en Firestore
+      const userRef = doc(this.firestore, 'users', uid);
+      await updateDoc(userRef, { fotoUser: downloadURL });
+      this.updateUserDetailsInLocalStorage();
+      return alert('Foto actualizada!')
     } catch (error) {
       console.error('Error al actualizar la foto de perfil:', error);
+      throw error;
+    }
+
+  }
+
+  async actualizarBanner(uid: string, photo: File) {
+    const filePath = `users/banner/${uid}`;
+    const storageRef = ref(this.storage, filePath);
+
+    try {
+      // Subir la foto al Storage
+      const snapshot = await uploadBytes(storageRef, photo);
+
+      // Obtener la URL de descarga de la foto subida
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      // Actualizar la URL en Firestore
+      const userRef = doc(this.firestore, 'users', uid);
+      await updateDoc(userRef, { bannerImg: downloadURL });
+      this.updateUserDetailsInLocalStorage();
+      return alert('Banner actualizado!')
+    } catch (error) {
+      console.error('Error al actualizar el banner:', error);
       throw error;
     }
   }

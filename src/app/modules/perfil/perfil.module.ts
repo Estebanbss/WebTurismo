@@ -5,6 +5,8 @@ import { PerfilRoutingModule } from './perfil-routing.module';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ModaleditComponent } from './modaledit/modaledit.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +18,9 @@ import { ModaleditComponent } from './modaledit/modaledit.component';
     CommonModule,
     PerfilRoutingModule,
     SharedModule,
+    ImageCropperModule,
+    FormsModule,
+
   ]
 })
 export class PerfilModule { }

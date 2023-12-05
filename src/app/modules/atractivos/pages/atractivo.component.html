@@ -4,7 +4,7 @@
 
 <!--*nombreMunicipio-->
 <section
-  id="nombrePrestador"
+  id="nombreatractivo"
   class="w-full relative mt-[20px] min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 z-40"
 >
   <div
@@ -19,7 +19,7 @@
         >
           {{ id2 }}
         </h3>
-        <!--*nombrePrestador-->
+        <!--*nombreatractivo-->
         <div
           class="flex flex-row text-center items-center gap-2 justify-center"
           id="RNT-RM"
@@ -62,11 +62,11 @@
             />
           </svg>
           <!-- <h4
-            *ngIf="prestador !== undefined && prestador.rntRm !== null && prestador.rntRm !== '--'"
+            *ngIf="atractivo !== undefined && atractivo.rntRm !== null && atractivo.rntRm !== '--'"
             class="text-center text-sm font-bold font-work text-primary-500 leading-5 z-40"
             id="RNT-RM number"
           >
-            {{prestador.rntRm}}
+            {{atractivo.rntRm}}
           </h4> -->
           <!--*RNT-->
         </div>
@@ -151,7 +151,7 @@
   <!--!estilizando negro-->
 
   <section
-    id="galeriaImagenesPrestador"
+    id="galeriaImagenesatractivo"
     class="relative bg-cover bg-center bg-no-repeat rounded-b-3xl xl:max-w-[1280] xl:w-[1280px] h-[350px] max-h-[350px] md:h-[600px] md:max-h-[600px] border-2 border-t-0 mx-auto grid grid-flow-col overflow-hidden gap-2 z-0 mt-5"
   >
     <!--? Galeria de imagenes-->
@@ -217,14 +217,14 @@
   <main class="max-w-[1280px] mx-auto mb-5">
     <!--todo PAGINA MAIN CONTENIDO PRINCIPAL-->
 
-    <!--!Sección de información del prestador-->
-    <section id="InfoPrestador" class="flex flex-col mt-5">
-      <!--!Contenedor de la descripcion del prestador-->
+    <!--!Sección de información del atractivo-->
+    <section id="Infoatractivo" class="flex flex-col mt-5">
+      <!--!Contenedor de la descripcion del atractivo-->
       <div class="flex bg:flex-col md:flex-row min-h-full h-full mb-5">
         <div
           class="relative md:w-[65%] bg:w-full mr-auto p-5 bg-white  border-2 flex flex-col rounded-2xl"
         >
-          <!--!Contenedor de la descripcion del prestador-->
+          <!--!Contenedor de la descripcion del atractivo-->
           <h5
             class="text-2xl md:text-3xl font-black text-left font-Blinker my-3 text-primary-500"
           >
@@ -236,13 +236,13 @@
             {{atractivo.descripcion}}
           </p>
 
-          <!--!Contenedor de las fiestas del prestador-->
+          <!--!Contenedor de las fiestas del atractivo-->
         </div>
-        <!--!Contenedor de la imagen del prestador-->
+        <!--!Contenedor de la imagen del atractivo-->
         <div
           class="md:w-[34%] bg:w-full h-full ml-auto flex flex-col z-0 p-3 gap-5 border-2 bg-white rounded-2xl"
         >
-          <!--!Contenedor de la información adicional del prestador-->
+          <!--!Contenedor de la información adicional del atractivo-->
           <h5
             class="text-2xl md:text-3xl font-black text-center font-Blinker text-primary-500 mt-5"
           >
@@ -277,6 +277,24 @@
 
               </div>
 
+              <div class="flex flex-col ">
+                <!--MAIIIIIIIIIIIIIIIIIIIIIIIL-->
+
+                <a *ngIf="atractivo !== undefined && atractivo.correo !== '' && atractivo.correo !== null && atractivo.correo !== '--' && atractivo.correo !== 0"
+                href="mailto:{{atractivo.correo}}" class="w-[50%] flex justify-center">
+                  <!--!CELULAR 1-->
+                  <span class=""
+                    ><svg class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg></span
+                  ><span
+                    class="flex flex-row min-w-[106.41px] ml-2 md:text-lg xl:text-lg font-semibold text-gray-500"
+                    >
+                    <img
+                      class="w-[15px] max-w-[15px] min-w-[15px]"
+                      src="assets/img/arrow.svg"
+                  /></span>
+                </a>
+
+              </div>
             </div>
 
             <!--! REDEEEEEEEEEEEEEEEEES-->
@@ -295,11 +313,11 @@
         </div>
       </div>
     </section>
-    <!--!Fin de la sección de información del prestador-->
+    <!--!Fin de la sección de información del atractivo-->
 
-        <!--!Sección de información de los servicios del prestador-->
+        <!--!Sección de información de los servicios del atractivo-->
         <section id="Servicios" class="flex flex-col ">
-          <!--!Contenedor de la información del prestador-->
+          <!--!Contenedor de la información del atractivo-->
           <div class="flex bg:flex-col md:flex-row min-h-full h-full mb-5">
             <div
               class="relative  bg:w-full mr-auto p-5 bg-white  border-2 flex flex-col rounded-2xl"
@@ -417,7 +435,7 @@
     <!--?Fin Sección Ubicación-->
 
     <!--? Sección de lista de similares-->
-    <!--todo aqui se debe poner 10 sitios/atractivos/prestadores similares a este relacionando con el municipio y servicios-->
+    <!--todo aqui se debe poner 10 sitios/atractivos/atractivoes similares a este relacionando con el municipio y servicios-->
     <section id="Lista de similares" class=" min-h-[450px] mb-5 w-full mx-auto rounded-xl overflow-hidden py-5">
       <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Similares</h5>
 
@@ -436,7 +454,7 @@
 <app-navfooter class="relative  mt-5"></app-navfooter>
 <!--!estilizando negro-->
 
-<!--todo aqui se debe hacer una validación de si existe el atributo whatsapp en el arreglo y si no existe no se muestra esta etiqueta "<a>" y si si existe entonces si se muestra el href también se debe hacer 3 concatenaciones la de despues de phone=(numero atributo prestador)+(hola quiero más info sobre (nombre prestador))-->
+<!--todo aqui se debe hacer una validación de si existe el atributo whatsapp en el arreglo y si no existe no se muestra esta etiqueta "<a>" y si si existe entonces si se muestra el href también se debe hacer 3 concatenaciones la de despues de phone=(numero atributo atractivo)+(hola quiero más info sobre (nombre atractivo))-->
 
 <a *ngIf="wasa"
 href="{{wasa}}"
