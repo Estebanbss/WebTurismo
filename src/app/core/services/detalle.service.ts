@@ -31,6 +31,15 @@ export class DetalleService {
     return collectionData(q, { idField: 'id' }) as Observable<any>;
   }
 
+
+  obtenerTodasLasRutas(): Observable<any> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const docRef = collection(this.firestore, `rutas`);
+
+    // Retornamos el observable
+    return collectionData(docRef, { idField: 'id' }) as Observable<any>;
+   }
+
   obtenerAtractivo(item: any): Observable<any> {
     // Creamos una referencia a la colección de la que queremos recibir los datos
     const docRef = collection(this.firestore, `atractivos`);

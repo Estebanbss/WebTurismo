@@ -13,6 +13,9 @@ export class ProfileComponent {
     profileId!: string;
     user:any;
     userauth:any;
+    pag:string = "Sitios";
+    currentPage: number = 1; // Página actual
+    buttonPags: string[] = ["Sitios","Likes"];
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.profileId = params['id'];
@@ -23,6 +26,16 @@ export class ProfileComponent {
       }
       this.modalService.setProfileHeader(false);
     });
+    console.log(this.router.url);
+    this.auth.setData(this.router.url);
+  }
+  buttonPag(option:string){
+    this.pag = option;
+  }
+
+  modaledit(): void{
+
+    this.router.navigate(['edit'], { relativeTo: this.route })
 
   }
 }

@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   title = `Pa'lHuila`;
   hasExecuted = false;
   uid!: string;
+  usuario!:string;
   ngOnInit(){
 
     this.router.events.subscribe((event) => {

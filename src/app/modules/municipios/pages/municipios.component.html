@@ -515,12 +515,12 @@
           <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
         <!--*Sección de imagen-->
         <ng-container *ngFor="let item of prestadoresYAtractivos | filtroPorServicios:pipeSelectedServices | paginate: { itemsPerPage: 10, currentPage: page }; let i = index; trackBy: trackByFn">
-          <div class="w-full relative sm:min-h-[350px]  gap-5 bg-white rounded-2xl border-black border-4 border-opacity-10 mb-5 flex bg:flex-col sm:flex-row">
+          <div class="w-full relative sm:min-h-[350px] sm:min-w-[350px]  gap-5 bg-white rounded-2xl border-black border-4 border-opacity-10 mb-5 flex bg:flex-col sm:flex-row">
 
               <!--!Div principal imagen-->
-          <div class=" bg:w-full sm:min-w-[350px] sm:max-w-[350px] md2:min-h-full relative">
+          <div class=" bg:w-full sm:min-w-[350px] sm:min-h-[350px] sm:max-h-[350px] sm:max-w-[350px] md2:min-h-full relative">
             <!--*imagen-->
-            <div class="relative max-w-full w-[100%] aspect-rato-1-1 overflow-hidden
+            <div class="relative max-w-full w-[100%] h-full aspect-rato-1-1 overflow-hidden
               mx-0 px-0 flex justify-center items-center">
 
               <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto ">

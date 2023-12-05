@@ -4,17 +4,21 @@ import { Firestore, QuerySnapshot, collection, collectionData, doc, getDoc, getD
 import { Observable } from 'rxjs';
 import { Users } from '../common/place.interface';
 import { deleteDoc } from '@angular/fire/firestore';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL } from '@angular/fire/storage';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+
   constructor(private afAuth: Auth,    private firestore: Firestore,
   ) {this.onAuthStateChanged((user, userDetails) => {this.uid = user.uid }) }
 
     uid!: string;
-
+    storage = getStorage();
   getLoggin(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       onAuthStateChanged(this.afAuth, async (user) => {
@@ -94,6 +98,51 @@ export class AuthService {
     return updateDoc(usuarioRef, usuario);
   }
 
+  async actualizarFotoPerfil(uid: string, photo: File) {
+    const filePath = `users/pfp/${uid}`;
+    const storageRef = ref(this.storage, filePath);
+
+    try {
+      // Subir la foto al Storage
+      const snapshot = await uploadBytes(storageRef, photo);
+
+      // Obtener la URL de descarga de la foto subida
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      // Actualizar la URL en Firestore
+      const userRef = doc(this.firestore, 'users', uid);
+      await updateDoc(userRef, { fotoUser: downloadURL });
+      this.updateUserDetailsInLocalStorage();
+      return alert('Foto actualizada!')
+    } catch (error) {
+      console.error('Error al actualizar la foto de perfil:', error);
+      throw error;
+    }
+
+  }
+
+  async actualizarBanner(uid: string, photo: File) {
+    const filePath = `users/banner/${uid}`;
+    const storageRef = ref(this.storage, filePath);
+
+    try {
+      // Subir la foto al Storage
+      const snapshot = await uploadBytes(storageRef, photo);
+
+      // Obtener la URL de descarga de la foto subida
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      // Actualizar la URL en Firestore
+      const userRef = doc(this.firestore, 'users', uid);
+      await updateDoc(userRef, { bannerImg: downloadURL });
+      this.updateUserDetailsInLocalStorage();
+      return alert('Banner actualizado!')
+    } catch (error) {
+      console.error('Error al actualizar el banner:', error);
+      throw error;
+    }
+  }
+
   async updateUserDetailsInLocalStorage() {
     const userDetails = await this.fetchUserDetails(this.uid);
     if (userDetails) {
@@ -138,5 +187,14 @@ export class AuthService {
       console.error('Error al cerrar sesión:', error);
       throw error;
     }
+  }
+  private sharedData: any;
+
+  setData(data: any) {
+    this.sharedData = data;
+  }
+
+  getData(): any {
+    return this.sharedData;
   }
 }

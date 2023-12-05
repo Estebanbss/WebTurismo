@@ -154,62 +154,36 @@
 
 <!--?Sección de Categorias más buscadas-->
 
-<section id="Categorias" class="bg-slate-100 h-[600px] max-h-[750px] my-20 w-full mx-auto overflow-hidden flex flex-row items-center ">
-  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 flex flex-col gap-5">
-    <h2 class="font-Blinker flex flex-row items-center text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black justify-center">Categorias más buscadas</h2>
-<!--*----------------------------------------------------------------------------------------------------------------------------->
-<div class="relative">
-  <button #leftButtonServi class="" draggable="false"
-  id="leftServi" (click)="buttonScroll('left', leftButtonServi.id, 'carouselServi')">
-    <svg
-    role="button"
-    class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
-    xmlns="http://www.w3.org/2000/svg"
-    height="40"
-    viewBox="0 -960 960 960"
-    width="40"
-  >
-    <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
-  </svg>
-  </button>
+
+<!--?fin Sección de Categorias más buscadas-->
 
 
-  <div
-    #carouselServi
-    class="carousel relative flex flex-row align-middle min-h-[350px]   overflow-x-scroll overflow-y-hidden overflow-hidden "
-  >
-    <div
-      *ngFor="let tile of serviShuffle; "
-      class="bg:min-w-[96.5%] sm:min-w-[calc(96.5%/2)] lg:min-w-[calc(96%/4)] aspect-square relative mx-[6.4px] overflow-hidden hover:rounded-2xl hover:scale-x-[1.04] rounded:2xl "
-      draggable="false "
-    >
-    <div class="w-full h-full bg-white rounded-2xl">
-      <div class="w-full h-[50%] relative flex flex-col justify-center ">
-        <div class="relative h-20 w-20 mx-auto my-auto flex flex-col justify-center items-center">
+<!--?Sección Rutas-->
+<section id="Rutas" class="bg-[#217373] bg-opacity-5 my-10 w-full mx-auto">
+  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pt-10 flex flex-col justify-center ">
+    <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
+    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Rutas Turísticas</h2>
 
-          <img
-          ngSrc="assets/img/{{tile.title}}.svg"
-          fill
-          alt="{{tile.title}} Icono"
-          loading="lazy"
-          draggable="false"
-          class="cursor-pointer"
+      <div id="map" class=" w-full min-h-[500px] mt-auto z-0"></div>
 
-        />
-        </div>
-      </div>
 
-      <div class="absolute bottom-0 w-full h-[50%] bg-primary-500 rounded-xl text-lg px-2 leading-5 font-Blinker justify-center py-2 text-white">
-        <h3 class="text-2xl font-extrabold text-center  ">{{tile.title}}</h3>
-        <p class="text-lg leading-4 text-center">{{tile.desc}}</p>
-    </div>
-    </div>
-
-    </div>
-  </div>
-
-  <button #rightButtonServi class="" draggable="false"
-  id="rightServi"  (click)="buttonScroll('right', rightButtonServi.id, 'carouselServi')">
+    <div class="w-full bg-primary-500 text-white text-center" >
+      <button #leftButtonRuta class="" draggable="false"
+      id="leftRuta" (click)="changeRoute('left')">
+        <svg
+        role="button"
+        class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full left-0 top-[50%] translate-y-[-50%] text-center"
+        xmlns="http://www.w3.org/2000/svg"
+        height="40"
+        viewBox="0 -960 960 960"
+        width="40"
+      >
+        <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+      </svg>
+      </button>
+      <h3 class="py-5 font-bold font-Blinker text-4xl">{{actualRuta?.name}}</h3>
+      <button #rightButtonRuta class="" draggable="false"
+        id="rightRuta"  (click)="changeRoute('right')">
     <svg
     role="button"
     class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
@@ -219,20 +193,22 @@
     width="40"
   >
     <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-  </svg>
-  </button>
+  </svg></button>
 
-</div>
+    </div>
 
   </div>
-<!--*----------------------------------------------------------------------------------------------------------------------------->
-</section>
 
-<!--?fin Sección de Categorias más buscadas-->
+  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pb-10 flex flex-col justify-center">
+  <div class="w-full bg-white rounded-b-xl px-5   text-gray-600 text-center" ><h3 class="py-5 font-normal font-Blinker text-xl">{{actualRuta?.descripcion}}</h3></div>
+  </div>
+
+</section>
+<!--?Fin Sección Rutas-->
 
 <!--?Sección Sitios más populares-->
 
-<section id="Sitios más poulares" class="bg-white  flex flex-col justify-center items-center  w-full mx-auto ">
+<section id="Sitios más poulares" class="bg-white  flex flex-col justify-center items-center  w-full mx-auto mt-20">
   <div class="bg:w-full xl:w-[1280px] mx-auto  justify-center ">
     <h2 class="font-Blinker px-10 text-primary-500 text-center  md:text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Sitios más populares</h2>
     <p class="font-Work text-center md:text-left bg:text-sm md:text-xl m-0 bg:mb-20 xs0:mb-10 text-gray-700">Destinos mágicos que te sorprenderán en cada paso. Sumérgete en la historia, maravíllate con paisajes impresionantes y disfruta de la autenticidad de su gente. Explora nuestras recomendaciones y vive una aventura inolvidable en cada destino.</p>
@@ -310,28 +286,11 @@
     </div>
 
   </div>
-  <button [routerLink]="['/busqueda-prestador']" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-xl">Descubre más</button>
+  <button [routerLink]="['/busqueda-prestador']" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-full">Descubre más</button>
 </section>
 
 
 <!--?Fin Sección más populares-->
-
-<!--?Sección Rutas-->
-<section id="Rutas" class="bg-slate-100 h-[500px] md:h-[700px] my-10 w-full mx-auto">
-  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto py-10 flex flex-col justify-center ">
-    <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
-    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Rutas Turísticas</h2>
-
-      <div id="map" class=" w-full h-full mt-auto z-0"></div>
-
-
-    <div class="w-full bg-primary-500 text-white text-center" ><h3 class="py-5 font-bold font-Blinker text-4xl">Ruta x</h3></div>
-  </div>
-
-</section>
-<!--?Fin Sección Rutas-->
-
-
 
 <!--?Sección Eventos-->
 <!-- <section id="Sitios más poulares" class="bg-white h-[500px]  w-full mx-auto my-20">
@@ -399,15 +358,17 @@
 
 <!--?Sección Gastronomia-->
 
-<section id="Gastronomia" class="bg-white h-[7  00px]  w-full mx-auto mt-20 mb-20">
-  <div class="bg:w-full xl:w-[1280px] mx-auto py-10">
-    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-14">Gastronomia Huilense</h2>
+<section id="Gastronomia" class="bg-[#E3E300] bg-opacity-5  h-[7  00px]  w-full mx-auto mt-20 pb-20">
+  <div class="bg:w-full xl:w-[1280px] mx-auto py-10 flex flex-col">
+    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5 mt-16">Gastronomia Huilense</h2>
     <div class="w-full relative">
-      <img alt="Gastronomia" src="https://redhuila.com/wp-content/uploads/2018/09/asadohuilense.jpg" class=" filter brightness-50 w-full bg:h-[400px] md:h-[600px] object-cover">
+      <img  alt="Gastronomia" [src]="selectGastronomySrc ? selectGastronomySrc : gastronomySRC[0]"
+       class="filter brightness-50 w-full bg:h-[400px] md:h-[600px] object-cover rounded-xl "
+       >
       <div class="absolute px-10 bg:bottom-[5%] md:bottom-[20%]">
         <h3 class=" text-white  bg:text-3xl md:text-5xl font-bold font-Blinker"><strong>Tu guía definitiva para disfrutar del sabor del Huila</strong></h3>
         <h4 class=" text-white  bg:text-lg md:text-2xl font-medium md:mb-5"> Descubre los secretos culinarios de la región.</h4>
-        <button class="px-10 ml-auto bg-white rounded-xl py-2 text-primary-500 font-bold text-xl">Descubre más</button>
+        <button class="px-10 ml-auto bg-white rounded-full py-2 text-primary-500 font-bold text-xl">Descubre más</button>
       </div>
 
     </div>
@@ -421,7 +382,7 @@
 
 <!--?Sección Atractivos-->
 
-<section id="Atractivos Naturales" class="bg-slate-100  flex flex-col justify-center items-center  w-full mx-auto">
+<section id="Atractivos Naturales" class="bg-slate-100 bg-opacity-50  flex flex-col justify-center items-center  w-full mx-auto">
   <div class="bg:w-full xl:w-[1280px] mx-auto mt-28 ">
     <h2 class="font-Blinker px-10 mb-5 text-primary-500  text-left bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black ">Atractivos Naturales</h2>
     <h3 class="font-Work px-10 text-gray-600  text-left  text-lg md:text-xl  font-medium mb-10">Atractivos que cautivan a millones de viajeros cada año. Descubre los lugares más emblemáticos, sumérgete en su cultura y deleita tus sentidos con paisajes deslumbrantes. Explora nuestras recomendaciones y experimenta momentos inolvidables en cada atracción.</h3>
@@ -500,7 +461,7 @@
     </div>
 
   </div>
-  <button [routerLink]="['/busqueda-atractivo']" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-xl">Descubre más</button>
+  <button [routerLink]="['/busqueda-atractivo']" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-full">Descubre más</button>
 </section>
 
 
@@ -514,7 +475,7 @@
 
 
 <!--?Sección "contactenos"-->
-<section     class="bg-slate-100 pt-24  pb-24"
+<section     class="bg-slate-100 bg-opacity-50 pt-24  pb-24"
 style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
   <!-- ?Fondo verde oscuro en forma de elipse -->
   <div
@@ -590,7 +551,7 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
           <div class="flex justify-center">
             <button
               type="submit"
-              class="mt-5 rounded-md bg-white px-14 py-2 text-primary-500 text-xl font-Blinker font-black"
+              class="mt-5 rounded-full bg-white px-14 py-2 text-primary-500 text-xl font-Blinker font-bold"
             >
               Enviar mensaje
             </button>

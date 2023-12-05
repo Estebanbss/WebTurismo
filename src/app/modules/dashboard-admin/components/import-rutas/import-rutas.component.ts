@@ -67,8 +67,8 @@ datocurioso(){
       name: this.data[0][index].name === undefined  ? '--' : this.data[0][index].name,
       descripcion: this.data[0][index].descripcion === undefined  ? '--' : this.data[0][index].descripcion,
       googleMaps: this.data[0][index].googleMaps === undefined  ? '--' : this.data[0][index].googleMaps,
-      latitud: this.data[0][index].latitud === undefined || "--" || null  ? 0 : this.data[0][index].latitud,
-      longitud: this.data[0][index].longitud === undefined || "--" || null  ? 0 : (this.data[0][index].longitud)*-1,
+      latitud: (this.data[0][index].latitud)*1 === undefined || this.data[0][index].latitud === "--" || (this.data[0][index].latitud)*1 === null  ? 0 : (this.data[0][index].latitud)*1,
+      longitud: (this.data[0][index].longitud)*1 === undefined || this.data[0][index].longitud === "--" || (this.data[0][index].longitud)*1 === null  ? 0 : (this.data[0][index].longitud)*1,
       informacionAdicional: this.data[0][index].informacionAdicional === undefined  ? '--' : this.data[0][index].informacionAdicional,
       agenciaDeViajes: this.data[0][index].agenciaDeViajes === undefined  ? '--' : this.data[0][index].agenciaDeViajes,
 

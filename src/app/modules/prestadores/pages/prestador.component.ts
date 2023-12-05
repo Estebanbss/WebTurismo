@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
@@ -23,12 +23,17 @@ export class PrestadorComponent {
   nombrePrestador!: string;
   buttonGallery: boolean = false;
   turnModal: boolean = false;
+  prestadoresrandom:any
   pag:string = "Servicios";
   currentPage: number = 1; // Página actual
   itemsPerPage!: number; // Cantidad de elementos por página
   buttonPags: string[] = ["Servicios","Horarios"];
   wasa?: string
-
+  @ViewChild("carouselPresta") carouselPresta!: ElementRef;
+  @ViewChild('leftButtonPresta') leftButtonPresta!: ElementRef;
+  @ViewChild('rightButtonPresta') rightButtonPresta!: ElementRef;
+  isDragging = false; startX!: number; startScrollLeftMuni: any; velocityX:any; startScrollLeftServi: any;  startScrollLeftPresta: any;  startScrollLeftAtrac: any; // Variables para el scroll horizontal
+  scrollEndThreshold = 150; // Ajusta según sea necesario
   prestador: any; // Objeto que traemos desde el detalle de Municipio
   subscription!: Subscription; //Para manejar la suscripción de los datos
 
@@ -60,7 +65,6 @@ export class PrestadorComponent {
     private detalleService: DetalleService
   ) {
     this.title.setTitle('Pal\'Huila - Prestadores!' );
-
     this.route.params.subscribe(params => {
       // params contendrá los valores de los parámetros de ruta
       this.id1 = this.capitalizeFirstLetter(params['municipio'])
@@ -74,6 +78,7 @@ export class PrestadorComponent {
     this.nombreMunicipio = this.id1
     this.nombrePrestador = this.id2
 
+
   }
 
   imageLoaded: boolean[] = [];
@@ -81,11 +86,18 @@ export class PrestadorComponent {
   checkImageLoaded(index: number): void {
     this.imageLoaded[index] = true;
   }
-  
+
   cargarPrestador(nombre: string) {
+    this.imgGallery = [];
     this.subscription = this.detalleService.obtenerPrestador(nombre).subscribe(data => {
       const serviCountSlice: any =[]
       this.prestador = data[0];
+
+    if(this.prestador.municipio !== undefined && this.prestador.municipio !== null && this.prestador.municipio !== "--" && this.prestador.municipio !== ""){
+      this.detalleService.obtenerPrestadoresAleatorios(9,this.prestador.municipio).then((data:any) => {
+        this.prestadoresrandom = data
+      })
+    }
       if(this.prestador.whatsapp !== null){
         this.wasa = "https://api.whatsapp.com/send?phone=" + this.prestador.whatsapp + "&text=Hola quiero más información sobre "+ this.prestador.name +"!"
       }
@@ -224,10 +236,54 @@ servi.forEach((servicio: { bd: string | number; }) => {
 
   this.itemsPerPage = 3;
 
+
     });
+
   }
 
+  buttonScroll(direction: string, buttonId: string, carouselName: string) {
+    const carousel = this[carouselName];
 
+    if (carousel) {
+      carousel.nativeElement.style.scrollBehavior = 'smooth';
+      const scrollAmount = carousel.nativeElement.clientWidth * 1;
+
+      if (
+        (buttonId.startsWith('left') && direction === 'left') ||
+        (buttonId.startsWith('right') && direction === 'right')
+      ) {
+        const scrollDirection = buttonId.startsWith('left') ? -scrollAmount : scrollAmount;
+        carousel.nativeElement.scrollLeft += scrollDirection;
+      }
+    }
+  }
+
+  navigate(item: any) {
+    //Validamos hacia qué componente deseamos direccionar
+    if ('servicios' in item) { //*Validación para Prestadores
+      this.router.navigate(['prestadores', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
+    } else if ('bienOLugar' in item) { //*Validación para Atractivos
+      this.router.navigate(['atractivos', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
+
+  }
+  checkScrollEnd(element: ElementRef, leftButton: ElementRef, rightButton: ElementRef) {
+    const el = element.nativeElement;
+    const scrollEnd = el.scrollWidth - el.clientWidth;
+    const leftBtn = leftButton.nativeElement;
+    const rightBtn = rightButton.nativeElement;
+
+    rightBtn.classList.toggle('hidden', el.scrollLeft >= scrollEnd - this.scrollEndThreshold);
+    rightBtn.classList.toggle('block', el.scrollLeft < scrollEnd - this.scrollEndThreshold);
+    leftBtn.classList.toggle('hidden', el.scrollLeft === 0);
+    leftBtn.classList.toggle('block', el.scrollLeft > this.scrollEndThreshold);
+  }
 
 
 /**
@@ -294,7 +350,6 @@ servi.forEach((servicio: { bd: string | number; }) => {
   }
 
   ngOnInit(){
-
     this.modalDataSubscription = this.modalService.modalTurnSliderP$.subscribe((value) => {
       this.turnModal = value;
     });
@@ -359,13 +414,24 @@ servi.forEach((servicio: { bd: string | number; }) => {
     //* En este caso nos devuelte true en caso de que ambos contengan decimales
     const num1 = this.hasDecimalPoint(this.prestador.latitud);
     const num2 = this.hasDecimalPoint(this.prestador.longitud);
+
+    if(num1 === null || num2 === null) {
+      this.obtenerLatitudYLongitud();
+     }
     //* Validación: 1.Tiene que ser tipo number y no debe ser tipo NaN
     if (((typeof this.prestador.latitud === "number") && (!(Number.isNaN(this.prestador.latitud)))) && ((typeof this.prestador.longitud === "number") && (!(Number.isNaN(this.prestador.longitud))))) {
     //* En caso de que ambas coordenadas no presenten problema con los puntos decimal ejecutamos el método del Mapa
     if(num1 && num2) {
+      if(num1 === null || num2 === null) {
+        console.log("null")
+        return
+      }else{
+
       //* Aquí se ejecuta el Mapa
       //*Mapa - Ejecutamos la lógica del mapa ya teniendo los datos que queremos mostrar
       this.cargarMapa();
+      }
+
     }
     } else {
       this.obtenerLatitudYLongitud();

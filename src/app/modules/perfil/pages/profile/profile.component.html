@@ -1,21 +1,72 @@
-
+<router-outlet class="absolute"></router-outlet>
 <app-navheader></app-navheader>
-<main class="bg-black bg-opacity-5">
-<div class="w-full max-h-[350px] min-h-[350px]  relative flex justify-center">
+
+<main class="bg-black bg-opacity-5 gap-5 flex flex-col min-h-screen">
+<div class="w-full  min-h-[350px]  relative flex justify-center mb-5">
   <div class="w-full max-h-[350px] overflow-hidden  flex justify-center rounded-b-3xl">
     <img *ngIf="user?.bannerImg != null" class="w-full h-full object-cover object-center " src="{{user?.bannerImg}}" >
     <div *ngIf="user?.bannerImg === null" class="w-full h-full object-cover object-center  bg-black opacity-20 " ></div>
   </div>
-  <div class="bg-white absolute w-full min-h-[200px] rounded-md p-5 -bottom-10 xl:max-w-[1280px] z-50">
-    <div *ngIf="user?.uid === userauth?.uid" class="absolute right-5"><button class="rounded-xl flex flex-row border bg:px-2 md:px-3 py-2 font-work font-semibold"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>Editar</button></div>
+  <div class="bg-white absolute w-full min-h-[200px] rounded-md p-5 -bottom-10 xl:max-w-[1280px] z-30">
+    <div *ngIf="user?.uid === userauth?.uid" class="absolute right-5"><button (click)="modaledit()" class="rounded-xl flex flex-row border bg:px-2 md:px-3 py-2 font-work font-semibold"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>Editar</button></div>
     <div class="flex flex-col justify-center items-center"><span class="bg:w-[80px] md:w-[100px] bg:h-[80px] md:h-[100px] max-w-[100px] max-h-[100px] rounded-full bg-black bg-opacity-5 overflow-hidden"><img *ngIf="user?.fotoUser != null" src="{{user?.fotoUser}}" class="w-full h-full object-cover object-center" ></span>
     </div>
     <h3 class="flex flex-row justify-center font-work text-lg font-semibold">@{{user?.userName}}</h3>
     <h4 class="flex flex-row justify-center font-work text-2xl font-bold">{{user?.nombre}}</h4>
-  </div>
-  </div>
-  <div class="xl:w-[1280px] min-h-[500px] max-w-[1280px] relative mx-auto">
 
+    <div id="Paginación servicios" class="flex flex-row justify-center gap-5 px-2 mt-2">
+      <button (click)="buttonPag(item); currentPage=1" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-sm"><span *ngIf="userauth.uid === user?.uid">Mis {{item}}</span><span *ngIf="userauth.uid !== user?.uid">{{item}}</span></button>
+    </div>
+  </div>
+  </div>
+
+  <div class="xl:w-[1280px] w-full  max-w-[1280px] relative mx-auto flex md:flex-row flex-col gap-5 mt-5">
+    <div class="w-full md:w-[30%] md:max-w-[30%] min-h-[300px] max-h-full bg-white px-4 py-5 rounded-lg flex flex-col ">
+      <span class="text-xl font-Blinker font-semibold text-center">Descripción</span>
+
+      <div class="flex flex-col gap-4 mt-5 text-gray-600 font-Blinker">
+        <span *ngIf="user?.ubicacion || user?.uid === userauth.uid"  id="ubicacion" class=" flex flex-row items-center ">
+          <button (click)="modaledit()" *ngIf="!user?.ubicacion && user?.uid === userauth.uid" class=" h-[20px] opacity-50 flex flex-row items-center"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>Agregar ubicación</button>{{ user?.ubicacion === null || user?.ubicacion === undefined ? '' : user?.ubicacion }}
+        </span>
+        <span  *ngIf="user?.fechaCreacion|| user?.uid === userauth.uid"   id="accountDcreate" class="   flex flex-row items-center">
+          <button (click)="modaledit()" *ngIf="!user?.fechaCreacion && user?.uid === userauth.uid" class="h-[20px] opacity-50 flex flex-row items-center"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>{{ user?.fechaCreacion === null || user?.fechaCreacion === undefined ? ':D' : 'Se unió el: ' + (user?.fechaCreacion | date:'yyyy-MM-dd') }}
+        </span>
+        <span *ngIf="user?.fechaUltimoLogin || user?.uid === userauth.uid"   id="accountDlast" class="   flex flex-row items-center">
+          <button (click)="modaledit()" *ngIf="!user?.fechaUltimoLogin && user?.uid === userauth.uid" class="h-[20px] opacity-50 flex flex-row items-center"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+          </button>            {{ user?.fechaUltimoLogin === null || user?.fechaUltimoLogin === undefined ? ':D' : 'Visto ultima vez: ' + (user?.fechaUltimoLogin | date:'yyyy-MM-dd, HH:mm:ss') }}
+        </span>
+        <span *ngIf="user?.descripcion || user?.uid === userauth.uid" id="descripcion" class="flex flex-row items-center">
+          <button (click)="modaledit()" *ngIf="!user?.descripcion && user?.uid === userauth.uid" class="max-w-[30%] opacity-50 flex flex-row items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+              <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+            </svg>
+            Agregar descripcion
+          </button>
+          <span class="flex-wrap overflow-hidden h-full break-all">{{ user?.descripcion }}</span>
+        </span>
+        <span *ngIf="user?.numeroTel || user?.uid === userauth.uid" id="numeroTel" class="   flex flex-row items-center">
+          <button (click)="modaledit()" *ngIf="!user?.numeroTel && user?.uid === userauth.uid" class="h-[20px] opacity-50 flex flex-row items-center"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>Agregar cel</button>
+
+          <a *ngIf="user?.numeroTel" href="tel:{{user.numeroTel}}" class="w-[50%] flex">
+            <!--!CELULAR 1-->
+            <span class=""
+              ><svg role="img" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M793.126-99q-121.224 0-244.675-58Q425-215 320.5-319t-163-228.959Q99-672.919 99-792.252q0-29.177 20-49.462Q139-862 168-862h135q31.389 0 51.194 16.5Q374-829 380-798l26.929 105.641Q409-666 403.5-645.133q-5.5 20.866-20.729 34.359L281-517q20 36 46.5 68.5T385-387q33 36 67 61.5t69 44.5l99-99q16-18 37.826-24.5Q679.651-411 704-405l95 22q29.688 9 46.344 29.044Q862-333.912 862-304v136q0 29.571-20.357 49.286Q821.286-99 793.126-99ZM235-598l81-76-21.962-96H192q1 36 9.457 77.941T235-598Zm370 365q35 17 79 28t86 14v-.5.5-103.822L682-315l-77 82ZM235-598Zm370 365Z"/></svg></span
+            ><span
+              class="flex flex-row "
+              >{{ user?.numeroTel }}
+              <img
+                class="w-[15px] max-w-[15px] min-w-[15px]"
+                src="assets/img/arrow.svg"
+            /></span>
+          </a>
+        </span>
+      </div>
+
+    </div>
+    <div class="w-full md:w-[69%]   ">
+      <div *ngIf="pag==='Sitios'" class="w-full h-full p-3">ola</div>
+      <div *ngIf="pag==='Likes'" class="w-full h-full p-3">Likes</div>
+    </div>
   </div>
 </main>
 <app-navfooter></app-navfooter>
