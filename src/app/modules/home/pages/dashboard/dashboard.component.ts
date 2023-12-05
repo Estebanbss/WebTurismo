@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
       this.atractivosrandom = atractivos;
       // console.log("response atractivos: ", atractivos)
     }).then()
-    
+
         let currentIndex = 0;
 
     // Iniciar el cambio cada 5 segundos
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
   //Método para el contacto por mail
   agregarMail() {
 
-    this.submitted = true; //Confirmamos que se envió el formulario.
+    this.submitted = true ; //Confirmamos que se envió el formulario.
 
     //Si el método es inválido no ejecuta la lógica de agregar,
     //Es inválido cuando no se han llenado todos los datos
