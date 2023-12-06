@@ -131,6 +131,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
     //? -> Objeto de tipo User guardado en la BD
     userDetails: any;
 
+    //? -> Atractivos por actualizar en MeGusta
+    atractivosItems: any = [];
+
+    //? -> Prestadores por actualizar en MeGusta
+    prestadoresItems: any = [];
+
     private nombreMunicipioSubscription!: Subscription;
     private municipiosSubscription!: Subscription;
     private modalDataSubscription!: Subscription;
@@ -623,14 +629,73 @@ import { AuthService } from 'src/app/core/services/auth.service';
         //?Aquí tengo que Actualizar el documento en la colección users
         //*Debemos definir en qué arreglo de MeGusta queremos guardar el resultado
         if ('servicios' in item) { //?Validación para Prestadores
+          //*Si el usuario ya tiene la propiedad no la agrega, de lo contrario lo hace y en ambos caso añade el sitio que le gusta
+          if (!('prestadoresMeGusta' in this.userDetails)) {
+            this.userDetails.prestadoresMeGusta = [item.id]; // Inicializa la propiedad si no existe
+            //?Modificar el item.meGusta sumando 1
+            if(item.meGusta >= 0) {
+              item.meGusta = item.meGusta + 1;
+              console.log(`Se agregó un like: ${item.meGusta}`);
+              //? Hacer que se agrege el item en un arreglo de items para actualizar
+              this.prestadoresItems.push(item);
+            }
+          } else {
+            //? Se hace la validación de que si ya está guardado el id entonces no lo guarde, en ese caso lo quite.
+            // this.userDetails.atractivosMeGusta = [];
+            if (this.userDetails.prestadoresMeGusta.includes(item.id)) {
+              //*El ID ya existe en el arreglo.
+              // Encuentra la posición del ID en el arreglo
+              let indice = this.userDetails.prestadoresMeGusta.indexOf(item.id);
+              // Elimina el elemento de esa posición
+              this.userDetails.prestadoresMeGusta.splice(indice, 1);
+              console.log("ID eliminado del arreglo.");
+              //? Modificar el item.meGusta restando 1
+              // console.log(item.meGusta);
+              if(item.meGusta >= 1) {
+                item.meGusta = item.meGusta - 1;
+                console.log(`Se eliminó un like: ${item.meGusta}`);
+                //? Hacer que se agrege el item en un arreglo de items para actualizar
+                this.prestadoresItems.push(item);
+              }
+            } else {
+              //*El ID no se encuentra en el arreglo.
+              this.userDetails.prestadoresMeGusta.push(item.id); //Se Agrega el id que me gustó
+              console.log("ID agregado al arreglo.");
+              //? Modificar el item.meGusta sumando 1
+              // console.log(item.meGusta);
+              if(item.meGusta >= 0) {
+                item.meGusta = item.meGusta + 1;
+                console.log(`Se agregó un like: ${item.meGusta}`);
+                //? Hacer que se agrege el item en un arreglo de items para actualizar
+                this.prestadoresItems.push(item);
+              }
+            }
+          }
+
+          console.log(this.userDetails);
+
+          //*Aquí se actualiza la información del objeto en la BD
+          this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
+            console.log('Se actualizó con éxito a la Base de Datos');
+          }).catch(() => {
+            console.log('Ha ocurrido un error en la inserción a Base de Datos');
+          }) //*Como último paso actualizamos el objeto
+
 
         } else if ('bienOLugar' in item) { //?Validación para Atractivos
           //*Si el usuario ya tiene la propiedad no la agrega, de lo contrario lo hace y en ambos caso añade el sitio que le gusta
           if (!('atractivosMeGusta' in this.userDetails)) {
             this.userDetails.atractivosMeGusta = [item.id]; // Inicializa la propiedad si no existe
+            //?Modificar el item.meGusta sumando 1
+            if(item.meGusta >= 0) {
+              item.meGusta = item.meGusta + 1;
+              console.log(`Se agregó un like: ${item.meGusta}`);
+              //? Hacer que se agrege el item en un arreglo de items para actualizar
+              this.atractivosItems.push(item);
+            }
           } else {
             //? Se hace la validación de que si ya está guardado el id entonces no lo guarde, en ese caso lo quite.
-            //this.userDetails.atractivosMeGusta = [];
+            // this.userDetails.atractivosMeGusta = [];
             if (this.userDetails.atractivosMeGusta.includes(item.id)) {
               //*El ID ya existe en el arreglo.
               // Encuentra la posición del ID en el arreglo
@@ -638,10 +703,26 @@ import { AuthService } from 'src/app/core/services/auth.service';
               // Elimina el elemento de esa posición
               this.userDetails.atractivosMeGusta.splice(indice, 1);
               console.log("ID eliminado del arreglo.");
+              //? Modificar el item.meGusta restando 1
+              // console.log(item.meGusta);
+              if(item.meGusta >= 1) {
+                item.meGusta = item.meGusta - 1;
+                console.log(`Se eliminó un like: ${item.meGusta}`);
+                //? Hacer que se agrege el item en un arreglo de items para actualizar
+                this.atractivosItems.push(item);
+              }
             } else {
               //*El ID no se encuentra en el arreglo.
               this.userDetails.atractivosMeGusta.push(item.id); //Se Agrega el id que me gustó
               console.log("ID agregado al arreglo.");
+              //? Modificar el item.meGusta sumando 1
+              // console.log(item.meGusta);
+              if(item.meGusta >= 0) {
+                item.meGusta = item.meGusta + 1;
+                console.log(`Se agregó un like: ${item.meGusta}`);
+                //? Hacer que se agrege el item en un arreglo de items para actualizar
+                this.atractivosItems.push(item);
+              }
             }
           }
 
@@ -662,7 +743,44 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
   } //? -> MeGusta Final
 
+
+  actualizarAtractivos(items: any[]): Promise<void[]> {
+    const promesas = items.map(item => this.homeService.atractivoMeGusta(item));
+    return Promise.all(promesas);
+  }
+
+  actualizarPrestadores(items: any[]): Promise<void[]> {
+    const promesas = items.map(item => this.homeService.prestadorMeGusta(item));
+    return Promise.all(promesas);
+  }
+
+
   ngOnDestroy() {
+
+      if(this.atractivosItems.length > 0) {
+        //? Disparar el método actualizarAtractivos aquí antes de destruir el componente
+        this.actualizarAtractivos(this.atractivosItems)
+        .then(() => {
+          console.log("Todos los atractivos han sido actualizados");
+        })
+        .catch(error => {
+          console.error("Error al actualizar atractivos: ", error);
+        });
+      }
+
+
+      if(this.prestadoresItems.length > 0) {
+        //? Disparar el método actualizarAtractivos aquí antes de destruir el componente
+        this.actualizarPrestadores(this.prestadoresItems)
+        .then(() => {
+          console.log("Todos los Prestadores han sido actualizados");
+        })
+        .catch(error => {
+          console.error("Error al actualizar prestadores: ", error);
+        });
+      }
+
+
       // Desuscribirse para evitar pérdidas de memoria
       if (this.allSubscriptions) {
           this.allSubscriptions.unsubscribe();
