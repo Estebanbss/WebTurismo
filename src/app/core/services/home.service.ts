@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Auth} from '@angular/fire/auth';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -43,6 +43,16 @@ export class HomeService {
     const mailRef = collection(this.firestore, 'mail'); // Servicio y nombre de la colección
     //Añadimos en un documento la referencia y los datos que lo componen
     return addDoc(mailRef, mail); // Retorna una Promesa
+  }
+
+  atractivoMeGusta(item: any): Promise<void> {
+    const docRef = doc(this.firestore,`atractivos/${item.id}`); //Actualizamos por id
+    return updateDoc(docRef, item);
+  }
+
+  prestadorMeGusta(item: any): Promise<void> {
+    const docRef = doc(this.firestore,`prestadores/${item.id}`); //Actualizamos por id
+    return updateDoc(docRef, item);
   }
 
 }
