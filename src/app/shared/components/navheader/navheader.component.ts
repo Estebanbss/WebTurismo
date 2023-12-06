@@ -45,6 +45,10 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     this.modalService.navigateToContact();
   }
 
+  toAboutUs() {
+    this.router.navigate(['/about-us']);
+  }
+
   private setupAuthListener() {
     this.authService.onAuthStateChanged((user, userDetails) => {
       if (user) {

@@ -8,6 +8,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { RouterModule } from '@angular/router';
+import { AboutUsComponent } from './modules/about-us/about-us.component';
 
 
 @NgModule({

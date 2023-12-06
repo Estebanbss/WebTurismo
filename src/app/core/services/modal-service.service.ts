@@ -91,8 +91,10 @@ export class ModalServiceService {
   navigateToContact() {
     this.router.navigateByUrl('/home').then(() => {
       const element = document.getElementById('contacto');
+
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => { element.scrollIntoView({ behavior: 'smooth' });}, 700);
+
       }
     });
   }

@@ -9,11 +9,14 @@ import { adminGuard } from './core/guards/admin.guard';
 import { PrestadorGuard } from './core/guards/prestador.guard';
 import { UserGuard } from './core/guards/user.guard';
 import { AtractivoGuard } from './core/guards/atractivo.guard';
+import { AboutUsModule } from './modules/about-us/about-us.module';
 
 
 const routes: Routes = [
 
   { path: "home", canActivate:[authGuard], loadChildren:() => import("./modules/home/home.module").then((m) => m.HomeModule)},
+
+  { path: "about-us", canActivate:[authGuard], loadChildren:() => import("./modules/about-us/about-us.module").then((m) => m.AboutUsModule)},
 
   { path: "dashboard-admin", canActivate:[authGuard,adminGuard],  loadChildren: () => import('./modules/dashboard-admin/dashboard-admin.module').then( m => m.DashboardAdminModule )},
 
