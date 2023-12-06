@@ -669,7 +669,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
           this.modalDataSubscription.unsubscribe();
       }
   }
-
+  toList() {
+    const List = document.getElementById("InfoListaMunicipio");
+    window.scrollTo({
+      top: List!.offsetTop-70,
+      behavior: "smooth" // Para un desplazamiento suave (con animación), o "auto" para un desplazamiento instantáneo.
+    });
+  }
 
   }
 

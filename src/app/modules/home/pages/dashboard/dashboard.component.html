@@ -181,7 +181,8 @@
         <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
       </svg>
       </button>
-      <h3 class="py-5 font-bold font-Blinker text-4xl">{{actualRuta?.name}}</h3>
+      <h3 class="pt-5 font-bold font-Blinker text-4xl">{{actualRuta?.name}}</h3>
+      <h3 class="py-5 font-medium font-Blinker text-xl">Agencia: {{actualRuta?.agenciaDeViajes}}</h3>
       <button #rightButtonRuta class="" draggable="false"
         id="rightRuta"  (click)="changeRoute('right')">
     <svg
@@ -200,7 +201,7 @@
   </div>
 
   <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pb-10 flex flex-col justify-center">
-  <div class="w-full bg-white rounded-b-xl px-5   text-gray-600 text-center" ><h3 class="py-5 font-normal font-Blinker text-xl">{{actualRuta?.descripcion}}</h3></div>
+  <div class="w-full bg-white rounded-b-xl px-5   text-gray-600 text-center" ><h3 class="py-5 font-normal font-work text-xl">{{actualRuta?.descripcion}}</h3></div>
   </div>
 
 </section>
@@ -250,11 +251,12 @@
             />
                           <!--*Boton de guardar-->
            <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
-          </button>
+            <img class="w-[30px]" src="assets/img/save.svg">
+           </button>
            <!--*Boton de me gusta-->
           <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+            <img class="w-[30px]" src="assets/img/heart.svg">
+
           </button>
             </div>
           </div>
@@ -368,7 +370,7 @@
       <div class="absolute px-10 bg:bottom-[5%] md:bottom-[20%]">
         <h3 class=" text-white  bg:text-3xl md:text-5xl font-bold font-Blinker"><strong>Tu guía definitiva para disfrutar del sabor del Huila</strong></h3>
         <h4 class=" text-white  bg:text-lg md:text-2xl font-medium md:mb-5"> Descubre los secretos culinarios de la región.</h4>
-        <button class="px-10 ml-auto bg-white rounded-full py-2 text-primary-500 font-bold text-xl">Descubre más</button>
+        <button (click)="toGastronomy()" class="px-10 ml-auto bg-white rounded-full py-2 text-primary-500 font-bold text-xl">Descubre más</button>
       </div>
 
     </div>
@@ -425,11 +427,12 @@
             />
                           <!--*Boton de guardar-->
            <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <svg role="button" class="fill-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/></svg>
-          </button>
+            <img class="w-[30px]" src="assets/img/save.svg">
+           </button>
            <!--*Boton de me gusta-->
           <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <svg role="button" class="fill-primary-500 text-primary-500 stroke-primary-500" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="currentColor"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+            <img class="w-[30px]" src="assets/img/heart.svg">
+
           </button>
             </div>
           </div>

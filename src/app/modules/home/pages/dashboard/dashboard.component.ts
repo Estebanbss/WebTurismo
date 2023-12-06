@@ -12,7 +12,6 @@ import { IndexedDBService } from 'src/app/core/services/indexedDB.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -104,6 +103,12 @@ export class DashboardComponent implements OnInit {
 
   } //? -> fin agregarMail
 
+  toGastronomy(){
+    this.router.navigate(['busqueda-prestador'])
+    this.modalService.toggleServicioGastronomico('Restaurante');
+    this.modalService.toggleServicioGastronomico('Tienda de café');
+    this.modalService.toggleServicioGastronomico('Antojos típicos');
+  }
   capitalizeFirstLetter(inputString: string): string {
     if (inputString.length === 0) {
       return inputString;
@@ -403,6 +408,8 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     }
 
   }
+
+
 
 
   private setupTilesData(urlsByMunicipio: { [key: string]: string } | any[]) {

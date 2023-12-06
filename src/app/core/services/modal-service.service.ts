@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalServiceService {
   constructor(private router:Router) {}
+
+
+  private serviciosGastronomia: Set<string> = new Set<string>();
+  serviciosSubject: BehaviorSubject<Set<string>> = new BehaviorSubject<Set<string>>(this.serviciosGastronomia);
 
   private valueSource = new BehaviorSubject<string>('');
   currentValue = this.valueSource.asObservable();
@@ -86,6 +90,19 @@ export class ModalServiceService {
 
   setTurnMuni(value: boolean) {
     this.modalTurnMuniSubject.next(value);
+  }
+
+  toggleServicioGastronomico(servicio: string): void {
+    if (this.serviciosGastronomia.has(servicio)) {
+      this.serviciosGastronomia.delete(servicio);
+    } else {
+      this.serviciosGastronomia.add(servicio);
+    }
+    this.serviciosSubject.next(this.serviciosGastronomia);
+  }
+
+  obtenerServiciosGastronomia(): Observable<Set<string>> {
+    return this.serviciosSubject.asObservable();
   }
 
   navigateToContact() {
