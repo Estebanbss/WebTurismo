@@ -119,7 +119,7 @@ export class UsersComponent {
     actualizarUsuario(choose: boolean, user?:any){
       if(choose){
         this.authService.actualizarUsuario(user.uid, user);
-        this.authService.updateUserDetailsInLocalStorage();
+        this.authService.updateUserDetailsInLocalStorage().then(() => {window.location.reload()});
         this.user(false)
      }else{
 

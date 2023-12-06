@@ -1,8 +1,8 @@
 
 
 
-<div (keydown)="onKeyDown($event)"  class="bg-black fixed min-h-screen min-w-scren h-full w-full z-40 bg-opacity-40"></div>
-<div class="fixed min-w-[60%] w-[90%] h-[50%] md:w-[60%] md:h-[90%] md:min-h-[90%] md:max-w-[60%]  max-h-[90%] z-40  right-[50%] translate-x-[50%] flex flex-col items-center justify-center translate-y-[50%] bottom-[50%]">
+<div (keydown)="onKeyDown($event)"  class="bg-black fixed  h-[100%] w-[100%] min-w-[100%] z-40 min-h-[100%] bg-opacity-40"></div>
+<div class="absolute min-w-[60%] w-[90%]  md:w-[60%]  md:max-w-[60%]  z-40  right-[50%] translate-x-[50%] flex flex-col items-center justify-center translate-y-[50%] bottom-[50%]">
 
 <button class="absolute top-5 right-5" (click)="buttonModal()">
   <svg role="button" viewBox="0 0 24 24" width="20px" height="20px" class="d Vb UmNoP"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.94 12L4.47 5.53l1.06-1.06L12 10.94l6.47-6.47 1.06 1.06L13.06 12l6.47 6.47-1.06 1.06L12 13.06l-6.47 6.47-1.06-1.06L10.94 12z"></path></svg>
@@ -22,17 +22,12 @@
 
 
     <form (ngSubmit)="actualizarUsuario(true,user)">
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 my-5">
         <!-- Campos de entrada para cada atributo del usuario -->
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Nombre:</label>
-          <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+          <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
 
-        </div>
-
-        <div class="flex flex-col gap-1">
-          <label class="font-Work text-lg">Nombre de Usuario:</label>
-          <input type="text" [(ngModel)]="user.userName" name="userName" placeholder="Nombre de usuario" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Descripción:</label>
@@ -40,24 +35,24 @@
                  [(ngModel)]="user.descripcion"
                  name="descripcion"
                  placeholder="Descripción"
-                 class="input-style py-2 px-2 h-10 font-work text-xl font-medium"
+                 class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2"
                  maxlength="150"> <!-- Aquí se establece la longitud máxima -->
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Numero telefonico:</label>
-        <input type="text" [(ngModel)]="user.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+        <input type="text" [(ngModel)]="user.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Ubicación:</label>
-        <input type="text" [(ngModel)]="user.ubicacion" name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium">
+        <input type="text" [(ngModel)]="user.ubicacion" name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <!-- ... otros campos según sea necesario ... -->
       </div>
 
       <!-- Botones para actualizar y cancelar -->
-      <div class="flex flex-row gap-5 mt-auto justify-center">
-        <button type="submit" class="btn-style  px-2 py-2 text-center text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
-        <button type="button" (click)="buttonModal()" class="btn-style px-2 py-2  text-xl min-w-[150px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
+      <div class="flex flex-row gap-5 mt-10 justify-center ">
+        <button type="submit" class="btn-style  px-4 py-2 text-center text-xl min-w-[110px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-green-700 bg-green-500">Actualizar</button>
+        <button type="button" (click)="buttonModal()" class="btn-style px-4 py-2  text-xl min-w-[110px] w-[100px] font-work font-semibold text-white rounded-lg hover:bg-red-700 bg-red-500">Cancelar</button>
       </div>
     </form>
 

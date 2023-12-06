@@ -43,14 +43,14 @@
         </h3>
 
         <!--* SECCIÓN DEL FILTRO ESCRITO -->
-        <app-search-prestador></app-search-prestador>
+        <app-search-prestador class=""></app-search-prestador>
 
         <!--* FIN SECCIÓN DEL FILTRO ESCRITO -->
 
       </div>
       <!--!Contenedor de los botones de los servicios-->
       <div
-        class="flex flex-row text-gray-600 font-Work font-normal gap-2 overflow-hidden bg-primary-500 rounded-b-xl w-full"
+        class="flex flex-row mt-5 text-gray-600 font-Work font-normal gap-2 overflow-hidden bg-primary-500 rounded-b-xl w-full"
       >
       <!---->
         <div
@@ -248,7 +248,7 @@
       <!-- <div class="flex flex-row justify-center">
         <pagination-controls nextLabel="" previousLabel="" class="custom-pagination " (pageChange)="page = $event; toID()"></pagination-controls>
       </div> -->
-      <button (click)="cargarMasDocumentos()" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-xl">Ver más</button>
+      <button (click)="cargarMasDocumentos()" class="bg-primary-500 hover:bg-primary-400 mt-8 text-white text-xl font-semibold py-2 px-10 rounded-full flex flex-row justify-center mx-auto">Ver más</button>
 
 
     </section>

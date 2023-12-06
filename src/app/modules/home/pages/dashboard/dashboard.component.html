@@ -475,8 +475,8 @@
 
 
 <!--?Sección "contactenos"-->
-<section     class="bg-slate-100 bg-opacity-50 pt-24  pb-24"
-style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
+<section  #contacto  id="contacto"   class="bg-slate-100 bg-opacity-50 pt-24  pb-24"
+style="clip-path: ellipse(80% 100% at center top)" >
   <!-- ?Fondo verde oscuro en forma de elipse -->
   <div
   class="bg-primary-500 pt-24  pb-24"
@@ -492,7 +492,7 @@ style="clip-path: ellipse(80% 100% at center top)" id="contactenos">
         class="border-primary-200 opacity-100 border-4 w-[80%] mx-auto my-0"
       />
       <span *ngIf="submitted && form.invalid" class="text-center bg-green-700 text-red-600">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
-      <div class="flex">
+      <div class="flex" >
         <form
           action="https://api.web3forms.com/submit"
           class="mt-10 mx-auto xl:w-[1280px] bg:w-full px-10"

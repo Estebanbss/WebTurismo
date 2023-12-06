@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalServiceService {
-  constructor() {}
+  constructor(private router:Router) {}
 
   private valueSource = new BehaviorSubject<string>('');
   currentValue = this.valueSource.asObservable();
@@ -87,5 +88,13 @@ export class ModalServiceService {
     this.modalTurnMuniSubject.next(value);
   }
 
+  navigateToContact() {
+    this.router.navigateByUrl('/home').then(() => {
+      const element = document.getElementById('contacto');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
 
 }
