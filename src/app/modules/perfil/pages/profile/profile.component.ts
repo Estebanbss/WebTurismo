@@ -43,9 +43,9 @@ export class ProfileComponent {
     this.auth.setData(this.router.url);
 
     this.atractivosIDL = this.user.atractivosMeGusta;
-    this.atractivosIDS = this.user.atractivosMeGusta;
+    this.atractivosIDS = this.user.atractivosSave;
     this.prestadoresIDL = this.user.prestadoresMeGusta;
-    this.prestadoresIDS = this.user.prestadoresMeGusta;
+    this.prestadoresIDS = this.user.prestadoresSave;
 
     this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
       this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
