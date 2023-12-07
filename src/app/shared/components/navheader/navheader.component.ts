@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
@@ -27,7 +27,8 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private modalService: ModalServiceService,
-    private authService: AuthService // Inyección del servicio de autenticación
+    private authService: AuthService,
+    private elRef: ElementRef // Inyección del servicio de autenticación
   ) {
 
   }
@@ -38,6 +39,14 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     this.authService.updateUserDetailsInLocalStorage();
     this.userName = localStorage.getItem('cachedUserName');
     this.userButton = this.userName ? true : false;
+  }
+
+  toContact() {
+    this.modalService.navigateToContact();
+  }
+
+  toAboutUs() {
+    this.router.navigate(['/about-us']);
   }
 
   private setupAuthListener() {

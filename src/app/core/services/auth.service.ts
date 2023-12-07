@@ -112,7 +112,7 @@ export class AuthService {
       // Actualizar la URL en Firestore
       const userRef = doc(this.firestore, 'users', uid);
       await updateDoc(userRef, { fotoUser: downloadURL });
-      this.updateUserDetailsInLocalStorage();
+      this.updateUserDetailsInLocalStorage().then(() => {  window.location.reload();})
       return alert('Foto actualizada!')
     } catch (error) {
       console.error('Error al actualizar la foto de perfil:', error);
@@ -135,7 +135,7 @@ export class AuthService {
       // Actualizar la URL en Firestore
       const userRef = doc(this.firestore, 'users', uid);
       await updateDoc(userRef, { bannerImg: downloadURL });
-      this.updateUserDetailsInLocalStorage();
+      this.updateUserDetailsInLocalStorage().then(() => {  window.location.reload();});
       return alert('Banner actualizado!')
     } catch (error) {
       console.error('Error al actualizar el banner:', error);
@@ -148,6 +148,7 @@ export class AuthService {
     if (userDetails) {
       const uid = userDetails.uid;
       this.setUserDetailsInLocalStorage(uid, userDetails);
+
     }
   }
 

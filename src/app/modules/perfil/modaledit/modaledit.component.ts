@@ -68,7 +68,12 @@ constructor(private router: Router, private route: ActivatedRoute, private authS
   actualizarUsuario(choose: boolean, user?:any){
     if(choose){
       this.authService.actualizarUsuario(user.uid, user);
-      this.authService.updateUserDetailsInLocalStorage();
+      this.authService.updateUserDetailsInLocalStorage().then(() => {
+        this.buttonModal();
+        setTimeout(() => {
+          window.location.reload();
+        }, 800); // Tiempo en milisegundos (1 segundo en este caso)
+      });
       this.user(false)
    }else{
       this.user(false)
@@ -119,6 +124,7 @@ actualizarImage(uid: string) {
       this.authService.actualizarFotoPerfil(uid, this.croppedImage).then(() => {
           this.buttonModal2();
           this.buttonModal();
+
       });
   }
 }
@@ -128,6 +134,7 @@ actualizarBanner(uid: string) {
       this.authService.actualizarBanner(uid, this.croppedImage).then(() => {
           this.buttonModal2();
           this.buttonModal();
+    
       });
   }
 }

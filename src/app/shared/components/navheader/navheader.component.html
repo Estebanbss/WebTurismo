@@ -59,19 +59,19 @@
         <ul class="flex flex-col font-bold font-Work mx-auto justify-center lg:flex-row lg:items-center p-0 text-center py-auto my-auto gap-2">
           <!-- Lista de elementos de navegación -->
           <li class="flex justify-center">
-            <button  class="block  border-gray-100 hover:bg-primary-400 lg:border-0    text-white px-4 rounded-full py-2">
+            <button (click)="toAboutUs()"  class="block  border-gray-100 hover:bg-primary-400 lg:border-0    text-white px-4 rounded-full py-2">
               Acerca de nosotros
             </button> <!-- Enlace "Acerca de nosotros" con estilos de diseño -->
           </li>
           <li class="flex justify-center">
-            <button [routerLink]="'/dashboard/#contactenos'" class="block  border-gray-100  hover:bg-primary-400 lg:border-0   text-white px-4 rounded-full py-2">
+            <button (click)="toContact()" class="block  border-gray-100  hover:bg-primary-400 lg:border-0   text-white px-4 rounded-full py-2">
               Contáctenos
             </button> <!-- Enlace "Contáctenos" con estilos de diseño -->
           </li>
           <li class="flex justify-center">
-            <button  target="_blank" class="block  border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
+            <a href="https://linktr.ee/palhuila" target="_blank" class="block  border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
               Descargar app
-            </button> <!-- Enlace "Descargar app" con estilos de diseño -->
+            </a> <!-- Enlace "Descargar app" con estilos de diseño -->
           </li>
         </ul>
       </div>

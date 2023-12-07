@@ -188,6 +188,8 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     clearSelectedServices() { // Función para deseleccionar todos los servicios
       this.selectedServices.clear(); // Limpia el conjunto de servicios seleccionados
       //Convertimos el Set en un array para pasar al pipe
+      this.modalService.serviciosSubject.next(this.selectedServices);
+
       this.pipeSelectedServices = [...this.selectedServices];
       this.page = 1;
       // console.log(this.pipeSelectedServices);
@@ -213,16 +215,13 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     cambioURL: string = '';
 
     constructor(
-      private homeService: HomeService, // Inyecta el servicio HomeService del Modulo Home
       private mostrarMunicipioService: MostrarMunicipioService,
-      private route: ActivatedRoute,
       private textService: Title,
       private router: Router,
-      private modalService: ModalServiceService,
-      private detalleService: DetalleService
+      private modalService: ModalServiceService
     ) {
 
-
+      this.clearSelectedServices();
       this.textService.setTitle("Pa'lHuila - Municipios!")
 
 
@@ -267,8 +266,20 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
 
     ngOnInit(): void {// Función que se ejecuta al iniciar el componente
-
       this.cargarDocumentos(); //* Para cargar los primeros 10 prestadores
+      this.modalService.obtenerServiciosGastronomia().subscribe((servicios) => {
+        // Actualiza los servicios seleccionados con los servicios de gastronomía
+        const services = servicios;
+        this.selectedServices = services;
+        this.pipeSelectedServices = [...this.selectedServices];
+        // Puedes realizar otras acciones necesarias aquí con los servicios actualizados
+      });
+
+      this.selectedServices;
+      this.pipeSelectedServices;
+    }
+
+    ngAfterViewChecked(): void {
 
     }
 
