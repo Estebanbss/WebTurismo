@@ -10,7 +10,6 @@ export class UserEdit implements CanActivate {
     private authService: AuthService,
     private router: Router
   ) {
-    console.log(this.authService.getData());
   }
 
   url!: string;

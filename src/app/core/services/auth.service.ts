@@ -144,6 +144,7 @@ export class AuthService {
   }
 
   async updateUserDetailsInLocalStorage() {
+
     const userDetails = await this.fetchUserDetails(this.uid);
     if (userDetails) {
       const uid = userDetails.uid;

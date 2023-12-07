@@ -134,7 +134,7 @@ actualizarBanner(uid: string) {
       this.authService.actualizarBanner(uid, this.croppedImage).then(() => {
           this.buttonModal2();
           this.buttonModal();
-    
+
       });
   }
 }

@@ -744,6 +744,102 @@ import { AuthService } from 'src/app/core/services/auth.service';
   } //? -> MeGusta Final
 
 
+  //? -> Método me gusta
+  save(item: any) {
+    //*Item hace referencia al Prestador o Atractivo
+    //console.log('Me gusta: ', item);
+
+    //* Traigo el usuario actual que quiero actualizar con los Save
+    this.authService.onAuthStateChanged((user, userDetails) => {
+      if (user && userDetails) {
+        this.uid = user.uid; //* uid -> Desde Firebase
+        this.userDetails = userDetails; //* userDetails -> Objeto traido desde la BD de la colección users
+
+        //?Aquí tengo que Actualizar el documento en la colección users
+        //*Debemos definir en qué arreglo de Save queremos guardar el resultado
+        if ('servicios' in item) { //?Validación para Prestadores
+          //*Si el usuario ya tiene la propiedad no la agrega, de lo contrario lo hace y en ambos caso añade el sitio que le gusta
+          if (!('prestadoresSave' in this.userDetails)) {
+            this.userDetails.prestadoresSave = [item.id]; // Inicializa la propiedad si no existe
+            //?Modificar el item.meGusta sumando 1
+
+          } else {
+            //? Se hace la validación de que si ya está guardado el id entonces no lo guarde, en ese caso lo quite.
+            // this.userDetails.atractivosSave = [];
+            if (this.userDetails.prestadoresSave.includes(item.id)) {
+              //*El ID ya existe en el arreglo.
+              // Encuentra la posición del ID en el arreglo
+              let indice = this.userDetails.prestadoresSave.indexOf(item.id);
+              // Elimina el elemento de esa posición
+              this.userDetails.prestadoresSave.splice(indice, 1);
+              console.log("ID eliminado del arreglo.");
+              //? Modificar el item.Save restando 1
+              // console.log(item.Save);
+
+            } else {
+              //*El ID no se encuentra en el arreglo.
+              this.userDetails.prestadoresSave.push(item.id); //Se Agrega el id que me gustó
+              console.log("ID agregado al arreglo.");
+              //? Modificar el item.Save sumando 1
+
+            }
+          }
+
+          console.log(this.userDetails);
+
+          //*Aquí se actualiza la información del objeto en la BD
+          this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
+            console.log('Se actualizó con éxito a la Base de Datos');
+          }).catch(() => {
+            console.log('Ha ocurrido un error en la inserción a Base de Datos');
+          }) //*Como último paso actualizamos el objeto
+
+
+        } else if ('bienOLugar' in item) { //?Validación para Atractivos
+          //*Si el usuario ya tiene la propiedad no la agrega, de lo contrario lo hace y en ambos caso añade el sitio que le gusta
+          if (!('atractivosSave' in this.userDetails)) {
+            this.userDetails.atractivosSave = [item.id]; // Inicializa la propiedad si no existe
+            //?Modificar el item.Save sumando 1
+
+          } else {
+            //? Se hace la validación de que si ya está guardado el id entonces no lo guarde, en ese caso lo quite.
+            // this.userDetails.atractivosSave = [];
+            if (this.userDetails.atractivosSave.includes(item.id)) {
+              //*El ID ya existe en el arreglo.
+              // Encuentra la posición del ID en el arreglo
+              let indice = this.userDetails.atractivosSave.indexOf(item.id);
+              // Elimina el elemento de esa posición
+              this.userDetails.atractivosSave.splice(indice, 1);
+              console.log("ID eliminado del arreglo.");
+              //? Modificar el item.Save restando 1
+
+            } else {
+              //*El ID no se encuentra en el arreglo.
+              this.userDetails.atractivosSave.push(item.id); //Se Agrega el id que me gustó
+              console.log("ID agregado al arreglo.");
+              //? Modificar el item.Save sumando 1
+              // console.log(item.Save);
+
+            }
+          }
+
+          console.log(this.userDetails);
+
+          //*Aquí se actualiza la información del objeto en la BD
+          this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
+            console.log('Se actualizó con éxito a la Base de Datos');
+          }).catch(() => {
+            console.log('Ha ocurrido un error en la inserción a Base de Datos');
+          }) //*Como último paso actualizamos el objeto
+
+        }
+
+      }
+      this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
+    });
+
+  } //? -> MeGusta Final
+
   actualizarAtractivos(items: any[]): Promise<void[]> {
     const promesas = items.map(item => this.homeService.atractivoMeGusta(item));
     return Promise.all(promesas);
