@@ -533,7 +533,7 @@
 
               <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto ">
               <!--*Boton de guardar-->
-           <button id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+           <button (click)="save(item)" id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
             <img *ngIf="!userDetails?.atractivosMeGusta.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
 
             <img *ngIf="userDetails?.atractivosMeGusta.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
