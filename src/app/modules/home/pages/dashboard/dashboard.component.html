@@ -249,15 +249,21 @@
               loading="lazy"
               draggable="false"
             />
-                          <!--*Boton de guardar-->
-           <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <img class="w-[30px]" src="assets/img/save.svg">
-           </button>
-           <!--*Boton de me gusta-->
-          <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <img class="w-[30px]" src="assets/img/heart.svg">
-
+    <!--*Boton de guardar-->
+           <button (click)="save(tile); " id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <img *ngIf="tile.bienOLugar && !userDetails?.atractivosSave?.includes(tile.id)" class="w-[30px]" src="assets/img/save.svg">
+            <img *ngIf="tile.servicios && !userDetails?.prestadoresSave?.includes(tile.id)" class="w-[30px]" src="assets/img/save.svg">
+            <img *ngIf="tile.bienOLugar && userDetails?.atractivosSave?.includes(tile.id)" class="w-[30px]" src="assets/img/saveON.svg">
+            <img *ngIf="tile.servicios && userDetails?.prestadoresSave?.includes(tile.id)" class="w-[30px]" src="assets/img/saveON.svg">
           </button>
+            <!--*Boton de me gusta-->
+           <button (click)="meGusta(tile)" id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+            <img *ngIf="tile.bienOLugar && !userDetails?.atractivosMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heart.svg">
+            <img *ngIf="tile.servicios && !userDetails?.prestadoresMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heart.svg">
+            <img *ngIf="tile.bienOLugar && userDetails?.atractivosMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heartON.svg">
+            <img *ngIf="tile.servicios && userDetails?.prestadoresMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heartON.svg">
+
+           </button>
             </div>
           </div>
 
@@ -426,14 +432,20 @@
               draggable="false"
             />
                           <!--*Boton de guardar-->
-           <button id="save" class="absolute top-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <img class="w-[30px]" src="assets/img/save.svg">
-           </button>
-           <!--*Boton de me gusta-->
-          <button id="like"  class="absolute top-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <img class="w-[30px]" src="assets/img/heart.svg">
+                          <button (click)="save(tile)" id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+                            <img *ngIf="tile.bienOLugar && !userDetails?.atractivosSave?.includes(tile.id)" class="w-[30px]" src="assets/img/save.svg">
+                            <img *ngIf="tile.servicios && !userDetails?.prestadoresSave?.includes(tile.id)" class="w-[30px]" src="assets/img/save.svg">
+                            <img *ngIf="tile.bienOLugar && userDetails?.atractivosSave?.includes(tile.id)" class="w-[30px]" src="assets/img/saveON.svg">
+                            <img *ngIf="tile.servicios && userDetails?.prestadoresSave?.includes(tile.id)" class="w-[30px]" src="assets/img/saveON.svg">
+                          </button>
+                            <!--*Boton de me gusta-->
+                           <button (click)="meGusta(tile)" id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+                            <img *ngIf="tile.bienOLugar && !userDetails?.atractivosMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heart.svg">
+                            <img *ngIf="tile.servicios && !userDetails?.prestadoresMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heart.svg">
+                            <img *ngIf="tile.bienOLugar && userDetails?.atractivosMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heartON.svg">
+                            <img *ngIf="tile.servicios && userDetails?.prestadoresMeGusta?.includes(tile.id)" class="w-[30px]" src="assets/img/heartON.svg">
 
-          </button>
+                           </button>
             </div>
           </div>
 

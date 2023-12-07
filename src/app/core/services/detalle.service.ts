@@ -112,7 +112,11 @@ async obtenerAtractivosAleatorios(cantidad: number, municipio?: string): Promise
 
   async obtenerDocumentoPorID(docRef: CollectionReference<DocumentData, DocumentData>, id: unknown) {
     const docSnap = await getDoc(doc(docRef, id as string));
-    return docSnap.data();
+    const data = docSnap.data();
+    if (data) {
+      data['id'] = docSnap.id; // Establecer el campo 'id' en los datos del documento
+    }
+    return data;
   }
 
 }

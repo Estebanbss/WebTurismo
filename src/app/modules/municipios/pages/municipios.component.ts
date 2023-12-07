@@ -677,6 +677,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
           //*Aquí se actualiza la información del objeto en la BD
           this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
             console.log('Se actualizó con éxito a la Base de Datos');
+            this.authService.updateUserDetailsInLocalStorage();
           }).catch(() => {
             console.log('Ha ocurrido un error en la inserción a Base de Datos');
           }) //*Como último paso actualizamos el objeto
@@ -731,6 +732,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
           //*Aquí se actualiza la información del objeto en la BD
           this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
             console.log('Se actualizó con éxito a la Base de Datos');
+            this.authService.updateUserDetailsInLocalStorage();
+
           }).catch(() => {
             console.log('Ha ocurrido un error en la inserción a Base de Datos');
           }) //*Como último paso actualizamos el objeto
@@ -738,7 +741,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
         }
 
       }
-      this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
     });
 
   } //? -> MeGusta Final
@@ -790,6 +792,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
           //*Aquí se actualiza la información del objeto en la BD
           this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
             console.log('Se actualizó con éxito a la Base de Datos');
+            this.authService.updateUserDetailsInLocalStorage();
           }).catch(() => {
             console.log('Ha ocurrido un error en la inserción a Base de Datos');
           }) //*Como último paso actualizamos el objeto
@@ -828,6 +831,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
           //*Aquí se actualiza la información del objeto en la BD
           this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
             console.log('Se actualizó con éxito a la Base de Datos');
+            this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
           }).catch(() => {
             console.log('Ha ocurrido un error en la inserción a Base de Datos');
           }) //*Como último paso actualizamos el objeto
@@ -835,7 +839,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
         }
 
       }
-      this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
     });
 
   } //? -> MeGusta Final
