@@ -534,10 +534,10 @@
               <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto ">
               <!--*Boton de guardar-->
            <button (click)="save(item)" id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-            <img *ngIf="!userDetails?.atractivosMeGusta.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
-
-            <img *ngIf="userDetails?.atractivosMeGusta.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
-
+            <img *ngIf="item.bienOLugar && !userDetails?.atractivosSave.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
+            <img *ngIf="item.servicios && !userDetails?.prestadoresSave.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">
+            <img *ngIf="item.bienOLugar && userDetails?.atractivosSave.includes(item.id)" class="w-[30px]" src="assets/img/saveON.svg">
+            <img *ngIf="item.servicios && userDetails?.prestadoresSave.includes(item.id)" class="w-[30px]" src="assets/img/saveON.svg">
           </button>
             <!--*Boton de me gusta-->
            <button (click)="meGusta(item)" id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
