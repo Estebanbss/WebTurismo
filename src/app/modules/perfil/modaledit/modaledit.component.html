@@ -15,7 +15,7 @@
 
   <div class="w-full h-[100px] flex flex-row gap-2">
     <button (click)="turnPf()" class="bg:w-[80px] md:w-[100px] bg:h-[80px] md:h-[100px] max-w-[100px] max-h-[100px] rounded-full  overflow-hidden"><img *ngIf="user?.fotoUser != null" src="{{user?.fotoUser}}" class="w-full h-full object-cover object-center hover:bg-white hover:opacity-75" ></button>
-    <button (click)="turnBanner()" class="w-[80%]  bg:h-[80px] md:h-[100px]  max-h-[100px] rounded-xl hover:bg-white hover:opacity-75 overflow-hidden"><img *ngIf="user.fotoUser" src="{{user?.bannerImg}}" class="w-full h-full object-cover object-center" ></button>
+    <button (click)="turnBanner()" class="w-[80%]  bg:h-[80px] md:h-[100px]  max-h-[100px] rounded-xl hover:bg-white hover:opacity-75 overflow-hidden"><img *ngIf="user?.fotoUser" src="{{user?.bannerImg}}" class="w-full h-full object-cover object-center" ></button>
   </div>
   <div class="w-full px-5">
     <!--Aqui se hace el formulario de actualización-->
@@ -26,12 +26,13 @@
         <!-- Campos de entrada para cada atributo del usuario -->
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Nombre:</label>
-          <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+          <input type="text" *ngIf="user?.nombre" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
 
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Descripción:</label>
           <input type="text"
+                 *ngIf="user?.descripcion"
                  [(ngModel)]="user.descripcion"
                  name="descripcion"
                  placeholder="Descripción"
@@ -40,11 +41,11 @@
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Numero telefonico:</label>
-        <input type="text" [(ngModel)]="user.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+        <input type="text" *ngIf="user?.numeroTel" [(ngModel)]="user.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Ubicación:</label>
-        <input type="text" [(ngModel)]="user.ubicacion" name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+        <input type="text" *ngIf="user?.ubicacion" [(ngModel)]="user.ubicacion" name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <!-- ... otros campos según sea necesario ... -->
       </div>

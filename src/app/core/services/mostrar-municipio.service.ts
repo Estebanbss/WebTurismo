@@ -124,4 +124,20 @@ export class MostrarMunicipioService {
       return collectionData(q, { idField: 'id' }) as Observable<any>;
     }
 
+    obtenerAtractivosPorArreglodeID(arregloID: string[]): Observable<any> {
+      const atractivosRef = collection(this.firestore, 'atractivos');
+
+      let q = query(atractivosRef, where('id', 'in', arregloID));
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+     }
+
+    obtenerPrestadoresPorArreglodeID(arregloID: string[]): Observable<any> {
+      const prestadoresRef = collection(this.firestore, 'prestadores');
+
+      let q = query(prestadoresRef, where('id', 'in', arregloID));
+
+      return collectionData(q, { idField: 'id' }) as Observable<any>;
+     }
+
 }
