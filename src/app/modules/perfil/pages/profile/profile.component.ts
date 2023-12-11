@@ -13,9 +13,64 @@ export class ProfileComponent {
 
 
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, private modalService: ModalServiceService, private mostrarMunicipioService: MostrarMunicipioService) {
-    this.auth.onAuthStateChanged((user, userDetails) => {this.userauth = user;this.user = userDetails;},);
+    this.auth.onAuthStateChanged((user, userDetails) => {this.userauth = user}, );
+
+    this.route.params.subscribe(params => {
+      this.user = null;
+      this.profileId = params['id'];
+      if (this.profileId) {
+        this.auth.obtenerUsuarioPorUserName(this.profileId).subscribe((user) => {
+          this.user = user[0];
+
+          if(this.loading && this.user){
+              this.atractivosIDL = this.user.atractivosMeGusta;
+              this.atractivosIDS = this.user.atractivosSave;
+              this.prestadoresIDL = this.user.prestadoresMeGusta;
+              this.prestadoresIDS = this.user.prestadoresSave;
 
 
+              if (this.atractivosIDL.length > 0 || this.prestadoresIDL.length > 0) {
+                if (this.atractivosIDL.length > 0) {
+                  this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
+                    this.litadoPrestadoresyAtractivosL = atractivos;
+                    if (this.prestadoresIDL.length > 0) {
+                      this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
+                        this.litadoPrestadoresyAtractivosL = [...this.litadoPrestadoresyAtractivosL, ...prestadores];
+                      });
+                    }
+                  });
+                } else if (this.prestadoresIDL.length > 0) {
+                  this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
+                    this.litadoPrestadoresyAtractivosL = prestadores;
+                  });
+                }
+              }
+
+              if (this.atractivosIDS.length > 0 || this.prestadoresIDS.length > 0) {
+                if (this.atractivosIDS.length > 0) {
+                  this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
+                    this.litadoPrestadoresyAtractivosS = atractivos;
+                    if (this.prestadoresIDS.length > 0) {
+                      this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
+                        this.litadoPrestadoresyAtractivosS = [...this.litadoPrestadoresyAtractivosS, ...prestadores];
+                      });
+                    }
+                  });
+                } else if (this.prestadoresIDS.length > 0) {
+                  this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
+                    this.litadoPrestadoresyAtractivosS = prestadores;
+                  });
+                }
+              }
+
+          }
+
+        });
+      }
+      this.modalService.setProfileHeader(false);
+
+
+    });
 
 
 }
@@ -32,22 +87,12 @@ export class ProfileComponent {
     prestadoresIDL: string[] = [];
     atractivosIDS: string[] = [];
     prestadoresIDS: string[] = [];
+    firstL:boolean = true;
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.profileId = params['id'];
-      if (this.profileId) {
-        this.auth.obtenerUsuarioPorUserName(this.profileId).subscribe((user) => {
-          this.user = user[0];
-        });
-      }
-      this.modalService.setProfileHeader(false);
-    });
+
+
     this.auth.setData(this.router.url);
 
-    this.atractivosIDL = this.user.atractivosMeGusta;
-    this.atractivosIDS = this.user.atractivosSave;
-    this.prestadoresIDL = this.user.prestadoresMeGusta;
-    this.prestadoresIDS = this.user.prestadoresSave;
 
     // this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
     //   this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
@@ -60,39 +105,7 @@ export class ProfileComponent {
     //     this.litadoPrestadoresyAtractivosS = [...atractivos, ...prestadores];
     //   });
     // });
-    if (this.atractivosIDL.length > 0 || this.prestadoresIDL.length > 0) {
-      if (this.atractivosIDL.length > 0) {
-        this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
-          this.litadoPrestadoresyAtractivosL = atractivos;
-          if (this.prestadoresIDL.length > 0) {
-            this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
-              this.litadoPrestadoresyAtractivosL = [...this.litadoPrestadoresyAtractivosL, ...prestadores];
-            });
-          }
-        });
-      } else if (this.prestadoresIDL.length > 0) {
-        this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
-          this.litadoPrestadoresyAtractivosL = prestadores;
-        });
-      }
-    }
 
-    if (this.atractivosIDS.length > 0 || this.prestadoresIDS.length > 0) {
-      if (this.atractivosIDS.length > 0) {
-        this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
-          this.litadoPrestadoresyAtractivosS = atractivos;
-          if (this.prestadoresIDS.length > 0) {
-            this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
-              this.litadoPrestadoresyAtractivosS = [...this.litadoPrestadoresyAtractivosS, ...prestadores];
-            });
-          }
-        });
-      } else if (this.prestadoresIDS.length > 0) {
-        this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
-          this.litadoPrestadoresyAtractivosS = prestadores;
-        });
-      }
-    }
 
   }
   buttonPag(option:string){
@@ -138,4 +151,12 @@ export class ProfileComponent {
   //     }
   //   });
   // }
+  loading:boolean = true;
+
+  ngAfterViewInit(): void {
+    console.log("ngAfterViewInit")
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+
+  }
 }
