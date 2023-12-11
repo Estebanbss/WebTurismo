@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ModaleditComponent } from './modaledit/modaledit.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     ImageCropperModule,
     FormsModule,
-
+    NgxPaginationModule
   ]
 })
 export class PerfilModule { }

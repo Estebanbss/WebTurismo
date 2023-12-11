@@ -10,6 +10,8 @@ import { MostrarMunicipioService } from 'src/app/core/services/mostrar-municipio
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
+
+
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, private modalService: ModalServiceService, private mostrarMunicipioService: MostrarMunicipioService) {
     this.auth.onAuthStateChanged((user, userDetails) => {this.userauth = user;this.user = userDetails;},);
 
@@ -47,19 +49,54 @@ export class ProfileComponent {
     this.prestadoresIDL = this.user.prestadoresMeGusta;
     this.prestadoresIDS = this.user.prestadoresSave;
 
-    this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
-      this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
-        this.litadoPrestadoresyAtractivosL = [...atractivos, ...prestadores];
-      });
-    });
+    // this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
+    //   this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
+    //     this.litadoPrestadoresyAtractivosL = [...atractivos, ...prestadores];
+    //   });
+    // });
 
-    this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
-      this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
-        this.litadoPrestadoresyAtractivosS = [...atractivos, ...prestadores];
-      });
-    });
+    // this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
+    //   this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
+    //     this.litadoPrestadoresyAtractivosS = [...atractivos, ...prestadores];
+    //   });
+    // });
+    if (this.atractivosIDL.length > 0 || this.prestadoresIDL.length > 0) {
+      if (this.atractivosIDL.length > 0) {
+        this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
+          this.litadoPrestadoresyAtractivosL = atractivos;
+          if (this.prestadoresIDL.length > 0) {
+            this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
+              this.litadoPrestadoresyAtractivosL = [...this.litadoPrestadoresyAtractivosL, ...prestadores];
+            });
+          }
+        });
+      } else if (this.prestadoresIDL.length > 0) {
+        this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
+          this.litadoPrestadoresyAtractivosL = prestadores;
+        });
+      }
+    }
+
+    if (this.atractivosIDS.length > 0 || this.prestadoresIDS.length > 0) {
+      if (this.atractivosIDS.length > 0) {
+        this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
+          this.litadoPrestadoresyAtractivosS = atractivos;
+          if (this.prestadoresIDS.length > 0) {
+            this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
+              this.litadoPrestadoresyAtractivosS = [...this.litadoPrestadoresyAtractivosS, ...prestadores];
+            });
+          }
+        });
+      } else if (this.prestadoresIDS.length > 0) {
+        this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
+          this.litadoPrestadoresyAtractivosS = prestadores;
+        });
+      }
+    }
+
   }
   buttonPag(option:string){
+    this.page = 1;
     this.pag = option;
   }
 
