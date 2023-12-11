@@ -135,6 +135,8 @@ export class ProfileComponent {
     this.pag = option;
   }
 
+  
+
   modaledit(): void{
 
     this.router.navigate(['edit'], { relativeTo: this.route })
@@ -477,7 +479,7 @@ export class ProfileComponent {
 
   ngAfterViewChecked(): void {
     //traigo el usuario actual cada 5 segundos
-
+    console.log(this.litadoPrestadoresyAtractivosL, this.litadoPrestadoresyAtractivosS)
   
   }
 }
