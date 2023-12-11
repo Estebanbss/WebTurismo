@@ -63,11 +63,11 @@ export class DashboardComponent implements OnInit {
     this.getRutas()
     this.detalle.obtenerPrestadoresAleatorios(9).then((prestadores) => {
       this.prestadoresrandom = prestadores;
-      // console.log("response prestadores: ", prestadores)
+      // ("response prestadores: ", prestadores)
     }).then()
     this.detalle.obtenerAtractivosAleatorios(9).then((atractivos) => {
       this.atractivosrandom = atractivos;
-      // console.log("response atractivos: ", atractivos)
+      // ("response atractivos: ", atractivos)
     }).then()
 
         let currentIndex = 0;
@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
     setInterval(() => {
       this.selectGastronomySrc = this.gastronomySRC[currentIndex];
       currentIndex = (currentIndex + 1) % this.gastronomySRC.length;
-    }, 5000);
+    }, 500);
 
     //this.agregarMail();
   }
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
     }
 
     const mensaje = `${this.form.value.nombre}, ${this.form.value.correo}, " ${this.form.value.mensaje} "`
-    //console.log(mensaje);
+    //(mensaje);
 
     const formularioMail = {
       to: ['proyectocenturhuila@gmail.com'],
@@ -103,14 +103,13 @@ export class DashboardComponent implements OnInit {
         text: 'This is the plaintext section of the email body'
       }
     }
-    console.log(formularioMail);
 
     this.homeService.addMail(formularioMail).then(() => {
       alert('Se envió el mensaje');
       this.submitted = false;
       this.form.reset();
     }).catch( error => {
-      console.log(error);
+      (error);
     })
 
   } //? -> fin agregarMail
@@ -393,7 +392,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
         urlsByMunicipio[municipio] = url;
       } catch (error:any) {
         if (error.code === 'storage/object-not-found') {
-          console.log(`File doesn't exist for ${municipio}`);
+          (`File doesn't exist for ${municipio}`);
         } else {
           console.error(`Error fetching URL for ${municipio}:`, error);
         }
@@ -410,7 +409,6 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
       if (cachedUrlsArray && cachedUrlsArray.length > 0) {
         this.setupTilesData(cachedUrlsArray);
       } else {
-        console.log("cacheMuni not taken, need firebase");
         const urls = await this.fetchUrls();
         await this.indexedDB.saveImages(urls, "imagesMuni");
         this.setupTilesData(urls);
@@ -467,9 +465,8 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
     //? -> Método me gusta
     meGusta(item: any) {
-      console.log(item)
       //*Item hace referencia al Prestador o Atractivo
-      //console.log('Me gusta: ', item);
+      //('Me gusta: ', item);
 
       //* Traigo el usuario actual que quiero actualizar con los meGusta
       this.authService.onAuthStateChanged((user, userDetails) => {
@@ -486,7 +483,6 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
               //?Modificar el item.meGusta sumando 1
               if(item.meGusta >= 0) {
                 item.meGusta = item.meGusta + 1;
-                console.log(`Se agregó un like: ${item.meGusta}`);
                 //? Hacer que se agrege el item en un arreglo de items para actualizar
                 this.prestadoresItems.push(item);
               }
@@ -499,38 +495,35 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
                 let indice = this.userDetails.prestadoresMeGusta.indexOf(item.id);
                 // Elimina el elemento de esa posición
                 this.userDetails.prestadoresMeGusta.splice(indice, 1);
-                console.log("ID eliminado del arreglo.");
                 //? Modificar el item.meGusta restando 1
-                // console.log(item.meGusta);
+                // (item.meGusta);
                 if(item.meGusta >= 1) {
                   item.meGusta = item.meGusta - 1;
-                  console.log(`Se eliminó un like: ${item.meGusta}`);
                   //? Hacer que se agrege el item en un arreglo de items para actualizar
                   this.prestadoresItems.push(item);
                 }
               } else {
                 //*El ID no se encuentra en el arreglo.
                 this.userDetails.prestadoresMeGusta.push(item.id); //Se Agrega el id que me gustó
-                console.log("ID agregado al arreglo.");
                 //? Modificar el item.meGusta sumando 1
-                // console.log(item.meGusta);
+                // (item.meGusta);
                 if(item.meGusta >= 0) {
                   item.meGusta = item.meGusta + 1;
-                  console.log(`Se agregó un like: ${item.meGusta}`);
+                  (`Se agregó un like: ${item.meGusta}`);
                   //? Hacer que se agrege el item en un arreglo de items para actualizar
                   this.prestadoresItems.push(item);
                 }
               }
             }
 
-            console.log(this.userDetails);
+            (this.userDetails);
 
             //*Aquí se actualiza la información del objeto en la BD
             this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
-              console.log('Se actualizó con éxito a la Base de Datos');
+              ('Se actualizó con éxito a la Base de Datos');
               this.authService.updateUserDetailsInLocalStorage();
             }).catch(() => {
-              console.log('Ha ocurrido un error en la inserción a Base de Datos');
+              ('Ha ocurrido un error en la inserción a Base de Datos');
             }) //*Como último paso actualizamos el objeto
 
 
@@ -541,7 +534,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
               //?Modificar el item.meGusta sumando 1
               if(item.meGusta >= 0) {
                 item.meGusta = item.meGusta + 1;
-                console.log(`Se agregó un like: ${item.meGusta}`);
+                (`Se agregó un like: ${item.meGusta}`);
                 //? Hacer que se agrege el item en un arreglo de items para actualizar
                 this.atractivosItems.push(item);
               }
@@ -554,39 +547,39 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
                 let indice = this.userDetails.atractivosMeGusta.indexOf(item.id);
                 // Elimina el elemento de esa posición
                 this.userDetails.atractivosMeGusta.splice(indice, 1);
-                console.log("ID eliminado del arreglo.");
+                ("ID eliminado del arreglo.");
                 //? Modificar el item.meGusta restando 1
-                // console.log(item.meGusta);
+                // (item.meGusta);
                 if(item.meGusta >= 1) {
                   item.meGusta = item.meGusta - 1;
-                  console.log(`Se eliminó un like: ${item.meGusta}`);
+                  (`Se eliminó un like: ${item.meGusta}`);
                   //? Hacer que se agrege el item en un arreglo de items para actualizar
                   this.atractivosItems.push(item);
                 }
               } else {
                 //*El ID no se encuentra en el arreglo.
                 this.userDetails.atractivosMeGusta.push(item.id); //Se Agrega el id que me gustó
-                console.log("ID agregado al arreglo.");
+                ("ID agregado al arreglo.");
                 //? Modificar el item.meGusta sumando 1
-                // console.log(item.meGusta);
+                // (item.meGusta);
                 if(item.meGusta >= 0) {
                   item.meGusta = item.meGusta + 1;
-                  console.log(`Se agregó un like: ${item.meGusta}`);
+                  (`Se agregó un like: ${item.meGusta}`);
                   //? Hacer que se agrege el item en un arreglo de items para actualizar
                   this.atractivosItems.push(item);
                 }
               }
             }
 
-            console.log(this.userDetails);
+            (this.userDetails);
 
             //*Aquí se actualiza la información del objeto en la BD
             this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
-              console.log('Se actualizó con éxito a la Base de Datos');
+              ('Se actualizó con éxito a la Base de Datos');
               this.authService.updateUserDetailsInLocalStorage();
 
             }).catch(() => {
-              console.log('Ha ocurrido un error en la inserción a Base de Datos');
+              ('Ha ocurrido un error en la inserción a Base de Datos');
             }) //*Como último paso actualizamos el objeto
 
           }
@@ -599,9 +592,9 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
     //? -> Método me gusta
     save(item: any) {
-      console.log(item)
+      (item)
       //*Item hace referencia al Prestador o Atractivo
-      //console.log('Me gusta: ', item);
+      //('Me gusta: ', item);
 
       //* Traigo el usuario actual que quiero actualizar con los Save
       this.authService.onAuthStateChanged((user, userDetails) => {
@@ -626,27 +619,27 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
                 let indice = this.userDetails.prestadoresSave.indexOf(item.id);
                 // Elimina el elemento de esa posición
                 this.userDetails.prestadoresSave.splice(indice, 1);
-                console.log("ID eliminado del arreglo.");
+                ("ID eliminado del arreglo.");
                 //? Modificar el item.Save restando 1
-                // console.log(item.Save);
+                // (item.Save);
 
               } else {
                 //*El ID no se encuentra en el arreglo.
                 this.userDetails.prestadoresSave.push(item.id); //Se Agrega el id que me gustó
-                console.log("ID agregado al arreglo.");
+                ("ID agregado al arreglo.");
                 //? Modificar el item.Save sumando 1
 
               }
             }
 
-            console.log(this.userDetails);
+            (this.userDetails);
 
             //*Aquí se actualiza la información del objeto en la BD
             this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
-              console.log('Se actualizó con éxito a la Base de Datos');
+              ('Se actualizó con éxito a la Base de Datos');
               this.authService.updateUserDetailsInLocalStorage();
             }).catch(() => {
-              console.log('Ha ocurrido un error en la inserción a Base de Datos');
+              ('Ha ocurrido un error en la inserción a Base de Datos');
             }) //*Como último paso actualizamos el objeto
 
 
@@ -665,27 +658,27 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
                 let indice = this.userDetails.atractivosSave.indexOf(item.id);
                 // Elimina el elemento de esa posición
                 this.userDetails.atractivosSave.splice(indice, 1);
-                console.log("ID eliminado del arreglo.");
+                ("ID eliminado del arreglo.");
                 //? Modificar el item.Save restando 1
 
               } else {
                 //*El ID no se encuentra en el arreglo.
                 this.userDetails.atractivosSave.push(item.id); //Se Agrega el id que me gustó
-                console.log("ID agregado al arreglo.");
+                ("ID agregado al arreglo.");
                 //? Modificar el item.Save sumando 1
-                // console.log(item.Save);
+                // (item.Save);
 
               }
             }
 
-            console.log(this.userDetails);
+            (this.userDetails);
 
             //*Aquí se actualiza la información del objeto en la BD
             this.authService.actualizarUsuario(this.uid, this.userDetails).then(() => {
-              console.log('Se actualizó con éxito a la Base de Datos');
+              ('Se actualizó con éxito a la Base de Datos');
               this.authService.updateUserDetailsInLocalStorage(); //Agrega a localStorage los cambios
             }).catch(() => {
-              console.log('Ha ocurrido un error en la inserción a Base de Datos');
+              ('Ha ocurrido un error en la inserción a Base de Datos');
             }) //*Como último paso actualizamos el objeto
 
           }
@@ -713,7 +706,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
         //? Disparar el método actualizarAtractivos aquí antes de destruir el componente
         this.actualizarAtractivos(this.atractivosItems)
         .then(() => {
-          console.log("Todos los atractivos han sido actualizados");
+          ("Todos los atractivos han sido actualizados");
         })
         .catch(error => {
           console.error("Error al actualizar atractivos: ", error);
@@ -725,7 +718,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
         //? Disparar el método actualizarAtractivos aquí antes de destruir el componente
         this.actualizarPrestadores(this.prestadoresItems)
         .then(() => {
-          console.log("Todos los Prestadores han sido actualizados");
+          ("Todos los Prestadores han sido actualizados");
         })
         .catch(error => {
           console.error("Error al actualizar prestadores: ", error);
