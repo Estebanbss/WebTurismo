@@ -746,7 +746,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   } //? -> MeGusta Final
 
 
-  //? -> Método me gusta
+  //? -> Método Save
   save(item: any) {
     //*Item hace referencia al Prestador o Atractivo
     //console.log('Me gusta: ', item);
@@ -841,7 +841,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
       }
     });
 
-  } //? -> MeGusta Final
+  } //? -> Save Final
 
   actualizarAtractivos(items: any[]): Promise<void[]> {
     const promesas = items.map(item => this.homeService.atractivoMeGusta(item));
