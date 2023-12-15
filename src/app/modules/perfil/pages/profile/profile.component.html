@@ -78,12 +78,12 @@
           <div class="w-full relative sm:min-h-[300px]  gap-5 bg-white rounded-2xl border-black border-4 border-opacity-10 mb-5 flex bg:flex-col sm:flex-row">
 
               <!--!Div principal imagen-->
-          <div class=" bg:w-full sm:min-w-[300px] sm:min-h-[300px] sm:max-h-[300px] sm:max-w-[300px] relative">
+          <div class=" bg:w-full sm:min-w-[300px] sm:min-h-[300px] sm:max-h-[300px] sm:max-w-[300px] relative overflow-hidden">
             <!--*imagen-->
             <div class="relative max-w-full w-[100%] min-h-[300px] aspect-rato-1-1 overflow-hidden
               mx-0 px-0 flex justify-center items-center">
 
-              <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto ">
+              <img [src]="item.pathImagePortada?.url" class="rounded-lg my-auto h-full w-full object-cover mx-auto z-0 ">
 <!--*Boton de guardar-->
            <button (click)="save(item); " id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
             <img *ngIf="dataLoaded && item.bienOLugar && !userDetails?.atractivosSave?.includes(item.id)" class="w-[30px]" src="assets/img/save.svg">

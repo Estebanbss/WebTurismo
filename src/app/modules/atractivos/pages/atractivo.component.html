@@ -105,21 +105,22 @@
     <div
       class="xl:w-[1280px] max-w-[1280px] relative gap-2 flex flex-row mx-auto md:mx-0 md:ml-auto px-5 items-end -bottom-5 md:bottom-0 justify-center md:justify-end z-50"
     >
-      <!--*Boton de guardar-->
-  <button (click)="save(atractivo); " id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-    <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
-    <img *ngIf="atractivo?.servicios && !userDetails?.atractivoesSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
-    <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
-    <img *ngIf="atractivo?.servicios && userDetails?.atractivoesSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
-  </button>
-    <!--*Boton de me gusta-->
-   <button (click)="meGusta(atractivo)" id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-    <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
-    <img *ngIf="atractivo?.servicios && !userDetails?.atractivoesMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
-    <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
-    <img *ngIf="atractivo?.servicios && userDetails?.atractivoesMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
+    <div class="flex flex-row">
+      <button (click)="save(atractivo); " id="save" class=" active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+        <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
+        <img *ngIf="atractivo?.servicios && !userDetails?.prestadoresSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
+        <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
+        <img *ngIf="atractivo?.servicios && userDetails?.prestadoresSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
+      </button>
+        <!--*Boton de me gusta-->
+       <button (click)="meGusta(atractivo)" id="like"  class=" active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+        <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
+        <img *ngIf="atractivo?.servicios && !userDetails?.prestadoresMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
+        <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
+        <img *ngIf="atractivo?.servicios && userDetails?.prestadoresMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
 
-   </button>
+       </button>
+    </div>
     </div>
   </div>
 </section>
