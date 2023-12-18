@@ -114,7 +114,7 @@ datocurioso(){
       indicacionesAcceso: this.data[0][index].indicacionesAcceso === undefined  ? '--' : this.data[0][index].indicacionesAcceso,
       googleMaps: this.data[0][index].googleMaps === undefined  ? '--' : this.data[0][index].googleMaps,
       latitud: (this.data[0][index].latitud)*1 === undefined || this.data[0][index].latitud === "--" || (this.data[0][index].latitud)*1 === null  ? 0 : (this.data[0][index].latitud)*1,
-      longitud: (this.data[0][index].longitud)*1 === undefined || this.data[0][index].longitud === "--" || (this.data[0][index].longitud)*1 === null  ? 0 : (this.data[0][index].longitud)*1,
+      longitud: this.data[0][index].longitud * -1 === undefined || this.data[0][index].longitud === "--" || this.data[0][index].longitud * -1 === null  ? 0 : this.data[0][index].longitud * -1,
       whatsapp:this.data[0][index].whatsapp === undefined  ? 0 : this.procesarValor(this.data[0][index].whatsapp),
       celular1:this.data[0][index].celular1 === undefined  ? 0 : this.procesarValor(this.data[0][index].celular1),
       celular2:this.data[0][index].celular2 === undefined  ? 0 : this.procesarValor(this.data[0][index].celular2),

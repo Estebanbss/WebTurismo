@@ -110,7 +110,7 @@ export class PrestadorComponent {
       this.prestador = data[0];
 
     if(this.prestador.municipio !== undefined && this.prestador.municipio !== null && this.prestador.municipio !== "--" && this.prestador.municipio !== ""){
-      this.detalleService.obtenerPrestadoresAleatorios(9,this.prestador.municipio.trim()).then((data:any) => {
+      this.detalleService.obtenerPrestadoresAleatorios(9,this.capitalizeFirstLetter(this.prestador.municipio)).then((data:any) => {
         this.prestadoresrandom = data
       })
     }
