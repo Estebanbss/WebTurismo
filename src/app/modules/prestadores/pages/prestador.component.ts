@@ -252,7 +252,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
 
   this.itemsPerPage = 3;
 
-
+  this.prestador = data[0]
     });
 
   }
@@ -287,6 +287,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
     //Called after every check of the component's view. Applies to components only.
     //Add 'implements AfterViewChecked' to the class.
     this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
+
 
   }
   checkScrollEnd(element: ElementRef, leftButton: ElementRef, rightButton: ElementRef) {
