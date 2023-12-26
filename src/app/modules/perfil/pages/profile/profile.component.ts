@@ -135,7 +135,7 @@ export class ProfileComponent {
     this.pag = option;
   }
 
-  
+
 
   modaledit(): void{
 
@@ -402,7 +402,7 @@ export class ProfileComponent {
             //*Aquí se actualiza la información del objeto en la BD
             this.auth.actualizarUsuario(this.uid, this.userDetails).then(() => {
               ('Se actualizó con éxito a la Base de Datos');
-              this.auth.updateUserDetailsInLocalStorage(); 
+              this.auth.updateUserDetailsInLocalStorage();
               this.loadCards();
               //Agrega a localStorage los cambios
             }).catch(() => {
@@ -459,27 +459,27 @@ export class ProfileComponent {
   }
   interval: any;
   change: number = 0;
-  
+
   ngAfterViewInit(): void {
 
-  
+
     this.interval = setInterval(() => {
       this.auth.onAuthStateChanged((user, userDetails) => {
         this.userDetails = userDetails; //* userDetails -> Objeto traido desde la BD de la colección users
       });
-  
+
       this.change = this.change + 1;
-  
+
       if (this.change >= 20) {
         clearInterval(this.interval); // Detener el intervalo cuando change sea mayor o igual a 20
       }
     }, 100);
   }
-  
+
 
   ngAfterViewChecked(): void {
     //traigo el usuario actual cada 5 segundos
     console.log(this.litadoPrestadoresyAtractivosL, this.litadoPrestadoresyAtractivosS)
-  
+
   }
 }
