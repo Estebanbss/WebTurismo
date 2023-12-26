@@ -256,7 +256,7 @@ export class PrestadoresService {
       //console.log('Exísten archivos a cargar');
 
       //Creamos una referencia al sitio de firebase
-      //En la referencia se coloca el servicio y el path donde queremos guardar, aún si el path no exíste se puede declarar
+      //En la referencia se coloca el servicio y el path Dónde queremos guardar, aún si el path no exíste se puede declarar
 
       //? Creamos una forma para cargar todo el arreglo
       //Utilizamos un ciclo for para recorrer el arreglo e insertar archivo por archivo adquiriendo su referencia
@@ -304,7 +304,7 @@ export class PrestadoresService {
 
           //? -> Código para subir imágen Principal
           if(!(portadaFile === undefined)) {
-            //Creamos la referencia a la dirección donde vamos a cargar la imágen en el Storage
+            //Creamos la referencia a la dirección Dónde vamos a cargar la imágen en el Storage
             const imgRef = ref(this.storage, `prestadoresStorage/${prestador.name}/ImagenPrincipal/${portadaFile.name}`);
 
             promiseImgPrinc.push(uploadBytes(imgRef, portadaFile)); // Insertamos la promesa en la constante
@@ -355,7 +355,7 @@ export class PrestadoresService {
 
       //? -> Código para subir imágen Principal
       if(!(portadaFile === undefined)) {
-        //Creamos la referencia a la dirección donde vamos a cargar la imágen en el Storage
+        //Creamos la referencia a la dirección Dónde vamos a cargar la imágen en el Storage
         const imgRef = ref(this.storage, `prestadoresStorage/${prestador.name}/ImagenPrincipal/${portadaFile.name}`);
 
         promiseImgPrinc.push(uploadBytes(imgRef, portadaFile)); // Insertamos la promesa en la constante
@@ -525,7 +525,7 @@ export class PrestadoresService {
       //console.log('Exísten archivos a cargar');
 
       //Creamos una referencia al sitio de firebase
-      //En la referencia se coloca el servicio y el path donde queremos guardar, aún si el path no exíste se puede declarar
+      //En la referencia se coloca el servicio y el path Dónde queremos guardar, aún si el path no exíste se puede declarar
 
       //? Creamos una forma para cargar todo el arreglo
       //Utilizamos un ciclo for para recorrer el arreglo e insertar archivo por archivo adquiriendo su referencia
@@ -573,7 +573,7 @@ export class PrestadoresService {
 
           //? -> Código para subir imágen Principal
           if(!(portadaFile === undefined)) {
-            //Creamos la referencia a la dirección donde vamos a cargar la imágen en el Storage
+            //Creamos la referencia a la dirección Dónde vamos a cargar la imágen en el Storage
             const imgRef = ref(this.storage, `prestadoresStorage/${prestador.name}/ImagenPrincipal/${portadaFile.name}`);
 
             promiseImgPrinc.push(uploadBytes(imgRef, portadaFile)); // Insertamos la promesa en la constante
@@ -626,7 +626,7 @@ export class PrestadoresService {
 
       //? -> Código para subir imágen Principal
       if(!(portadaFile === undefined)) {
-        //Creamos la referencia a la dirección donde vamos a cargar la imágen en el Storage
+        //Creamos la referencia a la dirección Dónde vamos a cargar la imágen en el Storage
         const imgRef = ref(this.storage, `prestadoresStorage/${prestador.name}/ImagenPrincipal/${portadaFile.name}`);
 
         promiseImgPrinc.push(uploadBytes(imgRef, portadaFile)); // Insertamos la promesa en la constante

@@ -67,7 +67,7 @@
               >
                 <h1 class="justify-center mb-0 text">Todo</h1>
               </button>
-              <!--!Boton que itera todos los tipos de categoria DORMIR, DONDE COMER , A DONDE IR, COSAS QUE HACER-->
+              <!--!Boton que itera todos los tipos de categoria DORMIR, Dónde COMER , A Dónde IR, COSAS QUE HACER-->
               <!--*NG CLASS aplica unos estilos SOLO si se cumple la condición de que el botonActivo sea igual al nombre te el Heading Text-->
               <!--*Para cambiar que boton sea seleccionado se utiliza (click) para disparar DOS FUNCIONES en la que estan "activar boton" y "turnServicesOption" la primera función cambia la variable global de tipo string llamada botonActivo al paramatro enviado en este caso es "tile.headingText" tomado de la iteración del arreglo "titles"; La otra función lo que hace basicamente es lo mismo pero en arreglo, añadiendo al arreglo los botones seleccionados y a la misma vez si se da de nuevo click verifica que el argumento recibido esta o no está en el arreglo para borrarlo o agregarlo  -->
               <button
@@ -86,7 +86,7 @@
                 <img
                 [alt]="'ButtonFilter ' + title.headingText"
                 class="w-[30px]"
-                [src]="'assets/img/' + (title.headingText === '¿Donde comer?' ? 'Donde comer' : title.headingText === '¿Donde dormir?' ? 'Donde dormir' : title.headingText === '¿A Donde ir?' ? 'Donde ir' : title.headingText === 'Cosas que hacer' ? 'Cosas que hacer' : title.headingText ) + '.svg'"
+                [src]="'assets/img/' + (title.headingText === '¿Dónde comer?' ? 'Dónde comer' : title.headingText === '¿Dónde dormir?' ? 'Dónde dormir' : title.headingText === '¿A Dónde ir?' ? 'Dónde ir' : title.headingText === 'Cosas que hacer' ? 'Cosas que hacer' : title.headingText ) + '.svg'"
                 />
                 <h3 class="justify-center mb-0 text">
                   {{ title.headingText }}
@@ -100,7 +100,7 @@
       <div   class="flex flex-row mt-2 gap-5">
         <!--*---------------------------------------------->
         <div
-          *ngIf="turnS === '¿Donde dormir?'"
+          *ngIf="turnS === '¿Dónde dormir?'"
           id="SLEEP"
           class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
         >
@@ -156,7 +156,7 @@
       <!--*---------------------------------------------->
       <!--*---------------------------------------------->
         <div
-          *ngIf="turnS === '¿Donde comer?'"
+          *ngIf="turnS === '¿Dónde comer?'"
           id="EAT"
           class="relative md1:grid bg:flex bg:flex-row overflow-x-scroll md1:grid-cols-5 xl:grid-cols-8 mx-auto gap-2 px-2"
         >

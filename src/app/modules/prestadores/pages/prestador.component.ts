@@ -110,7 +110,7 @@ export class PrestadorComponent {
       this.prestador = data[0];
 
     if(this.prestador.municipio !== undefined && this.prestador.municipio !== null && this.prestador.municipio !== "--" && this.prestador.municipio !== ""){
-      this.detalleService.obtenerPrestadoresAleatorios(9,this.prestador.municipio.trim()).then((data:any) => {
+      this.detalleService.obtenerPrestadoresAleatorios(9,this.capitalizeFirstLetter(this.prestador.municipio)).then((data:any) => {
         this.prestadoresrandom = data
       })
     }
@@ -252,7 +252,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
 
   this.itemsPerPage = 3;
 
-
+  this.prestador = data[0]
     });
 
   }
@@ -287,6 +287,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
     //Called after every check of the component's view. Applies to components only.
     //Add 'implements AfterViewChecked' to the class.
     this.checkScrollEnd(this.carouselPresta, this.leftButtonPresta, this.rightButtonPresta);
+
 
   }
   checkScrollEnd(element: ElementRef, leftButton: ElementRef, rightButton: ElementRef) {
@@ -424,7 +425,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
       // Aquí puedes manejar la lógica para obtener las coordenadas si el enlace no está acortado.
     }
   }
-  //? -> Método donde vamos a validar que latitud y longitud no dañen la página
+  //? -> Método Dónde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
     //* Hacemos validación de punto decimal para ambos números
     //* En este caso nos devuelte true en caso de que ambos contengan decimales

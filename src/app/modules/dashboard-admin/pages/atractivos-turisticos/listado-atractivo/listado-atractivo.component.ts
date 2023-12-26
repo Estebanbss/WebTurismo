@@ -50,7 +50,7 @@ export class ListadoAtractivoComponent implements OnInit {
      }
 
 
-  //?Página donde estamos, propiedad para la paginación
+  //?Página Dónde estamos, propiedad para la paginación
   page: number = 1;
 
   //? -> Propiedad para el Pipe en el filtro de texto

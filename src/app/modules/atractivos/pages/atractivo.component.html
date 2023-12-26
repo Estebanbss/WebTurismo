@@ -19,57 +19,7 @@
         >
           {{ id2 }}
         </h3>
-        <!--*nombreatractivo-->
-        <div
-          class="flex flex-row text-center items-center gap-2 justify-center"
-          id="RNT-RM"
-        >
-          <svg
-            role="img"
-            width="20"
-            height="20"
-            viewBox="0 0 50 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16.6665 43.75H41.6665C42.7716 43.75 43.8314 43.311 44.6128 42.5296C45.3942 41.7482 45.8332 40.6884 45.8332 39.5833V35.4167H20.8332V39.5833C20.8332 40.6884 20.3942 41.7482 19.6128 42.5296C18.8314 43.311 17.7716 43.75 16.6665 43.75ZM16.6665 43.75C15.5614 43.75 14.5016 43.311 13.7202 42.5296C12.9388 41.7482 12.4998 40.6884 12.4998 39.5833V10.4167C12.4998 9.3116 12.0609 8.25179 11.2794 7.47039C10.498 6.68899 9.43824 6.25 8.33317 6.25C7.2281 6.25 6.16829 6.68899 5.38689 7.47039C4.60549 8.25179 4.1665 9.3116 4.1665 10.4167V16.6667H12.4998"
-              stroke="#39A900"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M39.5835 35.4167V10.4167C39.5835 9.3116 39.1445 8.25179 38.3631 7.47039C37.5817 6.68899 36.5219 6.25 35.4168 6.25H8.3335"
-              stroke="#39A900"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M31.2502 16.6665H20.8335"
-              stroke="#39A900"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M31.2502 25H20.8335"
-              stroke="#39A900"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <!-- <h4
-            *ngIf="atractivo !== undefined && atractivo.rntRm !== null && atractivo.rntRm !== '--'"
-            class="text-center text-sm font-bold font-work text-primary-500 leading-5 z-40"
-            id="RNT-RM number"
-          >
-            {{atractivo.rntRm}}
-          </h4> -->
-          <!--*RNT-->
-        </div>
+
       </div>
     </div>
   </div>
@@ -96,7 +46,7 @@
         stroke-width="3"
       />
     </svg>
-    <h4 class="text-gray-600 font-semibold z-40">{{ id1 }},Huila,Colombia</h4>
+    <h4 class="text-gray-600 font-semibold z-40">{{ id1 }}, Huila, Colombia</h4>
   </div>
 
   <div
@@ -105,21 +55,22 @@
     <div
       class="xl:w-[1280px] max-w-[1280px] relative gap-2 flex flex-row mx-auto md:mx-0 md:ml-auto px-5 items-end -bottom-5 md:bottom-0 justify-center md:justify-end z-50"
     >
-      <!--*Boton de guardar-->
-  <button (click)="save(atractivo); " id="save" class="absolute bottom-2 right-14  active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-    <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
-    <img *ngIf="atractivo?.servicios && !userDetails?.atractivoesSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
-    <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
-    <img *ngIf="atractivo?.servicios && userDetails?.atractivoesSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
-  </button>
-    <!--*Boton de me gusta-->
-   <button (click)="meGusta(atractivo)" id="like"  class="absolute bottom-2 right-2 active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
-    <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
-    <img *ngIf="atractivo?.servicios && !userDetails?.atractivoesMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
-    <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
-    <img *ngIf="atractivo?.servicios && userDetails?.atractivoesMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
+    <div class="flex flex-row">
+      <button (click)="save(atractivo); " id="save" class=" active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+        <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
+        <img *ngIf="atractivo?.servicios && !userDetails?.prestadoresSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/save.svg">
+        <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
+        <img *ngIf="atractivo?.servicios && userDetails?.prestadoresSave?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/saveON.svg">
+      </button>
+        <!--*Boton de me gusta-->
+       <button (click)="meGusta(atractivo)" id="like"  class=" active:bg-slate-200 bg-white rounded-full w-10 h-10 flex justify-center items-center">
+        <img *ngIf="atractivo?.bienOLugar && !userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
+        <img *ngIf="atractivo?.servicios && !userDetails?.prestadoresMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heart.svg">
+        <img *ngIf="atractivo?.bienOLugar && userDetails?.atractivosMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
+        <img *ngIf="atractivo?.servicios && userDetails?.prestadoresMeGusta?.includes(atractivo?.id)" class="w-[30px]" src="assets/img/heartON.svg">
 
-   </button>
+       </button>
+    </div>
     </div>
   </div>
 </section>
@@ -262,7 +213,7 @@
             <h5
             class="text-2xl md:text-3xl font-black text-center font-Blinker text-primary-500 mt-5 mb-4"
             >
-            Tipo de Bien o Lugar
+            Tipo de bien o lugar
             </h5>
 
             <p *ngIf="atractivo !== undefined && atractivo.bienOLugar !== '' && atractivo.bienOLugar !== null && atractivo.bienOLugar !== '--'" class="text-lg font-Work">
@@ -283,8 +234,8 @@
             <div
               class="relative  bg:w-full mr-auto p-5 bg-white  border-2 flex flex-col rounded-2xl"
             >
-            <!--*Parte donde estan los botones de la paginación-->
-            <div id="Paginación servicios" class="flex flex-row gap-5 px-2">
+            <!--*Parte Dónde estan los botones de la paginación-->
+            <div id="Paginación servicios" class="flex flex-row gap-5 px-2 overflow-x-hidden overflow-x-scroll">
               <button (click)="buttonPag(item); currentPage=1" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-lg">{{item}}</button>
             </div>
             <hr class="border-[1px] mb-5" />
@@ -308,7 +259,7 @@
     <section id="Ubicación" class="bg-white  mb-5 w-full mx-auto rounded-xl overflow-hidden">
       <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pt-10 flex flex-col justify-center mb-5">
         <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
-        <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Donde nos encontramos?</h5>
+        <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Dónde nos encontramos?</h5>
 
         <div id="map" class="w-full h-full min-h-[500px]   mt-auto z-0 border-4 rounded-xl border-opacity-30 border-primary-500"><p class="invisible">se supone que aqui va el mapa DDDDDDDDD:</p></div>
 

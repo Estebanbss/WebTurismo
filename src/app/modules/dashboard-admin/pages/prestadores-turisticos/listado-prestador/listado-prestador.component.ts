@@ -51,7 +51,7 @@ export class ListadoPrestadorComponent implements OnInit {
     this.modalService.setValue(value);
   }
 
-  //?Página donde estamos, propiedad para la paginación
+  //?Página Dónde estamos, propiedad para la paginación
   page: number = 1;
 
   //? -> Propiedad para el Pipe en el filtro de texto

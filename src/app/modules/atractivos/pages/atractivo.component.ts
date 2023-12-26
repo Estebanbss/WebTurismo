@@ -97,20 +97,26 @@ export class AtractivoComponent {
 
   }
 
+  ngAfterViewInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+
+  }
+
   cargarAtractivo(nombre: string) {
     this.imgGallery = [];
 
     this.subscription = this.detalleService.obtenerAtractivo(nombre).subscribe(data => {
       const serviCountSlice: any =[]
       this.atractivo = data[0];
+      console.log(this.id1)
 
 
       if(this.atractivo?.municipio !== undefined && this.atractivo?.municipio !== null && this.atractivo?.municipio !== "--" && this.atractivo?.municipio !== ""){
-        this.detalleService.obtenerPrestadoresAleatorios(9,this.atractivo?.municipio.trim()).then((data:any) => {
+        this.detalleService.obtenerAtractivosAleatorios(9,this.capitalizeFirstLetter(this.atractivo?.municipio)).then((data:any) => {
           this.prestadoresrandom = data
         })
       }
-
       if(this.atractivo.whatsapp !== null){
         this.wasa = "https://api.whatsapp.com/send?phone=" + this.atractivo.whatsapp + "&text=Hola quiero más información sobre "+ this.atractivo.name +"!"
       }
@@ -393,7 +399,7 @@ export class AtractivoComponent {
       // Aquí puedes manejar la lógica para obtener las coordenadas si el enlace no está acortado.
     }
   }
-  //? -> Método donde vamos a validar que latitud y longitud no dañen la página
+  //? -> Método Dónde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
     //* Hacemos validación de punto decimal para ambos números
     //* En este caso nos devuelte true en caso de que ambos contengan decimales

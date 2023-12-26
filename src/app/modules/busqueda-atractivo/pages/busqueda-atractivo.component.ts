@@ -93,7 +93,7 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
 
     //TODO: Aquí vamos a poner una portada que indique varios Sitios
     imgDefault: string ="https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2FDefaultImg.png?alt=media&token=d39c6440-fc6f-4313-ad59-92efc776f114&_gl=1*16fm2h0*_ga*MjA0ODg4MTY1Mi4xNjk4NTk1OTkz*_ga_CW55HF8NVT*MTY5OTQxMTQ2Ni4xOS4xLjE2OTk0MTE1MDkuMTcuMC4w";
-    //Página donde estamos
+    //Página Dónde estamos
 
     page: number = 1;
 
@@ -136,21 +136,21 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
     titles = [
       //************************************* */
       {
-        headingText: '¿Donde dormir?',
+        headingText: '¿Dónde dormir?',
         routerlink: "/home"
       },
 
       //************************************* */
 
       {
-        headingText: '¿Donde comer?',
+        headingText: '¿Dónde comer?',
         routerlink: "/home"
       },
 
       //************************************* */
 
       {
-        headingText: '¿A Donde ir?',
+        headingText: '¿A Dónde ir?',
         routerlink: "/home"
       },
 
@@ -240,17 +240,17 @@ import { DetalleService } from 'src/app/core/services/detalle.service';
       this.turnS = value;// Guarda el servicio seleccionado en la variable
     }
 
-    servicesSLEEP: string[] = [// Array de servicios de DONDE DORMIR
+    servicesSLEEP: string[] = [// Array de servicios de Dónde DORMIR
       "Alojamiento Urbano",
       "Alojamiento Rural",
     ]
 
-    servicesEAT: string[] = [// Array de servicios de DONDE COMER
+    servicesEAT: string[] = [// Array de servicios de Dónde COMER
       "Restaurante",
       "Tienda de café",
       "Antojos típicos",
     ]
-    servicesGO: string[] = [// Array de servicios de A DONDE IR
+    servicesGO: string[] = [// Array de servicios de A Dónde IR
       "Sitio Natural",
       "Patrimonio Cultural",
       "Miradores",
