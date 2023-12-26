@@ -425,7 +425,7 @@ servi.forEach((servicio: { bd: string | number; }) => {
       // Aquí puedes manejar la lógica para obtener las coordenadas si el enlace no está acortado.
     }
   }
-  //? -> Método donde vamos a validar que latitud y longitud no dañen la página
+  //? -> Método Dónde vamos a validar que latitud y longitud no dañen la página
   validarCargaDeMapa() {
     //* Hacemos validación de punto decimal para ambos números
     //* En este caso nos devuelte true en caso de que ambos contengan decimales

@@ -26,7 +26,7 @@ const routes: Routes = [
      { path: '', redirectTo: 'pagina-inicio', pathMatch: 'full'},
      //Listado de Vistas en Componentes
      {
-      //Pagina Base donde van todas las vistas y el router-outlet
+      //Pagina Base Dónde van todas las vistas y el router-outlet
       path: 'pagina-inicio',
       component: PaginaInicioComponent,
       children: [

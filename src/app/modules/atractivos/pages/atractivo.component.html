@@ -234,7 +234,7 @@
             <div
               class="relative  bg:w-full mr-auto p-5 bg-white  border-2 flex flex-col rounded-2xl"
             >
-            <!--*Parte donde estan los botones de la paginación-->
+            <!--*Parte Dónde estan los botones de la paginación-->
             <div id="Paginación servicios" class="flex flex-row gap-5 px-2 overflow-x-hidden overflow-x-scroll">
               <button (click)="buttonPag(item); currentPage=1" *ngFor="let item of buttonPags" [ngClass]="{'border-b-4 border-primary-500':pag === item}"  class="font-Work text-lg">{{item}}</button>
             </div>
@@ -259,7 +259,7 @@
     <section id="Ubicación" class="bg-white  mb-5 w-full mx-auto rounded-xl overflow-hidden">
       <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pt-10 flex flex-col justify-center mb-5">
         <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
-        <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Donde nos encontramos?</h5>
+        <h5 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">¿Dónde nos encontramos?</h5>
 
         <div id="map" class="w-full h-full min-h-[500px]   mt-auto z-0 border-4 rounded-xl border-opacity-30 border-primary-500"><p class="invisible">se supone que aqui va el mapa DDDDDDDDD:</p></div>
 

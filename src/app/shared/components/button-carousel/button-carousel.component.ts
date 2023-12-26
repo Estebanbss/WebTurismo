@@ -22,21 +22,21 @@ export class ButtonCarouselComponent {
   titles = [
     //************************************* */
     {
-      headingText: '¿Donde dormir?',
+      headingText: '¿Dónde dormir?',
       routerlink: "/home"
     },
 
   //************************************* */
 
     {
-      headingText: '¿Donde comer?',
+      headingText: '¿Dónde comer?',
       routerlink: "/home"
     },
 
   //************************************* */
 
     {
-      headingText: '¿A Donde ir?',
+      headingText: '¿A Dónde ir?',
       routerlink: "/home"
     },
 

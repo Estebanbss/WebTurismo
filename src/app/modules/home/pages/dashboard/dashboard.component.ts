@@ -253,11 +253,11 @@ export class DashboardComponent implements OnInit {
     },
     {
       "title": "Tiendas de Café",
-      "desc": "Explora el mundo del café en su máxima expresión. Visita tiendas de café donde podrás degustar y comprar productos locales que despertarán tus sentidos."
+      "desc": "Explora el mundo del café en su máxima expresión. Visita tiendas de café Dónde podrás degustar y comprar productos locales que despertarán tus sentidos."
     },
     {
       "title": "Antojos típicos",
-      "desc": "Satisface tus antojos con auténticas delicias locales. Descubre lugares donde podrás disfrutar de sabores típicos que te harán agua la boca."
+      "desc": "Satisface tus antojos con auténticas delicias locales. Descubre lugares Dónde podrás disfrutar de sabores típicos que te harán agua la boca."
     },
     {
       "title": "Sitio Natural",
@@ -273,7 +273,7 @@ export class DashboardComponent implements OnInit {
     },
     {
       "title": "Parques Naturales",
-      "desc": "Embárcate en aventuras naturales inolvidables. Visita parques naturales donde la biodiversidad y la belleza escénica te dejarán sin aliento."
+      "desc": "Embárcate en aventuras naturales inolvidables. Visita parques naturales Dónde la biodiversidad y la belleza escénica te dejarán sin aliento."
     },
     {
       "title": "Agencias de Viaje",
@@ -460,7 +460,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
   //? Creamos un método para obtener el nombre del elemento seleccionado a la hora de hacer click sobre la imágen, y a su vez de enviar la información al componente al que vamos a redireccionar la vista.
   enviarInformacion(municipio: any) {
     this.homeService.sendHomeMunicipioData = municipio; //*Enviamos el municipio seleccionado por medio de observables.
-    this.router.navigate(['/municipios/', municipio]); //*Redireccionamos al componente donde enviamos el elemento.
+    this.router.navigate(['/municipios/', municipio]); //*Redireccionamos al componente Dónde enviamos el elemento.
   }
 
     //? -> Método me gusta
