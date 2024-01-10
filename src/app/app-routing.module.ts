@@ -20,7 +20,7 @@ const routes: Routes = [
 
   { path: "about-us", canActivate:[authGuard], loadChildren:() => import("./modules/about-us/about-us.module").then((m) => m.AboutUsModule)},
 
-  { path: "privacidad", canActivate:[authGuard], loadChildren:() => import("./modules/privacidad/privacidad.module").then((m) => m.PrivacidadModule)},
+  { path: "privacidad",  loadChildren:() => import("./modules/privacidad/privacidad.module").then((m) => m.PrivacidadModule)},
 
   { path: "dashboard-admin", canActivate:[authGuard,adminGuard],  loadChildren: () => import('./modules/dashboard-admin/dashboard-admin.module').then( m => m.DashboardAdminModule )},
 
