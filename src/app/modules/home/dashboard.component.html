@@ -157,15 +157,20 @@
 
 
 <!--?Sección Rutas-->
-<section id="Rutas" class="bg-[#217373] bg-opacity-5 my-10 w-full mx-auto">
-  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pt-10 flex flex-col justify-center ">
-    <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
-    <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Rutas Turísticas</h2>
+<section id="Rutas" class="border border-y-[4px] border-opacity-10 border-x-0 border-primary-500 my-10 w-full mx-auto">
+  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto py-10 flex flex-col justify-center ">
 
+
+
+    <div class="flex flex-col md:flex-row px-5 min-h-[500px]">
+      <div class="w-full md:w-[50%] bg-white rounded-b-xl px-5   text-gray-600 text-center  overflow-y-auto" >
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 -960 960 960" width="70" class="fill-primary-500 mx-auto"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
+        <h2 class="font-Blinker text-primary-500  text-center bg:leading-9 text-4xl md:text-5xl md:leading-10 font-black mb-5">Rutas Turísticas</h2>
+        <h3 class="py-5 font-Work text-center md:text-left bg:text-sm md:text-lg m-0 bg:mb-20 xs0:mb-10 text-gray-700">{{actualRuta?.descripcion}}</h3>
+
+      </div>
+    <div class="w-full md:w-[50%] relative bg-primary-500 text-white text-center rounded-xl overflow-hidden" >
       <div id="map" class=" w-full min-h-[500px] mt-auto z-0"></div>
-
-
-    <div class="w-full bg-primary-500 text-white text-center" >
       <button #leftButtonRuta class="" draggable="false"
       id="leftRuta" (click)="changeRoute('left')">
         <svg
@@ -184,7 +189,7 @@
       <button class="bg-none border-2 font-black border-white hover:bg-white  text-white hover:text-primary-500 mx-auto flex   text-xl py-2 px-10 rounded-full"><a target="_blank" href="{{actualRuta?.googleMaps}}">Descubrir ruta!</a></button>
       <button #rightButtonRuta class="" draggable="false"
         id="rightRuta"  (click)="changeRoute('right')">
-        
+
     <svg
     role="button"
     class="absolute z-40 cursor-pointer fill-primary-500 bg-white rounded-full right-0 top-[50%] translate-y-[-50%] text-center"
@@ -198,11 +203,11 @@
 
     </div>
 
+    </div>
+
   </div>
 
-  <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto pb-10 flex flex-col justify-center">
-  <div class="w-full bg-white rounded-b-xl px-5   text-gray-600 text-center max-h-[150px] overflow-y-auto" ><h3 class="py-5 font-Work text-center md:text-left bg:text-sm md:text-lg m-0 bg:mb-20 xs0:mb-10 text-gray-700">{{actualRuta?.descripcion}}</h3></div>
-  </div>
+
 
 </section>
 <!--?Fin Sección Rutas-->

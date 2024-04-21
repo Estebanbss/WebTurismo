@@ -465,6 +465,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
     //? -> Método me gusta
     meGusta(item: any) {
+      this.userDetails === undefined ? this.router.navigate(['/auth/login']) : null; //?Validación para usuarios no autenticados
       //*Item hace referencia al Prestador o Atractivo
       //('Me gusta: ', item);
 
@@ -592,6 +593,7 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
 
     //? -> Método me gusta
     save(item: any) {
+      this.userDetails === undefined ? this.router.navigate(['/auth/login']) : null; //?Validación para usuarios no autenticados
       (item)
       //*Item hace referencia al Prestador o Atractivo
       //('Me gusta: ', item);

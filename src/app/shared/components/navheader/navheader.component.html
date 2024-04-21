@@ -21,8 +21,8 @@
 
 
         <!--perfil-->
-          <div class="relative no-close cursor-none">
-            <button id="buttonProfile" class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50">
+          <div *ngIf="pfp" class="relative no-close cursor-none">
+            <button *ngIf="pfp" id="buttonProfile" class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50">
 
               <!--espacio de la foto de usuario del usuario-->
               <img *ngIf="pfp" id="buttonProfile"  alt="UserProfilePhoto no-close z-0 " src="{{pfp}}">
@@ -43,10 +43,14 @@
                 </ul>
               </div>
             </button>
-
           </div>
 
 
+          <div *ngIf="!pfp">
+            <button (click)="toLogin()" class="px-4 p-2 text-primary-400 font-bold bg-white rounded-md">
+              Iniciar Sesión
+            </button>
+          </div>
 
 
 

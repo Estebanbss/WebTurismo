@@ -149,7 +149,6 @@ export class AuthService {
     if (userDetails) {
       const uid = userDetails.uid;
       this.setUserDetailsInLocalStorage(uid, userDetails);
-
     }
   }
 

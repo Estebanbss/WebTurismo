@@ -1,6 +1,6 @@
-import { PrivacidadComponent } from './modules/privacidad/privacidad.component';
+
 // import { PrestadoresModule } from './modules/prestadores/prestadores.module';
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes} from '@angular/router';
 // import { QuicklinkStrategy } from 'ngx-quicklink'; //libreria para la estrategia de precarga de modulos
 import { authGuard } from './core/guards/auth.guard';
@@ -10,15 +10,15 @@ import { adminGuard } from './core/guards/admin.guard';
 import { PrestadorGuard } from './core/guards/prestador.guard';
 import { UserGuard } from './core/guards/user.guard';
 import { AtractivoGuard } from './core/guards/atractivo.guard';
-import { AboutUsModule } from './modules/about-us/about-us.module';
-import { PrivacidadModule } from './modules/privacidad/privacidad.module';
+
+
 
 
 const routes: Routes = [
 
-  { path: "home", canActivate:[authGuard], loadChildren:() => import("./modules/home/home.module").then((m) => m.HomeModule)},
+  { path: "home",  loadChildren:() => import("./modules/home/home.module").then((m) => m.HomeModule)},
 
-  { path: "about-us", canActivate:[authGuard], loadChildren:() => import("./modules/about-us/about-us.module").then((m) => m.AboutUsModule)},
+  { path: "about-us",  loadChildren:() => import("./modules/about-us/about-us.module").then((m) => m.AboutUsModule)},
 
   { path: "privacidad",  loadChildren:() => import("./modules/privacidad/privacidad.module").then((m) => m.PrivacidadModule)},
 
@@ -38,7 +38,7 @@ const routes: Routes = [
 
   { path: "auth", canActivate:[homeGuard],  loadChildren:() => import("./modules/auth/auth.module").then((m) => m.AuthModule)},
 
-  { path: '**', redirectTo: 'home', pathMatch: 'full'}
+  { path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({
