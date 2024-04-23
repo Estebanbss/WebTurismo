@@ -110,7 +110,7 @@ export class ModalServiceService {
       const element = document.getElementById('contacto');
 
       if (element) {
-        setTimeout(() => { element.scrollIntoView({ behavior: 'smooth' });}, 700);
+        setTimeout(() => { element.scrollIntoView({ behavior: 'smooth' });}, 0);
 
       }
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ModalServiceService } from 'src/app/core/services/modal-service.service';
@@ -13,7 +13,8 @@ import { AuthService } from 'src/app/core/services/auth.service'; // Servicio de
 export class NavheaderComponent implements OnInit, OnDestroy {
   private modalDataSubscription!: Subscription;
   private modalDataSubscription2!: Subscription;
-
+  @ViewChild('searchNav') searchNav!: ElementRef;
+  @ViewChild('searchInput') searchInput!: ElementRef;
   userName!: string | null;
   pfp!: string;
   expanded = false;
@@ -36,10 +37,13 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setupAuthListener();
     this.setupModalSubscriptions();
-    this.authService.updateUserDetailsInLocalStorage();
+    if(this.uid){
+      this.authService.updateUserDetailsInLocalStorage();
+    }
     this.userName = localStorage.getItem('cachedUserName');
     this.userButton = this.userName ? true : false;
   }
+
 
   toContact() {
     this.modalService.navigateToContact();

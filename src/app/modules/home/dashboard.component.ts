@@ -128,7 +128,16 @@ export class DashboardComponent implements OnInit {
   }
 
     getRutas(){
-      this.detalle.obtenerTodasLasRutas().subscribe((rutas) => {this.ruta = rutas;this.cargarMapa(rutas[0])});
+     try{
+      this.detalle.obtenerTodasLasRutas().then((rutas) => {
+        return rutas.subscribe((rutas) => {
+          this.ruta = rutas
+          this.cargarMapa(this.ruta[0])
+        })
+      });
+     }catch(error){
+      console.log("hubo un error en la obtención de las rutas")
+     }
     }
 
     changeRoute(direction:string){
@@ -149,31 +158,28 @@ export class DashboardComponent implements OnInit {
       }
     }
 
-    cargarMapa(item:any) {
-
+    async cargarMapa(item: any) {
       const rutas = item;
       this.actualRuta = rutas;
+
       if (!this.map) { // Verificar si el mapa ya está inicializado
         this.map = new Map('map').setView([rutas.latitud, rutas.longitud], 13);
 
         // Agregar capa de tiles
-        tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',  {
-        }).addTo(this.map);
+        tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
 
         // Agregar un marcador
         marker([rutas.latitud, rutas.longitud]).addTo(this.map)
           .bindPopup(rutas.name)
           .openPopup();
-
-
       } else { // Si el mapa ya está inicializado, simplemente cambia el centro y el marcador
         this.map.setView([rutas.latitud, rutas.longitud], 13);
         marker([rutas.latitud, rutas.longitud]).addTo(this.map)
           .bindPopup(rutas.name)
           .openPopup();
       }
-
     }//? -> Fin Método Cargar Mapa
+
 
   navigate(item: any) {
     //Validamos hacia qué componente deseamos direccionar

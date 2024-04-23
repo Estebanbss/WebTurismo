@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
     });
     window.addEventListener('beforeunload', this.updateFechaUltimoLoginBeforeUnload);
     this.authService.onAuthStateChanged((user, userDetails) => {
+      if(!user) return;
       if (user) {
         this.uid = user.uid;
       }

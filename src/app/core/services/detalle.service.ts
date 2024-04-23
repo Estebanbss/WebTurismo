@@ -32,13 +32,8 @@ export class DetalleService {
   }
 
 
-  obtenerTodasLasRutas(): Observable<any> {
-    // Creamos una referencia a la colección de la que queremos recibir los datos
-    const docRef = collection(this.firestore, `rutas`);
 
-    // Retornamos el observable
-    return collectionData(docRef, { idField: 'id' }) as Observable<any>;
-   }
+
 
   obtenerAtractivo(item: any): Observable<any> {
     // Creamos una referencia a la colección de la que queremos recibir los datos
@@ -50,6 +45,18 @@ export class DetalleService {
     // Retornamos el observable
     return collectionData(q, { idField: 'id' }) as Observable<any>;
   }
+
+  async obtenerTodasLasRutas(): Promise<Observable<any>> {
+    // Creamos una referencia a la colección de la que queremos recibir los datos
+    const docRef = collection(this.firestore, 'rutas');
+
+    // Obtenemos los datos de la colección y los almacenamos en una variable
+    const data = await collectionData(docRef, { idField: 'id' });
+
+    // Retornamos los datos como un Observable
+    return data as Observable<any>;
+}
+
   async obtenerPrestadoresAleatorios(cantidad: number, municipio?: string): Promise<any[]> {
     // Referencia a la colección
     const docRef = collection(this.firestore, 'prestadores');

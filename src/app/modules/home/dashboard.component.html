@@ -15,8 +15,9 @@
 <div class="relative">
   <section
   id="Banner"
-  class="bg-[url(https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2F11_1.webp?alt=media&token=9f183ee7-0e75-4518-a606-450b98b6eb7f)] mt-[60px] py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-40"
+  class=" mt-[60px] py-10 relative bg-cover bg-center bg-no-repeat rounded-b-3xl z-30"
 >
+<img class="absolute w-full h-full rounded-b-3xl  object-cover  top-0" loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/centurhuila-b9e47.appspot.com/o/Banner%2F11_1.webp?alt=media&token=9f183ee7-0e75-4518-a606-450b98b6eb7f">
   <!--?Contenedor del titulo principal-->
   <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl"></div>
   <div
@@ -35,6 +36,8 @@
   <!-- <app-search-atractivo></app-search-atractivo> -->
   <!-- <app-search-prestador></app-search-prestador> -->
   <div class="flex flex-row justify-center">
+
+
     <app-search class="z-40"></app-search>
   </div>
 
@@ -46,14 +49,14 @@
 <!--?fin Contenedor de la busqueda principal -->
 
 <!--?Sección de Municipios populares-->
-<section id="Municipios Populares" class="xl:w-[1280px] mx-auto mt-24">
+<section id="Municipios Populares" class="xl:w-[1280px] min-h-[500px] mx-auto mt-24">
 
   <!--?Contenedor de el titulo principal y parrafo explicativo-->
 
   <!--?Este se divide en 2 en el cual cuando llega a determinado punto de la pantalla cambia el tipo de flex y también su ancho total los dos inicialmente en pantallas pequeñas ocupa un ancho de 100% y luego en "md" ocupa 50% cada uno en total hay 2 divs-->
 
   <div
-    class="flex bg:flex-col md:flex-row h-36 justify-center items-center mx-10"
+    class="flex bg:flex-col md:flex-row justify-center items-center mx-10"
   >
     <!--?Div 1-->
     <div class="bg:w-full md:w-[50%] text-primary-500">
@@ -113,12 +116,12 @@
         fill
         [alt]="tile.alt"
         loading="lazy"
-        class="w-full relative h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-30 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-400  hover:ease-in-out  select-none"
+        class="w-full relative h-full object-cover filter brightness-75 rounded-2xl cursor-pointer hover:scale-125 hover:rotate-6 hover:absolute hover:z-0 hover:top-0 hover:left-0 hover:bottom-0 hover:right-0 hover:mx-auto hover:my-auto hover:rounded-2xl hover:transition hover:duration-400  hover:ease-in-out  select-none"
         draggable="false"
         (click)="enviarInformacion(tile.title)"
         />
         <h3
-          class="absolute top-2 left-2 z-30 font-Blinker font-black text-4xl text-white pointer-events-none select-none"
+          class="absolute top-2 left-2 z-0 font-Blinker font-black text-4xl text-white pointer-events-none select-none"
           draggable="false"
         >
           {{ tile.title }}
@@ -157,7 +160,7 @@
 
 
 <!--?Sección Rutas-->
-<section id="Rutas" class="border border-y-[4px] border-opacity-10 border-x-0 border-primary-500 my-10 w-full mx-auto">
+<section id="Rutas" class="border border-y-[4px] min-h-[900px] border-opacity-10 border-x-0 border-primary-500 my-10 w-full mx-auto">
   <div class="relative bg:w-full xl:w-[1280px] h-full mx-auto py-10 flex flex-col justify-center ">
 
 
@@ -170,7 +173,7 @@
 
       </div>
     <div class="w-full md:w-[50%] relative bg-primary-500 text-white text-center rounded-xl overflow-hidden" >
-      <div id="map" class=" w-full min-h-[500px] mt-auto z-0"></div>
+      <div id="map" class=" w-full min-h-[300px] mt-auto z-0"></div>
       <button #leftButtonRuta class="" draggable="false"
       id="leftRuta" (click)="changeRoute('left')">
         <svg
@@ -495,7 +498,7 @@
 
 
 <!--?Sección "contactenos"-->
-<section  #contacto  id="contacto"   class="bg-slate-100 bg-opacity-50 pt-24  pb-24"
+<section  #contacto  id="contacto"   class="bg-slate-100 bg-opacity-50 pt-24   pb-24"
 style="clip-path: ellipse(80% 100% at center top)" >
   <!-- ?Fondo verde oscuro en forma de elipse -->
   <div

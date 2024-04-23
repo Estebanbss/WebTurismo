@@ -3,61 +3,31 @@ import { Router } from '@angular/router';
 import { SearchService } from 'src/app/core/services/search.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-search-nav',
+  templateUrl: './search-nav.component.html',
+  styleUrls: ['./search-nav.component.css']
 })
-export class SearchComponent {
+export class SearchNavComponent {
   selectedIndex: number = -1;
   @ViewChild('resultsList') resultsList!: ElementRef;
   @ViewChildren('resultItems') resultItems!: QueryList<ElementRef>;
+  @ViewChild('divInput2') divInput2!: ElementRef;
 
   //Lo que traemos de Algolia
   results: any[] = [];
   bg = false;
   constructor(
     private searchService: SearchService,
-    private router: Router,    )
+    private router: Router
+    )
     {
 
   }
 
   @ViewChild('searchContainer') searchContainer!: ElementRef;
   @ViewChild('searchInput') searchInput!: ElementRef;
-  @ViewChild('divInput') divInput!: ElementRef;
-
   // ...
-  ngAfterViewInit(){
-    const search = document.getElementById('searchNav');
-    const spanHeader = document.getElementById('spanHeader');
-    const spanHeaderCool = document.getElementById('spanHeaderCool');
-    const nativeElement = this.divInput.nativeElement;
-    const boundingRect = nativeElement.getBoundingClientRect();
-    const posicionY = boundingRect.top + window.pageYOffset;
-        window.addEventListener('scroll', (event) => {
-          if(window.innerWidth < 768){
-          if(window.scrollY > posicionY){
-           search?.classList.add('block')
-           search?.classList.remove('hidden')
-           spanHeader?.classList.add('hidden')
-          }
-          if(window.scrollY < posicionY){
-            search?.classList.remove('block')
-            search?.classList.add('hidden')
-            spanHeader?.classList.remove('hidden')
-          }
-        }else{
-          if(window.scrollY > posicionY){
-            search?.classList.add('block')
-            search?.classList.remove('hidden')
-           }
-           if(window.scrollY < posicionY){
-             search?.classList.remove('block')
-             search?.classList.add('hidden')
-           }
-        }
-    });
-  }
+
   // Escuchar por clics en todo el documento
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
@@ -103,7 +73,6 @@ export class SearchComponent {
       case 'Enter':
         if (this.selectedIndex !== -1) {
           this.navigate(this.results[this.selectedIndex]);
-
         }
         break;
     }
@@ -159,6 +128,7 @@ export class SearchComponent {
       // Si hay una consulta, llama al servicio de búsqueda para Prestadores
       this.searchService.search(query).then(res => {
         this.results = res.hits;
+
       }).catch(error => {
         console.error('Error en la búsqueda:', error);
       });
@@ -167,19 +137,16 @@ export class SearchComponent {
       this.searchService.search2(query).then(res => {
         // Asumiendo que quieres combinar los resultados de ambos servicios
         this.results = [...this.results, ...res.hits];
-
         if(this.results.length > 0){
-          this.divInput.nativeElement.classList.remove('rounded-full')
-          this.divInput.nativeElement.classList.remove('focus:border-primary-500')
-          this.divInput.nativeElement.classList.remove('border-2')
-          this.divInput.nativeElement.classList.add('rounded-t-3xl')
+          console.log(this.divInput2)
+          this.divInput2.nativeElement.classList.remove('rounded-full')
+          this.divInput2.nativeElement.classList.remove('focus:border-primary-500')
+          this.divInput2.nativeElement.classList.remove('border-2')
+          this.divInput2.nativeElement.classList.add('rounded-t-2xl')
         }
-
       }).catch(error => {
         console.error('Error en la búsqueda:', error);
       });
-
-
     } else {
       // Si la consulta está vacía, puedes optar por limpiar los resultados existentes
       this.results = [];
@@ -203,15 +170,14 @@ export class SearchComponent {
     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
   }
 
+
   clear(){
     this.results = [];
-    this.divInput.nativeElement.classList.remove('rounded-t-3xl')
-    this.divInput.nativeElement.classList.add('rounded-full')
-    this.divInput.nativeElement.classList.add('focus:border-primary-500')
-    this.divInput.nativeElement.classList.add('border-2')
+    this.divInput2.nativeElement.classList.remove('rounded-t-2xl')
+    this.divInput2.nativeElement.classList.add('rounded-full')
+    this.divInput2.nativeElement.classList.add('focus:border-primary-500')
+    this.divInput2.nativeElement.classList.add('border-2')
     this.selectedIndex = -1;
   }
-
-
 
 }

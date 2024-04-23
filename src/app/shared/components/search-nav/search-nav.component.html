@@ -1,0 +1,33 @@
+<!-- Contenedor de la búsqueda principal -->
+<div *ngIf="bg"  class="fixed w-full h-full bg-black top-0 left-0 z-0 opacity-30">
+
+</div>
+<div   (click)="onContainerClick($event)" #searchContainer class=" mx-auto w-auto text-black    z-50 left-0 right-0" >
+  <!-- Input de búsqueda -->
+  <div #divInput2 class="flex items-center justify-center flex-row relative border-2 hover:border-primary-500  border-gray-300 rounded-full overflow-hidden ">
+
+    <input #searchInput class="p-1 text-base xl:text-lg  placeholder:pl-5 focus:outline-none"
+           type="text"
+           (keyup)="onSearch($event)"
+           (keydown)="onKeydown($event)"
+           (focus)="bg = true"
+           (blur)="bg = false; clear()"
+           placeholder="Buscar..."
+           autocomplete="off">
+
+  </div>
+
+  <!-- Lista de resultados -->
+  <ul #resultsList *ngIf="results.length > 0" class="w-full absolute max-w-[193px] max-h-[600px] overflow-y-auto bg-white rounded-b-xl">
+
+    <li #resultItems  *ngFor="let item of results; let i = index"
+        class="cursor-pointer p-2 hover:bg-gray-100 px-4 font-Work font-regular text-lg"
+        [class]="selectedIndex === i ? 'cursor-pointer p-2 hover:bg-gray-100 px-4 bg-gray-200 border-l-4 border-l-primary-500' : 'cursor-pointer p-2 hover:bg-gray-100 px-4'"
+        (click)="navigate(item)"
+        (mouseover)="selectedIndex = i"
+        (mouseleave)="selectedIndex = -1">
+        >
+      {{ item.name }}
+    </li>
+  </ul>
+</div>

@@ -15,7 +15,11 @@ export class AuthService {
 
 
   constructor(private afAuth: Auth,    private firestore: Firestore,
-  ) {this.onAuthStateChanged((user, userDetails) => {this.uid = user.uid }) }
+  ) {this.onAuthStateChanged((user, userDetails) => {
+    if(!user) return;
+    this.uid = user.uid
+
+  }) }
 
     uid!: string;
     storage = getStorage();
@@ -99,6 +103,7 @@ export class AuthService {
   }
 
   async actualizarFotoPerfil(uid: string, photo: File) {
+
     const filePath = `users/pfp/${uid}`;
     const storageRef = ref(this.storage, filePath);
 
@@ -122,6 +127,10 @@ export class AuthService {
   }
 
   async actualizarBanner(uid: string, photo: File) {
+    if (!uid) {
+      console.error('UID no proporcionado.');
+      return;
+    }
     const filePath = `users/banner/${uid}`;
     const storageRef = ref(this.storage, filePath);
 
@@ -153,6 +162,10 @@ export class AuthService {
   }
 
   async fetchUserDetails(uid: string): Promise<any> {
+    if (!uid) {
+      console.error('UID no proporcionado.');
+      return null;
+    }
     const firestore = getFirestore();
     const docRef = doc(firestore, 'users', uid);
     const docSnap = await getDoc(docRef);

@@ -1,0 +1,18 @@
+::-webkit-scrollbar {
+  width: 10px; /* Ajusta el valor según tu preferencia para hacerla más delgada o más ancha */
+  background-color: #f1f1f1;
+  height: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(172, 172, 172);
+  border-radius: 5px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #38a900c7;
+}
+
+

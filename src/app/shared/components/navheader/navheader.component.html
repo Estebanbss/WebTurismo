@@ -1,95 +1,81 @@
-<header  class="z-50  bg-primary-500  mx-auto  items-center justify-center left-0  top-0 w-full px-1"> <!-- Encabezado con margen inferior -->
-
-    <!-- Barra de navegación con propiedades de diseño -->
-    <div class="flex justify-center flex-wrap items-center xl:max-w-[1280px] mx-auto "> <!-- Contenedor flexible con alineación central y envoltura de elementos -->
-      <a  routerLink="/home" class="flex  z-30 cursor-pointer mr-auto justify-center flex-row px-auto"> <!-- Enlace de navegación con margen derecho -->
-        <h1    class="self-center hidden whitespace-nowrap text-white font-Work font-[1000] ms-2 sm:text-3xl xs:text-2xl" >
-          Pa'lHuila
-        </h1> <!-- Texto del logotipo -->
-        <img alt="Pa'lHuilaLogo" class="h-[60px] mx-auto " src="assets/img/ImagotipoPalH.svg" loading="lazy" dir="ltr">
-        <!-- Imagen del logotipo -->
-      </a>
-      <div class="flex items-center lg:order-2 ml-auto gap-5 "> <!-- Contenedor flexible de elementos, reordenamiento para pantallas grandes -->
-        <button  class=" text-gray-500  focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2" aria-label="Whats" data-collapse-toggle="mobile-menu-2">
-          <!-- Botón para expandir el menú móvil -->
-          <svg role="img" class="h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="white">
-            <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule=evenodd fill-rule=evenodd></path>
-          </svg>
-        </button>
-
-        <!--Mis favoritos-->
-
-
-        <!--perfil-->
-          <div *ngIf="pfp" class="relative no-close cursor-none">
-            <button *ngIf="pfp" id="buttonProfile" class=" bg-primary-400 bg:text-xs  focus:outline-none focus:ring-4 focus:ring-primary-300  hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50">
-
-              <!--espacio de la foto de usuario del usuario-->
-              <img *ngIf="pfp" id="buttonProfile"  alt="UserProfilePhoto no-close z-0 " src="{{pfp}}">
-
-              <div class="hidden absolute top-[64px] no-close right-0 w-[400%]   lg:rounded-lg bg-primary-400 text-white  bg:rounded-lg justify-center items-center py-auto font-Work font-regular text-lg overflow-y-visible z-50" [class.hidden]="expanded2=='cerrado'" >
-                <div class="hidden absolute top-0 right-0 rotate-45 bg-primary-400 min-w-[50px] h-[50px] -z-50 rounded-tr-full"  [class.hidden]="expanded2=='cerrado'"> </div>
-                <ul class=" text-left mb-0 p-2 no-close">
-                  <li *ngIf="userButton" (click)="navigate()" class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close " >
-                    <a class="text-white flex flex-row items-center gap-2 no-close" target="_blank"  ><svg role="img" class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> {{displayName?.slice( )}}</a>
-                  </li>
-                  <li (click)="navigateAdmin()" class="p-2 hover:bg-primary-600  rounded-lg cursor-pointer no-close" *ngIf="adminButton" >
-
-                    <a class="text-white flex flex-row items-center gap-2 no-close" target="_blank" >        <svg role="img" class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg>Admin</a>
-                  </li>
-                  <li (click)="logOut()" class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close" routerLink="">
-                    <a class="text-white flex flex-row items-center gap-2 no-close">  <svg role="img" class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>        Cerrar Sesión</a>
-                  </li>
-                </ul>
-              </div>
-            </button>
-          </div>
-
-
-          <div *ngIf="!pfp">
-            <button (click)="toLogin()" class="px-4 p-2 text-primary-400 font-bold bg-white rounded-md">
-              Iniciar Sesión
-            </button>
-          </div>
-
-
-
-
-        <!-- Botón con fondo verde y estilos de enlace -->
+<header class="z-40 bg-primary-500 mx-auto items-center justify-center left-0 top-0 w-full px-1">
+  <div class="flex justify-center  flex-wrap items-center xl:max-w-[1280px] mx-auto">
+    <button class="text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400 hover:bg-primary-400 inline-flex items-center lg:hidden ml-1 p-2 rounded-lg text-sm" type="button" (click)="toggleExpanded()" aria-controls="mobile-menu-2">
+      <svg class="h-6 w-6 fill-white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" fill-rule="evenodd"></path>
+      </svg>
+    </button>
+    <div  class="flex z-30 cursor-pointer  justify-center flex-row  mx-auto md:mr-auto md:mx-0">
+      <h1 class="self-center hidden text-white font-Work font-[1000] ms-2 sm:text-3xl xs:text-2xl">
+        Para el Huila, Colombia - La mejor página de turismo en el Huila
+      </h1>
+      <div class="flex min-h-[60px] ml-auto mr-auto items-center gap-2 text-white">
+        <a class="flex flex-row gap-2" href="/home">
+          <img alt="Pa'lHuilaLogo" class="h-[30px] md:h-[40px] mx-auto" src="assets/img/IsotipoPalH.svg" loading="lazy">
+          <span id="spanHeader" class="my-auto  font-Blinker font-extrabold text-lg md:text-3xl">Pal'Huila</span>
+        </a>
+        <div id="searchNav" class="hidden">
+          <app-search-nav></app-search-nav>
+        </div>
       </div>
-
-      <div class="hidden   items-center justify-between lg:flex lg:order-0 lg:w-auto w-full ml-auto mr-auto " id="mobile-menu-2" [class.hidden]="!expanded">
-        <!-- Menú desplegable para pantallas grandes -->
-        <ul class="flex flex-col font-bold font-Work mx-auto justify-center lg:flex-row lg:items-center p-0 text-center py-auto my-auto gap-2">
-          <!-- Lista de elementos de navegación -->
-          <li class="flex justify-center">
-            <button (click)="toAboutUs()"  class="block  border-gray-100 hover:bg-primary-400 lg:border-0    text-white px-4 rounded-full py-2">
-              Acerca de nosotros
-            </button> <!-- Enlace "Acerca de nosotros" con estilos de diseño -->
-          </li>
-          <li class="flex justify-center">
-            <button (click)="toContact()" class="block  border-gray-100  hover:bg-primary-400 lg:border-0   text-white px-4 rounded-full py-2">
-              Contáctenos
-            </button> <!-- Enlace "Contáctenos" con estilos de diseño -->
-          </li>
-          <li class="flex justify-center">
-            <a href="https://linktr.ee/palhuila" target="_blank" class="block  border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
-              Descargar app
-            </a> <!-- Enlace "Descargar app" con estilos de diseño -->
-          </li>
-        </ul>
-      </div>
-
-
-      <!--mini menu del perfil-->
-
-
 
     </div>
 
+    <div class="flex items-center  gap-5 lg:ml-auto lg:order-2">
+      <div *ngIf="pfp" class="relative no-close">
+        <button id="buttonProfile" class="bg-primary-400 focus:outline-none focus:ring-4 focus:ring-primary-300 hover:bg-primary-700 h-[50px] w-[50px] text-white rounded-full overflow-hidden z-50">
+          <img id="buttonProfile" alt="UserProfilePhoto no-close z-0" src="{{pfp}}">
+          <div class="hidden absolute top-[64px] no-close right-0 w-[400%] lg:rounded-lg bg-primary-400 text-white justify-center items-center py-auto font-Work font-regular text-lg overflow-y-visible z-50" [class.hidden]="expanded2=='cerrado'">
+            <div class="hidden absolute top-0 right-0 rotate-45 bg-primary-400 min-w-[50px] h-[50px] -z-50 rounded-tr-full" [class.hidden]="expanded2=='cerrado'"></div>
+            <ul class="text-left mb-0 p-2 no-close">
+              <li *ngIf="userButton" (click)="navigate()" class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close">
+                <a class="text-white flex flex-row items-center gap-2 no-close" target="_blank">
+                  <svg class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg> {{displayName?.slice()}}
+                </a>
+              </li>
+              <li (click)="navigateAdmin()" class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close" *ngIf="adminButton">
+                <a class="text-white flex flex-row items-center gap-2 no-close" target="_blank">
+                  <svg class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l-12 60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg> Admin
+                </a>
+              </li>
+              <li (click)="logOut()" class="p-2 hover:bg-primary-600 rounded-lg cursor-pointer no-close" routerLink="">
+                <a class="text-white flex flex-row items-center gap-2 no-close">
+                  <svg class="fill-white no-close" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg> Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </button>
+      </div>
+      <div *ngIf="!pfp">
+        <button (click)="toLogin()" class="px-4 p-2 hidden md:block text-primary-400 font-bold bg-white rounded-full">
+          Iniciar sesión
+        </button>
 
+        <button (click)="toLogin()" class="block md:hidden w-[30px] aspect-square rounded-full fill-white">
+          <svg viewBox="0 0 24 24" width="24px" height="24px" class="d Vb UmNoP"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75a8.25 8.25 0 00-5.682 14.231 6.02 6.02 0 0111.364 0A8.25 8.25 0 0012 3.75zm4.41 15.224a4.52 4.52 0 00-8.82 0A8.21 8.21 0 0012 20.25a8.21 8.21 0 004.41-1.276zM2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm9.77-4.24a1.75 1.75 0 100 3.5 1.75 1.75 0 000-3.5zM8.77 9.51a3.25 3.25 0 116.5 0 3.25 3.25 0 01-6.5 0z"></path></svg>
+        </button>
+      </div>
+    </div>
 
-
+    <div class="hidden items-center  justify-between lg:flex  lg:w-auto w-full ml-auto mr-auto" id="mobile-menu-2" [class.hidden]="!expanded">
+      <ul class="flex flex-col font-medium font-Work mx-auto justify-center lg:flex-row lg:items-center p-0 text-center py-auto my-auto gap-2">
+        <li class="flex justify-center">
+          <button (click)="toAboutUs()" class="block border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
+            Acerca de nosotros
+          </button>
+        </li>
+        <li class="flex justify-center">
+          <button (click)="toContact()" class="block border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
+            Contáctenos
+          </button>
+        </li>
+        <li class="flex justify-center">
+          <a href="https://linktr.ee/palhuila" target="_blank" class="block border-gray-100 hover:bg-primary-400 lg:border-0 text-white px-4 rounded-full py-2">
+            Descargar app
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>
-
-

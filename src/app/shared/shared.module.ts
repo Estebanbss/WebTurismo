@@ -9,6 +9,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
 import { SearchAtractivoComponent } from './components/search-atractivo/search-atractivo.component';
 import { SearchPrestadorComponent } from './components/search-prestador/search-prestador.component';
+import { SearchNavComponent } from './components/search-nav/search-nav.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SearchPrestadorComponent } from './components/search-prestador/search-p
     ButtonCarouselComponent,
     SearchComponent,
     SearchAtractivoComponent,
-    SearchPrestadorComponent
+    SearchPrestadorComponent,
+    SearchNavComponent
   ],
   imports: [
     CommonModule,
