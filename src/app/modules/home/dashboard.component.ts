@@ -56,27 +56,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Pal\'Huila - Explora!');;
+    this.titleService.setTitle('Pa\'lHuila, Turismo en el Huila CO - Explora!');;
     this.modalService.setProfileHeader(false);
     this.serviShuffle.sort(this.comparacionAleatoria);
     this.randomuni.sort(this.comparacionAleatoria);
-    this.getRutas()
-    this.detalle.obtenerPrestadoresAleatorios(9).then((prestadores) => {
-      this.prestadoresrandom = prestadores;
-      // ("response prestadores: ", prestadores)
-    }).then()
-    this.detalle.obtenerAtractivosAleatorios(9).then((atractivos) => {
-      this.atractivosrandom = atractivos;
-      // ("response atractivos: ", atractivos)
-    }).then()
-
-        let currentIndex = 0;
-
-    // Iniciar el cambio cada 5 segundos
-    setInterval(() => {
-      this.selectGastronomySrc = this.gastronomySRC[currentIndex];
-      currentIndex = (currentIndex + 1) % this.gastronomySRC.length;
-    }, 500);
 
     //this.agregarMail();
   }
@@ -422,6 +405,23 @@ buttonScroll(direction: string, buttonId: string, carouselName: string) {
     } catch (error) {
       console.error('Error en IndexedDB o Firebase:', error);
     }
+    this.getRutas()
+    this.detalle.obtenerPrestadoresAleatorios(9).then((prestadores) => {
+      this.prestadoresrandom = prestadores;
+      // ("response prestadores: ", prestadores)
+    }).then()
+    this.detalle.obtenerAtractivosAleatorios(9).then((atractivos) => {
+      this.atractivosrandom = atractivos;
+      // ("response atractivos: ", atractivos)
+    }).then()
+
+        let currentIndex = 0;
+
+    // Iniciar el cambio cada 5 segundos
+    setInterval(() => {
+      this.selectGastronomySrc = this.gastronomySRC[currentIndex];
+      currentIndex = (currentIndex + 1) % this.gastronomySRC.length;
+    }, 500);
 
   }
 

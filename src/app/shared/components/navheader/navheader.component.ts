@@ -35,6 +35,10 @@ export class NavheaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(){
     this.setupAuthListener();
     this.setupModalSubscriptions();
     if(this.uid){
@@ -43,7 +47,6 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     this.userName = localStorage.getItem('cachedUserName');
     this.userButton = this.userName ? true : false;
   }
-
 
   toContact() {
     this.modalService.navigateToContact();
@@ -55,6 +58,18 @@ export class NavheaderComponent implements OnInit, OnDestroy {
 
   toLogin() {
     this.router.navigate(['/auth/login']);
+  }
+
+  toAdmin(){
+    if(this.router.url.includes('dashboard-admin')){
+
+    }
+    this.router.navigate(['/dashboard-admin']);
+  }
+
+  toHome(){
+    this.router.navigate(['/']);
+    window.scrollTo(0, 0);
   }
 
   private setupAuthListener() {

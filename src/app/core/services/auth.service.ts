@@ -36,11 +36,11 @@ export class AuthService {
   }
 
   onAuthStateChanged(callback: (user: any, userDetails: any) => void) {
-    onAuthStateChanged(this.afAuth, async (user) => {
+    onAuthStateChanged(this.afAuth, (user) => {
       if (user) {
         let userDetails = this.getUserDetailsFromLocalStorage(user.uid);
         if (!userDetails) {
-          userDetails = await this.fetchUserDetails(user.uid);
+          userDetails = this.fetchUserDetails(user.uid);
           this.setUserDetailsInLocalStorage(user.uid, userDetails);
         } else {
         }
