@@ -26,14 +26,13 @@
         <!-- Campos de entrada para cada atributo del usuario -->
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Nombre:</label>
-          <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+          <input type="text" [ngModel]="user ? user.nombre : null" (ngModelChange)="user && (user.nombre = $event)" name="nombre" placeholder="Nombre completo" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
 
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Descripción:</label>
           <input type="text"
-
-                 [(ngModel)]="user.descripcion"
+                 [ngModel]="user ? user.descripcion : null" (ngModelChange)="user && (user.descripcion = $event)"
                  name="descripcion"
                  placeholder="Descripción"
                  class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2"
@@ -41,11 +40,15 @@
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Numero telefonico:</label>
-        <input type="text"  [(ngModel)]="user.numeroTel" name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+        <input type="text" [ngModel]="user ? user.numeroTel : null" (ngModelChange)="user && (user.numeroTel = $event)"
+
+        name="numeroTel" placeholder="Número de teléfono" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <div class="flex flex-col gap-1">
           <label class="font-Work text-lg">Ubicación:</label>
-        <input type="text"  [(ngModel)]="user.ubicacion" name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
+        <input type="text"
+        [ngModel]="user ? user.ubicacion : null" (ngModelChange)="user && (user.ubicacion = $event)"
+        name="ubicacion" placeholder="Ubicación" class="input-style py-2 px-2 h-10 font-work text-xl font-medium border-2">
         </div>
         <!-- ... otros campos según sea necesario ... -->
       </div>

@@ -22,7 +22,6 @@ export class ProfileComponent {
       if (this.profileId) {
         this.auth.obtenerUsuarioPorUserName(this.profileId).subscribe((user) => {
           this.user = user[0];
-          this.dataLoaded = true;
           this.loadCards();
 
         });
@@ -65,23 +64,10 @@ export class ProfileComponent {
     firstL:boolean = true;
   ngOnInit(): void {
 
-
     this.auth.setData(this.router.url);
-
-
-    // this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDL).subscribe((atractivos) => {
-    //   this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDL).subscribe((prestadores) => {
-    //     this.litadoPrestadoresyAtractivosL = [...atractivos, ...prestadores];
-    //   });
-    // });
-
-    // this.mostrarMunicipioService.obtenerAtractivosPorArreglodeID(this.atractivosIDS).subscribe((atractivos) => {
-    //   this.mostrarMunicipioService.obtenerPrestadoresPorArreglodeID(this.prestadoresIDS).subscribe((prestadores) => {
-    //     this.litadoPrestadoresyAtractivosS = [...atractivos, ...prestadores];
-    //   });
-    // });
-
-
+    this.auth.onAuthStateChanged((user, userDetails) => {
+      this.userDetails = userDetails;
+    });
   }
 
   loadCards(){
@@ -429,6 +415,23 @@ export class ProfileComponent {
     }
 
 
+  interval: any;
+  change: number = 0;
+  alive = true;
+
+  ngAfterViewInit(): void {
+
+
+
+  }
+
+
+  ngAfterViewChecked(): void {
+    //traigo el usuario actual cada 5 segundos
+
+  }
+
+
   ngOnDestroy(): void {
     clearInterval(this.interval)
     //Called once, before the instance is destroyed.
@@ -457,29 +460,6 @@ export class ProfileComponent {
     }
 
   }
-  interval: any;
-  change: number = 0;
-
-  ngAfterViewInit(): void {
 
 
-    this.interval = setInterval(() => {
-      this.auth.onAuthStateChanged((user, userDetails) => {
-        this.userDetails = userDetails; //* userDetails -> Objeto traido desde la BD de la colección users
-      });
-
-      this.change = this.change + 1;
-
-      if (this.change >= 20) {
-        clearInterval(this.interval); // Detener el intervalo cuando change sea mayor o igual a 20
-      }
-    }, 100);
-  }
-
-
-  ngAfterViewChecked(): void {
-    //traigo el usuario actual cada 5 segundos
-    console.log(this.litadoPrestadoresyAtractivosL, this.litadoPrestadoresyAtractivosS)
-
-  }
 }

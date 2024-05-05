@@ -1,3 +1,31 @@
 a:link {
   text-decoration:none;
 }
+
+.slide {
+  margin-left: 25%;
+  width: 150%;
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+/* En tu archivo de estilos CSS */
+.transition-height {
+  transition: height 0.3s ease; /* Define una transición suave en la propiedad height */
+}
+
+.button-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

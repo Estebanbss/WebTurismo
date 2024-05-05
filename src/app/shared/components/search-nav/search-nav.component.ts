@@ -9,7 +9,7 @@ import { SearchService } from 'src/app/core/services/search.service';
 })
 export class SearchNavComponent {
   selectedIndex: number = -1;
-  @ViewChild('resultsList') resultsList!: ElementRef;
+  @ViewChild('resultsList2') resultsList!: ElementRef;
   @ViewChildren('resultItems') resultItems!: QueryList<ElementRef>;
   @ViewChild('divInput2') divInput2!: ElementRef;
 
@@ -94,12 +94,14 @@ export class SearchNavComponent {
       if (activeItem) {
         const container = this.resultsList.nativeElement;
         const itemElement = activeItem.nativeElement;
-
+        console.log("Hi")
+        console.log(container)
         // Verificar si el ítem está fuera de la vista
         const itemTop = itemElement.offsetTop;
         const itemBottom = itemTop + itemElement.offsetHeight;
         const containerTop = container.scrollTop;
         const containerBottom = containerTop + container.offsetHeight;
+        console.log(container.width)
 
         if (itemTop < containerTop) {
           // Si el ítem está por encima de la vista
@@ -138,11 +140,12 @@ export class SearchNavComponent {
         // Asumiendo que quieres combinar los resultados de ambos servicios
         this.results = [...this.results, ...res.hits];
         if(this.results.length > 0){
-          console.log(this.divInput2)
+
           this.divInput2.nativeElement.classList.remove('rounded-full')
           this.divInput2.nativeElement.classList.remove('focus:border-primary-500')
           this.divInput2.nativeElement.classList.remove('border-2')
           this.divInput2.nativeElement.classList.add('rounded-t-2xl')
+          this.resultsList
         }
       }).catch(error => {
         console.error('Error en la búsqueda:', error);

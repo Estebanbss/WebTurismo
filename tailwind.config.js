@@ -1,14 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-
   content: [
-    "./src/**/*.{html,ts}",  // add this line
+    "./src/**/*.{html,ts}",
   ],
   theme: {
     extend: {
-      spacing: {
-        // Define la variable de margen de página
-        'page-margin': '2rem', // Puedes ajustar el valor según tus necesidades
+    transitionDuration: {
+        '300': '300ms', // Ajusta la duración de la transición
       },
       colors: {
         primary: {
@@ -17,7 +15,7 @@ module.exports = {
           200: "#b4e6a3",
           300: "#85d371",
           400: "#57c03f",
-          500: "#39A900", // Color base proporcionado
+          500: "#39A900",
           600: "#318200",
           700: "#2b7000",
           800: "#245a00",
@@ -25,70 +23,33 @@ module.exports = {
           950: "#071f00",
         },
       },
-
       fontFamily: {
         Blinker: ["Blinker", "sans-serif"],
         Josefin: ["Josefin Sans", "sans-serif"],
         Work: ["Work Sans", "sans-serif"],
       },
-
       screens: {
         bg: "0px",
-
         xs: "320px",
-        // => @media (min-width: 320px) { ... }
-
         xs0: "410px",
-
         xs03: "468px",
-
         xs1: "496px",
-
-
-
         xs2: "540px",
-
-
-
         sm: "640px",
-        // => @media (min-width: 640px) { ... }
-
         md: "768px",
-        // => @media (min-width: 768px) { ... }
         md1: "888px",
-
         md2: "999px",
-
         lg: "1024px",
-        // => @media (min-width: 1024px) { ... }
-
         xl: "1280px",
-        // => @media (min-width: 1280px) { ... }
-
         "2xl": "1536px",
-        // => @media (min-width: 1536px) { ... }
-
         "3xl": "1792px",
-        // => @media (min-width: 1792px) { ... }
-
         "4xl": "2048px",
-        // => @media (min-width: 2048px) { ... }
-
         "5xl": "2304px",
-        // => @media (min-width: 2304px) { ... }
-
         "6xl": "2560px",
-        // => @media (min-width: 2560px) { ... }
-
         "7xl": "2816px",
-        // => @media (min-width: 2816px) { ... }
-
         "8xl": "3072px",
-        // => @media (min-width: 3072px) { ... }
       },
-
     },
   },
   plugins: [],
 }
-

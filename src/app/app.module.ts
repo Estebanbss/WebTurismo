@@ -9,25 +9,26 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from './modules/about-us/about-us.component';
+import { SharedModule } from "./shared/shared.module";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    declarations: [
+        AppComponent,
 
-  ],
-  providers: [],
-
+    ],
+    bootstrap: [AppComponent],
+    providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        provideStorage(() => getStorage()),
+        SharedModule
+    ]
 })
 export class AppModule {
 }

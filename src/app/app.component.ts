@@ -142,10 +142,7 @@ export class AppComponent implements OnInit {
     }
 
 
-    if(targetElement.id.includes("buttonProfile")){
-      this.modal.setProfileHeader(true);
 
-    }
 
     if(targetElement.id.includes("buttonTurn")){
       this.modal.setTurnMuni(true);

@@ -1,12 +1,4 @@
 <div class="bg-gray-50 z-50">
-  <!-- *header-->
-  <app-navheader class="z-50 fixed w-full top-0"></app-navheader>
-  <!--*fin header-->
-
-  <!--!---                                                                               ----->
-
-  <!--!Sección Banner en esta sección tiene tanto el titulo principal como la busqueda-->
-
   <section
     *ngIf="municipio !== undefined"
     id="Banner"
@@ -16,7 +8,7 @@
     <!--!Contenedor del titulo principal-->
     <div class="py-auto absolute inset-0 bg-black/40 rounded-b-3xl z-0 "></div>
     <div
-      class="relative  mx-auto bg:h-[250px] md:h-[400px] justify-center flex items-center"
+      class="relative  mx-auto bg:min-h-[250px] md:min-h-[400px] justify-center flex items-center"
     >
       <div class="text-center mb-[20] flex flex-col items-center"></div>
     </div>
@@ -93,7 +85,7 @@
   <!--!MAIN DE TODO--> <!--*MAINNNNNNNNNNNNNNNNNN DE TODOOOOOOOOOOOOOOOOOOOOOOOOOO-->
   <main class="max-w-[1280px] min-h-screen mx-auto mt-0">
     <!--!Sección de información del municipio-->
-    <section id="InfoMunicipio" class="flex flex-col mt-5">
+    <section id="InfoMunicipio" class="flex flex-col pt-5">
 
   <!--!Contenedor de la descripcion del municipio-->
       <div class="flex bg:flex-col md:flex-row min-h-full h-full mb-5 ">
@@ -574,10 +566,6 @@
 
       </ng-container>
 
-                <!--todo ESTOOOOOOOOOO ES LO QUE SE VA REPETIR-->           <!--CARD ITERATIVO-->
-
-
-
 
       </div>
       <!-- Paginación propia de la librería que importamos -->
@@ -588,88 +576,7 @@
 
     </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--!Fin Sección de los listados de los servicios del municipio-->
   </main>
-<!--!MAIN DE TODO--> <!--*MAINNNNNNNNNNNNNNNNNN DE TODOOOOOOOOOOOOOOOOOOOOOOOOOO-->
 
-  <!--!Fin contenedor principal-->
 
-  <!--!---                                                                               ----->
-
-  <!--*footer-->
 </div>
-<app-navfooter class="bg-white"></app-navfooter>
-
-<!--*fin footer-->

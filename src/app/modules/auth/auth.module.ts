@@ -7,7 +7,6 @@ import { RecuperarPasswordComponent } from './pages/recuperar-password/recuperar
 import { RegistrarUsuarioComponent } from './pages/registrar-usuario/registrar-usuario.component';
 import { VerificarCorreoComponent } from './pages/verificar-correo/verificar-correo.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
@@ -22,7 +21,7 @@ import { environment } from 'src/environments/environment';
     RegistrarUsuarioComponent,
     VerificarCorreoComponent,
     HeaderComponent,
-    FooterComponent,
+
   ],
   imports:[
     CommonModule,

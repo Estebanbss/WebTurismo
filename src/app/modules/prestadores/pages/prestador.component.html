@@ -1,14 +1,15 @@
 <router-outlet></router-outlet>
 
-<app-navheader class="z-50"></app-navheader>
+
 
 <!--*nombreMunicipio-->
 <section
   id="nombrePrestador"
-  class="w-full relative mt-[20px] min-h-[120px] max-h-[120px] h-[120px] bg-white border-b-2 my-auto py-5 z-40"
+  class="w-full relative pt-[60px] min-h-[180px] max-h-[180px] h-[180px] bg-white border-b-2 my-auto py-5 z-40"
 >
+<div class=" pb-5 w-full h-full">
   <div
-    class="max-w-[1280px] xl:w-[1280px] bg:w-full h-[60px] mx-auto flex items-center justify-center xl:justify-start relative"
+    class="max-w-[1280px] xl:w-[1280px] bg:w-full h-full mx-auto flex items-end justify-center xl:justify-start relative"
   >
     <div class="flex flex-col w-full">
       <div
@@ -75,7 +76,7 @@
   </div>
 
   <div
-    class="flex flex-row justify-center md:justify-start w-full max-w-[1280px] mx-auto px-5 gap-2"
+    class="flex flex-row justify-center md:justify-start w-full max-w-[1280px] mx-auto px-5 gap-2 "
   >
     <svg
       role="img"
@@ -98,9 +99,11 @@
     </svg>
     <h4 class="text-gray-600 font-semibold z-40">{{ id1 }}, Huila, Colombia</h4>
   </div>
+</div>
+
 
   <div
-    class="absolute min-h-full xl:w-[1280px] max-w-[1280px] w-full right-[50%] translate-x-[50%] h-full my-auto top-0 flex flex-row items-end md:items-center z-30"
+    class="absolute min-h-full xl:w-[1280px] max-w-[1280px] w-full right-[50%] translate-x-[50%] h-full my-auto top-0 flex flex-row  items-end md:items-center pt-[60px] z-30"
   >
     <div
       class="xl:w-[1280px] max-w-[1280px] relative gap-2 flex flex-row mx-auto md:mx-0 md:ml-auto px-5 items-end -bottom-5 md:bottom-0 justify-center md:justify-end z-50"
@@ -572,7 +575,7 @@
 
   </div>
 
-<app-navfooter class="relative  mt-5"></app-navfooter>
+
 <!--!estilizando negro-->
 
 <!--todo aqui se debe hacer una validación de si existe el atributo whatsapp en el arreglo y si no existe no se muestra esta etiqueta "<a>" y si si existe entonces si se muestra el href también se debe hacer 3 concatenaciones la de despues de phone=(numero atributo prestador)+(hola quiero más info sobre (nombre prestador))-->
