@@ -135,6 +135,7 @@ export class NavheaderComponent implements OnInit, OnDestroy {
     this.getMessagesRead();
     this.cdr.detectChanges();
     this.cdr.markForCheck();
+    this.toggleExpanded();
   }
 
   toAboutUs() {
