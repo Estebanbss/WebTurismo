@@ -65,6 +65,7 @@ export class SearchComponent {
     const isClickInside = this.searchContainer.nativeElement.contains(event.target);
     if (!isClickInside) {
       // Cerrar la lista si el clic fue fuera
+      this.clear();
       this.closeResultsList();
     }
   }
@@ -72,6 +73,7 @@ export class SearchComponent {
     // Escuchar por tecla Esc en todo el documento
     @HostListener('document:keydown.escape', ['$event'])
     onKeydownHandler(event: KeyboardEvent): void {
+
       // Si el foco está en el input de búsqueda, solo se cerrará la lista de resultados
       if (document.activeElement === this.searchInput.nativeElement) {
         event.stopPropagation(); // Detener la propagación para evitar que se reabra la lista
@@ -188,6 +190,7 @@ export class SearchComponent {
 
   //? Método para Navegar al detalle de Municipio
   navigate(item: any) {
+    console.log(item)
     //Validamos hacia qué componente deseamos direccionar
     if ('servicios' in item) { //*Validación para Prestadores
       this.router.navigate(['prestadores', this.capitalizeFirstLetter(item.municipio), this.capitalizeFirstLetter(item.name)]);

@@ -11,7 +11,7 @@
            (keyup)="onSearch($event)"
            (keydown)="onKeydown($event)"
            (focus)="bg = true;"
-           (blur)="bg = false; clear()"
+           (blur)="bg = false;"
            placeholder="Buscar..."
            autocomplete="off">
     <button (click)="onSearch('a')" class="absolute font-medium right-2 rounded-full bg-primary-500 px-7 p-[10px] text-white">

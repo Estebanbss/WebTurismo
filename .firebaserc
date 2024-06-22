@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "palhuilaweb"
-  }
+    "default": "palhuilaweb",
+    " ": "palhuilaweb"
+  },
+  "targets": {},
+  "etags": {}
 }
